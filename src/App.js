@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
+// import './App.css';
+import './App.scss';
 import { AzureAD } from 'react-aad-msal';
 import { authProvider } from './authProvider';
 
@@ -11,7 +12,7 @@ function App() {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <p>
+          <p className="c-heading-beta">
             Edit <code>src/App.js</code> and save to reload.
           </p>
           <a
