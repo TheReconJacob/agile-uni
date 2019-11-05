@@ -26,8 +26,24 @@ app.get('/', (req, res) => {
 	res.send('Hello World')
 })
 
-app.get('/test', (req, res) => {
-	connection.query('SELECT * FROM employee', function(err, rows, fields) {
+//'SELECT * FROM users WHERE id = ?', [userId]
+app.get('/employees', (req, res) => {
+	connection.query('SELECT * FROM employees LIMIT 1', function(err, rows, fields) {
+		if (err) throw err;
+		console.log(rows);
+		res.send(rows)
+	})
+})
+
+app.get('/courses', (req, res) => {
+	connection.query('SELECT * FROM courses LIMIT 1', function(err, rows, fields) {
+		if (err) throw err;
+		res.send(rows)
+	})
+})
+
+app.get('/sites', (req, res) => {
+	connection.query('SELECT * FROM sites LIMIT 1', function(err, rows, fields) {
 		if (err) throw err;
 		console.log(rows);
 		res.send(rows)
