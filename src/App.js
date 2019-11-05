@@ -1,41 +1,48 @@
 import React from "react";
-import logo from "./logo.svg";
-// import './App.css';
+import "./App.css";
 import "./App.scss";
 import { AzureAD } from "react-aad-msal";
 import { authProvider } from "./authProvider";
 import { SimpleMasthead } from "@sky-uk/molecules";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Courses from "./Courses";
+import { ComboInput } from "@sky-uk/toolkit-react";
+import DropdownLocation from "./Dropdown";
 
 function App() {
+  let newValue;
+
   return (
     <>
       <AzureAD provider={authProvider} forceLogin={true}>
         <Router>
-          <SimpleMasthead title={<Link to="/courses">Courses</Link>} />
+          <SimpleMasthead
+            title={
+              <div style={{ textAlign: "left", paddingLeft: 100 }}>
+                <Link to="/courses">Courses</Link>
+              </div>
+            }
+          />
           <Switch>
             <Route path="/courses">
               <Courses />
             </Route>
           </Switch>
         </Router>
-        <div className="o-layout">
-          <div
-            className="o-layout__item"
-            style={{
-              height: 100,
-              textAlign: "center",
-              backgroundColor: "#ffb5b3"
-            }}
-          >
-            <p>Header</p>
+        <div className="o-layout o-layout--spaced">
+          <div className="o-layout__item u-width-1/4">
+            <DropdownLocation />
           </div>
-          <div
-            className="o-layout__item"
-            style={{ textAlign: "center", backgroundColor: "#fffab3" }}
-          >
-            <p>Search bar</p>
+          <div className="o-layout__item u-width-3/4">
+            <ComboInput
+              cssClassName="search"
+              onChange={value => {
+                newValue = value;
+              }}
+              onButtonClick={() => {
+                console.log(newValue);
+              }}
+            />
           </div>
           <div
             className="o-layout__item"
@@ -45,7 +52,7 @@ function App() {
               backgroundColor: "#ccffb3"
             }}
           >
-            <p>Image</p>
+            <p>{newValue}</p>
           </div>
           <div
             className="o-layout__item"
