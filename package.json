@@ -3,12 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@sky-uk/molecules": "^47.0.3",
+    "@sky-uk/skycons": "^1.5.1",
+    "@sky-uk/toolkit-react": "^23.25.0",
+    "core-js": "^3.3.6",
+    "marked": "^0.7.0",
     "node-sass": "^4.13.0",
-    "react": "^16.11.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.0",
     "react-aad-msal": "^1.1.1",
-    "react-dom": "^16.11.0",
+    "react-dom": "^16.8.0",
     "react-scripts": "3.2.0",
-    "sky-toolkit": "^2.34.0"
+    "sky-toolkit": "^2.34.0",
+    "styled-components": "^2.5.0-1",
+    "typescript": "^3.6.4"
   },
   "scripts": {
     "start": "react-scripts start",
