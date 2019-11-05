@@ -15,7 +15,7 @@ connection.connect(function(err) {
     if (err) {
 		throw err;
 	} else {
-		console.log('connection successful')
+		console.log('db connection successful')
 	}
 });
 
@@ -29,6 +29,7 @@ app.get('/', (req, res) => {
 app.get('/test', (req, res) => {
 	connection.query('SELECT * FROM employee', function(err, rows, fields) {
 		if (err) throw err;
+		console.log(rows);
 		res.send(rows)
 	})
 })
