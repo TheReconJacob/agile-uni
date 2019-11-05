@@ -12,7 +12,11 @@ const connection = mysql.createConnection({
 })
 
 connection.connect(function(err) {
-    if (err) throw err;
+    if (err) {
+		throw err;
+	} else {
+		console.log('connection successful')
+	}
 });
 
 app.use(express.urlencoded({ extended: true }));
