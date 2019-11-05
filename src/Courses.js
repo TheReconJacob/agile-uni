@@ -6,20 +6,11 @@ import { AzureAD } from "react-aad-msal";
 import { authProvider } from "./authProvider";
 import { SimpleMasthead } from "@sky-uk/molecules";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Courses from "./Courses";
 
-function App() {
+function Courses() {
   return (
     <>
       <AzureAD provider={authProvider} forceLogin={true}>
-        <Router>
-          <SimpleMasthead title={<Link to="/courses">Courses</Link>} />
-          <Switch>
-            <Route path="/courses">
-              <Courses />
-            </Route>
-          </Switch>
-        </Router>
         <div className="o-layout">
           <div
             className="o-layout__item"
@@ -29,7 +20,7 @@ function App() {
               backgroundColor: "#ffb5b3"
             }}
           >
-            <p>Header</p>
+            <p>Courses</p>
           </div>
           <div
             className="o-layout__item"
@@ -69,4 +60,4 @@ function App() {
   );
 }
 
-export default App;
+export default Courses;
