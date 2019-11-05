@@ -7,7 +7,7 @@ const connection = mysql.createConnection({
   host: `agileuni-db.c0i93hgwoofe.us-east-1.rds.amazonaws.com`,
   port: '3306',
   user: 'admin',
-  password: '',
+  password: 'agileuniversity',
   database: 'AGILEUNI'
 })
 
@@ -18,6 +18,9 @@ connection.connect(function(err) {
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.get('/', (req, res) => {
+	res.send('Hello World')
+})
 
 app.get('/test', (req, res) => {
 	connection.query('SELECT * FROM employee', function(err, rows, fields) {
@@ -31,3 +34,5 @@ app.listen(port, (err) => {
 	if(err) { console.log(err) };
 	console.log('Listening on port ' + port);
 })
+
+//export const connection;
