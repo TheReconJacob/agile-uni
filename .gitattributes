@@ -1,1 +1,1 @@
-pages_lib_key filter=git-crypt diff=git-crypt
+.npmrc filter=git-crypt diff=git-crypt
