@@ -7,3 +7,9 @@
 @import "~sky-toolkit-ui/components/typography"; // if using the `message` prop
 @import "@sky-uk/toolkit-react/lib/ControlMessage"; // if using the `message` prop
 @import "~sky-toolkit-ui/components/dropdown";
+@import '~sky-toolkit-ui/components/hero';
+@import '~sky-toolkit-ui/components/shine';
+@import '~sky-toolkit-ui/components/typography';
+
+// Below is required if you're using channel prop
+@import '@sky-uk/toolkit-react/lib/ChannelLogo';

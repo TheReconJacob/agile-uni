@@ -8,6 +8,9 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Courses from "./Courses";
 import { ComboInput } from "@sky-uk/toolkit-react";
 import DropdownLocation from "./Dropdown";
+import { Hero } from "@sky-uk/toolkit-react";
+import picture from "./hero.jpg";
+import skyLogo from "./skyLogo.jpg";
 
 function App() {
   let newValue;
@@ -29,7 +32,7 @@ function App() {
             </Route>
           </Switch>
         </Router>
-        <div className="o-layout o-layout--spaced">
+        <div className="o-layout o-layout--spaced" style={{ padding: 30 }}>
           <div className="o-layout__item u-width-1/4">
             <DropdownLocation />
           </div>
@@ -44,31 +47,28 @@ function App() {
               }}
             />
           </div>
-          <div
-            className="o-layout__item"
-            style={{
-              height: 300,
-              textAlign: "center",
-              backgroundColor: "#ccffb3"
-            }}
-          >
-            <p>{newValue}</p>
+          <div className="o-layout__item" style={{ padding: 30 }}>
+            <Hero image={picture} />
           </div>
-          <div
-            className="o-layout__item"
-            style={{
-              height: 400,
-              textAlign: "center",
-              backgroundColor: "#b3f6ff"
-            }}
-          >
-            <p>Description</p>
+          <div className="o-layout__item" style={{ padding: 30 }}>
+            <h2 className="c-heading-bravo">Welcome to the Agile Uni</h2>
+            <p className="c-text-body">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+              sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
           </div>
-          <div
-            className="o-layout__item"
-            style={{ textAlign: "center", backgroundColor: "#e0b5ff" }}
-          >
-            <p>Footer</p>
+        </div>
+        <div className="footer">
+          <div>
+            <img src={skyLogo} style={{ height: 40 }} />
+          </div>
+          <div>
+            <p>Copyright 2019 Sky UK Ltd.</p>
           </div>
         </div>
       </AzureAD>
