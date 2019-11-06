@@ -1,38 +1,24 @@
 import React from "react";
-import "./App.css";
-import "./App.scss";
+import "../App.css";
+import "../App.scss";
 import { AzureAD } from "react-aad-msal";
-import { authProvider } from "./authProvider";
+import { authProvider } from "../authProvider";
 import { SimpleMasthead } from "@sky-uk/molecules";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Courses from "./Courses";
-import { ComboInput } from "@sky-uk/toolkit-react";
-import DropdownLocation from "./Dropdown";
 import { Hero } from "@sky-uk/toolkit-react";
-import picture from "./hero.jpg";
-import skyLogo from "./skyLogo.jpg";
+import picture from "../hero.jpg";
+import SearchBar from "../Components/SearchBar.js"
+import Footer from "../Components/Footer.js"
 
 function App() {
-  let newValue;
+
 
   return (
     <>
       <AzureAD provider={authProvider} forceLogin={true}>
-        <div className="o-layout o-layout--spaced" style={{ padding: 30 }}>
-          <div className="o-layout__item u-width-1/4">
-            <DropdownLocation />
-          </div>
-          <div className="o-layout__item u-width-3/4">
-            <ComboInput
-              cssClassName="search"
-              onChange={value => {
-                newValue = value;
-              }}
-              onButtonClick={() => {
-                console.log(newValue);
-              }}
-            />
-          </div>
+        <SearchBar />
+      <div className="o-layout o-layout--spaced" style={{ padding: 30 }}>
           <div className="o-layout__item" style={{ padding: 30 }}>
             <Hero image={picture} />
           </div>
@@ -49,14 +35,7 @@ function App() {
             </p>
           </div>
         </div>
-        <div className="footer">
-          <div>
-            <img src={skyLogo} style={{ height: 40 }} />
-          </div>
-          <div>
-            <p>Copyright 2019 Sky UK Ltd.</p>
-          </div>
-        </div>
+        <Footer />
       </AzureAD>
     </>
   );

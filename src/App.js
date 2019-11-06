@@ -5,7 +5,8 @@ import { AzureAD } from "react-aad-msal";
 import { authProvider } from "./authProvider";
 import { SimpleMasthead } from "@sky-uk/molecules";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Courses from "./Courses";
+import Courses from "./pages/Courses";
+import Home from "./pages/Home";
 import { ComboInput } from "@sky-uk/toolkit-react";
 import DropdownLocation from "./Dropdown";
 import { Hero } from "@sky-uk/toolkit-react";
@@ -27,6 +28,9 @@ function App() {
             }
           />
           <Switch>
+            <Route path="/">
+            <Home />
+            </Route>
             <Route path="/courses">
               <Courses />
             </Route>
