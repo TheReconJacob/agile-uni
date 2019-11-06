@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import logo from "./logo.svg";
 // import './App.css';
 import "./App.scss";
@@ -7,8 +7,26 @@ import { authProvider } from "./authProvider";
 import { SimpleMasthead } from "@sky-uk/molecules";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { ComboInput } from '@sky-uk/toolkit-react';
+import { Accordion } from '@sky-uk/toolkit-react';
+//import { AccordionSection } from '@sky-uk/toolkit-react';
+import AccordionSections from "./AccordionSections";
 
-function Courses() {
+class Courses extends React.Component {
+    constructor() {
+    super();
+     this.state = {
+       accordionSelected: [],
+       collapseOnToggle: true
+     };
+     this.updateAccordionSelection = this.updateAccordionSelection.bind(this);
+    }
+
+    updateAccordionSelection = selected => {
+      this.setState({ accordionSelected: selected });
+    };
+
+    render() {
+
   return (
     <>
       <AzureAD provider={authProvider} forceLogin={true}>
@@ -39,16 +57,22 @@ function Courses() {
           >
             <p>Image</p>
           </div>
-          <div
-            className="o-layout__item"
-            style={{
-              height: 400,
-              textAlign: "center",
-              backgroundColor: "#b3f6ff"
-            }}
-          >
-            <p>Description</p>
-          </div>
+
+//          description - where accordeon goes
+
+            <Accordion
+              id="accordion"
+              selected={this.state.accordionSelected}
+              updateSelection={this.state.updateAccordionSelection}
+              collapseOnToggle={this.state.collapseOnToggle}
+            >
+              <AccordionSections title="Course 1" scrollDown={true} />
+              <AccordionSections title="Course 2" />
+              <AccordionSections title="Course 3" />
+            </Accordion>
+
+
+
           <div
             className="o-layout__item"
             style={{ textAlign: "center", backgroundColor: "#e0b5ff" }}
@@ -59,6 +83,7 @@ function Courses() {
       </AzureAD>
     </>
   );
+  }
 }
 
 export default Courses;
