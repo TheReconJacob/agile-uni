@@ -8,15 +8,13 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Courses from "./Courses";
 import { Hero } from "@sky-uk/toolkit-react";
 import picture from "../hero.jpg";
-import SearchBar from "../Components/SearchBar.js"
-import Footer from "../Components/Footer.js"
+import SearchBar from "../components/SearchBar.js"
 
 function App() {
 
 
   return (
     <>
-      <AzureAD provider={authProvider} forceLogin={true}>
         <SearchBar />
       <div className="o-layout o-layout--spaced" style={{ padding: 30 }}>
           <div className="o-layout__item" style={{ padding: 30 }}>
@@ -35,8 +33,6 @@ function App() {
             </p>
           </div>
         </div>
-        <Footer />
-      </AzureAD>
     </>
   );
 }

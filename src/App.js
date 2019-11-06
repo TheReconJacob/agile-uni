@@ -12,29 +12,27 @@ import DropdownLocation from "./Dropdown";
 import { Hero } from "@sky-uk/toolkit-react";
 import picture from "./hero.jpg";
 import skyLogo from "./skyLogo.jpg";
+import Navbar from "./components/Navbar.js"
+import Footer from "./components/Footer.js"
 
 function App() {
-  let newValue;
 
   return (
     <>
       <AzureAD provider={authProvider} forceLogin={true}>
+
         <Router>
-          <SimpleMasthead
-            title={
-              <div style={{ textAlign: "left", paddingLeft: 100 }}>
-                <Link to="/courses">Courses</Link>
-              </div>
-            }
-          />
+        <Navbar />
           <Switch>
             <Route path="/">
-            <Home />
+              <Home />
             </Route>
             <Route path="/courses">
               <Courses />
             </Route>
           </Switch>
+          <Footer />
+
         </Router>
       </AzureAD>
     </>

@@ -8,8 +8,4 @@
   flex: 5;
 }
 
-.footer {
-  flex-direction: row;
-  display: flex;
-  justify-content: center;
-}
+
