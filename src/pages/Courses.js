@@ -6,7 +6,6 @@ import { authProvider } from "../authProvider";
 function Courses() {
   return (
     <>
-      <AzureAD provider={authProvider} forceLogin={true}>
         <div className="o-layout">
           <div
             className="o-layout__item"
@@ -51,7 +50,6 @@ function Courses() {
             <p>Footer</p>
           </div>
         </div>
-      </AzureAD>
     </>
   );
 }

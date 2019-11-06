@@ -1,5 +1,4 @@
 import React from "react";
-import { SimpleMasthead } from "@sky-uk/molecules";
 import { Link } from 'react-router-dom'
 import agileUniLogo from '../images/agileUniLogo.png'
 

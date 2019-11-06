@@ -1,13 +1,7 @@
 import React from "react";
-import "../App.css";
 import "../App.scss";
-import { AzureAD } from "react-aad-msal";
-import { authProvider } from "../authProvider";
-import { SimpleMasthead } from "@sky-uk/molecules";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Courses from "./Courses";
 import { Hero } from "@sky-uk/toolkit-react";
-import picture from "../hero.jpg";
+import picture from "../images/hero.jpg";
 import SearchBar from "../components/SearchBar.js"
 
 function App() {
