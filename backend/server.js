@@ -2,12 +2,14 @@ const express = require('express');
 const app = express();
 const port = 5000;
 const mysql = require('mysql')
+const fs = require('fs')
+
 
 const connection = mysql.createConnection({
   host: `agileuni-db.c0i93hgwoofe.us-east-1.rds.amazonaws.com`,
   port: '3306',
   user: 'admin',
-  password: 'agileuniversity',
+  password: fs.readFileSync('../dbPassword', 'UTF-8'),
   database: 'AGILEUNI'
 })
 
