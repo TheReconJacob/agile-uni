@@ -10,8 +10,6 @@ import Home from "./pages/Home";
 import { ComboInput } from "@sky-uk/toolkit-react";
 import DropdownLocation from "./Dropdown";
 import { Hero } from "@sky-uk/toolkit-react";
-import picture from "./hero.jpg";
-import skyLogo from "./skyLogo.jpg";
 import Navbar from "./components/Navbar.js"
 import Footer from "./components/Footer.js"
 
