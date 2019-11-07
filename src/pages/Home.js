@@ -2,15 +2,16 @@ import React from "react";
 import "../App.scss";
 import { Hero } from "@sky-uk/toolkit-react";
 import picture from "../images/hero.jpg";
-import SearchBar from "../components/SearchBar.js"
+import SearchBar from "../components/SearchBar.js";
+import { Switch, Route } from 'react-router-dom';
 
-function App() {
+class Home extends React.Component {
 
-
-  return (
-    <>
+  render() {
+    return (
+      <>
         <SearchBar />
-      <div className="o-layout o-layout--spaced" style={{ padding: 30 }}>
+        <div className="o-layout o-layout--spaced" style={{ padding: 30 }}>
           <div className="o-layout__item" style={{ padding: 30 }}>
             <Hero image={picture} />
           </div>
@@ -27,8 +28,9 @@ function App() {
             </p>
           </div>
         </div>
-    </>
-  );
+      </>
+    );
+  }
 }
 
-export default App;
+export default Home;

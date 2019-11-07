@@ -1,86 +1,82 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
-// import './App.css';
-import "./App.scss";
-import { AzureAD } from "react-aad-msal";
-import { authProvider } from "./authProvider";
-import { SimpleMasthead } from "@sky-uk/molecules";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { ComboInput } from '@sky-uk/toolkit-react';
 import { Accordion } from '@sky-uk/toolkit-react';
 import { AccordionSection } from '@sky-uk/toolkit-react';
+import { Switch, Route } from 'react-router-dom';
+import SearchBar from "../components/SearchBar";
+import "../styles/courses.scss";
+// import Hero from "../components/Hero.js";
+import { Hero } from "@sky-uk/toolkit-react";
+import picture from "../images/hero.jpg";
 
 class Courses extends React.Component {
-    constructor() {
+  constructor() {
     super();
-     this.state = {
-       accordionSelected: [],
-       collapseOnToggle: true
-     };
-     this.updateAccordionSelection = this.updateAccordionSelection.bind(this);
-    }
-
-    updateAccordionSelection = selected => {
-      this.setState({ accordionSelected: selected });
+    this.state = {
+      accordionSelected: []
     };
+    this.updateAccordionSelection = this.updateAccordionSelection.bind(this);
+  }
 
-    render() {
+  updateAccordionSelection = selected => {
+    this.setState({ accordionSelected: selected });
+  };
 
-  return (
-    <>
-      <AzureAD provider={authProvider} forceLogin={true}>
-        <div className="o-layout">
-          <div
-            className="o-layout__item"
-            style={{
-              height: 100,
-              textAlign: "center",
-              backgroundColor: "#ffb5b3"
-            }}
-          >
-            <p>Courses</p>
-          </div>
-          <div
-            className="o-layout__item"
-            style={{ textAlign: "center", backgroundColor: "#fffab3" }}
-          >
-            <p>Search bar</p>
-          </div>
-          <div
-            className="o-layout__item"
-            style={{
-              height: 300,
-              textAlign: "center",
-              backgroundColor: "#ccffb3"
-            }}
-          >
-            <p>Image</p>
-          </div>
+  render() {
 
-//          description - where accordeon goes
+    const parentId = "1";
 
+    return (
+      <>
+        <SearchBar />
+
+        <Hero title="Courses" image={picture} />
+          
+        <div className="o-container course-page-accordion">
+          <div className="o-layout">
             <Accordion
-              id="accordion"
+              id={parentId}
+              collapseOnToggle
               selected={this.state.accordionSelected}
-              updateSelection={this.state.updateAccordionSelection}
-              collapseOnToggle={this.state.collapseOnToggle}
+              updateSelection={this.updateAccordionSelection}
+              isNested="true"
             >
-              <AccordionSection title="Course 1" />
-              <AccordionSection title="Course 2" />
+              <AccordionSection
+                className="accordion-section"
+                id="1"
+                title="Section 1"
+
+              >
+                <div className="">
+                  <h2 className="c-heading-delta o-layout__item">
+                    Title
+                </h2>
+                  <p className="c-text-body o-layout__item">
+                    Description
+                </p>
+                  <div className="accordion-button-box">
+                    <a href="mailto:agileuniverity@sky.uk" class="accordion-button c-btn c-btn--primary u-margin-right">Request more information</a>
+                    <a href="#" class="accordion-button c-btn c-btn--primary u-margin-right">Book now</a>
+                  </div>
+                </div>
+
+
+
+              </AccordionSection>
+              <AccordionSection
+                className="accordion-section"
+                id="2"
+                title="Section 2"
+              >
+
+              </AccordionSection>
             </Accordion>
-
-
-
-          <div
-            className="o-layout__item"
-            style={{ textAlign: "center", backgroundColor: "#e0b5ff" }}
-          >
-            <p>Footer</p>
           </div>
         </div>
-      </AzureAD>
-    </>
-  );
+
+
+      </>
+    );
   }
 }
 

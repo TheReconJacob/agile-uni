@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reach/router": "^1.2.1",
     "@sky-uk/molecules": "^47.0.3",
     "@sky-uk/skycons": "^1.5.1",
     "@sky-uk/toolkit-react": "^23.25.0",

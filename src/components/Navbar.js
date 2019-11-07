@@ -1,6 +1,7 @@
 import React from "react";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import agileUniLogo from '../images/agileUniLogo.png'
+
 
 
 class Navbar extends React.Component {
@@ -12,13 +13,14 @@ class Navbar extends React.Component {
                         <img className="c-simple-masthead__logo" src={agileUniLogo} sizes="100vw"/>
                         <span className="c-simple-masthead__title">
                             <div>
-                                <a><Link to="/">Home</Link></a>
-                                <a><Link to="/courses">Courses</Link></a>
+                                <Link to="/">Home</Link>
+                                <Link to="/courses">Courses</Link>
                             </div>
                         </span>
                     </div> 
                 </div>
             </nav>
+          
         )
     }
 }
