@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Dropdown from "react-dropdown";
-import "./DropdownStyle.css";
+import "../styles/dropdown.scss";
 
 const options = ["Osterley", "Leeds", "Scotland"];
 
