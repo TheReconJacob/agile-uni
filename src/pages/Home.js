@@ -10,11 +10,11 @@ function App() {
   return (
     <>
         <SearchBar />
-      <div className="o-layout o-layout--spaced" style={{ padding: 30 }}>
-          <div className="o-layout__item" style={{ padding: 30 }}>
-            <Hero image={picture} />
+      <div className="o-layout o-layout--spaced" style={{ marginTop:40, padding: 0 }}>
+          <div className="o-layout__item" style={{ padding: 0 }}>
+            <Hero image={picture}/>
           </div>
-          <div className="o-layout__item" style={{ padding: 30 }}>
+          <div className="o-layout__item" style={{ padding: 60 }}>
             <h2 className="c-heading-bravo">Welcome to the Agile Uni</h2>
             <p className="c-text-body">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
