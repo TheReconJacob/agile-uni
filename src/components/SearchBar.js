@@ -3,24 +3,17 @@ import "../styles/searchBar.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 class SearchBar extends Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     site: "",
-  //     searchTerm: ""
-  //   };
-  //   this.handleChange = this.handleChange.bind(this);
-  // }
-  // handleChange(evt) {
-  //   // check it out: we get the evt.target.name (which will be either "email" or "password")
-  //   // and use it to target the key on our `state` object with the same name, using bracket syntax
-  //   this.setState({ [evt.target.name]: evt.target.value });
-  // }
-
-  // onChange(event) {
-  //   console.log(event.target.name); // the name of the form element
-  //   console.log(event.target.value); // the value of the form element
-  // }
+  constructor() {
+    super();
+    this.state = {
+      site: "",
+      searchTerm: ""
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(evt) {
+    this.setState({ [evt.target.name]: evt.target.value });
+  }
 
   render() {
     return (
@@ -51,7 +44,7 @@ class SearchBar extends Component {
                     name="searchTerm"
                     class="c-form-combo__input c-form-input"
                     placeholder="Search for your next course"
-                    name="f-combo"
+                    name="searchTerm"
                     id="f-combo"
                     onChange={this.handleChange}
                   />
