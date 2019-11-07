@@ -35,8 +35,6 @@ class SearchBar extends Component {
                 <option value="Leeds">Leeds</option>
                 <option value="Livingston">Livingston</option>
               </select>
-              {/* </li>
-            <li class="c-form-list__item o-layout__item u-width-1/2"> */}
               <div class="c-form-combo--inline o-layout__item u-width-3/4">
                 <div class="c-form-combo__cell">
                   <input
