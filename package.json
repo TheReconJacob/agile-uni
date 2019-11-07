@@ -8,6 +8,7 @@
     "react": "^16.11.0",
     "react-aad-msal": "^1.1.1",
     "react-dom": "^16.11.0",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "sky-toolkit": "^2.34.0",
     "utf8": "^3.0.0"

@@ -1,5 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
+//import {ExampleAdmin} from './pages/ExampleAdmin';
+//import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 // import './App.css';
 import './App.scss';
 import { AzureAD } from 'react-aad-msal';
@@ -38,6 +40,13 @@ function App() {
             Learn React
           </a>
         </header>
+        {/* <Router>
+          <Switch>
+            <Route path="/ExampleAdmin" allowed={['admin']}>
+              <ExampleAdmin />
+            </Route>
+          </Switch>
+        </Router> */}
       </div>
     </AzureAD>
 
@@ -45,3 +54,4 @@ function App() {
 }
 
 export default App;
+
