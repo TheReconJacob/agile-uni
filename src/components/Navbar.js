@@ -11,16 +11,16 @@ class Navbar extends React.Component {
           <div className="c-simple-masthead__inner o-container">
             <div>
               <img
-                className="c-simple-masthead__logo"
+                className="c-simple-masthead__logo u-width-1/4"
                 src={agileUniLogo}
                 sizes="100vw"
               />
               <span className="c-simple-masthead__title">
                 <div>
-                  <a style={{ marginRight: "20px" }}>
+                  <a class="o-layout__item u-width-1/4">
                     <Link to="/">Home</Link>
                   </a>
-                  <a>
+                  <a class="o-layout__item u-width-1/4">
                     <Link to="/courses">Courses</Link>
                   </a>
                 </div>

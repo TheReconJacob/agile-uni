@@ -12,7 +12,7 @@ function App() {
       <div className="c-hero hero-background">
         {/* <div class="c-hero__caption"> */}
         <div className="hero-title">
-          <p className="hero-title-text">Courses</p>
+          <p className="hero-title-text">Welcome to the Agile University</p>
 
           {/* <div class="o-container o-container--ee"> */}
           <SearchBar />
@@ -23,7 +23,7 @@ function App() {
 
       <div class="o-container o-container--ee">
         <div className="o-layout__item">
-          <h2 className="c-heading-bravo">Welcome to the Agile Uni</h2>
+          <h2 className="c-heading-bravo">What is Agile University</h2>
           <p className="c-text-body">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
