@@ -3,10 +3,24 @@
     display: block;
 }
 
-.accordion-button {
-    
+.hero-background{
+    background-image: url("../images/hero.jpg");
 }
 
+.hero-title {
+    width: 50%;
+    margin: auto;
+    top: 50%;
+    position: relative;
+
+}
+
+.hero-title-text {
+    font-size: 100px;
+    text-align: center;
+    opacity: 0.9;
+
+}
 .course-page-accordion {
     margin-top: 20px;
 }

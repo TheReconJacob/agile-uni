@@ -30,8 +30,14 @@ class Courses extends React.Component {
       <>
         <SearchBar />
 
-        <Hero title="Courses" image={picture} />
-          
+        <div className="c-hero hero-background">
+        {/* <div class="c-hero__caption"> */}
+            <div className="hero-title">
+                <p className="hero-title-text">Courses</p>
+            </div>
+            {/* </div> */}
+        </div>
+
         <div className="o-container course-page-accordion">
           <div className="o-layout">
             <Accordion
