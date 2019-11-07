@@ -3,3 +3,20 @@
 .body {
   margin: 40;
 }
+
+.hero-background {
+  background-image: url("../images/hero.jpg");
+}
+
+.hero-title {
+  width: 50%;
+  margin: auto;
+  top: 50%;
+  position: relative;
+}
+
+.hero-title-text {
+  font-size: 100px;
+  text-align: center;
+  opacity: 0.9;
+}

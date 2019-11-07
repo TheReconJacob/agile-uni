@@ -8,11 +8,18 @@ import "../styles/home.scss";
 function App() {
   return (
     <>
-      {/* <div class="o-container o-container--ee">
-        <SearchBar />
-      </div> */}
+      {/* <Hero image={picture} /> */}
+      <div className="c-hero hero-background">
+        {/* <div class="c-hero__caption"> */}
+        <div className="hero-title">
+          <p className="hero-title-text">Courses</p>
 
-      <Hero image={picture} />
+          {/* <div class="o-container o-container--ee"> */}
+          <SearchBar />
+          {/* </div> */}
+        </div>
+        {/* </div> */}
+      </div>
 
       <div class="o-container o-container--ee">
         <div className="o-layout__item">

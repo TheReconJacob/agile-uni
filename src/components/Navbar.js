@@ -9,28 +9,23 @@ class Navbar extends React.Component {
       <nav>
         <div className="c-simple-masthead">
           <div className="c-simple-masthead__inner o-container">
-            <img
-              className="c-simple-masthead__logo"
-              src={agileUniLogo}
-              sizes="100vw"
-            />
-            <span className="c-simple-masthead__title">
-              <div>
-                <a style={{ marginRight: "20px" }}>
-                  <Link to="/">Home</Link>
-                </a>
-                <a>
-                  <Link to="/courses">Courses</Link>
-                </a>
-              </div>
-            </span>
-
-            {/* </div> */}
-
-            {/* <div class="o-container o-container--ee"> */}
-          </div>
-          <div class="o-container o-container--ee">
-            <SearchBar />
+            <div>
+              <img
+                className="c-simple-masthead__logo"
+                src={agileUniLogo}
+                sizes="100vw"
+              />
+              <span className="c-simple-masthead__title">
+                <div>
+                  <a style={{ marginRight: "20px" }}>
+                    <Link to="/">Home</Link>
+                  </a>
+                  <a>
+                    <Link to="/courses">Courses</Link>
+                  </a>
+                </div>
+              </span>
+            </div>
           </div>
         </div>
       </nav>
