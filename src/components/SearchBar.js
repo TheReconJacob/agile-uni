@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "../styles/searchBar.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+
 class SearchBar extends Component {
   constructor() {
     super();

@@ -8,9 +8,9 @@ import "../styles/home.scss";
 function App() {
   return (
     <>
-      <div class="o-container o-container--ee">
+      {/* <div class="o-container o-container--ee">
         <SearchBar />
-      </div>
+      </div> */}
 
       <Hero image={picture} />
 
