@@ -8,8 +8,7 @@ import { SimpleMasthead } from "@sky-uk/molecules";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { ComboInput } from '@sky-uk/toolkit-react';
 import { Accordion } from '@sky-uk/toolkit-react';
-//import { AccordionSection } from '@sky-uk/toolkit-react';
-import AccordionSections from "./AccordionSections";
+import { AccordionSection } from '@sky-uk/toolkit-react';
 
 class Courses extends React.Component {
     constructor() {
@@ -66,9 +65,8 @@ class Courses extends React.Component {
               updateSelection={this.state.updateAccordionSelection}
               collapseOnToggle={this.state.collapseOnToggle}
             >
-              <AccordionSections title="Course 1" scrollDown={true} />
-              <AccordionSections title="Course 2" />
-              <AccordionSections title="Course 3" />
+              <AccordionSection title="Course 1" />
+              <AccordionSection title="Course 2" />
             </Accordion>
 
 
