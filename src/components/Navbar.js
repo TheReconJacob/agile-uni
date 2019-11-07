@@ -12,7 +12,7 @@ class Navbar extends React.Component {
                         <img className="c-simple-masthead__logo" src={agileUniLogo} sizes="100vw"/>
                         <span className="c-simple-masthead__title">
                             <div>
-                                <a><Link to="/">Home</Link></a>
+                                <a style={{marginRight: '20px'}}><Link to="/">Home</Link></a>
                                 <a><Link to="/courses">Courses</Link></a>
                             </div>
                         </span>
