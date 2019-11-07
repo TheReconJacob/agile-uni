@@ -2,17 +2,20 @@ import React from "react";
 import "../App.scss";
 import { Hero } from "@sky-uk/toolkit-react";
 import picture from "../images/hero.jpg";
-import SearchBar from "../components/SearchBar.js"
+import SearchBar from "../components/SearchBar.js";
+import "../styles/home.scss";
 
 function App() {
-
-
   return (
-    <>
+    <div class="global-border-width">
+      <>
         <SearchBar />
-      <div className="o-layout o-layout--spaced" style={{ marginTop:40, padding: 0 }}>
+        <div
+          className="o-layout o-layout--spaced"
+          style={{ marginTop: 40, padding: 0 }}
+        >
           <div className="o-layout__item" style={{ padding: 0 }}>
-            <Hero image={picture}/>
+            <Hero image={picture} />
           </div>
           <div className="o-layout__item" style={{ padding: 60 }}>
             <h2 className="c-heading-bravo">Welcome to the Agile Uni</h2>
@@ -27,7 +30,8 @@ function App() {
             </p>
           </div>
         </div>
-    </>
+      </>
+    </div>
   );
 }
 

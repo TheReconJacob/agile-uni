@@ -10,22 +10,20 @@ import Footer from "./components/Footer.js";
 
 function App() {
   return (
-    <>
-      <AzureAD provider={authProvider} forceLogin={true}>
-        <Router>
-          <Navbar />
-          <Switch>
-            <Route path="/">
-              <Home />
-            </Route>
-            <Route path="/courses">
-              <Courses />
-            </Route>
-          </Switch>
-          <Footer />
-        </Router>
-      </AzureAD>
-    </>
+    <AzureAD provider={authProvider} forceLogin={true}>
+      <Router>
+        <Navbar />
+        <Switch>
+          <Route path="/">
+            <Home />
+          </Route>
+          <Route path="/courses">
+            <Courses />
+          </Route>
+        </Switch>
+        <Footer />
+      </Router>
+    </AzureAD>
   );
 }
 
