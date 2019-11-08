@@ -1,9 +1,9 @@
 import React from 'react';
-// import logo from './logo.jpg';
+import logo from './logo.svg';
 //import {ExampleAdmin} from './pages/ExampleAdmin';
 //import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 // import './App.css';
-// import './App.scss';
+import './App.scss';
 import { AzureAD } from 'react-aad-msal';
 import { authProvider } from './authProvider';
 var base64 = require('base-64');
@@ -56,7 +56,7 @@ class App extends React.Component {
       <AzureAD provider={authProvider} forceLogin={true}>
         <div className="App">
           <header className="App-header">
-            {/* <img src={logo} className="App-logo" alt="logo" /> */}
+            <img src={logo} className="App-logo" alt="logo" />
             <p className="c-heading-beta">
               Edit <code>src/App.js</code> and save to reload.
             </p>
