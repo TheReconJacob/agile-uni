@@ -41,6 +41,10 @@ class App extends React.Component {
 
 
   render() {
+    let adminComponent;
+    if (this.state.admin) {
+      adminComponent = <h1>HELLO ADMIN</h1>;
+    }
     return (
       <AzureAD provider={authProvider} forceLogin={true}>
         <div className="App">
@@ -58,6 +62,7 @@ class App extends React.Component {
               Learn React
             </a>
           </header>
+          {adminComponent}
           {/* <Router>
             <Switch>
               <Route path="/ExampleAdmin" allowed={['admin']}>
