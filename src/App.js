@@ -31,6 +31,7 @@ class App extends React.Component {
   }
 
   getRoles() {
+    let userRoles = [];
     var encodedData = localStorage.getItem('msal.idtoken');
     var blocks = encodedData.split('.');
     var croppedData = blocks[1];
@@ -38,8 +39,10 @@ class App extends React.Component {
     var userInfo = utf8.decode(bytes);
     var parsedInfo = JSON.parse(userInfo);
     // ['testy', 'admin']
-    var userRoles = parsedInfo.roles;
-    console.log(userRoles);
+    if(parsedInfo.roles != null) {
+      userRoles = parsedInfo.roles;
+    }
+    console.log("User roles is " + userRoles);
     return userRoles;
   }
 
