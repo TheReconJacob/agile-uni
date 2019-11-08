@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import agileUniLogo from "../images/agileUniLogo.png";
-import "../styles/navbar.scss"
+import "../styles/navbar.scss";
 
 class Navbar extends React.Component {
   render() {
@@ -17,13 +17,13 @@ class Navbar extends React.Component {
               />
               <span className="c-simple-masthead__title">
                 <div>
-                  <a class="o-layout__item u-width-1/4 navbar-link">
-                    <Link to="/">
+                  <a class="o-layout__item u-width-1/4">
+                    <Link className="navbar-link" to="/">
                       Home
                     </Link>
                   </a>
-                  <a class="o-layout__item u-width-1/4 navbar-link">
-                    <Link to="/courses">
+                  <a class="o-layout__item u-width-1/4 ">
+                    <Link className="navbar-link" to="/courses">
                       Courses
                     </Link>
                   </a>
