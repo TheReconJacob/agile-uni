@@ -23,7 +23,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-import { MsalAuthProvider, LoginType } from 'react-aad-msal';
+import { MsalAuthProvider, LoginType } from "react-aad-msal";
 
 // The auth provider should be a singleton. Best practice is to only have it ever instantiated once.
 // Avoid creating an instance inside the component it will be recreated on each render.
@@ -31,23 +31,24 @@ import { MsalAuthProvider, LoginType } from 'react-aad-msal';
 export const authProvider = new MsalAuthProvider(
   {
     auth: {
-      authority: 'https://login.microsoftonline.com/68b865d5-cf18-4b2b-82a4-a4eddb9c5237',
-      clientId: 'c0fb79ba-b72c-47c1-912c-48ee6cbac972',
+      authority:
+        "https://login.microsoftonline.com/68b865d5-cf18-4b2b-82a4-a4eddb9c5237",
+      clientId: "c0fb79ba-b72c-47c1-912c-48ee6cbac972",
       postLogoutRedirectUri: window.location.origin,
       redirectUri: window.location.origin,
       validateAuthority: true,
 
       // After being redirected to the "redirectUri" page, should user
       // be redirected back to the Url where their login originated from?
-      navigateToLoginRequestUrl: false,
+      navigateToLoginRequestUrl: false
     },
     cache: {
-      cacheLocation: 'localStorage',
-      storeAuthStateInCookie: true,
-    },
+      cacheLocation: "localStorage",
+      storeAuthStateInCookie: true
+    }
   },
   {
-    scopes: ['openid'],
+    scopes: ["openid"]
   },
-  LoginType.Redirect,
+  LoginType.Redirect
 );
