@@ -19,11 +19,15 @@ class App extends React.Component {
       admin: false,
     };
 
-    var roles = this.getRoles();
-    if (roles.includes('admin')) {
-      this.state.admin = true;
+    if(localStorage.getItem('msal.idtoken') == null) {
+      console.log("Not logged in");
+    } else {
+      var roles = this.getRoles();
+      if(roles.includes('admin')) {
+        this.state.admin = true;
+      }
+      console.log(this.state.admin);
     }
-    console.log(this.state.admin);
   }
 
   getRoles() {
