@@ -6,9 +6,9 @@
     "@sky-uk/molecules": "^47.0.3",
     "@sky-uk/skycons": "^1.5.1",
     "@sky-uk/toolkit-react": "^23.25.0",
+    "base-64": "^0.1.0",
     "core-js": "^3.3.6",
     "marked": "^0.7.0",
-    "base-64": "^0.1.0",
     "node-sass": "^4.13.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.0",
@@ -20,7 +20,8 @@
     "react-scripts": "3.2.0",
     "sky-toolkit": "^2.34.0",
     "styled-components": "^2.5.0-1",
-    "typescript": "^3.6.4"
+    "typescript": "^3.6.4",
+    "utf8": "^3.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -50,8 +51,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.9.0",
     "jest-localstorage-mock": "^2.4.0",
-    "react-test-renderer": "^16.11.0",
-    "webpack": "^4.41.2"
+    "react-test-renderer": "^16.11.0"
   },
   "jest": {
     "setupFilesAfterEnv": [
