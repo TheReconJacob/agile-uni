@@ -1,0 +1,35 @@
+// @import "~sky-toolkit-ui/components/hero";
+
+
+// affects all buttons!!!!
+.c-btn--primary {
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
+
+}
+
+.c-btn--primary:hover, .c-btn--primary:active {
+  background-color: #28a7469e;
+  border-color: #28a7469e;
+
+}
+
+.hero-background {
+  background-image: url("../images/hero.jpg");
+}
+
+.hero-title {
+  width: 70%;
+  margin: auto;
+  top: 60%;
+  position: relative;
+}
+
+.hero-title-text {
+  font-size: 40px;
+  text-align: center;
+  opacity: 0.9;
+}
+
+
