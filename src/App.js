@@ -9,7 +9,6 @@ import Footer from "./components/Footer.js"
 import { Route, BrowserRouter as Router } from "react-router-dom";
 
 function App() {
-
   return (
     <>
       <AzureAD provider={authProvider} forceLogin={true}>
