@@ -18,10 +18,14 @@ class Navbar extends React.Component {
               <span className="c-simple-masthead__title">
                 <div>
                   <a class="o-layout__item u-width-1/4">
-                    <Link to="/">Home</Link>
+                    <Link style={{ color: "#212529" }} to="/">
+                      Home
+                    </Link>
                   </a>
                   <a class="o-layout__item u-width-1/4">
-                    <Link to="/courses">Courses</Link>
+                    <Link style={{ color: "#212529" }} to="/courses">
+                      Courses
+                    </Link>
                   </a>
                 </div>
               </span>
