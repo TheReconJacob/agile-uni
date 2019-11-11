@@ -1,5 +1,6 @@
 import React from "react";
 import SearchBar from "../components/SearchBar";
+import DatePicker from "react-datepicker";
 
 class Admin extends React.Component {
     constructor() {
@@ -25,6 +26,15 @@ class Admin extends React.Component {
                 </li>
                 <li class="c-form-list__item">
                     <input type="date" class="c-form-date" placeholder="Choose a start time and date..." name="f-start-date" id="f-start-date" />
+                    <DatePicker
+                    placeholder="Choose a start time and date"
+                    showTimeSelect
+                    timeFormat="HH:mm"
+                    timeIntervals={15}
+                    dateFormat="yyyy-MM-dd h:mm"
+                    timeCaption="time"
+                    // should return "yyyy-MM-dd 'at' HH:mm" to pass to api
+                  />
                 </li>
                 <li class="c-form-list__item">
                     <input type="date" class="c-form-date" placeholder="Choose an end time and date..." name="f-end-date" id="f-end-date" />
