@@ -27,6 +27,11 @@ class Navbar extends React.Component {
                         Courses
                     </Link>
                   </li>
+                  <li className="navbar-link-item">
+                      <Link className="navbar-link-color c-heading-delta" to="/admin">
+                        Admin
+                    </Link>
+                  </li>
 
                 </ul>
 

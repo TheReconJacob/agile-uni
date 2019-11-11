@@ -7,13 +7,15 @@ class Admin extends React.Component {
     }
     render() {
         return(
-            <>
+        <>
             <div className="c-hero hero-background">
         <div className="hero-title">
           <p className="hero-title-text">Admin</p>
           <SearchBar />
         </div>
       </div>
+           <div class="o-container o-container--ee u-padding-bottom-large u-padding-top-large">
+           <div className="o-layout__item">
       <form>
           <fieldset>
             <legend class="c-form-caption">Add courses</legend>
@@ -52,7 +54,9 @@ class Admin extends React.Component {
           </ul>
           </fieldset>
       </form>
-            </>
+      </div>
+      </div>
+         </>   
         );
     }
 
