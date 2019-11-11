@@ -1,13 +1,8 @@
-import React, { Component } from "react";
-import { ComboInput } from '@sky-uk/toolkit-react';
+import React from "react";
 import { Accordion } from '@sky-uk/toolkit-react';
 import { AccordionSection } from '@sky-uk/toolkit-react';
-import { Switch, Route } from 'react-router-dom';
 import SearchBar from "../components/SearchBar";
 import "../styles/courses.scss";
-// import Hero from "../components/Hero.js";
-import { Hero } from "@sky-uk/toolkit-react";
-import picture from "../images/hero.jpg";
 
 class Courses extends React.Component {
   constructor() {
@@ -59,7 +54,7 @@ class Courses extends React.Component {
                     Description
                 </p>
                   <div className="accordion-button-box">
-                    <a href="mailto:agileuniverity@sky.uk" class="accordion-button c-btn c-btn--primary u-margin-right">Request more information</a>
+                    <a href="mailto:agileuniversity@sky.uk" class="accordion-button c-btn c-btn--primary u-margin-right">Request more information</a>
                     <a href="#" class="accordion-button c-btn c-btn--primary u-margin-right">Book now</a>
                   </div>
                 </div>
