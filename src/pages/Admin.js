@@ -45,11 +45,11 @@ class Admin extends React.Component {
                 </li>
                 <li class="c-form-list__item u-width-1/2">
                     <input type="date" class="c-form-date c-form-combo--inline o-layout__item u-width-3/4 " placeholder="Choose a start date..." name="f-start-date" id="f-start-date" onChange={this.handleChange} required />
-                    <input type="time" class="c-form-time c-form-combo--inline o-layout__item u-width-1/4" placeholder="Choose a start time..." name="f-start-time" id="f-start-time" onChange={this.handleChange} required />
+                    <input type="time" class="c-form-date c-form-combo--inline o-layout__item u-width-1/4" placeholder="Choose a start time..." name="f-start-time" id="f-start-time" onChange={this.handleChange} required />
                 </li>
                 <li class="c-form-list__item u-width-1/2">
                     <input type="date" class="c-form-date c-form-combo--inline o-layout__item u-width-3/4" placeholder="Choose an end time and date..." name="f-end-date" id="f-end-date" onChange={this.handleChange} required />
-                    <input type="time" class="c-form-time c-form-combo--inline o-layout__item u-width-1/4" placeholder="Choose an end time..." name="f-end-time" id="f-end-time" onChange={this.handleChange} required />
+                    <input type="time" class="c-form-date c-form-combo--inline o-layout__item u-width-1/4" placeholder="Choose an end time..." name="f-end-time" id="f-end-time" onChange={this.handleChange} required />
                 </li>
                 <li class="c-form-list__item u-width-1/2">
                 <div class="c-form-select">
