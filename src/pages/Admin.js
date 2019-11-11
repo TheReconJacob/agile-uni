@@ -33,8 +33,9 @@ class Admin extends React.Component {
           <SearchBar />
         </div>
       </div>
-           <div class="o-container o-container--ee u-padding-bottom-large u-padding-top-large form-container">
-           <div className="o-layout__item">
+      
+           <div class="o-container u-padding-bottom-large u-padding-top-large form-container o-layout--center">
+           
       <form onSubmit={this.handleSubmit}>
           <fieldset>
             <legend class="c-form-caption">Add courses</legend>
@@ -54,9 +55,9 @@ class Admin extends React.Component {
                 <div class="c-form-select">
                     <select id="f-heroes" class="c-form-select__dropdown" onChange={this.handleChange} required>
                     <option value="" disabled selected>Choose a location...</option>
-                    <option value="captainAmerica">Osterley</option>
-                    <option value="ironMan">Leeds</option>
-                    <option value="blackWidow">Livingston</option>
+                    <option value="Osterley">Osterley</option>
+                    <option value="Leeds">Leeds</option>
+                    <option value="Livingston">Livingston</option>
                     </select>
                 </div>
                 </li>
@@ -71,7 +72,6 @@ class Admin extends React.Component {
           </ul>
           </fieldset>
       </form>
-      </div>
       </div>
       
          </>   
