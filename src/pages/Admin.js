@@ -6,7 +6,20 @@ import "../styles/admin.scss";
 class Admin extends React.Component {
     constructor() {
         super();
-    }
+        this.state = {
+          title: "",
+          startDate: "",
+          startTime: "",
+          endDate: "",
+          endTime: "",
+          numberParticipants: "",
+          description: ""
+        };
+        this.handleChange = this.handleChange.bind(this);
+      }
+      handleChange(evt) {
+        this.setState({ [evt.target.name]: evt.target.value });
+      }
     render() {
         return(
         <>
@@ -23,19 +36,19 @@ class Admin extends React.Component {
             <legend class="c-form-caption">Add courses</legend>
             <ul class="c-form-list">
                 <li class="c-form-list__item u-width-1/2">
-                    <input type="text" class="c-form-input" placeholder="Title..." name="f-title" id="f-title" required />
+                    <input type="text" class="c-form-input" placeholder="Title..." name="f-title" id="f-title" onChange={this.handleChange} required />
                 </li>
                 <li class="c-form-list__item u-width-1/2">
-                    <input type="date" class="c-form-date c-form-combo--inline o-layout__item u-width-3/4 " placeholder="Choose a start date..." name="f-start-date" id="f-start-date" />
-                    <input type="time" class="c-form-time c-form-combo--inline o-layout__item u-width-1/4" placeholder="Choose a start time..." name="f-start-time" id="f-start-time" />
+                    <input type="date" class="c-form-date c-form-combo--inline o-layout__item u-width-3/4 " placeholder="Choose a start date..." name="f-start-date" id="f-start-date" onChange={this.handleChange} required />
+                    <input type="time" class="c-form-time c-form-combo--inline o-layout__item u-width-1/4" placeholder="Choose a start time..." name="f-start-time" id="f-start-time" onChange={this.handleChange} required />
                 </li>
                 <li class="c-form-list__item u-width-1/2">
-                    <input type="date" class="c-form-date c-form-combo--inline o-layout__item u-width-3/4" placeholder="Choose an end time and date..." name="f-end-date" id="f-end-date" />
-                    <input type="time" class="c-form-time c-form-combo--inline o-layout__item u-width-1/4" placeholder="Choose an end time..." name="f-end-time" id="f-end-time" />
+                    <input type="date" class="c-form-date c-form-combo--inline o-layout__item u-width-3/4" placeholder="Choose an end time and date..." name="f-end-date" id="f-end-date" onChange={this.handleChange} required />
+                    <input type="time" class="c-form-time c-form-combo--inline o-layout__item u-width-1/4" placeholder="Choose an end time..." name="f-end-time" id="f-end-time" onChange={this.handleChange} required />
                 </li>
                 <li class="c-form-list__item u-width-1/2">
                 <div class="c-form-select">
-                    <select id="f-heroes" class="c-form-select__dropdown">
+                    <select id="f-heroes" class="c-form-select__dropdown" onChange={this.handleChange} required>
                     <option value="" disabled selected>Choose a location...</option>
                     <option value="captainAmerica">Osterley</option>
                     <option value="ironMan">Leeds</option>
@@ -44,11 +57,11 @@ class Admin extends React.Component {
                 </div>
                 </li>
                 <li class="c-form-list__item u-width-1/2">
-                    <input type="number" min="0" class="c-form-date" placeholder="Choose number of participants..." name="f-number-of-participants" id="f-number-of-participants" />
+                    <input type="number" min="0" class="c-form-date" placeholder="Choose number of participants..." name="f-number-of-participants" id="f-number-of-participants" onChange={this.handleChange} required/>
                   
                 </li>
                 <li class="c-form-list__item u-width-1/2">
-                    <textarea class="c-form-input c-form-input--long" placeholder="Description..." name="f-description" id="f-description"></textarea>
+                    <textarea class="c-form-input c-form-input--long" placeholder="Description..." name="f-description" id="f-description" onChange={this.handleChange}></textarea>
                 </li>
           <button type="submit" className="c-btn c-btn--primary">Add Course</button>
           </ul>
