@@ -9,15 +9,24 @@ const connection = mysql.createConnection({
   database: 'AGILEUNI'
 })
 
+//In postman, call as /search?searchTerm=ddddd&location=gggg
 routes.get('/', (req, res) => {
-    let sql = `SELECT * 
-                FROM courses 
-                LEFT JOIN sites on courses.site_id = sites.id
-                WHERE sites.name = ? AND courses.title LIKE ?`
-    connection.query(sql, [req.query.location, '%'.concat(req.query.searchTerm, '%')], function(err, rows, fields) {
-      if (err) throw err;
-      res.send(rows)
-    })
-  });
+  console.log(req.query.location)
+  let sql = `SELECT * 
+              FROM courses 
+              INNER JOIN sites on courses.site_id = sites.id
+              WHERE courses.title LIKE ?`
+  let queryParameters = ['%'.concat(req.query.searchTerm, '%'), ]
+  if(req.query.location !== "") {
+    sql = sql.concat(`AND sites.name = ?`)
+    queryParameters = ['%'.concat(req.query.searchTerm, '%'), req.query.location]
+    console.log("A location")
+  }
+
+  connection.query(sql, queryParameters, function(err, rows, fields) {
+    if (err) throw err;
+    res.send(rows)
+  })
+});
   
 module.exports = routes;
