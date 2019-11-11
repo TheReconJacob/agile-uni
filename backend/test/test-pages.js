@@ -2,12 +2,12 @@ var expect  = require('chai').expect;
 var request = require('request');
 const mysql = require('mysql')
 
-it('Main page content', function(done) {
-    request('http://localhost:5000' , function(error, response, body) {
-        expect(body).to.equal('Hello World');
-        done();
-    });
-});
+// it('Main page content', function(done) {
+//     request('http://localhost:5000' , function(error, response, body) {
+//         expect(body).to.equal('Hello World');
+//         done();
+//     });
+// });
 
 
 // How to test the json
@@ -27,4 +27,29 @@ it('Courses request columns', function(done) {
     });
 });
 
-
+describe('Our server', function() {
+	var app;
+  
+	// Called once before any of the tests in this block begin.
+	before(function(done) {
+	  app = createApp();
+	  app.listen(function(err) {
+		if (err) { return done(err); }
+		done();
+	  });
+	});
+  
+	it('should send back a JSON object with goodCall set to true', function() {
+	  request(app)
+		.get('/')
+		.set('Content-Type', 'application/json')
+		.expect('Content-Type', /json/)
+		.expect(200, function(err, res) {
+		  if (err) { return done(err); }
+		  callStatus = res.body.goodCall;
+		  expect(callStatus).to.equal(true);
+		  // Done
+		  done();
+		});
+	});
+});

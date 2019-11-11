@@ -3,6 +3,10 @@ const app = express();
 const port = 5000;
 const mysql = require('mysql')
 const fs = require('fs')
+const searchRoutes = require('./routes/search.js');
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use('/search', searchRoutes);
 
 
 const connection = mysql.createConnection({
@@ -21,12 +25,8 @@ connection.connect(function(err) {
 	}
 });
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 
-app.get('/', (req, res) => {
-	res.send('Hello World')
-})
+
 
 //'SELECT * FROM users WHERE id = ?', [userId]
 app.get('/employees', (req, res) => {
@@ -57,5 +57,7 @@ app.listen(port, (err) => {
 	if(err) { console.log(err) };
 	console.log('Listening on port ' + port);
 })
+
+
 
 //export const connection;
