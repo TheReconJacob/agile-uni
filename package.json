@@ -7,6 +7,7 @@
     "@sky-uk/skycons": "^1.5.1",
     "@sky-uk/toolkit-react": "^23.25.0",
     "core-js": "^3.3.6",
+    "draft-js": "^0.11.2",
     "marked": "^0.7.0",
     "node-sass": "^4.13.0",
     "prop-types": "^15.7.2",
