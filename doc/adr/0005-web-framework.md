@@ -16,4 +16,4 @@ We have chosen Express due to team members experience with it. Also it is very p
 
 ## Consequences
 
-Reduces boilerplate. 
+Reduces boilerplate.

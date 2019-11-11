@@ -43,7 +43,6 @@ class SearchBar extends Component {
                       name="searchTerm"
                       class="c-form-combo__input c-form-input"
                       placeholder="Search for your next course"
-                      name="searchTerm"
                       id="f-combo"
                       onChange={this.handleChange}
                     />
