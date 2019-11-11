@@ -20,6 +20,10 @@ class Admin extends React.Component {
       handleChange(evt) {
         this.setState({ [evt.target.name]: evt.target.value });
       }
+
+      handleSubmit(event) {
+          
+      }
     render() {
         return(
         <>
@@ -31,7 +35,7 @@ class Admin extends React.Component {
       </div>
            <div class="o-container o-container--ee u-padding-bottom-large u-padding-top-large form-container">
            <div className="o-layout__item">
-      <form>
+      <form onSubmit={this.handleSubmit}>
           <fieldset>
             <legend class="c-form-caption">Add courses</legend>
             <ul class="c-form-list">
