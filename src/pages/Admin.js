@@ -2,7 +2,7 @@ import React from "react";
 import SearchBar from "../components/SearchBar";
 import DatePicker from "react-datepicker";
 import "../styles/admin.scss";
-import MyEditor from "../components/Editor";
+import Quill from "../components/Quill";
 
 class Admin extends React.Component {
     constructor() {
@@ -67,8 +67,7 @@ class Admin extends React.Component {
                   
                 </li>
                 <li class="c-form-list__item u-width-1/2">
-                    <textarea class="c-form-input c-form-input--long" placeholder="Description..." name="f-description" id="f-description" onChange={this.handleChange}></textarea>
-                    <MyEditor />
+                    <Quill />
                 </li>
           <button type="submit" className="c-btn c-btn--primary">Add Course</button>
           </ul>
