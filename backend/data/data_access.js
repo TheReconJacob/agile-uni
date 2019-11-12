@@ -19,7 +19,7 @@ Data.getAllCourses = (callback) => {
 		if (err) {
 			return callback(err)
 		}
-		callback(null, { status: 200, responseJson: rows})// is this it?
+		callback(null, { status: 200, responseJson: rows})
 	})	
 }
 
@@ -28,7 +28,7 @@ Data.getAllEmployees = (callback) => {
 		if (err) {
 			return callback(err)
 		}
-		callback(null, { status: 200, responseJson: rows})// is this it?
+		callback(null, { status: 200, responseJson: rows})
 	})	
 }
 
@@ -37,7 +37,26 @@ Data.getAllSites = (callback) => {
 		if (err) {
 			return callback(err)
 		}
-		callback(null, { status: 200, responseJson: rows})// is this it?
+		callback(null, { status: 200, responseJson: rows})
+	})	
+}
+
+Data.searchCoursesNoLocation = (searchTerm, callback) => {
+	connection.query(`SELECT * FROM courses INNER JOIN sites on courses.site_id = sites.id WHERE courses.title LIKE ?`, '%'.concat(searchTerm, '%'), function(err, rows, fields) {
+		if (err) {
+			return callback(err)
+		}
+		callback(null, { status: 200, responseJson: rows})
+	})	
+}
+
+Data.searchCoursesWithLocation = (searchTerm, location, callback) => {
+	connection.query(`SELECT * FROM courses INNER JOIN sites on courses.site_id = sites.id WHERE courses.title LIKE ? AND sites.name = ?`, ['%'.concat(searchTerm, '%'), location], function(err, rows, fields) {
+		
+		if (err) {
+			return callback(err)
+		}
+		callback(null, { status: 200, responseJson: rows})
 	})	
 }
 

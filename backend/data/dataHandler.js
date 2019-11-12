@@ -14,7 +14,6 @@ module.exports.getCourses = (DataAccess) => (req, callback) => {
 
 module.exports.getEmployees = (DataAccess) => (req, callback) => {
     
-  // Here, we call the data access layer.
   DataAccess.getAllEmployees((err, employees) => {
     if (err) {
       return callback(err)
@@ -25,7 +24,6 @@ module.exports.getEmployees = (DataAccess) => (req, callback) => {
 
 module.exports.getSites = (DataAccess) => (req, callback) => {
     
-  // Here, we call the data access layer.
   DataAccess.getAllSites((err, sites) => {
     if (err) {
       return callback(err)
@@ -33,3 +31,38 @@ module.exports.getSites = (DataAccess) => (req, callback) => {
     callback(null, { status: 200, responseJson: { sites: sites }})
   })
 };
+
+module.exports.searchCourses = (DataAccess) => (req, callback) => {
+  if(req.query.location === "") {
+    DataAccess.searchCoursesNoLocation(req.query.searchTerm, (err, courses) => {
+      if (err) {
+        return callback(err)
+      }
+      callback(null, { status: 200, responseJson: { courses: courses }})
+    })  
+  } else {
+    
+    DataAccess.searchCoursesWithLocation(req.query.searchTerm, req.query.location, (err, courses) => {
+      
+      if (err) {
+        return callback(err)
+      }
+      
+      callback(null, { status: 200, responseJson: { courses: courses }})
+    })
+  }
+
+};
+
+
+
+
+// if(req.query.location === "") {
+//   Tasks.searchNoLocation(req.query.searchTerm, function(err, rows){
+//     handleResponse(res, err, rows);
+//   });
+// } else {
+//   Tasks.searchWithLocation(req.query.searchTerm, req.query.location, function(err, rows){
+//       handleResponse(res, err, rows);
+//   });
+// }

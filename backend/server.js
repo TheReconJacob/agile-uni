@@ -7,7 +7,7 @@ const mysql = require('mysql')
 	  config = require('./data/_config');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use('/search', searchRoutes);
+//app.use('/search', searchRoutes);
 
 const Data = require('./data/data_access.js')
 const dataHandler = require('./data/dataHandler.js') 
@@ -51,6 +51,17 @@ app.get('/courses', (req, res) => {
 
 app.get('/sites', (req, res) => {
 	dataHandler.getSites(Data)(req, (err, result) => {
+		if (err) {
+		  res.status(500)
+		  return res.json({ message: err.message })
+		}
+		res.status(result.status)
+		return res.json(result.responseJson)
+	})
+})
+
+app.get('/search', (req, res) => {
+	dataHandler.searchCourses(Data)(req, (err, result) => {
 		if (err) {
 		  res.status(500)
 		  return res.json({ message: err.message })
