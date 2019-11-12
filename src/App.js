@@ -8,14 +8,8 @@ import Navbar from "./components/Navbar.js"
 import Footer from "./components/Footer.js"
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import Admin from "./pages/Admin";
-import IdTokenVerifier from 'idtoken-verifier';
 var base64 = require('base-64');
 var utf8 = require('utf8');
-
-const verifier = new IdTokenVerifier({
-  issuer: "https://login.microsoftonline.com/68b865d5-cf18-4b2b-82a4-a4eddb9c5237",
-  audience: "c0fb79ba-b72c-47c1-912c-48ee6cbac972"
-});
 
 class App extends React.Component {
   constructor(props) {
@@ -34,9 +28,6 @@ class App extends React.Component {
         this.state.admin = true;
       }
       console.log("This is admin boolean " + this.state.admin);
-      verifier.verify(localStorage.getItem('msal.idtoken'), localStorage.getItem('msal.nonce.idtoken'), (error, payload) => {
-        console.log("verifying idtoken failed");
-    });
     }
   }
 
