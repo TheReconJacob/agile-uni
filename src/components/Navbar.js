@@ -28,7 +28,7 @@ class Navbar extends React.Component {
                       Courses
                     </Link>
                   </li>
-
+            
                 </ul>
 
 
