@@ -27,7 +27,7 @@ class App extends React.Component {
       if (roles.includes('admin')) {
         this.state.admin = true;
       }
-      console.log(this.state.admin);
+      console.log("This is admin boolean " + this.state.admin);
     }
   }
 
@@ -47,11 +47,13 @@ class App extends React.Component {
     return userRoles;
   }
 
-
   render() {
     let adminComponent;
+    let adminAddCourse;
+    var adminS  = this.state.admin;
     if (this.state.admin) {
       adminComponent = <h1>HELLO ADMIN</h1>;
+      adminAddCourse = <Route path="/admin" component={Admin} />;
     }
     return (
       <>
@@ -60,8 +62,8 @@ class App extends React.Component {
             <Navbar />
             <div>
               <Route exact path="/" component={Home} />
-              <Route path="/courses" component={Courses} />
-              <Route path="/admin" component={Admin} />
+              <Route path="/courses" render={()=><Courses adminStatus={adminS}/>}/>
+              {adminAddCourse}
             </div>
             {adminComponent}
             <Footer />
