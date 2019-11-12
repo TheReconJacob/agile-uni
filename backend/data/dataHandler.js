@@ -22,3 +22,14 @@ module.exports.getEmployees = (DataAccess) => (req, callback) => {
     callback(null, { status: 200, responseJson: { employees: employees }})
   })
 };
+
+module.exports.getSites = (DataAccess) => (req, callback) => {
+    
+  // Here, we call the data access layer.
+  DataAccess.getAllSites((err, sites) => {
+    if (err) {
+      return callback(err)
+    }
+    callback(null, { status: 200, responseJson: { sites: sites }})
+  })
+};

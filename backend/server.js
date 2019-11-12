@@ -50,9 +50,13 @@ app.get('/courses', (req, res) => {
 })
 
 app.get('/sites', (req, res) => {
-	connection.query('SELECT * FROM sites LIMIT 1', function(err, rows, fields) {
-		if (err) throw err;
-		res.send(rows)
+	dataHandler.getSites(Data)(req, (err, result) => {
+		if (err) {
+		  res.status(500)
+		  return res.json({ message: err.message })
+		}
+		res.status(result.status)
+		return res.json(result.responseJson)
 	})
 })
 

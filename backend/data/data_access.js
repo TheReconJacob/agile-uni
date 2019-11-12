@@ -32,4 +32,13 @@ Data.getAllEmployees = (callback) => {
 	})	
 }
 
+Data.getAllSites = (callback) => {
+	connection.query('SELECT * FROM sites LIMIT 1', function(err, rows, fields) {
+		if (err) {
+			return callback(err)
+		}
+		callback(null, { status: 200, responseJson: rows})// is this it?
+	})	
+}
+
 module.exports = Data;

@@ -39,6 +39,14 @@ describe('Running app and testing data routes', function () {
 				done();
 			});
 		});
+
+		it('Columns of sites data are correct', function(done) {
+			request('http://localhost:5000/sites' , function(error, response, body) {
+				const rows = JSON.parse(body)['sites']['responseJson'];
+				expect(rows[0]).to.have.all.keys('id', 'name', 'address');
+				done();
+			});
+		});
 	});
 
 	//Uses real database
