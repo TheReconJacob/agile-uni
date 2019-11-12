@@ -25,8 +25,13 @@
     margin-top: 20px;
 }
 
-.c-btn{
+.c-btn--full {
     font-size: 25px;
+    
+}
+
+.c-btn--full a:hover, a:visited, a:link, a:active{
+     text-decoration: none; //otherwise line shows up under the text when hovering
 }
 
 .c-btn__icon{

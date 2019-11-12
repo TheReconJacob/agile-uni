@@ -46,7 +46,7 @@ class Courses extends React.Component {
 
         <div className="o-container course-page-accordion">
           <div className="o-layout">
-           
+          {adminAddComponent}
             <Accordion
               id={parentId}
               collapseOnToggle
@@ -55,7 +55,7 @@ class Courses extends React.Component {
               isNested="true"
             >
 
-              {adminAddComponent}
+              
               <AccordionSection
                 className="accordion-section"
                 id="1"
