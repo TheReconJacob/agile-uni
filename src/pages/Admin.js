@@ -35,23 +35,43 @@ class Admin extends React.Component {
         </div>
       </div>
       
-           <div class="o-container u-padding-bottom-large u-padding-top-large form-container o-layout--center">
+           <div class="o-container u-padding-bottom-large u-padding-top-large form-container ">
            
       <form onSubmit={this.handleSubmit}>
           <fieldset>
             <legend class="c-form-caption">Add courses</legend>
             <ul class="c-form-list">
+            <li class="c-form-list__item u-width-1/2">
+                <label class="c-form-label " for="title">
+          Title <abbr title="This field is required" class="c-form-required">*</abbr>
+        </label>
+        </li>
                 <li class="c-form-list__item u-width-1/2">
                     <input type="text" class="c-form-input" placeholder="Title..." name="f-title" id="f-title" onChange={this.handleChange} required />
                 </li>
                 <li class="c-form-list__item u-width-1/2">
+                <label class="c-form-label" for="start-date">
+          Start date <abbr title="This field is required" class="c-form-required">*</abbr>
+        </label>
+        </li>
+        <li class="c-form-list__item u-width-1/2">
                     <input type="date" class="c-form-date c-form-combo--inline o-layout__item u-width-3/4 " placeholder="Choose a start date..." name="f-start-date" id="f-start-date" onChange={this.handleChange} required />
                     <input type="time" class="c-form-date c-form-combo--inline o-layout__item u-width-1/4" placeholder="Choose a start time..." name="f-start-time" id="f-start-time" onChange={this.handleChange} required />
                 </li>
                 <li class="c-form-list__item u-width-1/2">
+                <label class="c-form-label" for="end-date">
+         End date <abbr title="This field is required" class="c-form-required">*</abbr>
+        </label>
+        </li>
+                <li class="c-form-list__item u-width-1/2">
                     <input type="date" class="c-form-date c-form-combo--inline o-layout__item u-width-3/4" placeholder="Choose an end time and date..." name="f-end-date" id="f-end-date" onChange={this.handleChange} required />
                     <input type="time" class="c-form-date c-form-combo--inline o-layout__item u-width-1/4" placeholder="Choose an end time..." name="f-end-time" id="f-end-time" onChange={this.handleChange} required />
                 </li>
+                <li class="c-form-list__item u-width-1/2">
+                <label class="c-form-label" for="location">
+          Location <abbr title="This field is required" class="c-form-required">*</abbr>
+        </label>
+        </li>
                 <li class="c-form-list__item u-width-1/2">
                 <div class="c-form-select">
                     <select id="f-heroes" class="c-form-select__dropdown" onChange={this.handleChange} required>
@@ -63,9 +83,20 @@ class Admin extends React.Component {
                 </div>
                 </li>
                 <li class="c-form-list__item u-width-1/2">
+                <label class="c-form-label" for="number-participants">
+          Number of participants <abbr title="This field is required" class="c-form-required">*</abbr>
+        </label>
+        </li>
+                <li class="c-form-list__item u-width-1/2">
                     <input type="number" min="0" class="c-form-date" placeholder="Choose number of participants..." name="f-number-of-participants" id="f-number-of-participants" onChange={this.handleChange} required/>
                   
                 </li>
+
+                <li class="c-form-list__item u-width-1/2">
+                <label class="c-form-label" for="description">
+        Description <abbr title="This field is required" class="c-form-required">*</abbr>
+        </label>
+        </li>
                 <li class="c-form-list__item u-width-1/2">
                     <Quill />
                 </li>
