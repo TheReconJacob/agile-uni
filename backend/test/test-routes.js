@@ -6,7 +6,7 @@ let server;
 
 
 describe('Testing routes', function () {
-	this.timeout(10000);//////////////
+	//this.timeout(10000);////////////// This is so the db is connected before the tests start running....
 	before( done => {
 		server = require('../server.js');
 		server.on( "app_started", function() {

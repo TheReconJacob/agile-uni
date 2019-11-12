@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "mocha --exit",
+    "test": "mocha -t 10000 --exit",
     "start": "node server.js"
   },
   "author": "",
