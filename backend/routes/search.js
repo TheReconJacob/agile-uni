@@ -2,7 +2,7 @@ const routes = require('express').Router();
 const mysql = require('mysql')
 const fs = require('fs')
 const config = require('../_config');
-const connection=mysql.createPool(config.mysqlConfig);
+const connection=mysql.createPool(config.mysqlConfig); //[app.settings.env]
 
 var Tasks = { 
   searchWithLocation:function(searchTerm, location, callback) {
@@ -26,17 +26,14 @@ var Tasks = {
 
 //In postman, call as /search?searchTerm=ddddd&location=gggg
 routes.get('/', (req, res) => {
-  //console.log(req.query.location)
   if(req.query.location === "") {
     Tasks.searchNoLocation(req.query.searchTerm, function(err, rows){
       handleResponse(res, err, rows);
-    }
-  );
+    });
   } else {
     Tasks.searchWithLocation(req.query.searchTerm, req.query.location, function(err, rows){
         handleResponse(res, err, rows);
-    }
-  );
+    });
   }
 
 });

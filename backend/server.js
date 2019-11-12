@@ -3,19 +3,13 @@ const mysql = require('mysql')
 	  express = require('express'),
 	  app = express(),
 	  port = 5000,
-	  searchRoutes = require('./routes/search.js');
-	  //connection = require('./dbconnection');
+	  searchRoutes = require('./routes/search.js'),
+	  config = require('./_config');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use('/search', searchRoutes);
 
-const connection = mysql.createConnection({
-  host: `agileuni-db.c0i93hgwoofe.us-east-1.rds.amazonaws.com`,
-  port: '3306',
-  user: 'admin',
-  password: fs.readFileSync('../dbPassword', 'UTF-8'),
-  database: 'AGILEUNI'
-})
+const connection = mysql.createConnection(config.mysqlConfig)
 
 connection.connect(function(err) {
     if (err) {
