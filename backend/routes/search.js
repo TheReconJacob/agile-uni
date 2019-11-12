@@ -1,7 +1,7 @@
 const routes = require('express').Router();
 const mysql = require('mysql')
 const fs = require('fs')
-const config = require('../_config');
+const config = require('../data/_config');
 const connection=mysql.createPool(config.mysqlConfig); //[app.settings.env]
 
 var Tasks = { 
