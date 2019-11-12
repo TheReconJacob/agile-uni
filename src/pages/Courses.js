@@ -20,6 +20,10 @@ class Courses extends React.Component {
   render() {
 
     const parentId = "1";
+    let adminComponent;
+    if (this.props.adminStatus) {
+      adminComponent = <h1>let's add a course!</h1>;
+    }
 
     return (
       <>
@@ -33,6 +37,7 @@ class Courses extends React.Component {
 
         <div className="o-container course-page-accordion">
           <div className="o-layout">
+            {adminComponent}
             <Accordion
               id={parentId}
               collapseOnToggle
