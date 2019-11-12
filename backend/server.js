@@ -1,12 +1,14 @@
-const express = require('express');
-const app = express();
-const port = 5000;
-const mysql = require('mysql');
-const fs = require('fs');
-const searchRoutes = require('./routes/search.js');
+const mysql = require('mysql')
+	  fs = require('fs'),
+	  express = require('express'),
+	  app = express(),
+	  port = 5000,
+	  searchRoutes = require('./routes/search.js');
+	  //connection = require('./dbconnection');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use('/search', searchRoutes);
+
 let server;
 
 
