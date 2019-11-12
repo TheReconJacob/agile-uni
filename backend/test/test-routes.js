@@ -1,12 +1,12 @@
 const expect  = require('chai').expect;
 const request = require('request');
-//const mysql = require('mysql');
+const search = require('../routes/search.js')
 let server; 
 
 
 
-describe('Testing routes', function () {
-	//this.timeout(10000);////////////// This is so the db is connected before the tests start running....
+describe('Tests routing of ', function () {
+	//Used to have a timeout, now default before_all is set to 10000
 	before( done => {
 		server = require('../server.js');
 		server.on( "app_started", function() {
@@ -21,7 +21,7 @@ describe('Testing routes', function () {
 		});
 	});
 
-	//How to test the json
+	//Testing json returned by db
 	it('Employees request columns', function(done) {
 		request('http://localhost:5000/employees' , function(error, response, body) {
 			console.log(body);
@@ -38,52 +38,19 @@ describe('Testing routes', function () {
 		});
 	});
 
+	describe('search', function() {
+		it('Location: Osterley Search: agile should return stuff', function(done) {
+			request('http://localhost:5000/search?searchTerm=agile&location=Osterley' , function(error, response, body) {
+				console.log(body);
+				done();
+			});
+		});
+	})
+	
+
 	after(done => {
 		delete require.cache[require.resolve( '../server.js' )]
 		server.closeServer();
         done()
 	});
 });
-
-// var express = require('express'); // (npm install --save express)
-// var request = require('supertest');
-
-// function createApp() {
-//   app = express();
-
-//   var router = express.Router();
-//   router.route('/').get(function(req, res) {
-//     return res.json({goodCall: true});
-//   });
-
-//   app.use(router);
-
-//   return app;
-// }
-
-// describe('Our server', function() {
-// 	var app;
-  
-// 	// Called once before any of the tests in this block begin.
-// 	before(function(done) {
-// 	  app = createApp();
-// 	  app.listen(function(err) {
-// 		if (err) { return done(err); }
-// 		done();
-// 	  });
-// 	});
-  
-// 	it('should send back a JSON object with goodCall set to true', function(done) {
-// 	  request(app)
-// 		.get('/')
-// 		.set('Content-Type', 'application/json')
-// 		.expect('Content-Type', /json/)
-// 		.expect(200, function(err, res) {
-// 		  if (err) { return done(err); }
-// 		  callStatus = res.body.goodCall;
-// 		  expect(callStatus).to.equal(true);
-// 		  // Done
-// 		  done();
-// 		});
-// 	});
-// });

@@ -32,27 +32,27 @@ var Tasks = {
 
 //In postman, call as /search?searchTerm=ddddd&location=gggg
 routes.get('/', (req, res) => {
-  console.log(req.query.location)
+  //console.log(req.query.location)
   if(req.query.location === "") {
     Tasks.searchNoLocation(req.query.searchTerm, function(err, rows){
-      if(err) {
-        res.json(err);
-      } else {
-        res.json(rows);
-      }   
+      handleResponse(res, err, rows);
     }
   );
   } else {
     Tasks.searchWithLocation(req.query.searchTerm, req.query.location, function(err, rows){
-      if(err) {
-        res.json(err);
-      } else {
-        res.json(rows);
-      }
+        handleResponse(res, err, rows);
     }
   );
   }
 
 });
+
+function handleResponse(res, err, rows) {
+  if(err) {
+    res.json(err);
+  } else {
+    res.json(rows);
+  }  
+}
   
 module.exports = routes;

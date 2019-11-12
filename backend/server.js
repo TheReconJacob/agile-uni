@@ -9,10 +9,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use('/search', searchRoutes);
 
-let server;
-
-
-
 const connection = mysql.createConnection({
   host: `agileuni-db.c0i93hgwoofe.us-east-1.rds.amazonaws.com`,
   port: '3306',
@@ -59,12 +55,10 @@ app.get('/sites', (req, res) => {
 })
 
 
-server = app.listen(port, (err) => {
+let server = app.listen(port, (err) => {
 	if(err) { console.log(err) };
 	console.log('Listening on port ' + port);	
 })
-
-
 
 
 // Note to JS learners, put module.exports before any module.exports.banana because it overwrites stuff...
