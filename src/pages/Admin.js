@@ -84,11 +84,11 @@ class Admin extends React.Component {
                 </li>
                 <li class="c-form-list__item u-width-1/2">
                 <label class="c-form-label" for="number-participants">
-          Number of participants <abbr title="This field is required" class="c-form-required">*</abbr>
+          Maximum number of participants <abbr title="This field is required" class="c-form-required">*</abbr>
         </label>
         </li>
                 <li class="c-form-list__item u-width-1/2">
-                    <input type="number" min="0" class="c-form-date" placeholder="Choose number of participants..." name="f-number-of-participants" id="f-number-of-participants" onChange={this.handleChange} required/>
+                    <input type="number" min="0" class="c-form-date" placeholder="Choose maximum number of participants..." name="f-number-of-participants" id="f-number-of-participants" onChange={this.handleChange} required/>
                   
                 </li>
 
