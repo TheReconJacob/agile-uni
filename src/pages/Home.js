@@ -13,7 +13,7 @@ function Home() {
         </div>
       </div>
 
-      <div class="o-container o-container--ee u-padding-bottom-large u-padding-top-large">
+      <div className="o-container o-container--ee u-padding-bottom-large u-padding-top-large">
         <div className="o-layout__item">
           <h2 className="c-heading-bravo">What is Agile University</h2>
           <p className="c-text-body">
