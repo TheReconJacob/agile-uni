@@ -9,24 +9,24 @@ import Footer from "./components/Footer.js"
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import Admin from "./pages/Admin";
 
-function App() {
-  return (
-    <>
-      <AzureAD provider={authProvider} forceLogin={true}>
-        <Router>
-          <Navbar />
-          <div>
-            <Route exact path="/" component={Home} />
-            <Route path="/courses" component={Courses} />
-            <Route path="/admin" component={Admin} />
-          </div>
-          <Footer />
-        </Router>
-      </AzureAD>
+// function App() {
+//   return (
+//     <>
+//       <AzureAD provider={authProvider} forceLogin={true}>
+//         <Router>
+//           <Navbar />
+//           <div>
+//             <Route exact path="/" component={Home} />
+//             <Route path="/courses" component={Courses} />
+//             <Route path="/admin" component={Admin} />
+//           </div>
+//           <Footer />
+//         </Router>
+//       </AzureAD>
 
-    </>
+//     </>
     
-  );
+//   );
 var base64 = require('base-64');
 var utf8 = require('utf8');
 
@@ -46,7 +46,7 @@ class App extends React.Component {
       if (roles.includes('admin')) {
         this.state.admin = true;
       }
-      console.log(this.state.admin);
+      console.log("This is admin boolean " + this.state.admin);
     }
   }
 
@@ -80,6 +80,7 @@ class App extends React.Component {
             <div>
               <Route exact path="/" component={Home} />
               <Route path="/courses" component={Courses} />
+              <Route path="/admin" component={Admin} />
             </div>
             {adminComponent}
             <Footer />
@@ -91,6 +92,6 @@ class App extends React.Component {
     );
   }
 }
-}
+// }
 
 export default App;
