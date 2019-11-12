@@ -1,6 +1,5 @@
 var expect  = require('chai').expect;
 var request = require('request');
-const mysql = require('mysql')
 
 it('Main page content', function(done) {
     request('http://localhost:5000' , function(error, response, body) {

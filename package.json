@@ -6,6 +6,7 @@
     "@sky-uk/molecules": "^47.0.3",
     "@sky-uk/skycons": "^1.5.1",
     "@sky-uk/toolkit-react": "^23.25.0",
+    "base-64": "^0.1.0",
     "core-js": "^3.3.6",
     "draft-js": "^0.11.2",
     "marked": "^0.7.0",
@@ -22,12 +23,13 @@
     "react-scripts": "3.2.0",
     "sky-toolkit": "^2.34.0",
     "styled-components": "^2.5.0-1",
-    "typescript": "^3.6.4"
+    "typescript": "^3.6.4",
+    "utf8": "^3.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -43,6 +45,33 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.7.1",
+    "@babel/preset-react": "^7.7.0",
+    "babel-jest": "^24.9.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^24.9.0",
+    "jest-localstorage-mock": "^2.4.0",
+    "react-test-renderer": "^16.11.0"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "./src/localStorageMock.js"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/test/__mocks__/fileMock.js",
+      "\\.(scss|css|less)$": "identity-obj-proxy"
+    }
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
     ]
   }
 }

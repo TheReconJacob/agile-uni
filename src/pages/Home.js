@@ -1,7 +1,5 @@
 import React from "react";
 import "../App.scss";
-import { Hero } from "@sky-uk/toolkit-react";
-import picture from "../images/hero.jpg";
 import SearchBar from "../components/SearchBar.js";
 import "../styles/home.scss";
 
