@@ -22,7 +22,10 @@ class Courses extends React.Component {
     const parentId = "1";
     let adminComponent;
     if (this.props.adminStatus) {
-      adminComponent = <h1>let's add a course!</h1>;
+      adminComponent = <button class="c-btn c-btn--primary c-btn--full u-margin-bottom">
+                          <img class="c-btn__icon" src="https://www.sky.com/assets/toolkit/docs/buttons/example.svg" alt="Example Icon" />
+                          Add a new course
+                        </button>
     }
 
     return (
@@ -37,7 +40,7 @@ class Courses extends React.Component {
 
         <div className="o-container course-page-accordion">
           <div className="o-layout">
-            {adminComponent}
+           
             <Accordion
               id={parentId}
               collapseOnToggle
@@ -45,6 +48,8 @@ class Courses extends React.Component {
               updateSelection={this.updateAccordionSelection}
               isNested="true"
             >
+
+              {adminComponent}
               <AccordionSection
                 className="accordion-section"
                 id="1"
