@@ -1,6 +1,5 @@
 import React from "react";
 import SearchBar from "../components/SearchBar";
-import DatePicker from "react-datepicker";
 import "../styles/admin.scss";
 import Quill from "../components/Quill";
 

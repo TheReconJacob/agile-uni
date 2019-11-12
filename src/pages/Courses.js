@@ -25,13 +25,13 @@ class Courses extends React.Component {
     let adminEditComponent;
     if (this.props.adminStatus) {
       adminAddComponent = <a href="/admin">
-                            <button class="c-btn c-btn--primary c-btn--full u-margin-bottom">
-                                <img class="c-btn__icon" src="https://www.sky.com/assets/toolkit/docs/buttons/example.svg" alt="Example Icon" />
+                            <button className="c-btn c-btn--primary c-btn--full u-margin-bottom">
+                                <img className="c-btn__icon" src="https://www.sky.com/assets/toolkit/docs/buttons/example.svg" alt="Example Icon" />
                                 Add a new course
                             </button>
                           </a>;
-      adminDeleteComponent = <a href="#" class="accordion-button c-btn c-btn--primary u-margin-right">Delete</a>;
-      adminEditComponent = <a href="/admin" class="accordion-button c-btn c-btn--primary u-margin-right">Edit</a>;
+      adminDeleteComponent = <a href="courses" className="accordion-button c-btn c-btn--primary u-margin-right">Delete</a>;
+      adminEditComponent = <a href="/admin" className="accordion-button c-btn c-btn--primary u-margin-right">Edit</a>;
     }
 
     return (
@@ -62,8 +62,8 @@ class Courses extends React.Component {
                     Description
                   </p>
                   <div className="accordion-button-box">
-                    <a href="mailto:agileuniversity@sky.uk" class="accordion-button c-btn c-btn--primary u-margin-right">Request more information</a>
-                    <a href="#" class="accordion-button c-btn c-btn--primary u-margin-right">Book now</a>
+                    <a href="mailto:agileuniversity@sky.uk" className="accordion-button c-btn c-btn--primary u-margin-right">Request more information</a>
+                    <a href="/courses" className="accordion-button c-btn c-btn--primary u-margin-right">Book now</a>
                     {adminDeleteComponent}
                     {adminEditComponent}
                   </div>
