@@ -1,12 +1,14 @@
 const express = require('express');
 const app = express();
 const port = 5000;
-const mysql = require('mysql')
-const fs = require('fs')
+const mysql = require('mysql');
+const fs = require('fs');
 const searchRoutes = require('./routes/search.js');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use('/search', searchRoutes);
+let server;
+
 
 
 const connection = mysql.createConnection({
@@ -22,18 +24,20 @@ connection.connect(function(err) {
 		throw err;
 	} else {
 		console.log('db connection successful')
+		app.emit( "app_started" )
 	}
 });
 
-
-
+app.get('/', (req, res) => {
+	res.send('Hello World')
+})
 
 //'SELECT * FROM users WHERE id = ?', [userId]
 app.get('/employees', (req, res) => {
 	connection.query('SELECT * FROM employees LIMIT 1', function(err, rows, fields) {
 		if (err) throw err;
 		console.log(rows);
-		res.send(rows)
+		res.send(rows);
 	})
 })
 
@@ -53,11 +57,17 @@ app.get('/sites', (req, res) => {
 })
 
 
-app.listen(port, (err) => {
+server = app.listen(port, (err) => {
 	if(err) { console.log(err) };
-	console.log('Listening on port ' + port);
+	console.log('Listening on port ' + port);	
 })
 
 
 
-//export const connection;
+
+// Note to JS learners, put module.exports before any module.exports.banana because it overwrites stuff...
+module.exports = app;
+module.exports.SimpleMessage = 'Hello world';
+module.exports.closeServer = function(){
+	server.close();
+};
