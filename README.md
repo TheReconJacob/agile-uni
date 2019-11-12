@@ -20,8 +20,3 @@ Run `npm start` in the backend folder and then `npm test` in the same folder
 
 See more info: https://github.com/zenoamaro/react-quill#theme
 
-## JWT verification
-
-'npm i idtoken-verifier'
-
-See https://www.npmjs.com/package/idtoken-verifier
