@@ -1,14 +1,8 @@
 const routes = require('express').Router();
 const mysql = require('mysql')
 const fs = require('fs')
-// const connection = mysql.createConnection({
-//   host: `agileuni-db.c0i93hgwoofe.us-east-1.rds.amazonaws.com`,
-//   port: '3306',
-//   user: 'admin',
-//   password: fs.readFileSync('../dbPassword', 'UTF-8'),
-//   database: 'AGILEUNI'
-// })
-const connection=require('../dbconnection');
+const config = require('../_config');
+const connection=mysql.createPool(config.mysqlConfig);
 
 var Tasks = { 
   searchWithLocation:function(searchTerm, location, callback) {

@@ -38,10 +38,12 @@ describe('Tests routing of ', function () {
 		});
 	});
 
+	//Uses real database
 	describe('search', function() {
 		it('Location: Osterley Search: agile should return stuff', function(done) {
 			request('http://localhost:5000/search?searchTerm=agile&location=Osterley' , function(error, response, body) {
 				console.log(body);
+				expect(JSON.parse(body)[0])
 				done();
 			});
 		});
