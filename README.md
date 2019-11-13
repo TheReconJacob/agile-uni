@@ -13,3 +13,10 @@ To access this run `git-crypt unlock <path to key>`
 Currently the server needs to be running before you can run the tets. We'll fix it eventually.
 
 Run `npm start` in the backend folder and then `npm test` in the same folder
+
+## Text editor
+
+`npm install react-quill`
+
+See more info: https://github.com/zenoamaro/react-quill#theme
+
