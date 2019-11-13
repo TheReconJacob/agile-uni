@@ -9,6 +9,7 @@ import Footer from "./components/Footer.js"
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import Admin from "./pages/Admin";
 
+var jwt = require('jsonwebtoken');
 var base64 = require('base-64');
 var utf8 = require('utf8');
 const oicdUrl = "https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration"
@@ -49,7 +50,9 @@ class App extends React.Component {
 
   async getSigningKey() {
     const token = await authProvider.getAccessToken()
-    console.log(token);
+    const decodedToken = jwt.decode(token.accessToken)
+    const kid = decodedToken.kid
+    console.log(decodedToken);
   }
 
   async getJwksUrl() {
@@ -62,21 +65,6 @@ class App extends React.Component {
     const jwksJson = await jwksRes.json()
     console.log(jwksJson.keys)
 
-    // fetch(oicdUrl)
-    // .then(response => response.json())
-    // .then(data => {
-    //   const jwksUri = data.jwks_uri
-    //   return fetch(jwksUri)
-    // })
-    // .then(response => response.json())    
-    // .then(data => {
-    //   if (!data || !data.keys.length) {
-    //     return console.error("JWKS endpoint doesn't contain keys check OICD url")
-    //   }
-    //   console.log(data.keys)
-    //   return data.keys
-    // })
-    // .catch(error => console.error(error))
   }
 
   // verifyAccessToken() {
