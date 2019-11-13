@@ -20,35 +20,36 @@ class SearchBar extends Component {
       <div className="o-container">
         <form>
           <fieldset>
-            <ul class="c-form-list o-layout--spaced">
-              <li class="c-form-list">
+            <ul className="c-form-list o-layout--spaced">
+              <li className="c-form-list">
                 <select
                   id="f-sites"
                   name="site"
-                  class="c-form-select__dropdown--inline o-layout__item u-width-1/4"
+                  className="c-form-select__dropdown--inline o-layout__item u-width-1/4"
                   onChange={this.handleChange}
                   style={{ height: 39 }}
+                  defaultValue={'DEFAULT'}
                 >
-                  <option value="" disabled selected>
+                  <option value="DEFAULT" disabled>
                     Location
-                </option>
+                  </option>
                   <option value="Osterley">Osterley</option>
                   <option value="Leeds">Leeds</option>
                   <option value="Livingston">Livingston</option>
                 </select>
-                <div class="c-form-combo--inline o-layout__item u-width-3/4">
-                  <div class="c-form-combo__cell">
+                <div className="c-form-combo--inline o-layout__item u-width-3/4">
+                  <div className="c-form-combo__cell">
                     <input
                       type="text"
                       name="searchTerm"
-                      class="c-form-combo__input c-form-input"
+                      className="c-form-combo__input c-form-input"
                       placeholder="Search for your next course"
                       id="f-combo"
                       onChange={this.handleChange}
                     />
                   </div>
-                  <div class="c-form-combo__cell">
-                    <button class="c-form-combo__btn c-btn c-btn--primary">
+                  <div className="c-form-combo__cell">
+                    <button className="c-form-combo__btn c-btn c-btn--primary">
                       Search
                   </button>
                   </div>
