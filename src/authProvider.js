@@ -52,3 +52,4 @@ export const authProvider = new MsalAuthProvider(
   },
   LoginType.Redirect
 );
+

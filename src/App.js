@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.scss";
-import { AzureAD } from "react-aad-msal";
+import { AzureAD} from "react-aad-msal";
 import { authProvider } from "./authProvider";
 import Courses from "./pages/Courses";
 import Home from "./pages/Home";
@@ -10,6 +10,21 @@ import { Route, BrowserRouter as Router } from "react-router-dom";
 import Admin from "./pages/Admin";
 var base64 = require('base-64');
 var utf8 = require('utf8');
+
+  // trying new method here
+  
+  const request = async url => {
+    const token = await authProvider.getAccessToken();
+  
+    return fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + token.accessToken,
+        'Content-Type': 'application/json',
+      },
+    });
+  };
+  // end of new method
 
 class App extends React.Component {
   constructor(props) {
