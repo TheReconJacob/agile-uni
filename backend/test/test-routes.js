@@ -53,8 +53,8 @@ describe('Running app and testing data routes', function () {
 	describe('Search functions', function() {
 		it('Location: Osterley, Search: agile, should return stuff', function(done) {
 			request('http://localhost:5000/search?searchTerm=agile&location=Osterley' , function(error, response, body) {
-				//console.log(body);
-				expect(JSON.parse(body)[0])/// What do we expect? Mocked data, temporary database?
+				console.log(body);
+				expect(JSON.parse(body)['courses']['responseJson'][0]).to.have.all.keys('course_id', 'title', 'description', 'start_date', 'end_date', 'attendees_max', 'attendees_booked', 'location', 'site_id', 'instructor_id', 'id', 'address', 'name');
 				done();
 			});
 		});
