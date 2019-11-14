@@ -3,7 +3,8 @@ const allEmployees = require('./fake-data/all-employees')
 const allSites = require('./fake-data/all-sites')
 const searchNoParam = require('./fake-data/search-no-parameters')
 const searchAgileOsterley = require('./fake-data/search-agile-osterley')
-const searchCulture = require('./fake-data/search-culture')
+const searchOsterley = require('./fake-data/search-osterley')
+const searchAgile = require('./fake-data/search-agile')
 
 const Data = {};
 
@@ -23,16 +24,16 @@ Data.searchCoursesNoLocation = (searchTerm, callback) => {
     if(searchTerm === "") {
         callback(null, { status: 200, responseJson: searchNoParam})
     }
-    if(searchTerm === "culture") {
-        callback(null, { status: 200, responseJson: searchCulture})
+    if(searchTerm === "agile") {
+        callback(null, { status: 200, responseJson: searchAgile})
     }
 }
 
 Data.searchCoursesWithLocation = (searchTerm, location, callback) => {
-    if(location === "Osterley") {
-        callback(null, { status: 200, responseJson: searchAgileOsterley})
+    if(location === "Osterley" && searchTerm === "") {
+        callback(null, { status: 200, responseJson: searchOsterley})
     }
-    if(location === "Leeds") {
+    else if(location === "Osterley" && searchTerm === "agile") {
         callback(null, { status: 200, responseJson: searchAgileOsterley})
     }
 }

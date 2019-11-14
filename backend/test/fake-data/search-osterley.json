@@ -43,35 +43,5 @@
         "id": 1,
         "name": "Osterley",
         "address": "Sky Central\nGrant Way\nIsleworth\nMiddlesex\nSky"
-    },
-    {
-        "course_id": 3,
-        "title": "The culture of devops",
-        "description": "Explaining something",
-        "start_date": "0000-00-00 00:00:00",
-        "end_date": "0000-00-00 00:00:00",
-        "attendees_max": 555,
-        "attendees_booked": 55,
-        "location": "Central 2.2",
-        "site_id": 1,
-        "instructor_id": 1,
-        "id": 2,
-        "name": "Leeds",
-        "address": "SomeAddress"
-    },
-    {
-        "course_id": 4,
-        "title": "Devops is cool",
-        "description": "Explaining something",
-        "start_date": "0000-00-00 00:00:00",
-        "end_date": "0000-00-00 00:00:00",
-        "attendees_max": 555,
-        "attendees_booked": 55,
-        "location": "Central 2.2",
-        "site_id": 1,
-        "instructor_id": 1,
-        "id": 2,
-        "name": "Leeds",
-        "address": "SomeAddress"
     }
 ]
