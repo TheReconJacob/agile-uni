@@ -1,0 +1,32 @@
+[
+    {
+        "course_id": 2,
+        "title": "Agile isn't just a culture",
+        "description": "Explaining something",
+        "start_date": "0000-00-00 00:00:00",
+        "end_date": "0000-00-00 00:00:00",
+        "attendees_max": 555,
+        "attendees_booked": 55,
+        "location": "Central 2.2",
+        "site_id": 1,
+        "instructor_id": 1,
+        "id": 1,
+        "name": "Osterley",
+        "address": "Sky Central\nGrant Way\nIsleworth\nMiddlesex\nSky"
+    },
+    {
+        "course_id": 3,
+        "title": "The culture of devops",
+        "description": "Explaining something",
+        "start_date": "0000-00-00 00:00:00",
+        "end_date": "0000-00-00 00:00:00",
+        "attendees_max": 555,
+        "attendees_booked": 55,
+        "location": "Central 2.2",
+        "site_id": 1,
+        "instructor_id": 1,
+        "id": 2,
+        "name": "Leeds",
+        "address": "SomeAddress"
+    }
+]

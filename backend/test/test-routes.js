@@ -1,7 +1,5 @@
-//app.settings.env = 'test';
 const expect = require('chai').expect;
 const request = require('request');
-const search = require('../routes/search.js')
 let server;
 
 
@@ -23,7 +21,6 @@ describe('Running app and testing data routes', function () {
 			});
 		});
 
-		//Testing json returned by db
 		it('Columns of employee data are correct', function (done) {
 			request('http://localhost:5000/employees', function (error, response, body) {
 				const rows = JSON.parse(body)['employees']['responseJson'];
@@ -49,7 +46,6 @@ describe('Running app and testing data routes', function () {
 		});
 	});
 
-	//Uses real database
 	describe('Search functions', function () {
 		it('Location: Osterley, Search: agile, should return stuff', function (done) {
 			request('http://localhost:5000/search?searchTerm=agile&location=Osterley', function (error, response, body) {
