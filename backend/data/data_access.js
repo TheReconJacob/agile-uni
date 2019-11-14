@@ -69,8 +69,8 @@ Data.listAllCourses = (callback) => {
 	})	
 }
 
-Data.addCourse = (callback) => {
-	connection.query("", function(err, rows, fields) {
+Data.addCourse = (title, location, startDate, endDate, attendeesMax, description, callback) => {
+	connection.query("INSERT INTO courses (title, location, start_date, end_date, attendees_max, description)", ['%'.concat(title, '%'), location, startDate, endDate, attendeesMax, '%'.concat(description, '%')], function(err, rows, fields) {
 		if (err) {
 			return callback(err)
 		}
