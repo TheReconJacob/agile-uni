@@ -62,6 +62,7 @@ Data.searchCoursesWithLocation = (searchTerm, location, callback) => {
 
 Data.listAllCourses = (callback) => {
 	connection.query("SELECT * FROM courses INNER JOIN sites ON courses.site_id = sites.id", function(err, rows) {
+
 		if (err) {
 			return callback(err)
 		}
