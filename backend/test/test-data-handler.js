@@ -6,6 +6,8 @@ const { mockRequest, mockResponse } = require('mock-req-res')
 const req = mockRequest({ query: { searchTerm: 'agile', location: 'Osterley' }})
 const res = mockResponse();
 
+const request = mockRequest();
+
 describe('Testing data handler', function () { 
     describe('getCourses', function () { 
         it('should return all courses', function (done) { 
@@ -29,7 +31,7 @@ describe('Testing listAllCourses', function () {
     describe('listAllCourses', function () { 
         it('should return a list of all courses with their locations', function (done) { 
             
-            dataHandler.listAllCourses(Data)(req, (err, result) => {
+            dataHandler.listAllCourses(Data)(request, (err, result) => {
                 
                 if (err) {
                   res.status(500)
