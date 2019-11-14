@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-const allCourses = require('./fake-data/all-courses')
-const allEmployees = require('./fake-data/all-employees')
-const allSites = require('./fake-data/all-sites')
-=======
 const allCourses = require("./fake-data/all-courses");
 const allEmployees = require("./fake-data/all-employees");
 const allSites = require("./fake-data/all-sites");
@@ -10,7 +5,6 @@ const searchNoParam = require("./fake-data/search-no-parameters");
 const searchAgileOsterley = require("./fake-data/search-agile-osterley");
 const searchOsterley = require("./fake-data/search-osterley");
 const searchAgile = require("./fake-data/search-agile");
->>>>>>> cf198bd7b4ee54bf8ad8af23e13ad98bc6b69096
 
 const Data = {};
 
@@ -40,16 +34,6 @@ Data.searchCoursesNoLocation = (searchTerm, callback) => {
 };
 
 Data.searchCoursesWithLocation = (searchTerm, location, callback) => {
-<<<<<<< HEAD
-	
-}
-
-Data.listAllCourses = (callback) => {
-    callback(null, { status: 200, responseJson: allCourses})
-}
-
-module.exports = Data;
-=======
   if (location === "Osterley" && searchTerm === "") {
     callback(null, { status: 200, responseJson: searchOsterley });
   } else if (location === "Osterley" && searchTerm === "agile") {
@@ -58,4 +42,3 @@ module.exports = Data;
 };
 
 module.exports = Data;
->>>>>>> cf198bd7b4ee54bf8ad8af23e13ad98bc6b69096
