@@ -64,6 +64,15 @@ module.exports.listAllCourses = (DataAccess) => (req, callback) => {
   })
 };
 
+module.exports.addCourse = (DataAccess) => (req, callback) => {
+
+  DataAccess.addCourse((err, courseDetails) => {
+    if (err) {
+      return callback(err)
+    }
+    callback(null, {status: 200, responseJson: { courseDetails: coursedetails }})
+  })
+};
 
 
 // if(req.query.location === "") {

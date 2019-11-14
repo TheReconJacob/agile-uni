@@ -69,4 +69,13 @@ Data.listAllCourses = (callback) => {
 	})	
 }
 
+Data.addCourse = (callback) => {
+	connection.query("", function(err, rows, fields) {
+		if (err) {
+			return callback(err)
+		}
+		callback(null, { status: 200, responseJson: rows})
+	})
+}
+
 module.exports = Data;
