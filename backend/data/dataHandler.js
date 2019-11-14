@@ -66,14 +66,13 @@ module.exports.listAllCourses = (DataAccess) => (req, callback) => {
 
 module.exports.addCourse = (DataAccess) => (req, callback) => {
 
-  DataAccess.addCourse((err, courseDetails) => {
+  DataAccess.addCourse(req.query.title, req.query.location, req.query.startDate, req.query.endDate, req.query.attendeesMax, req.query.description, req.query.description, (err, courses) => {
     if (err) {
       return callback(err)
     }
-    callback(null, {status: 200, responseJson: { courseDetails: coursedetails }})
+    callback(null, {status: 200, responseJson: { courses:courses }})
   })
 };
-
 
 // if(req.query.location === "") {
 //   Tasks.searchNoLocation(req.query.searchTerm, function(err, rows){
