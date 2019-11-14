@@ -71,6 +71,17 @@ app.get('/search', (req, res) => {
 	})
 })
 
+app.get('/listAllCourses', (req, res) => {
+	dataHandler.listAllCourses(Data)(req, (err, result) => {
+		if (err) {
+		  res.status(500)
+		  return res.json({ message: err.message })
+		}
+		res.status(result.status)
+		return res.json(result.responseJson)
+	})
+})
+
 
 let server = app.listen(port, (err) => {
 	if(err) { console.log(err) };
