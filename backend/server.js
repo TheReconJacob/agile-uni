@@ -3,7 +3,7 @@ const mysql = require('mysql')
 	  express = require('express'),
 	  app = express(),
 	  port = 5000,
-	  searchRoutes = require('./routes/search.js'),
+	  //searchRoutes = require('./routes/search.js'),
 	  config = require('./data/_config');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

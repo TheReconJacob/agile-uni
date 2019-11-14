@@ -2,13 +2,11 @@
 // This is the request handler.
 // We pass Users as a parameter, but do not require it.
 module.exports.getCourses = (DataAccess) => (req, callback) => {
-    console.log("Is this working?")
     // Here, we call the data access layer.
     DataAccess.getAllCourses((err, courses) => {
       if (err) {
         return callback(err)
       }
-      console.log(courses)
       callback(null, { status: 200, responseJson: { courses: courses }})
     })
 };
@@ -34,7 +32,6 @@ module.exports.getSites = (DataAccess) => (req, callback) => {
 };
 
 module.exports.searchCourses = (DataAccess) => (req, callback) => {
-  //console.log(req);
   if(req.query.location === "") {
     DataAccess.searchCoursesNoLocation(req.query.searchTerm, (err, courses) => {
       if (err) {
