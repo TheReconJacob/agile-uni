@@ -1,6 +1,5 @@
 const expect = require('chai').expect;
 const request = require('request');
-const search = require('../routes/search.js')
 let server;
 
 
