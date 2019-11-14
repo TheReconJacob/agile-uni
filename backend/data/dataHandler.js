@@ -12,7 +12,7 @@ module.exports.getCourses = (DataAccess) => (req, callback) => {
 };
 
 module.exports.getEmployees = DataAccess => (req, callback) => {
-  DataAccess.getAllEmployees((err, employees) => {
+  DataAccess.getAllEmployees((err, employeesgit ) => {
     if (err) {
       return callback(err);
     }
@@ -30,7 +30,6 @@ module.exports.getSites = DataAccess => (req, callback) => {
 };
 
 module.exports.searchCourses = DataAccess => (req, callback) => {
-  //console.log(req);
   if (!req.query.location) {
     DataAccess.searchCoursesNoLocation(req.query.searchTerm, (err, courses) => {
       if (err) {
@@ -52,13 +51,3 @@ module.exports.searchCourses = DataAccess => (req, callback) => {
     );
   }
 };
-
-// if(req.query.location === "") {
-//   Tasks.searchNoLocation(req.query.searchTerm, function(err, rows){
-//     handleResponse(res, err, rows);
-//   });
-// } else {
-//   Tasks.searchWithLocation(req.query.searchTerm, req.query.location, function(err, rows){
-//       handleResponse(res, err, rows);
-//   });
-// }
