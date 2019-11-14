@@ -9,7 +9,8 @@ import Footer from "./components/Footer.js"
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import Admin from "./pages/Admin";
 
-var jwt = require('jsonwebtoken');
+// var jwt = require('jsonwebtoken');
+// const jwksClient = require('jwks-rsa')
 var base64 = require('base-64');
 var utf8 = require('utf8');
 const oicdUrl = "https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration"
@@ -50,22 +51,36 @@ class App extends React.Component {
 
   async getSigningKey() {
     const token = await authProvider.getAccessToken()
-    const decodedToken = jwt.decode(token.accessToken)
-    const kid = decodedToken.kid
-    console.log(decodedToken);
+    console.log(token.accessToken);
+
+    // const decodedToken = jwt.decode(token.scopes)
+    // const kid = decodedToken.kid
+    // console.log(decodedToken);
   }
 
-  async getJwksUrl() {
-
-    //do error handling
-    const oicdRes = await fetch(oicdUrl)
-    const oicdJson = await oicdRes.json()
-    const jwksUri = oicdJson.jwks_uri
-    const jwksRes = await fetch(jwksUri)
-    const jwksJson = await jwksRes.json()
-    console.log(jwksJson.keys)
-
+  async getIdToken() {
+    const token = await authProvider.getIdToken()
+    console.log(token)
+    // const decodedToken = jwt.decode(token)
+    // const kid = decodedToken.kid
+    // console.log(decodedToken);
   }
+
+
+
+  // async getJwksUrl() {
+
+  //   //do error handling
+  //   const oicdRes = await fetch(oicdUrl)
+  //   const oicdJson = await oicdRes.json()
+  //   return jwksUri = oicdJson.jwks_uri
+  //   // const jwksRes = await fetch(jwksUri)
+  //   // const jwksJson = await jwksRes.json()
+  //   // console.log(jwksJson.keys)
+
+  // }
+
+
 
   // verifyAccessToken() {
   //   const token = await authProvider.getAccessToken();
@@ -103,8 +118,9 @@ class App extends React.Component {
     let adminComponent;
     let adminAddCourse;
     var adminS = this.state.admin;
-    this.getJwksUrl()
-    this.getSigningKey()
+    // this.getJwksUrl()
+    // this.getSigningKey()
+    // this.getIdToken()
     if (this.state.admin) {
       adminComponent = <h1>HELLO ADMIN</h1>;
       adminAddCourse = <Route path="/admin" component={Admin} />;
@@ -123,7 +139,6 @@ class App extends React.Component {
             <Footer />
           </Router>
         </AzureAD>
-
       </>
 
     );
