@@ -1,7 +1,5 @@
-//app.settings.env = 'test';
 const expect = require('chai').expect;
 const request = require('request');
-const search = require('../routes/search.js')
 let server;
 
 
@@ -23,7 +21,6 @@ describe('Running app and testing data routes', function () {
 			});
 		});
 
-		//Testing json returned by db
 		it('Columns of employee data are correct', function (done) {
 			request('http://localhost:5000/employees', function (error, response, body) {
 				const rows = JSON.parse(body)['employees']['responseJson'];
@@ -35,7 +32,7 @@ describe('Running app and testing data routes', function () {
 		it('Columns of courses data are correct', function (done) {
 			request('http://localhost:5000/courses', function (error, response, body) {
 				const rows = JSON.parse(body)['courses']['responseJson'];
-				expect(rows[0]).to.have.all.keys('course_id', 'title', 'description', 'start_date', 'end_date', 'attendees_max', 'attendees_booked', 'location', 'site_id', 'instructor_id');
+				expect(rows[0]).to.have.all.keys('course_id', 'title', 'description', 'start_date', 'end_date', 'attendees_max', 'attendees_booked', 'location', 'site_id', 'instructor_id', 'is_fun');
 				done();
 			});
 		});
@@ -49,20 +46,31 @@ describe('Running app and testing data routes', function () {
 		});
 	});
 
-	//Uses real database
 	describe('Search functions', function () {
 		it('Location: Osterley, Search: agile, should return stuff', function (done) {
 			request('http://localhost:5000/search?searchTerm=agile&location=Osterley', function (error, response, body) {
-				expect(JSON.parse(body)['courses']['responseJson'][0]).to.have.all.keys('course_id', 'title', 'description', 'start_date', 'end_date', 'attendees_max', 'attendees_booked', 'location', 'site_id', 'instructor_id', 'id', 'address', 'name');
+				expect(JSON.parse(body)['courses']['responseJson'][0]).to.have.all.keys('course_id', 'title', 'description', 'start_date', 'end_date', 'attendees_max', 'attendees_booked', 'location', 'site_id', 'instructor_id', 'is_fun', 'id', 'address', 'name');
 				done();
 			});
 		});
-	})
+	});
 
+	describe('List all courses', function() {
+		it('List all courses should match the specificed keys', function(done) { request('http://localhost:5000/listAllCourses', function (error, response, body) {
+				const rows = JSON.parse(body)['courses']['responseJson'];
+				expect(rows[0]).to.have.all.keys('course_id', 'title', 'description', 'start_date', 'end_date', 'attendees_max', 'attendees_booked', 'location', 'site_id', 'instructor_id', 'is_fun', 'id', 'name', 'address');
+				done();
+			})
+		
+			});
+	});
 
 	after(done => {
 		delete require.cache[require.resolve('../server.js')]
 		server.closeServer();
 		done()
 	});
+
+	
+
 });
