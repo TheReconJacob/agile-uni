@@ -42,7 +42,7 @@ Data.searchCoursesWithLocation = (searchTerm, location, callback) => {
   }
 };
 
-// Data.deleteCourse = (courseId, callback) => {
-//     callback(null, { status: 200, responseJson: deleteExample });
-// };
+Data.deleteCourse = (courseId, callback) => {
+    callback(null, { status: 200, responseJson: deleteExample });
+};
 module.exports = Data;
