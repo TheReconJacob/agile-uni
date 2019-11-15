@@ -20,7 +20,7 @@ class App extends React.Component {
     };
 
     this.getRoles().then(roles => {
-      if (roles.includes('admin')){
+      if (roles != null && roles.includes('admin')){
         this.setState({
           admin: true
         });
@@ -33,11 +33,12 @@ class App extends React.Component {
     const idToken = token.idToken.rawIdToken;
     const decodedToken = jwt.decode(idToken);
 
-    if (idToken != null) {
+    if (decodedToken.roles != undefined) {
       console.log('Returning roles');
       return decodedToken.roles;
     } else {
-      console.log('Failed to obtain token')
+      console.log('No specific role - general user')
+      return null
     }
   }
 
