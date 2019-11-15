@@ -33,7 +33,7 @@ class App extends React.Component {
     const idToken = token.idToken.rawIdToken;
     const decodedToken = jwt.decode(idToken);
 
-    if (decodedToken.roles != undefined) {
+    if (decodedToken.roles !== undefined) {
       console.log('Returning roles');
       return decodedToken.roles;
     } else {
