@@ -3,15 +3,11 @@ const mysql = require('mysql')
 	  express = require('express'),
 	  app = express(),
 	  port = 5000,
-	  //searchRoutes = require('./routes/search.js'),
 	  config = require('./data/_config');
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-//app.use('/search', searchRoutes);
-const jwt = require('express-jwt');
-const jwksRsa = require('jwks-rsa');
 
 const Data = require("./data/data_access.js");
 const dataHandler = require("./data/dataHandler.js");
