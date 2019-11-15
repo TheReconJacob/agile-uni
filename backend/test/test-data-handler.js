@@ -106,9 +106,9 @@ describe("Testing data handler", function() {
       done();
     });
   });
-  describe("Testing deleteCourse", function() {
-    it("deletes course by courseId", function(done){
-      const req = mockRequest({ query: { courseId:"11"} });
-    })
-  });
+  // describe("Testing deleteCourse", function() {
+  //   it("deletes course by courseId", function(done){
+  //     const req = mockRequest({ query: { courseId:"11"} });
+  //   })
+  // });
 });
