@@ -6,8 +6,6 @@ const mysql = require('mysql')
 	  config = require('./data/_config');
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 
 const Data = require("./data/data_access.js");
 const dataHandler = require("./data/dataHandler.js");
