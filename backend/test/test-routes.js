@@ -152,8 +152,7 @@ describe("Delete a course", function() {
       expect(rows[0]).to.have.header(
         "affectedRows", 1);
       expect(rows[0]).to.have.header(
-        "changedRows", 0
-      );
+        "changedRows", 0);
       done();
     });
   });
