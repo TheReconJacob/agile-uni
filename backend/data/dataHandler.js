@@ -61,3 +61,13 @@ module.exports.listAllCourses = (DataAccess) => (req, callback) => {
     callback(null, { status: 200, responseJson: { courses: courses }})
   })
 };
+
+module.exports.deleteCourse = (DataAccess) => (req, callback) => {
+    
+  DataAccess.deleteCourse(req.query.courseId, (err, courses) => {
+    if (err) {
+      return callback(err)
+    }
+    callback(null, { status: 200, responseJson: { courses: courses }})
+  })
+};
