@@ -63,11 +63,21 @@ module.exports.listAllCourses = DataAccess => (req, callback) => {
 
 module.exports.editCourse = DataAccess => (req, callback) => {
   const body = req.body;
-  const parameters = [body.title, body.description, body.start_date, body.end_date, body.attendees_max, body.location, body.site_id, body.instructor_id, body.id];
-  DataAccess.editCourse(parameters, (err, success) => {
+  const parameters = [
+    body.title,
+    body.description,
+    body.start_date,
+    body.end_date,
+    body.attendees_max,
+    body.location,
+    body.site_id,
+    body.instructor_id,
+    body.id
+  ];
+  DataAccess.editCourse(parameters, err => {
     if (err) {
       return callback(err);
     }
-    callback(null, { status: 200, responseJson: { success: success } });
+    callback(null, { status: 200 });
   });
 };

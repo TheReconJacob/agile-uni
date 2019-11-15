@@ -1,4 +1,5 @@
 const expect = require("chai").expect;
+const { assert } = require("chai");
 const request = require("request");
 const chai = require("chai");
 var chaiHttp = require("chai-http");
@@ -63,105 +64,37 @@ describe("Running app and testing data routes", function() {
     });
   });
 
-  it("Columns of courses data are correct", function(done) {
-    request("http://localhost:5000/courses", function(error, response, body) {
-      const rows = JSON.parse(body)["courses"]["responseJson"];
-      expect(rows[0]).to.have.all.keys(
-        "course_id",
-        "title",
-        "description",
-        "start_date",
-        "end_date",
-        "attendees_max",
-        "attendees_booked",
-        "location",
-        "site_id",
-        "instructor_id"
+  describe("Search functions", function() {
+    it("Location: Osterley, Search: agile, should return stuff", function(done) {
+      request(
+        "http://localhost:5000/search?searchTerm=agile&location=Osterley",
+        function(error, response, body) {
+          expect(
+            JSON.parse(body)["courses"]["responseJson"][0]
+          ).to.have.all.keys(
+            "course_id",
+            "title",
+            "description",
+            "start_date",
+            "end_date",
+            "attendees_max",
+            "attendees_booked",
+            "location",
+            "site_id",
+            "instructor_id",
+            "id",
+            "address",
+            "name"
+          );
+          done();
+        }
       );
-      done();
     });
   });
 
-  it("Columns of sites data are correct", function(done) {
-    request("http://localhost:5000/sites", function(error, response, body) {
-      const rows = JSON.parse(body)["sites"]["responseJson"];
-      expect(rows[0]).to.have.all.keys("id", "name", "address");
-      done();
-    });
-  });
-});
-
-describe("Search functions", function() {
-  it("Location: Osterley, Search: agile, should return stuff", function(done) {
-    request(
-      "http://localhost:5000/search?searchTerm=agile&location=Osterley",
-      function(error, response, body) {
-        expect(JSON.parse(body)["courses"]["responseJson"][0]).to.have.all.keys(
-          "course_id",
-          "title",
-          "description",
-          "start_date",
-          "end_date",
-          "attendees_max",
-          "attendees_booked",
-          "location",
-          "site_id",
-          "instructor_id",
-          "id",
-          "address",
-          "name"
-        );
-        done();
-      }
-    );
-  });
-});
-
-describe("List all courses", function() {
-  it("List all courses should match the specificed keys", function(done) {
-    request("http://localhost:5000/listAllCourses", function(
-      error,
-      response,
-      body
-    ) {
-      const rows = JSON.parse(body)["courses"]["responseJson"];
-      expect(rows[0]).to.have.all.keys(
-        "course_id",
-        "title",
-        "description",
-        "start_date",
-        "end_date",
-        "attendees_max",
-        "attendees_booked",
-        "location",
-        "site_id",
-        "instructor_id",
-        "id",
-        "name",
-        "address"
-      );
-      done();
-    });
-  });
-});
-
-describe("Update a course", function() {
-  it("Fields for one row of the course table should be updated with new data", function(done) {
-    chai
-      .request("http://localhost:5000")
-      .post("/editCourse")
-      .send({
-        id: 3,
-        title: "test11",
-        description: "%things%",
-        start_date: "0000-00-00 00:00:00",
-        end_date: null,
-        attendees_max: 100,
-        location: "Osterley",
-        site_id: 1,
-        instructor_id: 1
-      })
-      .request("http://localhost:5000/listAllCourses", function(
+  describe("List all courses", function() {
+    it("List all courses should match the specificed keys", function(done) {
+      request("http://localhost:5000/listAllCourses", function(
         error,
         response,
         body
@@ -182,13 +115,37 @@ describe("Update a course", function() {
           "name",
           "address"
         );
+        done();
       });
+    });
+  });
+
+  describe("Update a course", function() {
+    it("Fields for one row of the course table should be updated with new data", function(done) {
+      chai
+        .request("http://localhost:5000")
+        .post("/editCourse")
+        .send({
+          id: 3,
+          title: "test15",
+          description: "%thhnjnk%",
+          start_date: "0000-00-00 00:00:00",
+          end_date: null,
+          attendees_max: 100,
+          location: "Osterley",
+          site_id: 1,
+          instructor_id: 1
+        })
+        .end(function(error, res) {
+          expect(res.status).to.equal(200);
+          done();
+        });
+    });
+  });
+
+  after(done => {
+    delete require.cache[require.resolve("../server.js")];
+    server.closeServer();
     done();
   });
-});
-
-after(done => {
-  delete require.cache[require.resolve("../server.js")];
-  server.closeServer();
-  done();
 });

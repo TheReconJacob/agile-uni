@@ -86,7 +86,7 @@ Data.editCourse = (inputs, callback) => {
       if (err) {
         return callback(err);
       }
-      callback(null, { status: 200, test: "test" });
+      callback(null, { status: 200 });
     }
   );
 };
