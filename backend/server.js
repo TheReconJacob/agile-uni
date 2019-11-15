@@ -82,7 +82,7 @@ app.get('/listAllCourses', (req, res) => {
 	})
 })
 
-app.get('/addCourse', (req, res) => {
+app.post('/addCourse', (req, res) => {
 	dataHandler.addCourse(Data)(req, (err, result) => {
 		if (err) {
 		  res.status(500)
