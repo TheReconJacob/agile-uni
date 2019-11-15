@@ -16,7 +16,8 @@ class Quill extends React.Component {
   
     render() {
       return (
-        <ReactQuill value={this.state.text} onChange={this.handleChange}>
+        <ReactQuill value={this.state.text} //onChange={this.handleChange}
+        >
           <div className="my-editing-area"/>
         </ReactQuill>
       )

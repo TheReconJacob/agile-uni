@@ -48,7 +48,8 @@ class Admin extends React.Component {
                             </label>
                         </li>
                         <li className="c-form-list__item u-width-1/2">
-                            <input type="text" className="c-form-input" placeholder="Title..." name="f-title" id="f-title" onChange={this.handleChange} required />
+                            <input type="text" className="c-form-input" placeholder="Title..." name="f-title" id="f-title" //onChange={this.handleChange} 
+                            required />
                         </li>
                         <li className="c-form-list__item u-width-1/2">
                             <label className="c-form-label">
@@ -59,8 +60,10 @@ class Admin extends React.Component {
                             </label>
                         </li>
                         <li className="c-form-list__item u-width-1/2">
-                            <input type="date" className="c-form-date c-form-combo--inline o-layout__item u-width-3/4 " placeholder="Choose a start date..." name="f-start-date" id="f-start-date" onChange={this.handleChange} required />
-                            <input type="time" className="c-form-date c-form-combo--inline o-layout__item u-width-1/4" placeholder="Choose a start time..." name="f-start-time" id="f-start-time" onChange={this.handleChange} required />
+                            <input type="date" className="c-form-date c-form-combo--inline o-layout__item u-width-3/4 " placeholder="Choose a start date..." name="f-start-date" id="f-start-date" //onChange={this.handleChange} 
+                            required />
+                            <input type="time" className="c-form-date c-form-combo--inline o-layout__item u-width-1/4" placeholder="Choose a start time..." name="f-start-time" id="f-start-time" //onChange={this.handleChange} 
+                            required />
                         </li>
                         <li className="c-form-list__item u-width-1/2">
                             <label className="c-form-label">
@@ -71,8 +74,10 @@ class Admin extends React.Component {
                             </label>
                         </li>
                         <li className="c-form-list__item u-width-1/2">
-                            <input type="date" className="c-form-date c-form-combo--inline o-layout__item u-width-3/4" placeholder="Choose an end time and date..." name="f-end-date" id="f-end-date" onChange={this.handleChange} required />
-                            <input type="time" className="c-form-date c-form-combo--inline o-layout__item u-width-1/4" placeholder="Choose an end time..." name="f-end-time" id="f-end-time" onChange={this.handleChange} required />
+                            <input type="date" className="c-form-date c-form-combo--inline o-layout__item u-width-3/4" placeholder="Choose an end time and date..." name="f-end-date" id="f-end-date" //onChange={this.handleChange} 
+                            required />
+                            <input type="time" className="c-form-date c-form-combo--inline o-layout__item u-width-1/4" placeholder="Choose an end time..." name="f-end-time" id="f-end-time" //onChange={this.handleChange} 
+                            required />
                         </li>
                         <li className="c-form-list__item u-width-1/2">
                             <label className="c-form-label">
@@ -84,7 +89,8 @@ class Admin extends React.Component {
                         </li>
                         <li className="c-form-list__item u-width-1/2">
                             <div className="c-form-select">
-                                <select id="f-heroes" className="c-form-select__dropdown" onChange={this.handleChange} defaultValue={'DEFAULT'} required>
+                                <select id="f-heroes" className="c-form-select__dropdown" //onChange={this.handleChange} 
+                                defaultValue={'DEFAULT'} required>
                                     <option value="DEFAULT" disabled>Choose a location...</option>
                                     <option value="Osterley">Osterley</option>
                                     <option value="Leeds">Leeds</option>
@@ -101,7 +107,8 @@ class Admin extends React.Component {
                             </label>
                         </li>
                         <li className="c-form-list__item u-width-1/2">
-                            <input type="number" min="0" className="c-form-date" placeholder="Choose maximum number of participants..." name="f-number-of-participants" id="f-number-of-participants" onChange={this.handleChange} required/>
+                            <input type="number" min="0" className="c-form-date" placeholder="Choose maximum number of participants..." name="f-number-of-participants" id="f-number-of-participants" //onChange={this.handleChange} 
+                            required/>
                         </li>
                         <li className="c-form-list__item u-width-1/2">
                             <label className="c-form-label">
