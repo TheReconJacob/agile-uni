@@ -50,8 +50,8 @@ Data.searchCoursesNoLocation = (searchTerm, callback) => {
 	})	
 }
 
-Data.searchCoursesWithLocation = (searchTerm, location, callback) => {
-	connection.query(`SELECT * FROM courses INNER JOIN sites on courses.site_id = sites.id WHERE courses.title LIKE ? AND sites.name = ?`, ['%'.concat(searchTerm, '%'), location], function(err, rows, fields) {
+Data.searchCoursesWithLocation = (searchTerm, site, callback) => {
+	connection.query(`SELECT * FROM courses INNER JOIN sites on courses.site_id = sites.id WHERE courses.title LIKE ? AND sites.name = ?`, ['%'.concat(searchTerm, '%'), site], function(err, rows, fields) {
 		
 		if (err) {
 			return callback(err)
@@ -69,8 +69,8 @@ Data.listAllCourses = (callback) => {
 	})	
 }
 
-Data.addCourse = (title, location, startDate, endDate, attendeesMax, description, callback) => {
-	connection.query("INSERT INTO courses (title, location, start_date, end_date, attendees_max, description, site_id, instructor_id) VALUES (?, ?, ?, ?, ?, ?, (SELECT id FROM sites WHERE name= ?),1)", [title, location, startDate, endDate, attendeesMax, description, location], function(err, rows, fields) {
+Data.addCourse = (title, location, site, startDate, endDate, attendeesMax, description, callback) => {
+	connection.query("INSERT INTO courses (title, location, start_date, end_date, attendees_max, description, site_id, instructor_id) VALUES (?, ?, ?, ?, ?, ?, (SELECT id FROM sites WHERE name= ?),1)", [title, location, startDate, endDate, attendeesMax, description, site], function(err, rows, fields) {
 		if (err) {
 			return callback(err)
 		}
