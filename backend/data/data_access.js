@@ -15,7 +15,7 @@ const Data = {};
 // });
 
 Data.getAllCourses = (callback) => {
-	connection.query('SELECT * FROM courses LIMIT 1', function(err, rows, fields) {
+	connection.query('SELECT * FROM courses', function(err, rows, fields) {
 		if (err) {
 			return callback(err)
 		}
@@ -24,7 +24,7 @@ Data.getAllCourses = (callback) => {
 }
 
 Data.getAllEmployees = (callback) => {
-	connection.query('SELECT * FROM employees LIMIT 1', function(err, rows, fields) {
+	connection.query('SELECT * FROM employees', function(err, rows, fields) {
 		if (err) {
 			return callback(err)
 		}
@@ -33,7 +33,7 @@ Data.getAllEmployees = (callback) => {
 }
 
 Data.getAllSites = (callback) => {
-	connection.query('SELECT * FROM sites LIMIT 1', function(err, rows, fields) {
+	connection.query('SELECT * FROM sites', function(err, rows, fields) {
 		if (err) {
 			return callback(err)
 		}
@@ -53,6 +53,16 @@ Data.searchCoursesNoLocation = (searchTerm, callback) => {
 Data.searchCoursesWithLocation = (searchTerm, location, callback) => {
 	connection.query(`SELECT * FROM courses INNER JOIN sites on courses.site_id = sites.id WHERE courses.title LIKE ? AND sites.name = ?`, ['%'.concat(searchTerm, '%'), location], function(err, rows, fields) {
 		
+		if (err) {
+			return callback(err)
+		}
+		callback(null, { status: 200, responseJson: rows})
+	})	
+}
+
+Data.listAllCourses = (callback) => {
+	connection.query("SELECT * FROM courses INNER JOIN sites ON courses.site_id = sites.id", function(err, rows) {
+
 		if (err) {
 			return callback(err)
 		}

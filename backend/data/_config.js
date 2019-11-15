@@ -9,6 +9,7 @@ config.mysqlConfig = {
     database: 'AGILEUNI'
 };
 
+
 // config.mysqlConfig = {
 //     development: {
 //         host: `agileuni-db.c0i93hgwoofe.us-east-1.rds.amazonaws.com`,
