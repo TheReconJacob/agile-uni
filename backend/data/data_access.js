@@ -70,8 +70,8 @@ Data.listAllCourses = (callback) => {
 	})	
 }
 
-Data.deleteCourse = (callback) => {
-	connection.query("SELECT * FROM courses INNER JOIN sites ON courses.site_id = sites.id", function(err, rows) {
+Data.deleteCourse = (courseId, callback) => {
+	connection.query("DELETE FROM courses WHERE courses.course_id = ?", [courseId], function(err, rows) {
 
 		if (err) {
 			return callback(err)
