@@ -1,5 +1,9 @@
 const expect = require("chai").expect;
 const request = require("request");
+const chai = require("chai");
+var chaiHttp = require("chai-http");
+
+chai.use(chaiHttp);
 let server;
 
 describe("Running app and testing data routes", function() {
@@ -138,6 +142,48 @@ describe("List all courses", function() {
       );
       done();
     });
+  });
+});
+
+describe("Update a course", function() {
+  it("Fields for one row of the course table should be updated with new data", function(done) {
+    chai
+      .request("http://localhost:5000")
+      .post("/editCourse")
+      .send({
+        id: 3,
+        title: "test11",
+        description: "%things%",
+        start_date: "0000-00-00 00:00:00",
+        end_date: null,
+        attendees_max: 100,
+        location: "Osterley",
+        site_id: 1,
+        instructor_id: 1
+      })
+      .request("http://localhost:5000/listAllCourses", function(
+        error,
+        response,
+        body
+      ) {
+        const rows = JSON.parse(body)["courses"]["responseJson"];
+        expect(rows[0]).to.have.all.keys(
+          "course_id",
+          "title",
+          "description",
+          "start_date",
+          "end_date",
+          "attendees_max",
+          "attendees_booked",
+          "location",
+          "site_id",
+          "instructor_id",
+          "id",
+          "name",
+          "address"
+        );
+      });
+    done();
   });
 });
 
