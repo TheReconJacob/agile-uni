@@ -6,6 +6,7 @@ const dataAgileOsterley = require("./fake-data/search-agile-osterley");
 const dataOsterley = require("./fake-data/search-osterley");
 const dataAgile = require("./fake-data/search-agile");
 const dataNoParams = require("./fake-data/search-no-parameters");
+const dataDelete = require("./fake-data/delete-result.json");
 
 //const req = mockRequest({ query: { searchTerm: 'agile', location: 'Osterley' }})
 const req = mockRequest();
@@ -106,9 +107,21 @@ describe("Testing data handler", function() {
       done();
     });
   });
-  // describe("Testing deleteCourse", function() {
-  //   it("deletes course by courseId", function(done){
-  //     const req = mockRequest({ query: { courseId:"11"} });
-  //   })
-  // });
+  describe("Testing deleteCourse", function() {
+    it("deletes course by courseId", function(done){
+      const req = mockRequest({ query: { courseId:"11"} })
+      dataHandler.deleteCourse(Data)(req, (err, result) => {
+        if (err) {
+          res.status(500);
+          res.json({ message: err.message });
+        }
+        res.status(result.status);
+        res.json(result.responseJson);
+        expect(dataDelete).equal(
+          result.responseJson.courses.responseJson
+        );
+      });
+      done();
+    });
+  });
 });
