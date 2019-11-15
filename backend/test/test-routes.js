@@ -141,6 +141,24 @@ describe("List all courses", function() {
   });
 });
 
+describe("Delete a course", function() {
+  it("Deleting a course should return right response from server", function(done) {
+    request("http://localhost:5000/deleteCourse?courseId=9", function(
+      error,
+      response,
+      body
+    ) {
+      const rows = JSON.parse(body)["courses"]["responseJson"];
+      expect(rows[0]).to.have.header(
+        "affectedRows", 1);
+      expect(rows[0]).to.have.header(
+        "changedRows", 0
+      );
+      done();
+    });
+  });
+});
+
 after(done => {
   delete require.cache[require.resolve("../server.js")];
   server.closeServer();
