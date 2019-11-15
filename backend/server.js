@@ -1,77 +1,108 @@
-const express = require('express');
-const app = express();
-const port = 5000;
-const mysql = require('mysql')
-const fs = require('fs')
-const jwt = require('express-jwt');
-const jwksRsa = require('jwks-rsa');
+const mysql = require("mysql");
+const jwt = require("express-jwt");
+const jwksRsa = require("jwks-rsa");
+(fs = require("fs")),
+  (express = require("express")),
+  (app = express()),
+  (port = 5000),
+  (searchRoutes = require("./routes/search.js")),
+  (config = require("./data/_config"));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+//app.use('/search', searchRoutes);
 
+const Data = require("./data/data_access.js");
+const dataHandler = require("./data/dataHandler.js");
 
-const connection = mysql.createConnection({
-	host: `agileuni-db.c0i93hgwoofe.us-east-1.rds.amazonaws.com`,
-	port: '3306',
-	user: 'admin',
-	password: fs.readFileSync('../dbPassword', 'UTF-8'),
-	database: 'AGILEUNI'
-})
+const connection = mysql.createConnection(config.mysqlConfig);
 
-connection.connect(function (err) {
-	if (err) {
-		throw err;
-	} else {
-		console.log('db connection successful')
-	}
+connection.connect(function(err) {
+  if (err) {
+    throw err;
+  } else {
+    console.log("db connection successful");
+    app.emit("app_started");
+  }
 });
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(jwt({
-	// Dynamically provide a signing key based on the kid in the header and the signing keys provided by the JWKS endpoint.
-	secret: jwksRsa.expressJwtSecret({
-	  cache: true,
-	  rateLimit: true,
-	  jwksRequestsPerMinute: 5,
-	  jwksUri: `https://login.microsoftonline.com/common/discovery/v2.0/keys`
-	}),
-  
-	// Validate the audience and the issuer.
-	audience: 'c0fb79ba-b72c-47c1-912c-48ee6cbac972',
-	issuer: 'https://login.microsoftonline.com/68b865d5-cf18-4b2b-82a4-a4eddb9c5237/v2.0',
-	algorithms: [ 'RS256' ]
-  }));
+app.use(
+  jwt({
+    // Dynamically provide a signing key based on the kid in the header and the signing keys provided by the JWKS endpoint.
+    secret: jwksRsa.expressJwtSecret({
+      cache: true,
+      rateLimit: true,
+      jwksRequestsPerMinute: 5,
+      jwksUri: `https://login.microsoftonline.com/common/discovery/v2.0/keys`
+    }),
 
-app.get('/', (req, res) => {
-	res.send('Hello World')
-})
+    // Validate the audience and the issuer.
+    audience: "c0fb79ba-b72c-47c1-912c-48ee6cbac972",
+    issuer:
+      "https://login.microsoftonline.com/68b865d5-cf18-4b2b-82a4-a4eddb9c5237/v2.0",
+    algorithms: ["RS256"]
+  })
+);
 
-//'SELECT * FROM users WHERE id = ?', [userId]
-app.get('/employees', (req, res) => {
-	connection.query('SELECT * FROM employees LIMIT 1', function (err, rows, fields) {
-		if (err) throw err;
-		console.log(rows);
-		res.send(rows)
-	})
-})
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
 
-app.get('/courses', (req, res) => {
-	connection.query('SELECT * FROM courses LIMIT 1', function (err, rows, fields) {
-		if (err) throw err;
-		res.send(rows)
-	})
-})
+app.get("/employees", (req, res) => {
+  dataHandler.getEmployees(Data)(req, (err, result) => {
+    if (err) {
+      res.status(500);
+      return res.json({ message: err.message });
+    }
+    res.status(result.status);
+    return res.json(result.responseJson);
+  });
+});
 
-app.get('/sites', (req, res) => {
-	connection.query('SELECT * FROM sites LIMIT 1', function (err, rows, fields) {
-		if (err) throw err;
-		console.log(rows);
-		res.send(rows)
-	})
-})
+app.get("/courses", (req, res) => {
+  dataHandler.getCourses(Data)(req, (err, result) => {
+    if (err) {
+      res.status(500);
+      return res.json({ message: err.message });
+    }
+    res.status(result.status);
+    return res.json(result.responseJson);
+  });
+});
 
+app.get("/sites", (req, res) => {
+  dataHandler.getSites(Data)(req, (err, result) => {
+    if (err) {
+      res.status(500);
+      return res.json({ message: err.message });
+    }
+    res.status(result.status);
+    return res.json(result.responseJson);
+  });
+});
 
-app.listen(port, (err) => {
-	if (err) { console.log(err) };
-	console.log('Listening on port ' + port);
-})
+app.get("/search", (req, res) => {
+  dataHandler.searchCourses(Data)(req, (err, result) => {
+    if (err) {
+      res.status(500);
+      return res.json({ message: err.message });
+    }
+    res.status(result.status);
+    return res.json(result.responseJson);
+  });
+});
 
-//export const connection;
+let server = app.listen(port, err => {
+  if (err) {
+    console.log(err);
+  }
+  console.log("Listening on port " + port);
+});
+
+// Note to JS learners, put module.exports before any module.exports.banana because it overwrites stuff...
+module.exports = app;
+module.exports.SimpleMessage = "Hello world";
+module.exports.closeServer = function() {
+  server.close();
+};
