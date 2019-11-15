@@ -51,3 +51,13 @@ module.exports.searchCourses = DataAccess => (req, callback) => {
     );
   }
 };
+
+module.exports.listAllCourses = (DataAccess) => (req, callback) => {
+    
+  DataAccess.listAllCourses((err, courses) => {
+    if (err) {
+      return callback(err)
+    }
+    callback(null, { status: 200, responseJson: { courses: courses }})
+  })
+};

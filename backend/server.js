@@ -59,6 +59,28 @@ app.get("/sites", (req, res) => {
     return res.json(result.responseJson);
   });
 });
+app.get('/listAllCourses', (req, res) => {
+	dataHandler.listAllCourses(Data)(req, (err, result) => {
+		if (err) {
+		  res.status(500)
+		  return res.json({ message: err.message })
+		}
+		res.status(result.status)
+		return res.json(result.responseJson)
+	})
+})
+
+app.get('/listAllCourses', (req, res) => {
+	dataHandler.listAllCourses(Data)(req, (err, result) => {
+		if (err) {
+		  res.status(500)
+		  return res.json({ message: err.message })
+		}
+		res.status(result.status)
+		return res.json(result.responseJson)
+	})
+})
+
 
 app.get("/search", (req, res) => {
   dataHandler.searchCourses(Data)(req, (err, result) => {

@@ -10,6 +10,7 @@
         "location": "The Hub",
         "site_id": 1,
         "instructor_id": 1,
+        "is_fun": null,
         "id": 1,
         "name": "Osterley",
         "address": "Sky Central\nGrant Way\nIsleworth\nMiddlesex\nSky"
@@ -25,6 +26,7 @@
         "location": "Central 2.2",
         "site_id": 1,
         "instructor_id": 1,
+        "is_fun": null,
         "id": 1,
         "name": "Osterley",
         "address": "Sky Central\nGrant Way\nIsleworth\nMiddlesex\nSky"
