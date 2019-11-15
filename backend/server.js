@@ -1,10 +1,10 @@
-const mysql = require('mysql')
-	  fs = require('fs'),
-	  express = require('express'),
-	  app = express(),
-	  port = 5000,
-	  //searchRoutes = require('./routes/search.js'),
-	  config = require('./data/_config');
+const mysql = require("mysql");
+(fs = require("fs")),
+  (express = require("express")),
+  (app = express()),
+  (port = 5000),
+  //searchRoutes = require('./routes/search.js'),
+  (config = require("./data/_config"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 //app.use('/search', searchRoutes);
@@ -62,6 +62,17 @@ app.get("/sites", (req, res) => {
 
 app.get("/search", (req, res) => {
   dataHandler.searchCourses(Data)(req, (err, result) => {
+    if (err) {
+      res.status(500);
+      return res.json({ message: err.message });
+    }
+    res.status(result.status);
+    return res.json(result.responseJson);
+  });
+});
+
+app.post("/editCourse", (req, res) => {
+  dataHandler.editCourse(Data)(req, (err, result) => {
     if (err) {
       res.status(500);
       return res.json({ message: err.message });
