@@ -70,7 +70,8 @@ Data.listAllCourses = (callback) => {
 }
 
 Data.addCourse = (title, location, site, startDate, endDate, attendeesMax, description, callback) => {
-	connection.query("INSERT INTO courses (title, location, start_date, end_date, attendees_max, description, site_id, instructor_id) VALUES (?, ?, ?, ?, ?, ?, (SELECT id FROM sites WHERE name= ?),1)", [title, location, startDate, endDate, attendeesMax, description, site], function(err, rows, fields) {
+	connection.query("INSERT INTO courses (title, location, start_date, end_date, attendees_max, description, site_id, instructor_id) VALUES (?, ?, ?, ?, ?, ?, (SELECT id FROM sites WHERE name= ?),1)",
+	[title, location, startDate, endDate, attendeesMax, description, site], function(err, rows, fields) {
 		if (err) {
 			return callback(err)
 		}

@@ -42,7 +42,7 @@ module.exports.searchCourses = (DataAccess) => (req, callback) => {
     })  
   } else {
     
-    DataAccess.searchCoursesWithLocation(req.query.searchTerm, req.query.location, (err, courses) => {
+    DataAccess.searchCoursesWithLocation(req.query.searchTerm, req.query.site, (err, courses) => {
       
       if (err) {
         return callback(err)
