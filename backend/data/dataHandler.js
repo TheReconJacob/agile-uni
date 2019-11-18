@@ -40,7 +40,7 @@ module.exports.searchCourses = DataAccess => (req, callback) => {
   } else {
     DataAccess.searchCoursesWithLocation(
       req.query.searchTerm,
-      req.query.location,
+      req.query.site,
       (err, courses) => {
         if (err) {
           return callback(err);
@@ -80,4 +80,14 @@ module.exports.editCourse = DataAccess => (req, callback) => {
     }
     callback(null, { status: 200 });
   });
+};
+
+module.exports.addCourse = (DataAccess) => (req, callback) => {
+  DataAccess.addCourse(req.body, (err, courses) => {
+    
+    if (err) {
+      return callback(err)
+    }
+    callback(null, {status: 200, responseJson: { courses:courses }})
+  })
 };

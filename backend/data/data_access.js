@@ -91,4 +91,17 @@ Data.editCourse = (inputs, callback) => {
   );
 };
 
+Data.addCourse = (data, callback) => {
+	// Site id used instead of name
+	// Instructor id change to instructor name
+	connection.query("INSERT INTO courses (title, description, start_date, end_date, attendees_max, location, site_id, instructor_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+	[data.title, data.description, data.startDate, data.endDate, data.attendeesMax, data.location, data.site_id, data.instructor_id], function(err, rows, fields) {
+		console.log(err)
+		if (err) {
+			return callback(err)
+		}
+		callback(null, { status: 200, responseJson: rows})
+	})
+}
+
 module.exports = Data;
