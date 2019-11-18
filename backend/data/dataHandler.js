@@ -30,6 +30,7 @@ module.exports.getSites = DataAccess => (req, callback) => {
 };
 
 module.exports.searchCourses = DataAccess => (req, callback) => {
+
   if (!req.query.location) {
     DataAccess.searchCoursesNoLocation(req.query.searchTerm, (err, courses) => {
       if (err) {
@@ -40,7 +41,7 @@ module.exports.searchCourses = DataAccess => (req, callback) => {
   } else {
     DataAccess.searchCoursesWithLocation(
       req.query.searchTerm,
-      req.query.site,
+      req.query.location,
       (err, courses) => {
         if (err) {
           return callback(err);
