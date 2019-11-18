@@ -2,6 +2,7 @@ const expect = require("chai").expect;
 const request = require("request");
 const fs = require("fs");
 
+
 //BEST PRACTICE - GET THIS WORKING but wer were having issues with the audience claim in the JWT token so we are manually passing a token
 // const AuthenticationContext = require('adal-node').AuthenticationContext;
 // const authorityUrl = 'https://login.microsoftonline.com/68b865d5-cf18-4b2b-82a4-a4eddb9c5237';

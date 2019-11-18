@@ -10,9 +10,8 @@ To access this run `git-crypt unlock <path to key>`
 
 ## Testing 
 
-You'll need an AUTHTOKEN as a env to run the test. Install JWT debugger on chrome or search localstorage for the token. Then in your terminal set AUTHTOKEN=ey68t53tyoeg.........
+You'll need an AUTHTOKEN as a env to run the test. Install JWT debugger on chrome or search localstorage for the token. Then in your terminal set `AUTHTOKEN=ey68t53tyoeg......... npm test`
 
-Then run `npm test` in the same folder
 
 ## Text editor
 
