@@ -70,9 +70,12 @@ Data.listAllCourses = (callback) => {
 	})	
 }
 
-Data.addCourse = (title, location, site, startDate, endDate, attendeesMax, description, callback) => {
-	connection.query("INSERT INTO courses (title, location, start_date, end_date, attendees_max, description, site_id, instructor_id) VALUES (?, ?, ?, ?, ?, ?, (SELECT id FROM sites WHERE name= ?),1)",
-	[title, location, startDate, endDate, attendeesMax, description, site], function(err, rows, fields) {
+Data.addCourse = (data, callback) => {
+	// Site id used instead of name
+	// Instructor id change to instructor name
+	connection.query("INSERT INTO courses (title, description, start_date, end_date, attendees_max, location, site_id, instructor_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+	[data.title, data.description, data.startDate, data.endDate, data.attendeesMax, data.location, data.site_id, data.instructor_id], function(err, rows, fields) {
+		console.log(err)
 		if (err) {
 			return callback(err)
 		}
