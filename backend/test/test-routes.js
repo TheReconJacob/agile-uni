@@ -131,11 +131,12 @@ describe("Running app and testing data routes", function() {
         .send({
         'title': 'test15',
         'location': 'theHub',
-        'site': 'Osterley',
-        'startDate': 0,
-        'endDate': 0,
-        'attendeesMax': 100,
-        'description': 'Things'
+        'site_id': 1,
+        'start_date': "0000-00-00 00:00:00",
+        'end_date': "0000-00-00 00:00:00",
+        'attendees_max': 100,
+        'description': 'Things',
+        'instructor_id': 1
         }).end(function(
         error,
         response,
@@ -156,7 +157,7 @@ describe("Running app and testing data routes", function() {
             title: "test15",
             description: "%thhnjnk%",
             start_date: "0000-00-00 00:00:00",
-            end_date: null,
+            end_date: "0000-00-00 00:00:00",
             attendees_max: 100,
             location: "Osterley",
             site_id: 1,
