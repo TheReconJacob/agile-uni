@@ -20,3 +20,8 @@ Run `npm start` in the backend folder and then `npm test` in the same folder
 
 See more info: https://github.com/zenoamaro/react-quill#theme
 
+## Useful Links
+
+We used the sky react library for some components https://pages-lib.cf.dev-paas.bskyb.com/storybook/?path=/story/*
+
+We also used the sky toolkit https://www.sky.com/toolkit
