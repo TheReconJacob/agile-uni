@@ -3,11 +3,9 @@ const mysql = require('mysql')
 	  express = require('express'),
 	  app = express(),
 	  port = 5000,
-	  //searchRoutes = require('./routes/search.js'),
 	  config = require('./data/_config');
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-//app.use('/search', searchRoutes);
+const jwt = require("express-jwt");
+const jwksRsa = require("jwks-rsa");
 
 const Data = require("./data/data_access.js");
 const dataHandler = require("./data/dataHandler.js");
@@ -22,6 +20,26 @@ connection.connect(function(err) {
     app.emit("app_started");
   }
 });
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(
+  jwt({
+    // Dynamically provide a signing key based on the kid in the header and the signing keys provided by the JWKS endpoint.
+    secret: jwksRsa.expressJwtSecret({
+      cache: true,
+      rateLimit: true,
+      jwksRequestsPerMinute: 5,
+      jwksUri: `https://login.microsoftonline.com/common/discovery/v2.0/keys`
+    }),
+
+    // Validate the audience and the issuer.
+    audience: "c0fb79ba-b72c-47c1-912c-48ee6cbac972",
+    issuer:
+      "https://login.microsoftonline.com/68b865d5-cf18-4b2b-82a4-a4eddb9c5237/v2.0",
+    algorithms: ["RS256"]
+  })
+);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
@@ -117,3 +135,4 @@ module.exports.SimpleMessage = "Hello world";
 module.exports.closeServer = function() {
   server.close();
 };
+

@@ -8,49 +8,44 @@ import Navbar from "./components/Navbar.js"
 import Footer from "./components/Footer.js"
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import Admin from "./pages/Admin";
-var base64 = require('base-64');
-var utf8 = require('utf8');
+
+const jwt = require('jsonwebtoken');
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-
     // We can add more state
     this.state = {
       admin: false,
     };
 
-    if (localStorage.getItem('msal.idtoken') == null) {
-      console.log("Not logged in");
-    } else {
-      var roles = this.getRoles();
-      if (roles.includes('admin')) {
-        this.state.admin = true;
+    this.getRoles().then(roles => {
+      if (roles != null && roles.includes('admin')){
+        this.setState({
+          admin: true
+        });
       }
-      console.log("This is admin boolean " + this.state.admin);
-    }
+    });
   }
 
-  getRoles() {
-    let userRoles = [];
-    var encodedData = localStorage.getItem('msal.idtoken');
-    var blocks = encodedData.split('.');
-    var croppedData = blocks[1];
-    var bytes = base64.decode(croppedData);
-    var userInfo = utf8.decode(bytes);
-    var parsedInfo = JSON.parse(userInfo);
-    // ['testy', 'admin']
-    if (parsedInfo.roles != null) {
-      userRoles = parsedInfo.roles;
+  async getRoles(){
+    const token = await authProvider.getIdToken();
+    const idToken = token.idToken.rawIdToken;
+    const decodedToken = jwt.decode(idToken);
+
+    if (decodedToken.roles !== undefined) {
+      console.log('Returning roles');
+      return decodedToken.roles;
+    } else {
+      console.log('No specific role - general user')
+      return null
     }
-    console.log("User roles is " + userRoles);
-    return userRoles;
   }
 
   render() {
     let adminComponent;
     let adminAddCourse;
-    var adminS  = this.state.admin;
+
     if (this.state.admin) {
       adminComponent = <h1>HELLO ADMIN</h1>;
       adminAddCourse = <Route path="/admin" component={Admin} />;
@@ -62,14 +57,13 @@ class App extends React.Component {
             <Navbar />
             <div>
               <Route exact path="/" component={Home} />
-              <Route path="/courses" render={()=><Courses adminStatus={adminS}/>}/>
+              <Route path="/courses" render={() => <Courses adminStatus={this.state.admin} />} />
               {adminAddCourse}
             </div>
             {adminComponent}
             <Footer />
           </Router>
         </AzureAD>
-
       </>
 
     );
