@@ -22,6 +22,6 @@ See more info: https://github.com/zenoamaro/react-quill#theme
 
 ## Useful Links
 
-We used the sky react library for some components https://pages-lib.cf.dev-paas.bskyb.com/storybook/?path=/story/*
+We used the sky react library for some components. This can be found on pages-lib page for the sky github  https://github.com/sky-uk/pages-lib. The access the library of the compents visit https://pages-lib.cf.dev-paas.bskyb.com/storybook/?path=/story/*
 
-We also used the sky toolkit https://www.sky.com/toolkit
+We also used the sky toolkit for the formatting https://www.sky.com/toolkit
