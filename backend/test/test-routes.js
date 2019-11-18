@@ -2,6 +2,7 @@ const chai = require('chai'),
       expect = require("chai").expect,
       request = require("request"),
       chaiHttp = require('chai-http');
+const addCourseWithId = require("../routes/addWithId").addCourseWithId
 
 chai.use(chaiHttp);
 let server;
@@ -172,11 +173,13 @@ describe("Running app and testing data routes", function() {
 
     describe("Delete a course", function() {
       it("Deleting a course should return right response from server", function(done) {
-        request("http://localhost:5000/deleteCourse?courseId=9", function(
+        addCourseWithId()
+        request("http://localhost:5000/deleteCourse?courseId=0", function(
           error,
           response,
           body
         ) {
+          console.log(body)
           const rows = JSON.parse(body)["courses"]["responseJson"];
           expect(rows[0]).to.have.header(
             "affectedRows", 1);
