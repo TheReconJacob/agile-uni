@@ -4,7 +4,7 @@ The repo for the agile university website
 
 ## Install
 Install Homebrew (https://brew.sh/)
-To use the Sky page-lib we needed an auth token, this is encypted. Download the git-crypt secret key (this can be found on the slack channel) and place a copy of it in your home directory (run echo \$HOME to find this)
+The passwords/authtokens for the database and some node libraries are encrypted. Download the file called agile-key which is pinned in the agile-university slack channel. Place this in your home directory (run echo \$HOME to find this). This contains a key to unlock the encrypting done by github. 
 To access this run `git-crypt unlock <path to key>`
 
 
