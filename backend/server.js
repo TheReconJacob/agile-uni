@@ -99,6 +99,17 @@ app.get('/listAllCourses', (req, res) => {
 	})
 })
 
+app.post('/addCourse', (req, res) => {
+	dataHandler.addCourse(Data)(req, (err, result) => {
+		if (err) {
+		  res.status(500)
+		  return res.json({ message: err.message })
+		}
+		res.status(result.status)
+		
+		return res.json(result.responseJson)
+	})
+})
 
 app.get("/search", (req, res) => {
   dataHandler.searchCourses(Data)(req, (err, result) => {
@@ -106,7 +117,7 @@ app.get("/search", (req, res) => {
       res.status(500);
       return res.json({ message: err.message });
     }
-    res.status(result.status);
+	res.status(result.status);
     return res.json(result.responseJson);
   });
 });
