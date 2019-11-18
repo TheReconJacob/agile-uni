@@ -173,20 +173,24 @@ describe("Running app and testing data routes", function() {
 
     describe("Delete a course", function() {
       it("Deleting a course should return right response from server", function(done) {
-        addCourseWithId()
-        request("http://localhost:5000/deleteCourse?courseId=0", function(
-          error,
-          response,
-          body
-        ) {
-          console.log(body)
-          const rows = JSON.parse(body)["courses"]["responseJson"];
-          expect(rows[0]).to.have.header(
-            "affectedRows", 1);
-          expect(rows[0]).to.have.header(
-            "changedRows", 0);
-          done();
-        });
+		addCourseWithId();
+
+		function sleep (time) {
+			return new Promise((resolve) => setTimeout(resolve, time));
+		}
+		sleep(8000).then(() => {
+        request("http://localhost:5000/deleteCourse?courseId=2", function(
+        	error,
+          	response,
+          	body
+			){
+				const rows = JSON.parse(response.body)["courses"]["responseJson"];
+				expect(rows["affectedRows"]).to.equal(1);
+				expect(rows["changedRows"]).to.equal(0);
+				expect(JSON.parse(response.body)["courses"]["status"]).to.equal(200);
+				done();
+			});
+		});
       });
     });
   });
