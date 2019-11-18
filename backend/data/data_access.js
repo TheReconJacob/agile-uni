@@ -50,8 +50,8 @@ Data.searchCoursesNoLocation = (searchTerm, callback) => {
 	})	
 }
 
-Data.searchCoursesWithLocation = (searchTerm, location, callback) => {
-	connection.query(`SELECT * FROM courses INNER JOIN sites on courses.site_id = sites.id WHERE courses.title LIKE ? AND sites.name = ?`, ['%'.concat(searchTerm, '%'), location], function(err, rows, fields) {
+Data.searchCoursesWithLocation = (searchTerm, site, callback) => {
+	connection.query(`SELECT * FROM courses INNER JOIN sites on courses.site_id = sites.id WHERE courses.title LIKE ? AND sites.name = ?`, ['%'.concat(searchTerm, '%'), site], function(err, rows, fields) {
 		
 		if (err) {
 			return callback(err)
@@ -68,6 +68,19 @@ Data.listAllCourses = (callback) => {
 		}
 		callback(null, { status: 200, responseJson: rows})
 	})	
+}
+
+Data.addCourse = (data, callback) => {
+	// Site id used instead of name
+	// Instructor id change to instructor name
+	connection.query("INSERT INTO courses (title, description, start_date, end_date, attendees_max, location, site_id, instructor_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+	[data.title, data.description, data.startDate, data.endDate, data.attendeesMax, data.location, data.site_id, data.instructor_id], function(err, rows, fields) {
+		console.log(err)
+		if (err) {
+			return callback(err)
+		}
+		callback(null, { status: 200, responseJson: rows})
+	})
 }
 
 module.exports = Data;
