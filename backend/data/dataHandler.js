@@ -84,8 +84,18 @@ module.exports.editCourse = DataAccess => (req, callback) => {
 };
 
 module.exports.addCourse = (DataAccess) => (req, callback) => {
-  DataAccess.addCourse(req.body, (err, courses) => {
-    
+  const body = req.body;
+  const parameters = [
+    body.title,
+    body.description,
+    body.start_date,
+    body.end_date,
+    body.attendees_max,
+    body.location,
+    body.site_id,
+    body.instructor_id,
+  ];
+  DataAccess.addCourse(parameters, (err, courses) => {
     if (err) {
       return callback(err)
     }
