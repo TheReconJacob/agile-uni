@@ -32,7 +32,7 @@ let server;
 // console.log('outside')
 
 
-describe("Running app and testing data routes", function() {
+describe("Integration tests: Running app and testing data routes", function() {
   //Used to have a timeout, now default before_all is set to 10000
   before(done => {
     server = require("../server.js");
@@ -237,64 +237,61 @@ describe("Running app and testing data routes", function() {
 
     describe("Delete a course", function() {
       it("Deleting a course should return right response from server", function(done) {
-		addCourseWithId();
+        addCourseWithId();
 
-		function sleep (time) {
-			return new Promise((resolve) => setTimeout(resolve, time));
-		}
-		sleep(8000).then(() => {
-        request("http://localhost:5000/deleteCourse?courseId=2",         {
-			auth: {
-			  bearer: process.env.AUTHTOKEN
-			}
-		  },  function(
-        	error,
-          	response,
-          	body
-			){
-				const rows = JSON.parse(response.body)["courses"]["responseJson"];
-				expect(rows["affectedRows"]).to.equal(1);
-				expect(rows["changedRows"]).to.equal(0);
-				expect(JSON.parse(response.body)["courses"]["status"]).to.equal(200);
-				done();
-			});
-		});
+        function sleep (time) {
+          return new Promise((resolve) => setTimeout(resolve, time));
+        }
+        sleep(8000).then(() => {
+            request("http://localhost:5000/deleteCourse?courseId=2",         {
+          auth: {
+            bearer: process.env.AUTHTOKEN
+          }
+          },  function(
+              error,
+                response,
+                body
+          ){
+            const rows = JSON.parse(response.body)["courses"]["responseJson"];
+            expect(rows["affectedRows"]).to.equal(1);
+            expect(rows["changedRows"]).to.equal(0);
+            expect(JSON.parse(response.body)["courses"]["status"]).to.equal(200);
+            done();
+          });
+        });
       });
-	});
-	
-	describe("Add employee route", function() {
-		describe("Add an employee", function() {
-		  it("Employee should be added successfully", function(done) {
-			chai.request("http://localhost:5000")
-			.post("/addEmployee")
-			.set("Authorization", "Bearer " + process.env.AUTHTOKEN)
-			.send({
-				"name": "Employee test 13",
-				"object_id": "adoasjdoa",
-				"email": "employee@sky.uk"
-				}).end(function(
-			error,
-			response,
-			body) {
-			deleteEmployeeTestFunction(response.body.employees.responseJson.insertId);
-			expect(response).to.have.status(200);
-			function sleep (time) {
-				return new Promise((resolve) => setTimeout(resolve, time));
-			}
-			sleep(8000).then(() => {
-			console.log(response.body.employees.responseJson.insertId);
-			done();
-				});
-			});
-		  });
-		});
-	});
-
-    after(done => {
-      delete require.cache[require.resolve("../server.js")];
-      server.closeServer();
-      done();
     });
+
+    describe("Add an employee", function() {
+      it("Employee should be added successfully", function(done) {
+      chai.request("http://localhost:5000")
+      .post("/addEmployee")
+      .set("Authorization", "Bearer " + process.env.AUTHTOKEN)
+      .send({
+        "name": "Employee test 13",
+        "object_id": "adoasjdoa",
+        "email": "employee@sky.uk"
+        }).end(function(
+          error,
+          response,
+          body) {
+          deleteEmployeeTestFunction(response.body.employees.responseJson.insertId);
+          expect(response).to.have.status(200);
+          function sleep (time) {
+            return new Promise((resolve) => setTimeout(resolve, time));
+          }
+          sleep(8000).then(() => {
+            done();
+          });
+        });
+      });
+    });	
+  });
+
+  after(done => {
+    delete require.cache[require.resolve("../server.js")];
+    server.closeServer();
+    done();
   });
 });
 

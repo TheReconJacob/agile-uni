@@ -14,21 +14,7 @@ const res = mockResponse();
 
 const request = mockRequest();
 
-describe("Testing data handler", function() {
-  describe("getCourses", function() {
-    it("should return all courses", function(done) {
-      dataHandler.getCourses(Data)(req, (err, result) => {
-        if (err) {
-          res.status(500);
-          res.json({ message: err.message });
-        }
-        res.status(result.status);
-        res.json(result.responseJson);
-      });
-      expect(true); ////////////
-      done();
-    });
-  });
+describe("Unit tests: data handler", function() {
 
   describe("Testing listAllCourses", function() {
     describe("listAllCourses", function() {
@@ -47,7 +33,7 @@ describe("Testing data handler", function() {
     });
   });
 
-  describe("search", function() {
+  describe("Testing search", function() {
     it("search term = agile, location = Osterley returns correct data", function(done) {
       const req = mockRequest({
         query: { searchTerm: "agile", location: "Osterley" }
