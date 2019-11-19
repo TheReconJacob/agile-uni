@@ -40,7 +40,7 @@ Data.getAllSites = callback => {
   });
 };
 
-Data.searchCoursesNoLocation = (searchTerm, callback) => {
+Data.searchCoursesNoSite = (searchTerm, callback) => {
   connection.query(
     `SELECT * FROM courses INNER JOIN sites on courses.site_id = sites.id WHERE courses.title LIKE ?`,
     "%".concat(searchTerm, "%"),
@@ -53,10 +53,10 @@ Data.searchCoursesNoLocation = (searchTerm, callback) => {
   );
 };
 
-Data.searchCoursesWithLocation = (searchTerm, location, callback) => {
+Data.searchCoursesWithSite = (searchTerm, siteId, callback) => {
   connection.query(
-    `SELECT * FROM courses INNER JOIN sites on courses.site_id = sites.id WHERE courses.title LIKE ? AND sites.name = ?`,
-    ["%".concat(searchTerm, "%"), location],
+    `SELECT * FROM courses INNER JOIN sites on courses.site_id = sites.id WHERE courses.title LIKE ? AND site.id = ?`,
+    ["%".concat(searchTerm, "%"), siteId],
     function(err, rows, fields) {
       if (err) {
         return callback(err);

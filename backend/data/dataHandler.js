@@ -31,17 +31,17 @@ module.exports.getSites = DataAccess => (req, callback) => {
 
 module.exports.searchCourses = DataAccess => (req, callback) => {
 
-  if (!req.query.location) {
-    DataAccess.searchCoursesNoLocation(req.query.searchTerm, (err, courses) => {
+  if (!req.query.siteId) {
+    DataAccess.searchCoursesNoSite(req.query.searchTerm, (err, courses) => {
       if (err) {
         return callback(err);
       }
       callback(null, { status: 200, responseJson: { courses: courses } });
     });
   } else {
-    DataAccess.searchCoursesWithLocation(
+    DataAccess.searchCoursesWithSite(
       req.query.searchTerm,
-      req.query.location,
+      req.query.site,
       (err, courses) => {
         if (err) {
           return callback(err);

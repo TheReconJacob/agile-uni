@@ -18,7 +18,7 @@ function getSearch(searchObj, siteObj) {
     params = {
       params: {
         searchTerm: searchObj,
-        site: siteObj
+        siteId: siteObj
       }
     }
   }

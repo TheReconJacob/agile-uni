@@ -119,9 +119,9 @@ describe("Integration tests: Running app and testing data routes", function() {
 
   describe("Display courses routes", function() {
     describe("Search functions", function() {
-      it("Location: Osterley, Search: agile, should return stuff", function(done) {
+      it("Site: Osterley, Search: agile, should return stuff", function(done) {
         request(
-          "http://localhost:5000/search?searchTerm=agile&location=Osterley",
+          "http://localhost:5000/search?searchTerm=agile&site=Osterley",
           {
             auth: {
               bearer: process.env.AUTHTOKEN
@@ -138,7 +138,7 @@ describe("Integration tests: Running app and testing data routes", function() {
               "end_date",
               "attendees_max",
               "attendees_booked",
-              "location",
+              "site",
               "site_id",
               "instructor_name",
               "id",

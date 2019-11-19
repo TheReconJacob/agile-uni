@@ -13,7 +13,7 @@ class DropdownSite extends Component {
   }
 
   handleChange(evt) {
-    this.props.setSite(evt.target.value);
+    this.props.setSite(parseInt(evt.target.value, 10));
   }
 
   render() {
