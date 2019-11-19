@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "../styles/searchBar.scss";
+import DropdownLocation from "./Dropdown"
 
 axios.defaults.headers.common["Authorization"] =
   "Bearer " + localStorage.getItem("msal.idtoken");
@@ -24,6 +25,7 @@ class SearchBar extends Component {
   constructor() {
     super();
     this.state = {
+      options: ["Osterley", "Leeds", "Livingstone", "Aylesbury"],
       site: "",
       searchTerm: ""
     };
@@ -46,21 +48,7 @@ class SearchBar extends Component {
           <fieldset>
             <ul className="c-form-list o-layout--spaced">
               <li className="c-form-list">
-                <select
-                  id="f-sites"
-                  name="site"
-                  className="c-form-select__dropdown--inline o-layout__item u-width-1/4"
-                  onChange={this.handleChange}
-                  style={{ height: 39 }}
-                  defaultValue={"DEFAULT"}
-                >
-                  <option value="DEFAULT" disabled>
-                    Location
-                  </option>
-                  <option value="Osterley">Osterley</option>
-                  <option value="Leeds">Leeds</option>
-                  <option value="Livingston">Livingston</option>
-                </select>
+                <DropdownLocation state={this.state} />
                 <div className="c-form-combo--inline o-layout__item u-width-3/4">
                   <div className="c-form-combo__cell">
                     <input
