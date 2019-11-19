@@ -55,7 +55,7 @@ Data.searchCoursesNoSite = (searchTerm, callback) => {
 
 Data.searchCoursesWithSite = (searchTerm, siteId, callback) => {
   connection.query(
-    `SELECT * FROM courses INNER JOIN sites on courses.site_id = sites.id WHERE courses.title LIKE ? AND site.id = ?`,
+    `SELECT * FROM courses INNER JOIN sites on courses.site_id = sites.id WHERE courses.title LIKE ? AND sites.id = ?`,
     ["%".concat(searchTerm, "%"), siteId],
     function(err, rows, fields) {
       if (err) {

@@ -18,7 +18,9 @@ class DropdownSite extends Component {
 
   render() {
     let options = this.props.state.options;
-    let optionItems = options.map((options) =>
+    console.log(this.props.state.options)
+    let optionItems = 
+        options.map((options) =>
             <option key={options.id} value={options.id}>{options.name}</option>
         );
     return (
@@ -26,6 +28,7 @@ class DropdownSite extends Component {
           style={{ height: 39 }}
           onChange={this.handleChange}
           >
+            <option value=""></option>
             {optionItems}
           </select>
     );
