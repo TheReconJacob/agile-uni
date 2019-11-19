@@ -119,10 +119,10 @@ module.exports.addEmployee = (DataAccess) => (req, callback) => {
     body.object_id,
     body.email
   ];
-  DataAccess.addCourse(parameters, (err, courses) => {
+  DataAccess.addEmployee(parameters, (err, employees) => {
     if (err) {
       return callback(err)
     }
-    callback(null, {status: 200, responseJson: { courses:courses }})
+    callback(null, {status: 200, responseJson: { employees:employees }})
   })
 };
