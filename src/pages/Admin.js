@@ -1,8 +1,13 @@
 import React from "react";
 import SearchBar from "../components/SearchBar";
 import "../styles/admin.scss";
-import Quill from "../components/Quill";
-import { authProvider } from '../authProvider';
+import { authProvider } from "../authProvider";
+// import ReactQuill from "react-quill";
+// import "react-quill/dist/quill.snow.css";
+// import "../styles/quill.scss";
+
+import CKEditor from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 class Admin extends React.Component {
   constructor() {
@@ -14,28 +19,30 @@ class Admin extends React.Component {
       endDate: "",
       endTime: "",
       numberParticipants: "",
-      description: ""
+      description: "",
+      text: ""
     };
     this.handleChange = this.handleChange.bind(this);
   }
-  handleChange(evt) {
-    this.setState({ [evt.target.name]: evt.target.value });
+
+  handleChange(value) {
+    this.setState({ text: value });
   }
 
   async handleSubmit(event) {
-    event.preventDefault()
-    event.persist()
+    event.preventDefault();
+    event.persist();
     const token = await authProvider.getAccessToken();
-    await console.log(token)
+    await console.log(token);
     const data = new FormData(event.target);
-    await fetch('http://localhost:5000/addCourse', {
-      method: 'POST',
+    data.append("f-description", this.state.text);
+    await fetch("http://localhost:5000/addCourse", {
+      method: "POST",
       headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('msal.idtoken')
+        Authorization: "Bearer " + localStorage.getItem("msal.idtoken")
       },
       body: data
-
-    })
+    });
   }
   render() {
     return (
@@ -182,7 +189,7 @@ class Admin extends React.Component {
                   </div>
                 </li>
                 <li className="c-form-list__item u-width-1/2">
-                <label className="c-form-label ">
+                  <label className="c-form-label ">
                     Location
                     <abbr
                       title="This field is required"
@@ -236,7 +243,23 @@ class Admin extends React.Component {
                   </label>
                 </li>
                 <li className="c-form-list__item u-width-1/2">
-                  <Quill />
+                  <CKEditor
+                    editor={ClassicEditor}
+                    data="<p>Enter description</p>"
+                    onInit={editor => {
+                      // You can store the "editor" and use when it is needed.
+                      console.log("Editor is ready to use!", editor);
+                    }}
+                    onChange={(event, editor) => {
+                      this.setState({ description: editor.getData() });
+                    }}
+                    onBlur={(event, editor) => {
+                      console.log("Blur.", editor);
+                    }}
+                    onFocus={(event, editor) => {
+                      console.log("Focus.", editor);
+                    }}
+                  />
                 </li>
                 <button type="submit" className="c-btn c-btn--primary">
                   Add Course
