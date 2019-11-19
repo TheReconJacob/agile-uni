@@ -2,6 +2,7 @@ import React from "react";
 import SearchBar from "../components/SearchBar";
 import "../styles/admin.scss";
 import Quill from "../components/Quill";
+import { authProvider } from '../authProvider';
 
 class Admin extends React.Component {
   constructor() {
@@ -21,7 +22,21 @@ class Admin extends React.Component {
     this.setState({ [evt.target.name]: evt.target.value });
   }
 
-  handleSubmit(event) {}
+  async handleSubmit(event) {
+    event.preventDefault()
+    event.persist()
+    const token = await authProvider.getAccessToken();
+    await console.log(token)
+    const data = new FormData(event.target);
+    await fetch('http://localhost:5000/deleteCourse', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: 'Bearer ' + token.getAccessToken
+      }
+
+    })
+  }
   render() {
     return (
       <>
