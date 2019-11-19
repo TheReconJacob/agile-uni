@@ -11,11 +11,7 @@ Make sure Homebrew is installed (https://brew.sh/). Install gitcrypt `brew insta
  
  Run `git-crypt unlock <path to key>`
 
-## Testing 
-
-Currently the server needs to be running before you can run the tets. We'll fix it eventually.
-
-Run `npm start` in the backend folder and then `npm test` in the same folder
+You'll need an AUTHTOKEN as a env to run the test. Install JWT debugger on chrome or search localstorage for the token. Using the JWT debugger, select the latest token (not the msal.idtoken) from drop down next to "OPEN JWT FROM", copy the encoded token. Then in your terminal set `AUTHTOKEN=ey68t53tyoeg......... npm test`
 
 ## Text editor
 

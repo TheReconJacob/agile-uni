@@ -5,6 +5,7 @@ const searchNoParam = require("./fake-data/search-no-parameters");
 const searchAgileOsterley = require("./fake-data/search-agile-osterley");
 const searchOsterley = require("./fake-data/search-osterley");
 const searchAgile = require("./fake-data/search-agile");
+const deleteExample = require("./fake-data/delete-result.json");
 
 const Data = {};
 
@@ -41,4 +42,7 @@ Data.searchCoursesWithLocation = (searchTerm, location, callback) => {
   }
 };
 
+Data.deleteCourse = (courseId, callback) => {
+    callback(null, { status: 200, responseJson: deleteExample });
+};
 module.exports = Data;
