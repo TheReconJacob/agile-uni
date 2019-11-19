@@ -108,6 +108,7 @@ app.get('/listAllCourses', (req, res) => {
 })
 
 app.post('/addCourse', (req, res) => {
+  req.header('Access-Control-Allow-Origin')
 	dataHandler.addCourse(Data)(req, (err, result) => {
 		if (err) {
 		  res.status(500)
