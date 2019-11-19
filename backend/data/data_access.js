@@ -116,4 +116,17 @@ Data.deleteCourse = (courseId, callback) => {
 	})	
 }
 
+Data.addEmployee = (inputs, callback) => {
+	connection.query(
+    "INSERT INTO employees (name, object_id, email) VALUES (?, ?, ?)",
+    inputs, 
+    function(err, rows, fields) {
+      if (err) {
+        return callback(err)
+      }
+      callback(null, { status: 200, responseJson: rows})
+    }
+  )
+}
+
 module.exports = Data;
