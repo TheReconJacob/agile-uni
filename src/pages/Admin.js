@@ -28,12 +28,12 @@ class Admin extends React.Component {
     const token = await authProvider.getAccessToken();
     await console.log(token)
     const data = new FormData(event.target);
-    await fetch('http://localhost:5000/deleteCourse', {
+    await fetch('http://localhost:5000/addCourse', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: 'Bearer ' + token.getAccessToken
-      }
+        Authorization: 'Bearer ' + localStorage.getItem('msal.idtoken')
+      },
+      body: data
 
     })
   }
@@ -70,6 +70,27 @@ class Admin extends React.Component {
                     placeholder="Title..."
                     name="f-title"
                     id="f-title" //onChange={this.handleChange}
+                    required
+                  />
+                </li>
+                <li className="c-form-list__item u-width-1/2">
+                  <label className="c-form-label ">
+                    Instructor Name
+                    <abbr
+                      title="This field is required"
+                      className="c-form-required"
+                    >
+                      *
+                    </abbr>
+                  </label>
+                </li>
+                <li className="c-form-list__item u-width-1/2">
+                  <input
+                    type="text"
+                    className="c-form-input"
+                    placeholder="Name of instructor..."
+                    name="f-instructor"
+                    id="f-instructor" //onChange={this.handleChange}
                     required
                   />
                 </li>
@@ -133,7 +154,7 @@ class Admin extends React.Component {
                 </li>
                 <li className="c-form-list__item u-width-1/2">
                   <label className="c-form-label">
-                    Location
+                    Site
                     <abbr
                       title="This field is required"
                       className="c-form-required"
@@ -145,19 +166,39 @@ class Admin extends React.Component {
                 <li className="c-form-list__item u-width-1/2">
                   <div className="c-form-select">
                     <select
-                      id="f-heroes"
+                      id="f-site"
+                      name="f-site"
                       className="c-form-select__dropdown" //onChange={this.handleChange}
                       defaultValue={"DEFAULT"}
                       required
                     >
                       <option value="DEFAULT" disabled>
-                        Choose a location...
+                        Choose a Site...
                       </option>
-                      <option value="Osterley">Osterley</option>
-                      <option value="Leeds">Leeds</option>
-                      <option value="Livingston">Livingston</option>
+                      <option value="1">Osterley</option>
+                      <option value="2">Leeds</option>
+                      <option value="3">Livingston</option>
                     </select>
                   </div>
+                </li>
+                <li className="c-form-list__item u-width-1/2">
+                <label className="c-form-label ">
+                    Location
+                    <abbr
+                      title="This field is required"
+                      className="c-form-required"
+                    >
+                      *
+                    </abbr>
+                  </label>
+                  <input
+                    type="text"
+                    className="c-form-input"
+                    placeholder="Room number..."
+                    name="f-location"
+                    id="f-location" //onChange={this.handleChange}
+                    required
+                  />
                 </li>
                 <li className="c-form-list__item u-width-1/2">
                   <label className="c-form-label">
@@ -175,9 +216,9 @@ class Admin extends React.Component {
                     type="number"
                     min="0"
                     className="c-form-date"
-                    placeholder="Choose maximum number of participants..."
-                    name="f-number-of-participants"
-                    id="f-number-of-participants" //onChange={this.handleChange}
+                    placeholder="Choose maximum number of attendees..."
+                    name="f-attendees-max"
+                    id="f-attendees-max" //onChange={this.handleChange}
                     required
                   />
                 </li>
@@ -187,6 +228,8 @@ class Admin extends React.Component {
                     <abbr
                       title="This field is required"
                       className="c-form-required"
+                      name="f-description"
+                      id="f-description"
                     >
                       *
                     </abbr>
