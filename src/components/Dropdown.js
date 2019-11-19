@@ -9,7 +9,6 @@ class DropdownSite extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log(this.props.state.site)
   }
 
   handleChange(evt) {
@@ -18,7 +17,6 @@ class DropdownSite extends Component {
 
   render() {
     let options = this.props.state.options;
-    console.log(this.props.state.options)
     let optionItems = 
         options.map((options) =>
             <option key={options.id} value={options.id}>{options.name}</option>
@@ -28,7 +26,7 @@ class DropdownSite extends Component {
           style={{ height: 39 }}
           onChange={this.handleChange}
           >
-            <option value=""></option>
+            <option value="">Location:</option>
             {optionItems}
           </select>
     );

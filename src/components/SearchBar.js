@@ -26,6 +26,7 @@ function getSearch(searchObj, siteObj) {
     .get("http://localhost:5000/search", params)
     .then(function(response) {
       console.log(response);
+      console.log(response.data.courses.responseJson)
     })
     .catch(function(error) {
       console.log(error);
@@ -49,7 +50,6 @@ class SearchBar extends Component {
   
   handleChange(evt) {
     this.setState({ searchTerm: evt.target.value });
-    console.log(this.state)
   }
 
   handleSubmit(event) {
@@ -61,7 +61,6 @@ class SearchBar extends Component {
     axios
       .get("http://localhost:5000/sites")
       .then((response) => this.setState({ options: response.data.sites.responseJson }))
-      //.then(() => console.log(this.state))
       .catch(function(error) {
         console.log(error);
       });
