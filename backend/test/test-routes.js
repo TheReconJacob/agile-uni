@@ -3,6 +3,7 @@ const chai = require('chai'),
       request = require("request"),
       chaiHttp = require('chai-http');
 const addCourseWithId = require("../routes/addWithId").addCourseWithId
+const deleteEmployeeTestFunction = require("../routes/deleteEmployee").deleteEmployeeTestFunction
 
 chai.use(chaiHttp);
 let server;
@@ -259,7 +260,35 @@ describe("Running app and testing data routes", function() {
 			});
 		});
       });
-    });
+	});
+	
+	describe("Add employee route", function() {
+		describe("Add an employee", function() {
+		  it("Employee should be added successfully", function(done) {
+			chai.request("http://localhost:5000")
+			.post("/addEmployee")
+			.set("Authorization", "Bearer " + process.env.AUTHTOKEN)
+			.send({
+				"name": "Employee test 13",
+				"object_id": "adoasjdoa",
+				"email": "employee@sky.uk"
+				}).end(function(
+			error,
+			response,
+			body) {
+			deleteEmployeeTestFunction(response.body.employees.responseJson.insertId);
+			expect(response).to.have.status(200);
+			function sleep (time) {
+				return new Promise((resolve) => setTimeout(resolve, time));
+			}
+			sleep(8000).then(() => {
+			console.log(response.body.employees.responseJson.insertId);
+			done();
+				});
+			});
+		  });
+		});
+	});
 
     after(done => {
       delete require.cache[require.resolve("../server.js")];
