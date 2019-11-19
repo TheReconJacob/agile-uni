@@ -111,3 +111,18 @@ module.exports.deleteCourse = (DataAccess) => (req, callback) => {
     callback(null, { status: 200, responseJson: { courses: courses }})
   })
 };
+
+module.exports.addEmployee = (DataAccess) => (req, callback) => {
+  const body = req.body;
+  const parameters = [
+    body.name,
+    body.object_id,
+    body.email
+  ];
+  DataAccess.addEmployee(parameters, (err, employees) => {
+    if (err) {
+      return callback(err)
+    }
+    callback(null, {status: 200, responseJson: { employees:employees }})
+  })
+};

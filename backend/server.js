@@ -7,6 +7,8 @@ const mysql = require('mysql')
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
 
+var cors = require('cors')
+
 const Data = require("./data/data_access.js");
 const dataHandler = require("./data/dataHandler.js");
 
@@ -14,6 +16,7 @@ const connection = mysql.createConnection(config.mysqlConfig);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors())
 
 connection.connect(function(err) {
   if (err) {
@@ -82,6 +85,7 @@ app.get("/sites", (req, res) => {
 });
 
 app.get("/search", (req, res) => {
+  req.header('Access-Control-Allow-Origin')
   dataHandler.searchCourses(Data)(req, (err, result) => {
     if (err) {
       res.status(500);
@@ -143,6 +147,18 @@ let server = app.listen(port, err => {
   }
   console.log("Listening on port " + port);
 });
+
+app.post('/addEmployee', (req, res) => {
+	dataHandler.addEmployee(Data)(req, (err, result) => {
+		if (err) {
+		  res.status(500)
+		  return res.json({ message: err.message })
+		}
+		res.status(result.status)
+		
+		return res.json(result.responseJson)
+	})
+})
 
 // Note to JS learners, put module.exports before any module.exports.banana because it overwrites stuff...
 module.exports = app;
