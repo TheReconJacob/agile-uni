@@ -1,18 +1,29 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "../styles/searchBar.scss";
-import DropdownLocation from "./Dropdown"
+import DropdownSite from "./Dropdown"
 
 axios.defaults.headers.common["Authorization"] =
   "Bearer " + localStorage.getItem("msal.idtoken");
 
-function getSearch(searchObj) {
-  axios
-    .get("http://localhost:5000/search", {
+function getSearch(searchObj, siteObj) {
+  let params;
+  if(!siteObj){
+    params = {
       params: {
         searchTerm: searchObj
       }
-    })
+    }
+  } else {
+    params = {
+      params: {
+        searchTerm: searchObj,
+        site: siteObj
+      }
+    }
+  }
+  axios
+    .get("http://localhost:5000/search", params)
     .then(function(response) {
       console.log(response);
     })
@@ -25,9 +36,8 @@ class SearchBar extends Component {
   constructor() {
     super();
     this.state = {
-      options: ["Osterley", "Leeds", "Livingstone", "Aylesbury"],
-      site: "",
-      searchTerm: ""
+      options: [],
+      searchTerm: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,22 +45,23 @@ class SearchBar extends Component {
 
   componentDidMount() {
     this.getSites();
-    
   }
   
   handleChange(evt) {
     this.setState({ searchTerm: evt.target.value });
+    console.log(this.state)
   }
+
   handleSubmit(event) {
     event.preventDefault();
-    getSearch(this.state.searchTerm);  
+    getSearch(this.state.searchTerm, this.state.site);  
   }
 
   getSites() {
     axios
       .get("http://localhost:5000/sites")
       .then((response) => this.setState({ options: response.data.sites.responseJson }))
-      .then(() => console.log(this.state))
+      //.then(() => console.log(this.state))
       .catch(function(error) {
         console.log(error);
       });
@@ -63,7 +74,7 @@ class SearchBar extends Component {
           <fieldset>
             <ul className="c-form-list o-layout--spaced">
               <li className="c-form-list">
-                <DropdownLocation state={this.state} />
+                <DropdownSite state={this.state} setSite={(id) => this.setState({ site: id })}/>
                 <div className="c-form-combo--inline o-layout__item u-width-3/4">
                   <div className="c-form-combo__cell">
                     <input
