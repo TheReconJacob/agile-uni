@@ -26,7 +26,7 @@ class DropdownSite extends Component {
           style={{ height: 39 }}
           onChange={this.handleChange}
           >
-            <option value="">Location:</option>
+            <option value="">Select a location</option>
             {optionItems}
           </select>
     );
