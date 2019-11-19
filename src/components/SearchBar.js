@@ -32,13 +32,28 @@ class SearchBar extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  componentDidMount() {
+    this.getSites();
+    
+  }
+  
   handleChange(evt) {
     this.setState({ searchTerm: evt.target.value });
   }
   handleSubmit(event) {
     event.preventDefault();
-    getSearch(this.state.searchTerm);
-    
+    getSearch(this.state.searchTerm);  
+  }
+
+  getSites() {
+    axios
+      .get("http://localhost:5000/sites")
+      .then((response) => this.setState({ options: response.data.sites.responseJson }))
+      .then(() => console.log(this.state))
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 
   render() {

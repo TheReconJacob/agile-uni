@@ -13,7 +13,7 @@ class DropdownLocation extends Component {
   render() {
     let options = this.props.state.options;
     let optionItems = options.map((options) =>
-            <option key={options}>{options}</option>
+            <option key={options.name}>{options.name}</option>
         );
     return (
           <select className="c-form-select__dropdown--inline o-layout__item u-width-1/4" style={{ height: 39 }}>
