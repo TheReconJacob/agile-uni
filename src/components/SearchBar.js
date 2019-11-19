@@ -1,6 +1,21 @@
 import React, { Component } from "react";
+import axios from "axios";
 import "../styles/searchBar.scss";
 
+function getSearch(searchObj) {
+  axios
+    .get("http://localhost:5000/search", {
+      params: {
+        searchTerm: searchObj
+      }
+    })
+    .then(function(response) {
+      console.log(response);
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+}
 
 class SearchBar extends Component {
   constructor() {
@@ -28,7 +43,7 @@ class SearchBar extends Component {
                   className="c-form-select__dropdown--inline o-layout__item u-width-1/4"
                   onChange={this.handleChange}
                   style={{ height: 39 }}
-                  defaultValue={'DEFAULT'}
+                  defaultValue={"DEFAULT"}
                 >
                   <option value="DEFAULT" disabled>
                     Location
@@ -49,9 +64,12 @@ class SearchBar extends Component {
                     />
                   </div>
                   <div className="c-form-combo__cell">
-                    <button className="c-form-combo__btn c-btn c-btn--primary">
+                    <button
+                      className="c-form-combo__btn c-btn c-btn--primary"
+                      onClick={getSearch(this.searchTerm)}
+                    >
                       Search
-                  </button>
+                    </button>
                   </div>
                 </div>
               </li>
