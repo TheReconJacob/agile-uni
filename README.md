@@ -3,10 +3,13 @@
 The repo for the agile university website
 
 ## Install
-Install Homebrew (https://brew.sh/)
+The password for the database and the authtoken for the sky node library are encrypted on github. You will need a key to unlock these files. 
 
-The password for the database and the authtoken for the sky node library are encrypted on github. You will need a key to unlock these files so they can be used on your local machine.  Download the file called agile-key which is pinned in the agile-university slack channel. Place this in your home directory (run echo \$HOME to find this). Run `git-crypt unlock <path to key>`
+Make sure Homebrew is installed (https://brew.sh/). Install gitcrypt `brew install git-crypt`
 
+ Download the file called "agile_key" which is pinned in the agile-university slack channel. You can put this in any directory EXCEPT that linked to the github repo (e.g. you could store it in your home directory - run `echo \$HOME` to find this). 
+ 
+ Run `git-crypt unlock <path to key>`
 
 ## Testing 
 
