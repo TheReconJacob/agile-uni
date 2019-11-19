@@ -9,7 +9,7 @@
         "attendees_booked": 0,
         "location": "The Hub",
         "site_id": 1,
-        "instructor_id": 1,
+        "instructor_name": "Alex Drage",
         "id": 1,
         "name": "Osterley",
         "address": "Sky Central\nGrant Way\nIsleworth\nMiddlesex\nSky"
@@ -24,7 +24,7 @@
         "attendees_booked": 55,
         "location": "Central 2.2",
         "site_id": 1,
-        "instructor_id": 1,
+        "instructor_name": "Alex Drage",
         "id": 1,
         "name": "Osterley",
         "address": "Sky Central\nGrant Way\nIsleworth\nMiddlesex\nSky"
@@ -39,7 +39,7 @@
         "attendees_booked": 55,
         "location": "Central 2.2",
         "site_id": 1,
-        "instructor_id": 1,
+        "instructor_name": "Alex Drage",
         "id": 1,
         "name": "Osterley",
         "address": "Sky Central\nGrant Way\nIsleworth\nMiddlesex\nSky"
