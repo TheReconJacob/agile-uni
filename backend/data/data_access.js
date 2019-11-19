@@ -80,7 +80,7 @@ Data.listAllCourses = callback => {
 
 Data.editCourse = (inputs, callback) => {
   connection.query(
-    "UPDATE courses SET title = ?, description = ?, start_date = ?, end_date = ?, attendees_max = ?, location = ?, site_id = ?, instructor_id = ? WHERE course_id = ?",
+    "UPDATE courses SET title = ?, description = ?, start_date = ?, end_date = ?, attendees_max = ?, location = ?, site_id = ?, instructor_name = ? WHERE course_id = ?",
     inputs,
     function(err, rows) {
       if (err) {
@@ -95,7 +95,7 @@ Data.addCourse = (inputs, callback) => {
 	// Site id used instead of name
   // Instructor id change to instructor name
 	connection.query(
-    "INSERT INTO courses (title, description, start_date, end_date, attendees_max, location, site_id, instructor_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+    "INSERT INTO courses (title, description, start_date, end_date, attendees_max, location, site_id, instructor_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
     inputs, 
     function(err, rows, fields) {
       if (err) {

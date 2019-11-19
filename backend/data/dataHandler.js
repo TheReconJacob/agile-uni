@@ -72,7 +72,7 @@ module.exports.editCourse = DataAccess => (req, callback) => {
     body.attendees_max,
     body.location,
     body.site_id,
-    body.instructor_id,
+    body.instructor_name,
     body.id
   ];
   DataAccess.editCourse(parameters, err => {
@@ -93,7 +93,7 @@ module.exports.addCourse = (DataAccess) => (req, callback) => {
     body.attendees_max,
     body.location,
     body.site_id,
-    body.instructor_id,
+    body.instructor_name,
   ];
   DataAccess.addCourse(parameters, (err, courses) => {
     if (err) {

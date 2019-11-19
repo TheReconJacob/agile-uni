@@ -92,7 +92,7 @@ describe("Running app and testing data routes", function() {
             "attendees_booked",
             "location",
             "site_id",
-            "instructor_id"
+            "instructor_name"
           );
           done();
         }
@@ -139,7 +139,7 @@ describe("Running app and testing data routes", function() {
               "attendees_booked",
               "location",
               "site_id",
-              "instructor_id",
+              "instructor_name",
               "id",
               "address",
               "name"
@@ -174,7 +174,7 @@ describe("Running app and testing data routes", function() {
           "attendees_booked",
           "location",
           "site_id",
-          "instructor_id",
+          "instructor_name",
           "id",
           "name",
           "address"
@@ -199,7 +199,7 @@ describe("Running app and testing data routes", function() {
         'end_date': "0000-00-00 00:00:00",
         'attendees_max': 100,
         'description': 'Things',
-        'instructor_id': 1
+        'instructor_name': "Alex Drage"
         }).end(function(
         error,
         response,
@@ -225,7 +225,7 @@ describe("Running app and testing data routes", function() {
             attendees_max: 100,
             location: "Osterley",
             site_id: 1,
-            instructor_id: 1
+            instructor_name: "Alex Drage"
           })
           .end(function(error, res) {
             expect(res.status).to.equal(200);
