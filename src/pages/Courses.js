@@ -21,7 +21,7 @@ class Courses extends React.Component {
   };
 
   render() {
-    const parentId = "1";
+    const parentId = "0";
     let adminAddComponent;
     if (this.props.adminStatus) {
       adminAddComponent = (
@@ -52,13 +52,13 @@ class Courses extends React.Component {
             {adminAddComponent}
             <Accordion
               id={parentId}
-              collapseOnToggle
+              collapseOnToggle="false"
               selected={this.state.accordionSelected}
               updateSelection={this.updateAccordionSelection}
-              isNested="true"
+              isNested="false"
             >
               <AccordionSection
-                className="accordion-section"
+                className="c-accordion__section"
                 id="1"
                 title="Section 1"
               >
@@ -66,15 +66,23 @@ class Courses extends React.Component {
                   <ACourseSection adminStatus={this.props.adminStatus}/>
                 </CourseIdContext.Provider>
               </AccordionSection>
-              
+
               <AccordionSection
-                className="accordion-section"
+                className="c-accordion__section"
                 id="2"
-                title="Section 2"/>
+                title="Section 2">
                 <CourseIdContext.Provider value="2">
                   <ACourseSection adminStatus={this.props.adminStatus}/>
                 </CourseIdContext.Provider>
-              <AccordionSection/>
+              </AccordionSection>
+              <AccordionSection
+                className="c-accordion__section"
+                id="3"
+                title="Section 3">
+                <CourseIdContext.Provider value="3">
+                  <ACourseSection adminStatus={this.props.adminStatus}/>
+                </CourseIdContext.Provider>
+              </AccordionSection>
             </Accordion>
           </div>
         </div>
@@ -115,7 +123,6 @@ class ACourseSection extends React.Component{
           >
             Book now
           </a>
-          static contextType = CourseIdContext;
           {adminComponents}
         </div>
       </div>

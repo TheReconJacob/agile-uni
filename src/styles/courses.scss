@@ -1,3 +1,6 @@
+@import '~sky-toolkit-ui/components/accordion';
+@import '~sky-toolkit-ui/components/typography';
+
 .accordion-button-box {
     text-align: right;
     display: block;
@@ -30,9 +33,9 @@
     
 }
 
-.c-btn--full a:hover, a:visited, a:link, a:active{
-     text-decoration: none; //otherwise line shows up under the text when hovering
-}
+// .c-btn--full a:hover, a:visited, a:link, a:active{
+//      text-decoration: none; //otherwise line shows up under the text when hovering
+// }
 
 .c-btn__icon{
     height: 65%;
