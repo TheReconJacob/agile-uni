@@ -38,7 +38,7 @@ class Courses extends React.Component {
       );
     }
 
-    const elements = ['4','5','6'];
+    const elements = ['1','2','3','4'];
 
     return (
       <>
@@ -59,7 +59,7 @@ class Courses extends React.Component {
               updateSelection={this.updateAccordionSelection}
               isNested="false"
             >
-              <AccordionSection
+              {/* <AccordionSection
                 className="c-accordion__section"
                 id="1"
                 title="Section 1"
@@ -84,13 +84,13 @@ class Courses extends React.Component {
                 <CourseIdContext.Provider value="3">
                   <ACourseSection adminStatus={this.props.adminStatus}/>
                 </CourseIdContext.Provider>
-              </AccordionSection>
+              </AccordionSection> */}
               {elements.map((value, index) => {
         return (  
           <AccordionSection
                     className="c-accordion__section"
                     id={value}
-                    title={"Section "+{value}}
+                    title={"Section "+value}
                   >
                     <CourseIdContext.Provider value={value}>
                       <ACourseSection adminStatus={this.props.adminStatus}/>
