@@ -1,7 +1,7 @@
 import React from "react";
 import SearchBar from "../components/SearchBar";
 import "../styles/admin.scss";
-import { authProvider } from "../authProvider";
+// import { authProvider } from "../authProvider";
 // import ReactQuill from "react-quill";
 // import "react-quill/dist/quill.snow.css";
 // import "../styles/quill.scss";
@@ -20,23 +20,16 @@ class Admin extends React.Component {
       endTime: "",
       numberParticipants: "",
       description: "",
-      text: ""
     };
-    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(value) {
-    this.setState({ text: value });
-  }
-
-  async handleSubmit(event) {
+  handleSubmit(event) {
     event.preventDefault();
     event.persist();
-    const token = await authProvider.getAccessToken();
-    await console.log(token);
     const data = new FormData(event.target);
-    data.append("f-description", this.state.text);
-    await fetch("http://localhost:5000/addCourse", {
+    data.append("description", this.state.description);
+    fetch("http://localhost:5000/addCourse", {
       method: "POST",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("msal.idtoken")
@@ -75,7 +68,7 @@ class Admin extends React.Component {
                     type="text"
                     className="c-form-input"
                     placeholder="Title..."
-                    name="f-title"
+                    name="title"
                     id="f-title" //onChange={this.handleChange}
                     required
                   />
@@ -96,7 +89,7 @@ class Admin extends React.Component {
                     type="text"
                     className="c-form-input"
                     placeholder="Name of instructor..."
-                    name="f-instructor"
+                    name="instructor"
                     id="f-instructor" //onChange={this.handleChange}
                     required
                   />
@@ -117,7 +110,7 @@ class Admin extends React.Component {
                     type="date"
                     className="c-form-date c-form-combo--inline o-layout__item u-width-3/4 "
                     placeholder="Choose a start date..."
-                    name="f-start-date"
+                    name="start_date"
                     id="f-start-date" //onChange={this.handleChange}
                     required
                   />
@@ -125,7 +118,7 @@ class Admin extends React.Component {
                     type="time"
                     className="c-form-date c-form-combo--inline o-layout__item u-width-1/4"
                     placeholder="Choose a start time..."
-                    name="f-start-time"
+                    name="start_time"
                     id="f-start-time" //onChange={this.handleChange}
                     required
                   />
@@ -146,7 +139,7 @@ class Admin extends React.Component {
                     type="date"
                     className="c-form-date c-form-combo--inline o-layout__item u-width-3/4"
                     placeholder="Choose an end time and date..."
-                    name="f-end-date"
+                    name="end_date"
                     id="f-end-date" //onChange={this.handleChange}
                     required
                   />
@@ -154,7 +147,7 @@ class Admin extends React.Component {
                     type="time"
                     className="c-form-date c-form-combo--inline o-layout__item u-width-1/4"
                     placeholder="Choose an end time..."
-                    name="f-end-time"
+                    name="end_time"
                     id="f-end-time" //onChange={this.handleChange}
                     required
                   />
@@ -174,7 +167,7 @@ class Admin extends React.Component {
                   <div className="c-form-select">
                     <select
                       id="f-site"
-                      name="f-site"
+                      name="site"
                       className="c-form-select__dropdown" //onChange={this.handleChange}
                       defaultValue={"DEFAULT"}
                       required
@@ -202,7 +195,7 @@ class Admin extends React.Component {
                     type="text"
                     className="c-form-input"
                     placeholder="Room number..."
-                    name="f-location"
+                    name="location"
                     id="f-location" //onChange={this.handleChange}
                     required
                   />
@@ -224,8 +217,8 @@ class Admin extends React.Component {
                     min="0"
                     className="c-form-date"
                     placeholder="Choose maximum number of attendees..."
-                    name="f-attendees-max"
-                    id="f-attendees-max" //onChange={this.handleChange}
+                    name="attendees_max"
+                    id="attendees-max" //onChange={this.handleChange}
                     required
                   />
                 </li>
@@ -235,8 +228,8 @@ class Admin extends React.Component {
                     <abbr
                       title="This field is required"
                       className="c-form-required"
-                      name="f-description"
-                      id="f-description"
+                      name="description"
+                      id="description"
                     >
                       *
                     </abbr>
