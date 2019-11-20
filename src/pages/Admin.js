@@ -236,7 +236,7 @@ class Admin extends React.Component {
                     </abbr>
                   </label>
                 </li>
-                <li className="c-form-list__item u-width-1/2">
+                <li className="c-form-list__item u-width-1/2" id="editor">
                   <CKEditor
                     editor={ClassicEditor}
                     data=""
