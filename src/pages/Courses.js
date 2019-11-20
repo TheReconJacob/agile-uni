@@ -23,7 +23,6 @@ class Courses extends React.Component {
   render() {
     const parentId = "1";
     let adminAddComponent;
-    let adminEditComponent;
     if (this.props.adminStatus) {
       adminAddComponent = (
         <a href="/admin">
@@ -35,14 +34,6 @@ class Courses extends React.Component {
             />
             Add a new course
           </button>
-        </a>
-      );
-      adminEditComponent = (
-        <a
-          href="/admin"
-          className="accordion-button c-btn c-btn--primary u-margin-right"
-        >
-          Edit
         </a>
       );
     }
@@ -90,7 +81,7 @@ class Courses extends React.Component {
                       Book now
                     </a>
                     static contextType = CourseIdContext;
-                    <DeleteButtonHighLevel adminStatus={this.props.adminStatus}/>
+                    <AdminButtons adminStatus={this.props.adminStatus}/>
                   </div>
                 </div>
                 </CourseIdContext.Provider>
@@ -108,7 +99,7 @@ class Courses extends React.Component {
   }
 }
 
-class DeleteButtonHighLevel extends React.Component{
+class AdminButtons extends React.Component{
   static contextType = CourseIdContext;
   render(){
     let adminComponents;
