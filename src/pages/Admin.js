@@ -36,8 +36,10 @@ class Admin extends React.Component {
       },
       body: data
     });
+    window.location.replace("http://localhost:3000/courses");
   }
   render() {
+  
     return (
       <>
         <div className="c-hero hero-background">
