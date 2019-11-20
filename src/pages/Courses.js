@@ -48,7 +48,6 @@ class Courses extends React.Component {
             <SearchBar />
           </div>
         </div>
-
         <div className="o-container course-page-accordion">
           <div className="o-layout">
             {adminAddComponent}
@@ -59,35 +58,9 @@ class Courses extends React.Component {
               updateSelection={this.updateAccordionSelection}
               isNested="false"
             >
-              {/* <AccordionSection
-                className="c-accordion__section"
-                id="1"
-                title="Section 1"
-              >
-                <CourseIdContext.Provider value="1">
-                  <ACourseSection adminStatus={this.props.adminStatus}/>
-                </CourseIdContext.Provider>
-              </AccordionSection>
-
-              <AccordionSection
-                className="c-accordion__section"
-                id="2"
-                title="Section 2">
-                <CourseIdContext.Provider value="2">
-                  <ACourseSection adminStatus={this.props.adminStatus}/>
-                </CourseIdContext.Provider>
-              </AccordionSection>
-              <AccordionSection
-                className="c-accordion__section"
-                id="3"
-                title="Section 3">
-                <CourseIdContext.Provider value="3">
-                  <ACourseSection adminStatus={this.props.adminStatus}/>
-                </CourseIdContext.Provider>
-              </AccordionSection> */}
               {elements.map((value, index) => {
-        return (  
-          <AccordionSection
+                return (  
+                  <AccordionSection
                     className="c-accordion__section"
                     id={value}
                     title={"Section "+value}
@@ -96,8 +69,8 @@ class Courses extends React.Component {
                       <ACourseSection adminStatus={this.props.adminStatus}/>
                     </CourseIdContext.Provider>
                   </AccordionSection>
-          )
-      })}
+                  )
+              })}
             </Accordion>
           </div>
         </div>
