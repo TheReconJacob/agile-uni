@@ -6,7 +6,7 @@ axios.defaults.headers.common["Authorization"] =
 
 function deleteCourse(courseID) {
   axios
-    .get("http://localhost:5000/delete", {
+    .get("http://localhost:5000/deleteCourse", {
       params: {
         courseId: courseID
       }
@@ -28,7 +28,7 @@ class DeleteButton extends React.Component {
     var answer = window.confirm("Are you sure you want to delete this course?");
     if (answer) {
       // console.log("successfully deleted");
-      deleteCourse("35");
+      deleteCourse(this.props.courseToDelete);
     } else {
       //some code
     }

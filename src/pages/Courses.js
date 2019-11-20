@@ -94,10 +94,7 @@ class Courses extends React.Component {
                     >
                       Book now
                     </a>
-                    <DeleteButton
-                      adminStatus={this.props.adminStatus}
-                      courseToDelete={AccordionSection.id}
-                    />
+                    <DeleteButton adminStatus={this.props.adminStatus} courseToDelete={AccordionSection.id} />
                     {adminEditComponent}
                   </div>
                 </div>
