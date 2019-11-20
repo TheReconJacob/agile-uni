@@ -35,9 +35,17 @@ class Admin extends React.Component {
         Authorization: "Bearer " + localStorage.getItem("msal.idtoken")
       },
       body: data
+    }).then((response) => {
+      if (response.ok) {
+        window.location.replace("http://localhost:3000/courses");
+      } else {
+        throw new Error('Something went wrong');
+      }
+    }).catch((error) => {
+      console.log(error)
     });
-    window.location.replace("http://localhost:3000/courses");
   }
+
   render() {
   
     return (
@@ -69,7 +77,6 @@ class Admin extends React.Component {
                   <input
                     type="text"
                     className="c-form-input"
-                    placeholder="Title..."
                     name="title"
                     id="f-title" //onChange={this.handleChange}
                     required
@@ -90,7 +97,6 @@ class Admin extends React.Component {
                   <input
                     type="text"
                     className="c-form-input"
-                    placeholder="Name of instructor..."
                     name="instructor"
                     id="f-instructor" //onChange={this.handleChange}
                     required
@@ -111,7 +117,6 @@ class Admin extends React.Component {
                   <input
                     type="date"
                     className="c-form-date c-form-combo--inline o-layout__item u-width-3/4 "
-                    placeholder="Choose a start date..."
                     name="start_date"
                     id="f-start-date" //onChange={this.handleChange}
                     required
@@ -119,7 +124,6 @@ class Admin extends React.Component {
                   <input
                     type="time"
                     className="c-form-date c-form-combo--inline o-layout__item u-width-1/4"
-                    placeholder="Choose a start time..."
                     name="start_time"
                     id="f-start-time" //onChange={this.handleChange}
                     required
@@ -140,7 +144,6 @@ class Admin extends React.Component {
                   <input
                     type="date"
                     className="c-form-date c-form-combo--inline o-layout__item u-width-3/4"
-                    placeholder="Choose an end time and date..."
                     name="end_date"
                     id="f-end-date" //onChange={this.handleChange}
                     required
@@ -148,7 +151,6 @@ class Admin extends React.Component {
                   <input
                     type="time"
                     className="c-form-date c-form-combo--inline o-layout__item u-width-1/4"
-                    placeholder="Choose an end time..."
                     name="end_time"
                     id="f-end-time" //onChange={this.handleChange}
                     required
@@ -175,7 +177,6 @@ class Admin extends React.Component {
                       required
                     >
                       <option value="DEFAULT" disabled>
-                        Choose a Site...
                       </option>
                       <option value="1">Osterley</option>
                       <option value="2">Leeds</option>
@@ -196,7 +197,6 @@ class Admin extends React.Component {
                   <input
                     type="text"
                     className="c-form-input"
-                    placeholder="Room number..."
                     name="location"
                     id="f-location" //onChange={this.handleChange}
                     required
@@ -218,7 +218,6 @@ class Admin extends React.Component {
                     type="number"
                     min="0"
                     className="c-form-date"
-                    placeholder="Choose maximum number of attendees..."
                     name="attendees_max"
                     id="attendees-max" //onChange={this.handleChange}
                     required
@@ -240,7 +239,7 @@ class Admin extends React.Component {
                 <li className="c-form-list__item u-width-1/2">
                   <CKEditor
                     editor={ClassicEditor}
-                    data="<p>Enter description</p>"
+                    data=""
                     onInit={editor => {
                       // You can store the "editor" and use when it is needed.
                       console.log("Editor is ready to use!", editor);
