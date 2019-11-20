@@ -3,6 +3,7 @@ import { Accordion } from '@sky-uk/toolkit-react';
 import { AccordionSection } from '@sky-uk/toolkit-react';
 import SearchBar from "../components/SearchBar";
 import "../styles/courses.scss";
+import DeleteButton from "../components/DeleteButton";
 
 class Courses extends React.Component {
   constructor() {
@@ -64,7 +65,8 @@ class Courses extends React.Component {
                   <div className="accordion-button-box">
                     <a href="mailto:agileuniversity@sky.uk" className="accordion-button c-btn c-btn--primary u-margin-right">Request more information</a>
                     <a href="/courses" className="accordion-button c-btn c-btn--primary u-margin-right">Book now</a>
-                    {adminDeleteComponent}
+                    <DeleteButton adminStatus={this.props.adminStatus} courseToDelete={AccordionSection.id}/>
+                    {/* {adminDeleteComponent} */}
                     {adminEditComponent}
                   </div>
                 </div>
