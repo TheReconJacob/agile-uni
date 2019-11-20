@@ -44,7 +44,7 @@ class SearchBar extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.getSites();
   }
   

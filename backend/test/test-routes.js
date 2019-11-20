@@ -138,7 +138,7 @@ describe("Integration tests: Running app and testing data routes", function() {
               "end_date",
               "attendees_max",
               "attendees_booked",
-              "site",
+              "location",
               "site_id",
               "instructor_name",
               "id",
