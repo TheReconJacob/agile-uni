@@ -29,9 +29,7 @@ class DeleteButton extends React.Component {
     if (answer) {
       // console.log("successfully deleted");
       deleteCourse(this.props.courseToDelete);
-    } else {
-      //some code
-    }
+    } 
   }
 
   render() {
