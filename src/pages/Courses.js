@@ -36,14 +36,6 @@ class Courses extends React.Component {
           </button>
         </a>
       );
-      // adminDeleteComponent = (
-      //   <a
-      //     href="courses"
-      //     className="accordion-button c-btn c-btn--primary u-margin-right"
-      //   >
-      //     Delete
-      //   </a>
-      // );
       adminEditComponent = (
         <a
           href="/admin"
