@@ -90,7 +90,6 @@ class Courses extends React.Component {
                       Book now
                     </a>
                     static contextType = CourseIdContext;
-                    {/* <DeleteButton adminStatus={this.props.adminStatus} courseToDelete={this.context} /> */}
                     <DeleteButtonHighLevel/>
                     {adminEditComponent}
                   </div>
