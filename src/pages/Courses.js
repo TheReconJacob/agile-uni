@@ -38,6 +38,8 @@ class Courses extends React.Component {
       );
     }
 
+    const elements = ['4','5','6'];
+
     return (
       <>
         <div className="c-hero hero-background">
@@ -83,6 +85,19 @@ class Courses extends React.Component {
                   <ACourseSection adminStatus={this.props.adminStatus}/>
                 </CourseIdContext.Provider>
               </AccordionSection>
+              {elements.map((value, index) => {
+        return (  
+          <AccordionSection
+                    className="c-accordion__section"
+                    id={value}
+                    title={"Section "+{value}}
+                  >
+                    <CourseIdContext.Provider value={value}>
+                      <ACourseSection adminStatus={this.props.adminStatus}/>
+                    </CourseIdContext.Provider>
+                  </AccordionSection>
+          )
+      })}
             </Accordion>
           </div>
         </div>
