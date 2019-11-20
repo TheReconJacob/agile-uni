@@ -5,6 +5,8 @@ import SearchBar from "../components/SearchBar";
 import "../styles/courses.scss";
 import DeleteButton from "../components/DeleteButton";
 
+const CourseIdContext = React.createContext('0');
+
 class Courses extends React.Component {
   constructor() {
     super();
@@ -21,7 +23,6 @@ class Courses extends React.Component {
   render() {
     const parentId = "1";
     let adminAddComponent;
-    let adminDeleteComponent;
     let adminEditComponent;
     if (this.props.adminStatus) {
       adminAddComponent = (
@@ -70,6 +71,8 @@ class Courses extends React.Component {
                 id="1"
                 title="Section 1"
               >
+                <CourseIdContext.Provider value="1">
+
                 <div className="">
                   <h2 className="c-heading-delta o-layout__item">Title</h2>
                   <p className="c-text-body o-layout__item">Description</p>
@@ -86,10 +89,13 @@ class Courses extends React.Component {
                     >
                       Book now
                     </a>
-                    <DeleteButton adminStatus={this.props.adminStatus} courseToDelete={AccordionSection.id} />
+                    static contextType = CourseIdContext;
+                    {/* <DeleteButton adminStatus={this.props.adminStatus} courseToDelete={this.context} /> */}
+                    <DeleteButtonHighLevel/>
                     {adminEditComponent}
                   </div>
                 </div>
+                </CourseIdContext.Provider>
               </AccordionSection>
               <AccordionSection
                 className="accordion-section"
@@ -101,6 +107,14 @@ class Courses extends React.Component {
         </div>
       </>
     );
+  }
+}
+
+class DeleteButtonHighLevel extends React.Component{
+  static contextType = CourseIdContext;
+  render(){
+    return <DeleteButton adminStatus={this.props.adminStatus} courseToDelete={this.context} />
+
   }
 }
 
