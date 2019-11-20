@@ -66,11 +66,15 @@ class Courses extends React.Component {
                   <ACourseSection adminStatus={this.props.adminStatus}/>
                 </CourseIdContext.Provider>
               </AccordionSection>
+              
               <AccordionSection
                 className="accordion-section"
                 id="2"
-                title="Section 2"
-              />
+                title="Section 2"/>
+                <CourseIdContext.Provider value="2">
+                  <ACourseSection adminStatus={this.props.adminStatus}/>
+                </CourseIdContext.Provider>
+              <AccordionSection/>
             </Accordion>
           </div>
         </div>

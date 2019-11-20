@@ -33,7 +33,6 @@ class DeleteButton extends React.Component {
   }
 
   render() {
-    console.log("id to delete" + this.props.courseToDelete);
     return (
       <> 
         <button onClick={this.confirmDelete} className="accordion-button c-btn c-btn--primary u-margin-right">
