@@ -1,4 +1,23 @@
 import React from "react";
+import axios from "axios";
+
+axios.defaults.headers.common["Authorization"] =
+  "Bearer " + localStorage.getItem("msal.idtoken");
+
+function deleteCourse(courseID) {
+  axios
+    .get("http://localhost:5000/delete", {
+      params: {
+        courseId: courseID
+      }
+    })
+    .then(function(response) {
+      console.log(response);
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+}
 
 class DeleteButton extends React.Component {
   constructor() {
@@ -6,11 +25,10 @@ class DeleteButton extends React.Component {
   }
 
   confirmDelete() {
-
-    
     var answer = window.confirm("Save data?");
     if (answer) {
-      //some code
+      // console.log("successfully deleted");
+      deleteCourse("35");
     } else {
       //some code
     }
