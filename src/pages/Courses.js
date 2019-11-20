@@ -63,27 +63,7 @@ class Courses extends React.Component {
                 title="Section 1"
               >
                 <CourseIdContext.Provider value="1">
-
-                <div className="">
-                  <h2 className="c-heading-delta o-layout__item">Title</h2>
-                  <p className="c-text-body o-layout__item">Description</p>
-                  <div className="accordion-button-box">
-                    <a
-                      href="mailto:agileuniversity@sky.uk"
-                      className="accordion-button c-btn c-btn--primary u-margin-right"
-                    >
-                      Request more information
-                    </a>
-                    <a
-                      href="/courses"
-                      className="accordion-button c-btn c-btn--primary u-margin-right"
-                    >
-                      Book now
-                    </a>
-                    static contextType = CourseIdContext;
-                    <AdminButtons adminStatus={this.props.adminStatus}/>
-                  </div>
-                </div>
+                  <ACourseSection adminStatus={this.props.adminStatus}/>
                 </CourseIdContext.Provider>
               </AccordionSection>
               <AccordionSection
@@ -99,7 +79,7 @@ class Courses extends React.Component {
   }
 }
 
-class AdminButtons extends React.Component{
+class ACourseSection extends React.Component{
   static contextType = CourseIdContext;
   render(){
     let adminComponents;
@@ -115,7 +95,26 @@ class AdminButtons extends React.Component{
     }
     return(
       <>
-      {adminComponents}
+        <div className="">
+        <h2 className="c-heading-delta o-layout__item">Title {this.context}</h2>
+        <p className="c-text-body o-layout__item">Description {this.context}</p>
+        <div className="accordion-button-box">
+          <a
+            href="mailto:agileuniversity@sky.uk"
+            className="accordion-button c-btn c-btn--primary u-margin-right"
+          >
+            Request more information
+          </a>
+          <a
+            href="/courses"
+            className="accordion-button c-btn c-btn--primary u-margin-right"
+          >
+            Book now
+          </a>
+          static contextType = CourseIdContext;
+          {adminComponents}
+        </div>
+      </div>
       </>
   )
   }
