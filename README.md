@@ -12,8 +12,9 @@ Make sure [Homebrew](https://brew.sh/) is installed. Install gitcrypt
  Download the file called "agile_key" which is pinned in the agile-university slack channel. You can put this in any directory EXCEPT that linked to the github repo (e.g. you could store it in your home directory - run `echo \$HOME` to find this).  
 
  Run `git-crypt unlock <path to key>`
+## Testing
 
-You'll need an AUTHTOKEN as a env to run the test. Install JWT debugger on chrome or search localstorage for the token. Using the JWT debugger, select the latest token (not the msal.idtoken) from drop down next to "OPEN JWT FROM", copy the encoded token. Then in your terminal set `AUTHTOKEN=ey68t53tyoeg......... npm test`
+You'll need an AUTHTOKEN as a env to run the test (see wiki as to why). Install JWT debugger on chrome or search localstorage for the token. Using the JWT debugger, select the latest token (not the msal.idtoken) from drop down next to "OPEN JWT FROM", copy the encoded token. Then in your terminal set `AUTHTOKEN=ey68t53tyoeg......... npm test` 
 
 ## Useful Links
 
