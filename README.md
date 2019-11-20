@@ -14,7 +14,7 @@ Make sure [Homebrew](https://brew.sh/) is installed. Install gitcrypt
  Run `git-crypt unlock <path to key>`
 ## Testing
 
-You'll need an AUTHTOKEN as a env to run the test (see wiki as to why). Install JWT debugger on chrome or search localstorage for the token. Using the JWT debugger, select the latest token (not the msal.idtoken) from drop down next to "OPEN JWT FROM", copy the encoded token. Then in your terminal set `AUTHTOKEN=ey68t53tyoeg......... npm test` 
+You'll need an AUTHTOKEN as a env to run the test (**see wiki as to why**). Install JWT debugger on chrome or search localstorage for the token. Using the JWT debugger, select the latest token (not the msal.idtoken) from drop down next to "OPEN JWT FROM", copy the encoded token. Then in your terminal set `AUTHTOKEN=ey68t53tyoeg......... npm test` 
 
 ## Useful Links
 
