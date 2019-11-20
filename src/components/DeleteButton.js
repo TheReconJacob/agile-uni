@@ -25,7 +25,7 @@ class DeleteButton extends React.Component {
   }
 
   confirmDelete() {
-    var answer = window.confirm("Save data?");
+    var answer = window.confirm("Are you sure you want to delete this course?");
     if (answer) {
       // console.log("successfully deleted");
       deleteCourse("35");
