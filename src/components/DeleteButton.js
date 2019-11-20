@@ -35,20 +35,14 @@ class DeleteButton extends React.Component {
   }
 
   render() {
-    let adminDeleteComponent;
     console.log("id to delete" + this.props.courseToDelete);
-    if (this.props.adminStatus) {
-      adminDeleteComponent = (
-        <button
-          onClick={this.confirmDelete}
-          className="accordion-button c-btn c-btn--primary u-margin-right"
-        >
+    return (
+      <> 
+        <button onClick={this.confirmDelete} className="accordion-button c-btn c-btn--primary u-margin-right">
           Delete
         </button>
-      );
-    }
-
-    return <>{adminDeleteComponent}</>;
+      </>
+    );
   }
 }
 

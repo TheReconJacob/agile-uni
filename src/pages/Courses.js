@@ -90,8 +90,7 @@ class Courses extends React.Component {
                       Book now
                     </a>
                     static contextType = CourseIdContext;
-                    <DeleteButtonHighLevel/>
-                    {adminEditComponent}
+                    <DeleteButtonHighLevel adminStatus={this.props.adminStatus}/>
                   </div>
                 </div>
                 </CourseIdContext.Provider>
@@ -112,8 +111,22 @@ class Courses extends React.Component {
 class DeleteButtonHighLevel extends React.Component{
   static contextType = CourseIdContext;
   render(){
-    return <DeleteButton adminStatus={this.props.adminStatus} courseToDelete={this.context} />
-
+    let adminComponents;
+    if (this.props.adminStatus) {
+      adminComponents=(
+      <>
+        <DeleteButton courseToDelete={this.context} />
+        <a href="/admin" className="accordion-button c-btn c-btn--primary u-margin-right">
+          Edit
+        </a>
+      </>
+      )
+    }
+    return(
+      <>
+      {adminComponents}
+      </>
+  )
   }
 }
 
