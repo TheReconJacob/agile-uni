@@ -94,6 +94,7 @@ Data.editCourse = (inputs, callback) => {
 Data.addCourse = (inputs, callback) => {
 	// Site id used instead of name
   // Instructor id change to instructor name
+  console.log(inputs);
 	connection.query(
     "INSERT INTO courses (title, description, start_date, end_date, attendees_max, location, site_id, instructor_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
     inputs, 
