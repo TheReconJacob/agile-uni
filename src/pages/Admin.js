@@ -47,7 +47,7 @@ class Admin extends React.Component {
   }
 
   render() {
-  
+
     return (
       <>
         <div className="c-hero hero-background">
@@ -240,6 +240,17 @@ class Admin extends React.Component {
                   <CKEditor
                     editor={ClassicEditor}
                     data=""
+                    config={
+                      {
+                        heading: {
+                          options: [
+                              { model: 'paragraph', view: { name:'h1', classes: 'c-text-body' }, title: 'Paragraph', class: 'ck-heading_paragraph' },
+                              { model: 'heading1', view: { name:'h1', classes: 'c-heading-charlie' }, title: 'Heading 1', class: 'ck-heading_heading1' },
+                              { model: 'heading2', view: { name:'h2', classes: 'c-heading-delta' }, title: 'Heading 2', class: 'ck-heading_heading2' },
+                          ]
+                        }
+                      }
+                    }
                     onInit={editor => {
                       // You can store the "editor" and use when it is needed.
                       console.log("Editor is ready to use!", editor);

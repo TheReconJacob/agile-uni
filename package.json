@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^15.0.0",
+    "@ckeditor/ckeditor5-heading": "^15.0.0",
     "@ckeditor/ckeditor5-react": "^1.1.3",
     "@sky-uk/molecules": "^47.0.3",
     "@sky-uk/skycons": "^1.5.1",
