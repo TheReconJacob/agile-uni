@@ -105,6 +105,7 @@ class Courses extends React.Component {
         </a>
       );
     }
+    this.getSearch("","")
 
     return (
       <>
