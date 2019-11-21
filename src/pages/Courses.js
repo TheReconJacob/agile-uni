@@ -6,8 +6,7 @@ import "../styles/courses.scss";
 import searchResponse from "./exampleJson.json";
 import DeleteButton from "../components/DeleteButton";
 import axios from "axios";
-const queryString = require('query-string');
-
+const queryString = require("query-string");
 
 axios.defaults.headers.common["Authorization"] =
   "Bearer " + localStorage.getItem("msal.idtoken");
@@ -23,61 +22,61 @@ class Courses extends React.Component {
     };
     this.updateAccordionSelection = this.updateAccordionSelection.bind(this);
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
-    this.getSearch = this.getSearch.bind(this)
+    this.getSearch = this.getSearch.bind(this);
   }
 
   getSearch = (searchObj, siteObj) => {
     let params;
     let resultsData;
     const self = this;
-    if(!siteObj){
+    if (!siteObj) {
       params = {
         params: {
           searchTerm: searchObj
         }
-      }
+      };
     } else {
       params = {
         params: {
           searchTerm: searchObj,
           siteId: siteObj
         }
-      }
+      };
     }
     axios
       .get("http://localhost:5000/search", params)
       .then(function(response) {
-
         resultsData = response.data.courses.responseJson;
         console.log("The data is here");
         console.log(resultsData);
-        
-        self.setState({results: resultsData})
+
+        self.setState({ results: resultsData });
       })
       .catch(function(error) {
         console.log(error);
       });
-  }
+  };
 
   updateAccordionSelection = selected => {
     this.setState({ accordionSelected: selected });
   };
 
-  ///////////////////////////////////////////////
-  componentWillReceiveProps(nextProps){
-    this.props = nextProps
-    this.state.searchParam = queryString.parse(this.props.location.search).searchTerm
-    
-    console.log(this.getSearch(this.state.searchParam, this.state.site))
-    console.log("This is results data")
-    console.log(this.state.results)
+  componentWillReceiveProps(nextProps) {
+    this.props = nextProps;
+    this.state.searchParam = queryString.parse(
+      this.props.location.search
+    ).searchTerm;
+
+    this.getSearch(this.state.searchParam, this.state.site);
+    console.log("This is results data");
+    console.log(this.state.results);
   }
 
   render() {
     const parentId = "1";
     let adminAddComponent;
     let adminEditComponent;
-    let adminStatus=this.props.adminStatus
+    let adminStatus = this.props.adminStatus;
     if (this.props.adminStatus) {
       adminAddComponent = (
         <a href="/admin">
@@ -157,7 +156,10 @@ class Courses extends React.Component {
                       >
                         Book now
                       </a>
-                      <DeleteButton courseToDelete={res.course_id} adminStatus={adminStatus}/>
+                      <DeleteButton
+                        courseToDelete={res.course_id}
+                        adminStatus={adminStatus}
+                      />
                       {adminEditComponent}
                     </div>
                   </div>

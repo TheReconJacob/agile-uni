@@ -7,33 +7,6 @@ import { Link } from 'react-router-dom'
 axios.defaults.headers.common["Authorization"] =
   "Bearer " + localStorage.getItem("msal.idtoken");
 
-// function getSearch(searchObj, siteObj) {
-//   let params;
-//   if(!siteObj){
-//     params = {
-//       params: {
-//         searchTerm: searchObj
-//       }
-//     }
-//   } else {
-//     params = {
-//       params: {
-//         searchTerm: searchObj,
-//         siteId: siteObj
-//       }
-//     }
-//   }
-//   axios
-//     .get("http://localhost:5000/search", params)
-//     .then(function(response) {
-//       console.log(response);
-//       console.log(response.data.courses.responseJson)
-//     })
-//     .catch(function(error) {
-//       console.log(error);
-//     });
-// }
-
 class SearchBar extends Component {
   constructor(props) {
     super(props);
@@ -42,7 +15,6 @@ class SearchBar extends Component {
       searchTerm: "",
     };
     this.handleChange = this.handleChange.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentWillMount() {
@@ -52,11 +24,6 @@ class SearchBar extends Component {
   handleChange(evt) {
     this.setState({ searchTerm: evt.target.value });
   }
-
-  // handleSubmit(event) {
-  //   event.preventDefault();
-  //   getSearch(this.state.searchTerm, this.state.site);  
-  // }
 
   getSites() {
     axios
@@ -88,13 +55,6 @@ class SearchBar extends Component {
                     />
                   </div>
                   <div className="c-form-combo__cell">
-                    {/* <button
-                      className="c-form-combo__btn c-btn c-btn--primary"
-                      type="submit"
-                      value="Submit"
-                    >
-                      Search
-                    </button> */}
                     <Link to={{
                     pathname: `/courses`,
                     search: `?searchTerm=${this.state.searchTerm}`
