@@ -6,6 +6,8 @@ const mysql = require('mysql')
 	  config = require('./data/_config');
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
+const multer = require("multer");
+const upload = multer()
 
 var cors = require('cors')
 
@@ -16,6 +18,8 @@ const connection = mysql.createConnection(config.mysqlConfig);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(upload.array()); 
+app.use(express.static('public'));
 app.use(cors())
 
 connection.connect(function(err) {
@@ -108,6 +112,7 @@ app.get('/listAllCourses', (req, res) => {
 })
 
 app.post('/addCourse', (req, res) => {
+  req.header('Access-Control-Allow-Origin')
 	dataHandler.addCourse(Data)(req, (err, result) => {
 		if (err) {
 		  res.status(500)
@@ -131,6 +136,7 @@ app.post("/editCourse", (req, res) => {
 });
 
 app.get("/deleteCourse", (req, res) => {
+  req.header('Access-Control-Allow-Origin')
 	dataHandler.deleteCourse(Data)(req, (err, result) => {
 	  if (err) {
 		res.status(500);

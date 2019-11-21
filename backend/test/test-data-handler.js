@@ -8,7 +8,7 @@ const dataAgile = require("./fake-data/search-agile");
 const dataNoParams = require("./fake-data/search-no-parameters");
 const dataDelete = require("./fake-data/delete-result.json");
 
-//const req = mockRequest({ query: { searchTerm: 'agile', location: 'Osterley' }})
+//const req = mockRequest({ query: { searchTerm: 'agile', site: 'Osterley' }})
 const req = mockRequest();
 const res = mockResponse();
 
@@ -18,7 +18,7 @@ describe("Unit tests: data handler", function() {
 
   describe("Testing listAllCourses", function() {
     describe("listAllCourses", function() {
-      it("should return a list of all courses with their locations", function(done) {
+      it("should return a list of all courses with their sites", function(done) {
         dataHandler.listAllCourses(Data)(request, (err, result) => {
           if (err) {
             res.status(500);
@@ -34,9 +34,9 @@ describe("Unit tests: data handler", function() {
   });
 
   describe("Testing search", function() {
-    it("search term = agile, location = Osterley returns correct data", function(done) {
+    it("search term = agile, site = Osterley returns correct data", function(done) {
       const req = mockRequest({
-        query: { searchTerm: "agile", location: "Osterley" }
+        query: { searchTerm: "agile", siteId: "Osterley" }
       });
       dataHandler.searchCourses(Data)(req, (err, result) => {
         if (err) {
@@ -51,9 +51,9 @@ describe("Unit tests: data handler", function() {
       });
       done();
     });
-    it("search term empty, location = Osterley returns correct data", function(done) {
+    it("search term empty, site = Osterley returns correct data", function(done) {
       const req = mockRequest({
-        query: { searchTerm: "", location: "Osterley" }
+        query: { searchTerm: "", siteId: "Osterley" }
       });
       dataHandler.searchCourses(Data)(req, (err, result) => {
         if (err) {
@@ -66,7 +66,7 @@ describe("Unit tests: data handler", function() {
       });
       done();
     });
-    it("search term = agile, location is empty returns correct data", function(done) {
+    it("search term = agile, site is empty returns correct data", function(done) {
       const req = mockRequest({ query: { searchTerm: "agile" } });
       dataHandler.searchCourses(Data)(req, (err, result) => {
         if (err) {
@@ -79,7 +79,7 @@ describe("Unit tests: data handler", function() {
       });
       done();
     });
-    it("search term is empty, location is empty returns correct data", function(done) {
+    it("search term is empty, site is empty returns correct data", function(done) {
       const req = mockRequest({ query: {} });
       dataHandler.searchCourses(Data)(req, (err, result) => {
         if (err) {

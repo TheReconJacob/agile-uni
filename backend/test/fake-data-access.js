@@ -25,7 +25,7 @@ Data.getAllSites = callback => {
   callback(null, { status: 200, responseJson: allSites });
 };
 
-Data.searchCoursesNoLocation = (searchTerm, callback) => {
+Data.searchCoursesNoSite = (searchTerm, callback) => {
   if (searchTerm === "") {
     callback(null, { status: 200, responseJson: searchNoParam });
   }
@@ -34,10 +34,10 @@ Data.searchCoursesNoLocation = (searchTerm, callback) => {
   }
 };
 
-Data.searchCoursesWithLocation = (searchTerm, location, callback) => {
-  if (location === "Osterley" && searchTerm === "") {
+Data.searchCoursesWithSite = (searchTerm, siteId, callback) => {
+  if (siteId === "Osterley" && searchTerm === "") {
     callback(null, { status: 200, responseJson: searchOsterley });
-  } else if (location === "Osterley" && searchTerm === "agile") {
+  } else if (siteId === "Osterley" && searchTerm === "agile") {
     callback(null, { status: 200, responseJson: searchAgileOsterley });
   }
 };
