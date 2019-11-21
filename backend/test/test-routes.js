@@ -297,18 +297,22 @@ describe("Integration tests: Running app and testing data routes", function() {
       }
       sleep(8000).then(() => {
         request(
-          "http://localhost:5000/addAttendee?courseId=2&employeeid=999",
+          "http://localhost:5000/addAttendee?courseid=2&employeeid=999",
           {
             auth: {
               bearer: process.env.AUTHTOKEN
             }
           },
           function(error, response, body) {
-            const rows = JSON.parse(response.body)["courses"]["responseJson"];
+            const rows = JSON.parse(response.body)["combinedResponse"][0][
+              "course_attendees"
+            ]["responseJson"];
             expect(rows["affectedRows"]).to.equal(1);
             expect(rows["changedRows"]).to.equal(0);
             expect(
-              JSON.parse(response.body)["course_attendees"]["status"]
+              JSON.parse(response.body)["combinedResponse"][0]["course_attendees"][
+                "status"
+              ]
             ).to.equal(200);
             done();
           }

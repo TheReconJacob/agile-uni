@@ -141,7 +141,7 @@ Data.addAttendee = (courseid, employeeid, callback) => {
       if (err) {
         return callback(err);
       }
-      callback(null, { status: 200, responseJson: rows });
+      courseAttendeeResponse = { status: 200, responseJson: rows };
     }
   );
   connection.query(
@@ -151,7 +151,12 @@ Data.addAttendee = (courseid, employeeid, callback) => {
       if (err) {
         return callback(err);
       }
-      callback(null, { status: 200, responseJson: rows });
+      callback(null, [
+        {
+          course_attendees: { status: 200, responseJson: rows },
+          courses: courseAttendeeResponse
+        }
+      ]);
     }
   );
 };

@@ -16,7 +16,6 @@ const res = mockResponse();
 const request = mockRequest();
 
 describe("Unit tests: data handler", function() {
-
   describe("Testing listAllCourses", function() {
     describe("listAllCourses", function() {
       it("should return a list of all courses with their sites", function(done) {
@@ -95,8 +94,8 @@ describe("Unit tests: data handler", function() {
     });
   });
   describe("Testing deleteCourse", function() {
-    it("deletes course by courseId", function(done){
-      const req = mockRequest({ query: { courseId:"11"} })
+    it("deletes course by courseId", function(done) {
+      const req = mockRequest({ query: { courseId: "11" } });
       dataHandler.deleteCourse(Data)(req, (err, result) => {
         if (err) {
           res.status(500);
@@ -104,16 +103,15 @@ describe("Unit tests: data handler", function() {
         }
         res.status(result.status);
         res.json(result.responseJson);
-        expect(dataDelete).equal(
-          result.responseJson.courses.responseJson
-        );
+        expect(dataDelete).equal(result.responseJson.courses.responseJson);
       });
       done();
     });
   });
+
   describe("Testing addAttendee", function() {
-    it("adds attendee to attendees table and increases number of attendees on courses table", function(done){
-      const req = mockRequest({ query: { courseid:"1", employeeid:"1"} })
+    it("adds attendee to attendees table and increases number of attendees on courses table", function(done) {
+      const req = mockRequest({ query: { courseid: "2", employeeid: "999" } });
       dataHandler.addAttendee(Data)(req, (err, result) => {
         if (err) {
           res.status(500);
@@ -122,7 +120,7 @@ describe("Unit tests: data handler", function() {
         res.status(result.status);
         res.json(result.responseJson);
         expect(dataAddAttendee).equal(
-          result.responseJson.courses.responseJson
+          result.responseJson.combinedResponse[0].course_attendees.responseJson
         );
       });
       done();

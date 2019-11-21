@@ -131,13 +131,13 @@ module.exports.addAttendee = DataAccess => (req, callback) => {
   DataAccess.addAttendee(
     req.query.courseid,
     req.query.employeeid,
-    (err, course_attendees) => {
+    (err, combinedResponse) => {
       if (err) {
         return callback(err);
       }
       callback(null, {
         status: 200,
-        responseJson: { course_attendees: course_attendees }
+        responseJson: { combinedResponse: combinedResponse }
       });
     }
   );
