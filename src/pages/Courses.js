@@ -5,6 +5,7 @@ import SearchBar from "../components/SearchBar";
 import "../styles/courses.scss";
 import searchResponse from "./exampleJson.json";
 import DeleteButton from "../components/DeleteButton";
+import EditButton from "../components/EditButton";
 
 class Courses extends React.Component {
   constructor() {
@@ -35,14 +36,6 @@ class Courses extends React.Component {
             />
             Add a new course
           </button>
-        </a>
-      );
-      adminEditComponent = (
-        <a
-          href="/admin"
-          className="accordion-button c-btn c-btn--primary u-margin-right"
-        >
-          Edit
         </a>
       );
     }
@@ -99,8 +92,8 @@ class Courses extends React.Component {
                       >
                         Book now
                       </a>
+                      <EditButton adminStatus={adminStatus}/>
                       <DeleteButton courseToDelete={res.course_id} adminStatus={adminStatus}/>
-                      {adminEditComponent}
                     </div>
                   </div>
                 </AccordionSection>
