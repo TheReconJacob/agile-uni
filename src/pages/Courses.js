@@ -3,7 +3,6 @@ import { Accordion } from "@sky-uk/toolkit-react";
 import { AccordionSection } from "@sky-uk/toolkit-react";
 import SearchBar from "../components/SearchBar";
 import "../styles/courses.scss";
-import searchResponse from "./exampleJson.json";
 import DeleteButton from "../components/DeleteButton";
 import axios from "axios";
 const queryString = require("query-string");

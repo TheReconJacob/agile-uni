@@ -69,7 +69,6 @@ class SearchBar extends Component {
                     >
                     Search
                     </Link>
-                    {/* <a class="c-form-combo__btn c-btn c-btn--primary" href={`/courses?searchTerm=${this.state.searchTerm}`}>Search</a> */}
                   </div>
                 </div>
               </li>
