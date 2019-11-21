@@ -166,7 +166,7 @@ app.post("/addEmployee", (req, res) => {
   });
 });
 
-app.post("/addAttendee", (req, res) => {
+app.get("/addAttendee", (req, res) => {
   req.header("Access-Control-Allow-Origin");
   dataHandler.addAttendee(Data)(req, (err, result) => {
     if (err) {

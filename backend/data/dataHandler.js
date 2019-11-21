@@ -129,8 +129,8 @@ module.exports.addEmployee = DataAccess => (req, callback) => {
 
 module.exports.addAttendee = DataAccess => (req, callback) => {
   DataAccess.addAttendee(
-    req.courseid,
-    req.employeeid,
+    req.query.courseid,
+    req.query.employeeid,
     (err, course_attendees) => {
       if (err) {
         return callback(err);
