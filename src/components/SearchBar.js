@@ -2,43 +2,18 @@ import React, { Component } from "react";
 import axios from "axios";
 import "../styles/searchBar.scss";
 import DropdownSite from "./Dropdown"
+import { Link } from 'react-router-dom'
 
 axios.defaults.headers.common["Authorization"] =
   "Bearer " + localStorage.getItem("msal.idtoken");
 
-function getSearch(searchObj, siteObj) {
-  let params;
-  if(!siteObj){
-    params = {
-      params: {
-        searchTerm: searchObj
-      }
-    }
-  } else {
-    params = {
-      params: {
-        searchTerm: searchObj,
-        siteId: siteObj
-      }
-    }
-  }
-  axios
-    .get("http://localhost:5000/search", params)
-    .then(function(response) {
-      console.log(response);
-      console.log(response.data.courses.responseJson)
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
-}
-
 class SearchBar extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       options: [],
       searchTerm: "",
+      site: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -53,8 +28,8 @@ class SearchBar extends Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault();
-    getSearch(this.state.searchTerm, this.state.site);  
+    event.preventDefault()
+    window.location.href = `/courses?searchTerm=${this.state.searchTerm}&site=${this.state.site}`
   }
 
   getSites() {
@@ -87,13 +62,13 @@ class SearchBar extends Component {
                     />
                   </div>
                   <div className="c-form-combo__cell">
-                    <button
-                      className="c-form-combo__btn c-btn c-btn--primary"
-                      type="submit"
-                      value="Submit"
+                    <Link to={{
+                    pathname: `/courses`,
+                    search: `?searchTerm=${this.state.searchTerm}&site=${this.state.site}`
+                    }} className="c-form-combo__btn c-btn c-btn--primary"
                     >
-                      Search
-                    </button>
+                    Search
+                    </Link>
                   </div>
                 </div>
               </li>

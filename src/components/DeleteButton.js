@@ -18,7 +18,6 @@ function deleteCourse(courseID) {
       console.log(error);
     });
 }
-
 class DeleteButton extends React.Component {
   constructor() {
     super();
@@ -33,8 +32,6 @@ class DeleteButton extends React.Component {
       deleteCourse(this.props.courseToDelete);
     } 
   }
-
-  
 
   render() {
     let adminDeleteComponent
