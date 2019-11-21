@@ -15,6 +15,7 @@ class SearchBar extends Component {
       searchTerm: "",
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentWillMount() {
@@ -23,6 +24,12 @@ class SearchBar extends Component {
   
   handleChange(evt) {
     this.setState({ searchTerm: evt.target.value });
+  }
+
+  handleSubmit(event) {
+    console.log("Bananas");
+    event.preventDefault()
+    window.location.href = `/courses?searchTerm=${this.state.searchTerm}`
   }
 
   getSites() {
@@ -46,7 +53,7 @@ class SearchBar extends Component {
                   <div className="c-form-combo__cell">
                     <input
                       type="text"
-                      name="searchTerm"
+                      name="searchTermBanana"
                       className="c-form-combo__input c-form-input"
                       placeholder="Search for your next course"
                       id="f-combo"
@@ -62,6 +69,7 @@ class SearchBar extends Component {
                     >
                     Search
                     </Link>
+                    {/* <a class="c-form-combo__btn c-btn c-btn--primary" href={`/courses?searchTerm=${this.state.searchTerm}`}>Search</a> */}
                   </div>
                 </div>
               </li>
