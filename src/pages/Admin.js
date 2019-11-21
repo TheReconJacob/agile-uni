@@ -46,8 +46,20 @@ class Admin extends React.Component {
     });
   }
 
-  render() {
+  getCourse() {
+    axios
+    .get("http://localhost:5000/sites")
+    .then((response) => this.setState({ options: response.data.sites.responseJson }))
+    .catch(function(error) {
+      console.log(error);
+    });
+  }
 
+  render() {
+    if (this.props.location.state != undefined) {
+    console.log(this.props.location.state.id);
+
+    }
     return (
       <>
         <div className="c-hero hero-background">

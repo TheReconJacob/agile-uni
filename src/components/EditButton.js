@@ -21,9 +21,12 @@ class EditButton extends React.Component {
     })
   }
 
-  redirectToAdmin = () => {
+  redirectToAdmin = (props) => {
     if (this.state.redirect) {
-        return <Redirect to="/admin"/>
+        return <Redirect to={{
+            pathname: "/admin",
+            state: {id: this.props.id}
+        }}/>
       }
     
 }

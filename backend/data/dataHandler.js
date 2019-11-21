@@ -132,3 +132,12 @@ module.exports.addEmployee = (DataAccess) => (req, callback) => {
     callback(null, {status: 200, responseJson: { employees:employees }})
   })
 };
+
+module.exports.findCourseById = DataAccess => (req, callback) => {
+  DataAccess.findCourseById(req.query.course_id, (err, courses) => {
+    if (err) {
+      return callback(err);
+    }
+    callback(null, { status: 200, responseJson: { courses: courses } });
+  });
+};

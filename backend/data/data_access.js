@@ -130,4 +130,16 @@ Data.addEmployee = (inputs, callback) => {
   )
 }
 
+Data.findACourseById = (course_id, callback) => {
+	connection.query(
+	  "SELECT * FROM courses INNER JOIN sites ON courses.site_id = sites.id WHERE course_id = ?", course_id,
+	  function(err, rows) {
+		if (err) {
+		  return callback(err);
+		}
+		callback(null, { status: 200, responseJson: rows });
+	  }
+	);
+  };
+
 module.exports = Data;
