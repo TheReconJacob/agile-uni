@@ -43,6 +43,11 @@ Data.searchCoursesWithSite = (searchTerm, siteId, callback) => {
 };
 
 Data.deleteCourse = (courseId, callback) => {
-    callback(null, { status: 200, responseJson: deleteExample });
+  callback(null, { status: 200, responseJson: deleteExample });
 };
+
+Data.addAttendee = (courseid, employeeid, callback) => {
+  callback(null, { status: 200, responseJson: deleteExample });
+};
+
 module.exports = Data;
