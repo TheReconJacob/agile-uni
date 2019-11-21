@@ -9,20 +9,33 @@ axios.defaults.headers.common["Authorization"] =
 class EditButton extends React.Component {
   constructor() {
     super();
+    this.state = {
+        redirect: false
+    }
     this.redirectToAdmin = this.redirectToAdmin.bind(this); 
   }
 
+  setRedirect = () => {
+    this.setState({
+      redirect: true
+    })
+  }
+
   redirectToAdmin = () => {
-    return <Redirect to="/admin"/>
+    if (this.state.redirect) {
+        return <Redirect to="/admin"/>
+      }
+    
 }
 
   render() {
 
     let adminEditComponent
     if (this.props.adminStatus) {
-        adminEditComponent=(<button onClick={this.redirectToAdmin} className="accordion-button c-btn c-btn--primary u-margin-right">Edit</button>)}
+        adminEditComponent=(<button onClick={this.setRedirect} className="accordion-button c-btn c-btn--primary u-margin-right">Edit</button>)}
     return (
       <> 
+      {this.redirectToAdmin()}
        {adminEditComponent}
       </>
     );
