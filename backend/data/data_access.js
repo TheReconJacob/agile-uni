@@ -130,4 +130,31 @@ Data.addEmployee = (inputs, callback) => {
   )
 }
 
+
+Data.addAttendee = (inputs, callback) => {
+	connection.query(
+    "INSERT INTO course_attendees (course_id, employee_id, attended) VALUES (?, ?, 0)",
+    inputs, 
+    function(err, rows, fields) {
+      if (err) {
+        return callback(err)
+      }
+      callback(null, { status: 200, responseJson: rows})
+    }
+  )
+}
+
+Data.updateNumberAttendees = (inputs, callback) => {
+  connection.query(
+    "UPDATE courses SET attendees_booked = attendees_booked + 1 WHERE course_id = ?",
+    inputs, 
+    function(err, rows, fields) {
+      if (err) {
+        return callback(err)
+      }
+      callback(null, { status: 200, responseJson: rows})
+    }
+  )
+}
+
 module.exports = Data;
