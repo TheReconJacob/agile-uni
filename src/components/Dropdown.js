@@ -1,44 +1,36 @@
 import React, { Component } from "react";
-import Dropdown from "react-dropdown";
 import "../styles/dropdown.scss";
 
-const options = ["Osterley", "Leeds", "Scotland"];
-
-const arrowClosed = <span className="arrow-closed" />;
-const arrowOpen = <span className="arrow-open" />;
-
-class DropdownLocation extends Component {
+class DropdownSite extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      selected: ""
-    };
-    this._onSelect = this._onSelect.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.componentDidUpdate = this.componentDidUpdate.bind(this);
   }
 
-  _onSelect(option) {
-    console.log("You selected ", option.label);
-    this.setState({ selected: option });
+  componentDidUpdate(prevProps) {
+  }
+
+  handleChange(evt) {
+    this.props.setSite(parseInt(evt.target.value, 10));
   }
 
   render() {
-    const defaultOption = this.state.selected;
-    // const placeHolderValue =
-    //   typeof this.state.selected === "string"
-    //     ? this.state.selected
-    //     : this.state.selected.label;
-
+    let options = this.props.state.options;
+    let optionItems = 
+        options.map((options) =>
+            <option key={options.id} value={options.id}>{options.name}</option>
+        );
     return (
-      <Dropdown
-        options={options}
-        onChange={this._onSelect}
-        value={defaultOption}
-        placeholder="Location"
-        arrowClosed={arrowClosed}
-        arrowOpen={arrowOpen}
-      />
+          <select className="c-form-select__dropdown--inline o-layout__item u-width-1/4" 
+          style={{ height: 39 }}
+          onChange={this.handleChange}
+          >
+            <option value="">Select a location</option>
+            {optionItems}
+          </select>
     );
   }
 }
 
-export default DropdownLocation;
+export default DropdownSite;
