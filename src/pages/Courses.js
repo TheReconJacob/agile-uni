@@ -3,9 +3,8 @@ import { Accordion } from "@sky-uk/toolkit-react";
 import { AccordionSection } from "@sky-uk/toolkit-react";
 import SearchBar from "../components/SearchBar";
 import "../styles/courses.scss";
+import searchResponse from "./exampleJson.json";
 import DeleteButton from "../components/DeleteButton";
-
-const CourseIdContext = React.createContext('0');
 
 class Courses extends React.Component {
   constructor() {
@@ -21,8 +20,10 @@ class Courses extends React.Component {
   };
 
   render() {
-    const parentId = "0";
+    const parentId = "1";
     let adminAddComponent;
+    let adminEditComponent;
+    let adminStatus=this.props.adminStatus
     if (this.props.adminStatus) {
       adminAddComponent = (
         <a href="/admin">
@@ -36,9 +37,15 @@ class Courses extends React.Component {
           </button>
         </a>
       );
+      adminEditComponent = (
+        <a
+          href="/admin"
+          className="accordion-button c-btn c-btn--primary u-margin-right"
+        >
+          Edit
+        </a>
+      );
     }
-
-    const elements = ['1','2','3','4'];
 
     return (
       <>
@@ -48,74 +55,61 @@ class Courses extends React.Component {
             <SearchBar />
           </div>
         </div>
+
         <div className="o-container course-page-accordion">
-          <div className="o-layout">
-            {adminAddComponent}
-            <Accordion
-              id={parentId}
-              collapseOnToggle="false"
-              selected={this.state.accordionSelected}
-              updateSelection={this.updateAccordionSelection}
-              isNested="false"
-            >
-              {elements.map((value, index) => {
-                return (  
-                  <AccordionSection
-                    className="c-accordion__section"
-                    id={value}
-                    title={"Section "+value}
-                  >
-                    <CourseIdContext.Provider value={value}>
-                      <ACourseSection adminStatus={this.props.adminStatus}/>
-                    </CourseIdContext.Provider>
-                  </AccordionSection>
-                  )
-              })}
-            </Accordion>
-          </div>
+          <div className="o-layout">{adminAddComponent}</div>
+          <Accordion
+            id={parentId}
+            collapseOnToggle
+            selected={this.state.accordionSelected}
+            updateSelection={this.updateAccordionSelection}
+            isNested="true"
+          >
+            {searchResponse.map(function(res) {
+              return (
+                <AccordionSection
+                  className="accordion-section"
+                  id={res.course_id}
+                  title={res.title}
+                >
+                  <div className="">
+                    <div className="o-layout__item" style={{display:'flex'}}>
+                      <p className="c-text-body o-layout__item">
+                        <b>Start: {res.start_date}</b>
+                      </p>
+              <p className="c-text-body o-layout__item"><b>End: {res.end_date}</b></p>
+              <p className="c-text-body o-layout__item"><b>Location: {res.location}</b></p>
+                    </div>
+                    <h2 className="c-heading-delta o-layout__item">
+                      {res.title}
+                    </h2>
+                    <p className="c-text-body o-layout__item">
+                      {res.description}
+                    </p>
+                    <div className="accordion-button-box">
+                      <a
+                        href="mailto:agileuniversity@sky.uk"
+                        className="accordion-button c-btn c-btn--primary u-margin-right"
+                      >
+                        Request more information
+                      </a>
+                      <a
+                        href="/courses"
+                        className="accordion-button c-btn c-btn--primary u-margin-right"
+                      >
+                        Book now
+                      </a>
+                      <DeleteButton courseToDelete={res.course_id} adminStatus={adminStatus}/>
+                      {adminEditComponent}
+                    </div>
+                  </div>
+                </AccordionSection>
+              );
+            })}
+          </Accordion>
         </div>
       </>
     );
-  }
-}
-
-class ACourseSection extends React.Component{
-  static contextType = CourseIdContext;
-  render(){
-    let adminComponents;
-    if (this.props.adminStatus) {
-      adminComponents=(
-      <>
-        <DeleteButton courseToDelete={this.context} />
-        <a href="/admin" className="accordion-button c-btn c-btn--primary u-margin-right">
-          Edit
-        </a>
-      </>
-      )
-    }
-    return(
-      <>
-        <div className="">
-        <h2 className="c-heading-delta o-layout__item">Title {this.context}</h2>
-        <p className="c-text-body o-layout__item">Description {this.context}</p>
-        <div className="accordion-button-box">
-          <a
-            href="mailto:agileuniversity@sky.uk"
-            className="accordion-button c-btn c-btn--primary u-margin-right"
-          >
-            Request more information
-          </a>
-          <a
-            href="/courses"
-            className="accordion-button c-btn c-btn--primary u-margin-right"
-          >
-            Book now
-          </a>
-          {adminComponents}
-        </div>
-      </div>
-      </>
-  )
   }
 }
 
