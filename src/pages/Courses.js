@@ -23,6 +23,7 @@ class Courses extends React.Component {
     this.updateAccordionSelection = this.updateAccordionSelection.bind(this);
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
     this.getSearch = this.getSearch.bind(this);
+    this.anotherMethod = this.anotherMethod.bind(this)
   }
 
   getSearch = (searchObj, siteObj) => {
@@ -47,9 +48,6 @@ class Courses extends React.Component {
       .get("http://localhost:5000/search", params)
       .then(function(response) {
         resultsData = response.data.courses.responseJson;
-        console.log("The data is here");
-        console.log(resultsData);
-
         self.setState({ results: resultsData });
       })
       .catch(function(error) {
@@ -63,13 +61,19 @@ class Courses extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.props = nextProps;
+    this.generateSearch()
+  }
+
+  componentDidMount() {
+    this.generateSearch()
+  }
+
+  generateSearch(){
     this.state.searchParam = queryString.parse(
       this.props.location.search
     ).searchTerm;
 
     this.getSearch(this.state.searchParam, this.state.site);
-    console.log("This is results data");
-    console.log(this.state.results);
   }
 
   render() {
