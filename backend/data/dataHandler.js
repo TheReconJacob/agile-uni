@@ -138,12 +138,3 @@ module.exports.addAttendee = DataAccess => (req, callback) => {
     });
   });
 };
-
-module.exports.updateNumberAttendees = DataAccess => (req, callback) => {
-  DataAccess.updateNumberAttendees(req.course_id, (err, courses) => {
-    if (err) {
-      return callback(err);
-    }
-    callback(null, { status: 200, responseJson: { courses: courses } });
-  });
-};

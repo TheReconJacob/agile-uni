@@ -177,16 +177,6 @@ app.post("/addAttendee", (req, res) => {
 
     return res.json(result.responseJson);
   });
-
-  dataHandler.updateNumberAttendees(Data)(req, (err, result) => {
-    if (err) {
-      res.status(500);
-      return res.json({ message: err.message });
-    }
-    res.status(result.status);
-
-    return res.json(result.responseJson);
-  });
 });
 
 // Note to JS learners, put module.exports before any module.exports.banana because it overwrites stuff...
