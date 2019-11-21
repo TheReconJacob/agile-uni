@@ -28,7 +28,6 @@ class SearchBar extends Component {
   }
 
   handleSubmit(event) {
-    console.log("Bananas");
     event.preventDefault()
     window.location.href = `/courses?searchTerm=${this.state.searchTerm}&site=${this.state.site}`
   }
@@ -54,7 +53,7 @@ class SearchBar extends Component {
                   <div className="c-form-combo__cell">
                     <input
                       type="text"
-                      name="searchTermBanana"
+                      name="searchTerm"
                       className="c-form-combo__input c-form-input"
                       placeholder="Search for your next course"
                       id="f-combo"
