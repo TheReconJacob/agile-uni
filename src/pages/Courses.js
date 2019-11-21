@@ -23,7 +23,7 @@ class Courses extends React.Component {
     this.updateAccordionSelection = this.updateAccordionSelection.bind(this);
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
     this.getSearch = this.getSearch.bind(this);
-    this.anotherMethod = this.anotherMethod.bind(this)
+    this.generateSearch = this.generateSearch.bind(this)
   }
 
   getSearch = (searchObj, siteObj) => {
