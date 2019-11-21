@@ -14,7 +14,6 @@ const jwt = require("jsonwebtoken");
 class App extends React.Component {
   constructor(props) {
     super(props);
-    // We can add more state
     this.state = {
       admin: false
     };
@@ -34,10 +33,8 @@ class App extends React.Component {
     const decodedToken = jwt.decode(idToken);
 
     if (decodedToken.roles !== undefined) {
-      console.log("Returning roles");
       return decodedToken.roles;
     } else {
-      console.log("No specific role - general user");
       return null;
     }
   }
@@ -59,7 +56,7 @@ class App extends React.Component {
               <Route exact path="/" component={Home} />
               <Route
                 path="/courses"
-                render={() => <Courses adminStatus={this.state.admin} />}
+                render={(props) => <Courses {...props} adminStatus={this.state.admin} />}
               />
               {adminAddCourse}
             </div>
