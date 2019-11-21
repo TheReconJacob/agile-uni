@@ -13,6 +13,7 @@ class SearchBar extends Component {
     this.state = {
       options: [],
       searchTerm: "",
+      site: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,7 +30,7 @@ class SearchBar extends Component {
   handleSubmit(event) {
     console.log("Bananas");
     event.preventDefault()
-    window.location.href = `/courses?searchTerm=${this.state.searchTerm}`
+    window.location.href = `/courses?searchTerm=${this.state.searchTerm}&site=${this.state.site}`
   }
 
   getSites() {
@@ -64,7 +65,7 @@ class SearchBar extends Component {
                   <div className="c-form-combo__cell">
                     <Link to={{
                     pathname: `/courses`,
-                    search: `?searchTerm=${this.state.searchTerm}`
+                    search: `?searchTerm=${this.state.searchTerm}&site=${this.state.site}`
                     }} className="c-form-combo__btn c-btn c-btn--primary"
                     >
                     Search

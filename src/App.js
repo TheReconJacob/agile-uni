@@ -40,11 +40,9 @@ class App extends React.Component {
   }
 
   render() {
-    let adminComponent;
     let adminAddCourse;
 
     if (this.state.admin) {
-      adminComponent = <h1>HELLO ADMIN</h1>;
       adminAddCourse = <Route path="/admin" component={Admin} />;
     }
     return (
@@ -60,7 +58,6 @@ class App extends React.Component {
               />
               {adminAddCourse}
             </div>
-            {adminComponent}
             <Footer />
           </Router>
         </AzureAD>

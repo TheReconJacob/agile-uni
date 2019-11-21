@@ -16,6 +16,7 @@ class Courses extends React.Component {
     this.state = {
       accordionSelected: [],
       searchParam: "",
+      site: "",
       results: [],
       dataPresent: true
     };
@@ -71,7 +72,9 @@ class Courses extends React.Component {
     this.state.searchParam = queryString.parse(
       this.props.location.search
     ).searchTerm;
-
+    this.state.site = queryString.parse(
+      this.props.location.search
+    ).site;
     this.getSearch(this.state.searchParam, this.state.site);
   }
 
