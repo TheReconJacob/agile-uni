@@ -136,6 +136,7 @@ app.post("/editCourse", (req, res) => {
 });
 
 app.get("/deleteCourse", (req, res) => {
+  req.header('Access-Control-Allow-Origin')
 	dataHandler.deleteCourse(Data)(req, (err, result) => {
 	  if (err) {
 		res.status(500);
