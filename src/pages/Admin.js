@@ -10,6 +10,11 @@ import axios from "axios";
 import CKEditor from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
+
+axios.defaults.headers.common["Authorization"] =
+  "Bearer " + localStorage.getItem("msal.idtoken");
+
+
 class Admin extends React.Component {
   constructor() {
     super();
@@ -48,18 +53,21 @@ class Admin extends React.Component {
   }
 
   getCourse() {
+    const params = {
+      course_id: (this.props.location.state.course_id),
+    };
     axios
-    .get("http://localhost:5000/sites")
-    .then((response) => this.setState({ options: response.data.sites.responseJson }))
-    .catch(function(error) {
-      console.log(error);
-    });
+      .get("http://localhost:5000/findCourseById", params)
+      .then((response) => console.log(response.body))
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   render() {
     if (this.props.location.state != undefined) {
-    console.log(this.props.location.state.id);
-
+      console.log(this.props.location.state.course_id);
+      this.getCourse()
     }
     return (
       <>
@@ -257,9 +265,9 @@ class Admin extends React.Component {
                       {
                         heading: {
                           options: [
-                              { model: 'paragraph', view: { name:'h1', classes: 'c-text-body' }, title: 'Paragraph', class: 'ck-heading_paragraph' },
-                              { model: 'heading1', view: { name:'h1', classes: 'c-heading-charlie' }, title: 'Heading 1', class: 'ck-heading_heading1' },
-                              { model: 'heading2', view: { name:'h2', classes: 'c-heading-delta' }, title: 'Heading 2', class: 'ck-heading_heading2' },
+                            { model: 'paragraph', view: { name: 'h1', classes: 'c-text-body' }, title: 'Paragraph', class: 'ck-heading_paragraph' },
+                            { model: 'heading1', view: { name: 'h1', classes: 'c-heading-charlie' }, title: 'Heading 1', class: 'ck-heading_heading1' },
+                            { model: 'heading2', view: { name: 'h2', classes: 'c-heading-delta' }, title: 'Heading 2', class: 'ck-heading_heading2' },
                           ]
                         }
                       }

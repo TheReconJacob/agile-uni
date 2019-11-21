@@ -131,6 +131,7 @@ Data.addEmployee = (inputs, callback) => {
 }
 
 Data.findCourseById = (course_id, callback) => {
+  console.log(course_id)
 	connection.query(
 	  "SELECT * FROM courses INNER JOIN sites ON courses.site_id = sites.id WHERE course_id = ?", course_id,
 	  function(err, rows) {

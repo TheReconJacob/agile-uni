@@ -92,7 +92,7 @@ class Courses extends React.Component {
                       >
                         Book now
                       </a>
-                      <EditButton adminStatus={adminStatus} id={res.course_id} />
+                      <EditButton adminStatus={adminStatus} course_id={res.course_id} />
                       <DeleteButton courseToDelete={res.course_id} adminStatus={adminStatus}/>
                     </div>
                   </div>
