@@ -1,0 +1,38 @@
+[
+    {
+      "course_id": 1,
+      "title": "Agile 101",
+      "description": "Fun agile activties",
+      "start_date": "0000-00-00 00:00:00",
+      "end_date": "0000-00-00 02:00:00",
+      "attendees_max": 100,
+      "attendees_booked": 0,
+      "location": "The Hub",
+      "site_id": 1,
+      "instructor_name": "1"
+    },
+    {
+      "course_id": 3,
+      "title": "test15",
+      "description": "%thhnjnk%",
+      "start_date": "0000-00-00 00:00:00",
+      "end_date": "0000-00-00 01:00:00",
+      "attendees_max": 100,
+      "attendees_booked": 0,
+      "location": "Osterley",
+      "site_id": 1,
+      "instructor_name": "Alex Drage"
+    },
+    {
+      "course_id": 4,
+      "title": "test2",
+      "description": "test2",
+      "start_date": "0000-00-00 00:00:00",
+      "end_date": "0000-00-00 01:30:00",
+      "attendees_max": 100,
+      "attendees_booked": 0,
+      "location": "The Hub",
+      "site_id": 1,
+      "instructor_name": "1"
+    }
+  ]
