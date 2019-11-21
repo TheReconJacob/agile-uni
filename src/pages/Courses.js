@@ -65,17 +65,26 @@ class Courses extends React.Component {
   }
 
   componentDidMount() {
+    
     this.generateSearch()
   }
 
   generateSearch(){
-    this.state.searchParam = queryString.parse(
+    console.log(queryString.parse(
       this.props.location.search
-    ).searchTerm;
-    this.state.site = queryString.parse(
-      this.props.location.search
-    ).site;
-    this.getSearch(this.state.searchParam, this.state.site);
+    ).searchTerm)
+    if(!queryString.parse(this.props.location.search).searchTerm && !queryString.parse(this.props.location.search).site) {
+        this.getSearch("", "");
+    } else {
+      this.state.searchParam = queryString.parse(
+        this.props.location.search
+      ).searchTerm;
+      this.state.site = queryString.parse(
+        this.props.location.search
+      ).site;
+      this.getSearch(this.state.searchParam, this.state.site);
+    }
+
   }
 
   render() {
@@ -105,7 +114,6 @@ class Courses extends React.Component {
         </a>
       );
     }
-    this.getSearch("","")
 
     return (
       <>
