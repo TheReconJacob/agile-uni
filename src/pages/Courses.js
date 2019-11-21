@@ -80,12 +80,16 @@ class Courses extends React.Component {
                   title={res.title}
                 >
                   <div className="">
-                    <div className="o-layout__item" style={{display:'flex'}}>
+                    <div className="o-layout__item" style={{ display: "flex" }}>
                       <p className="c-text-body o-layout__item">
                         <b>Start: {res.start_date}</b>
                       </p>
-              <p className="c-text-body o-layout__item"><b>End: {res.end_date}</b></p>
-              <p className="c-text-body o-layout__item"><b>Location: {res.location}</b></p>
+                      <p className="c-text-body o-layout__item">
+                        <b>End: {res.end_date}</b>
+                      </p>
+                      <p className="c-text-body o-layout__item">
+                        <b>Location: {res.location}</b>
+                      </p>
                     </div>
                     <h2 className="c-heading-delta o-layout__item">
                       {res.title}
