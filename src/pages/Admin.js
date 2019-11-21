@@ -1,6 +1,7 @@
 import React from "react";
 import SearchBar from "../components/SearchBar";
 import "../styles/admin.scss";
+import axios from "axios";
 // import { authProvider } from "../authProvider";
 // import ReactQuill from "react-quill";
 // import "react-quill/dist/quill.snow.css";
