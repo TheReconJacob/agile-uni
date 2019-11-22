@@ -126,4 +126,22 @@ describe("Unit tests: data handler", function() {
       done();
     });
   });
+
+  describe("Testing deleteAttendee", function() {
+    it("deletes attendee from courses_attendees table and decrease number of attendees on courses table", function(done) {
+      const req = mockRequest({ query: { courseid: "2", employeeid: "999" } });
+      dataHandler.deleteAttendee(Data)(req, (err, result) => {
+        if (err) {
+          res.status(500);
+          res.json({ message: err.message });
+        }
+        res.status(result.status);
+        res.json(result.responseJson);
+        expect(deleteAttendee).equal(
+          result.responseJson.combinedResponse.responseJson
+        );
+      });
+      done();
+    });
+  });
 });
