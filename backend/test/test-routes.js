@@ -8,6 +8,7 @@ const deleteEmployeeTestFunction = require("../routes/deleteEmployee")
 const addEmployee = require("../routes/addEmployee").addEmployee;
 const addEmployeeToCourse = require("../routes/addEmployeeToCourse")
   .addEmployeeToCourse;
+const deleteCourse = require("../routes/deleteCourse").deleteCourse;
 chai.use(chaiHttp);
 
 let server;
@@ -303,6 +304,7 @@ describe("Integration tests: Running app and testing data routes", function() {
         );
       });
     });
+    deleteCourse();
   });
 
   describe("Delete an attendee", function() {
@@ -347,6 +349,7 @@ describe("Integration tests: Running app and testing data routes", function() {
         );
       });
     });
+    deleteCourse();
   });
 
   describe("Delete a course", function() {
