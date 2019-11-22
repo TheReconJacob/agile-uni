@@ -109,8 +109,8 @@ Data.addCourse = (inputs, callback) => {
 
 Data.deleteCourse = (courseId, callback) => {
   connection.query(
-    "DELETE FROM courses WHERE courses.course_id = ?",
-    [courseId],
+    "DELETE FROM course_attendees WHERE course_id = ?; DELETE FROM courses WHERE courses.course_id = ?",
+    [courseId, courseId],
     function(err, rows) {
       if (err) {
         return callback(err);

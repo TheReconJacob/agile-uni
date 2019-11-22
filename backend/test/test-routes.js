@@ -6,7 +6,8 @@ const addCourseWithId = require("../routes/addWithId").addCourseWithId;
 const deleteEmployeeTestFunction = require("../routes/deleteEmployee")
   .deleteEmployeeTestFunction;
 const addEmployee = require("../routes/addEmployee").addEmployee;
-const addEmployeeToCourse = require("../routes/addEmployeeToCourse").addEmployeeToCourse;
+const addEmployeeToCourse = require("../routes/addEmployeeToCourse")
+  .addEmployeeToCourse;
 chai.use(chaiHttp);
 
 let server;
@@ -251,8 +252,9 @@ describe("Integration tests: Running app and testing data routes", function() {
             },
             function(error, response, body) {
               const rows = JSON.parse(response.body)["courses"]["responseJson"];
-              expect(rows["affectedRows"]).to.equal(1);
-              expect(rows["changedRows"]).to.equal(0);
+              console.log(rows);
+              expect(rows[1]["affectedRows"]).to.equal(1);
+              expect(rows[1]["changedRows"]).to.equal(0);
               expect(JSON.parse(response.body)["courses"]["status"]).to.equal(
                 200
               );
