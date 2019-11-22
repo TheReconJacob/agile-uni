@@ -8,7 +8,7 @@ const dataAgile = require("./fake-data/search-agile");
 const dataNoParams = require("./fake-data/search-no-parameters");
 const dataDelete = require("./fake-data/delete-result.json");
 const dataAddAttendee = require("./fake-data/dataAddAttendee.json");
-
+const deleteAttendee = require("./fake-data/deleteAttendee.json");
 //const req = mockRequest({ query: { searchTerm: 'agile', site: 'Osterley' }})
 const req = mockRequest();
 const res = mockResponse();
