@@ -6,6 +6,7 @@ const searchAgileOsterley = require("./fake-data/search-agile-osterley");
 const searchOsterley = require("./fake-data/search-osterley");
 const searchAgile = require("./fake-data/search-agile");
 const deleteExample = require("./fake-data/delete-result.json");
+const dataAddAttendee = require("./fake-data/dataAddAttendee.json");
 
 const Data = {};
 
@@ -43,6 +44,11 @@ Data.searchCoursesWithSite = (searchTerm, siteId, callback) => {
 };
 
 Data.deleteCourse = (courseId, callback) => {
-    callback(null, { status: 200, responseJson: deleteExample });
+  callback(null, { status: 200, responseJson: deleteExample });
 };
+
+Data.addAttendee = (courseid, employeeid, callback) => {
+  callback(null, { status: 200, responseJson: dataAddAttendee });
+};
+
 module.exports = Data;

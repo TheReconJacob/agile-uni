@@ -30,7 +30,6 @@ module.exports.getSites = DataAccess => (req, callback) => {
 };
 
 module.exports.searchCourses = DataAccess => (req, callback) => {
-
   if (!req.query.siteId) {
     DataAccess.searchCoursesNoSite(req.query.searchTerm, (err, courses) => {
       if (err) {
@@ -43,7 +42,6 @@ module.exports.searchCourses = DataAccess => (req, callback) => {
       req.query.searchTerm,
       req.query.siteId,
       (err, courses) => {
-        
         if (err) {
           return callback(err);
         }
@@ -66,17 +64,17 @@ module.exports.listAllCourses = DataAccess => (req, callback) => {
 module.exports.editCourse = DataAccess => (req, callback) => {
   const body = req.body;
   const parameters = [
-    body.f-title, ///
+    body.title,
     body.description,
-    body.start_date, ///
-    body.start_time, ///
-    body.end_date, ///
-    body.end_time, ///
-    body.attendees_max, ///
+    body.start_date,
+    body.start_time,
+    body.end_date, 
+    body.end_time, 
+    body.attendees_max,
     body.location,
-    body.site_id, ///
+    body.site_id, 
     body.instructor_name,
-    body.id //shouldn't be there
+    body.id 
   ];
   DataAccess.editCourse(parameters, err => {
     if (err) {
@@ -86,7 +84,7 @@ module.exports.editCourse = DataAccess => (req, callback) => {
   });
 };
 
-module.exports.addCourse = (DataAccess) => (req, callback) => {
+module.exports.addCourse = DataAccess => (req, callback) => {
   const body = req.body;
   console.log(body);
   body.start_date = body.start_date + " " + body.start_time;
@@ -99,36 +97,48 @@ module.exports.addCourse = (DataAccess) => (req, callback) => {
     body.attendees_max,
     body.location,
     body.site,
-    body.instructor,
+    body.instructor
   ];
   DataAccess.addCourse(parameters, (err, courses) => {
     if (err) {
-      return callback(err)
+      return callback(err);
     }
-    callback(null, {status: 200, responseJson: { courses:courses }})
-  })
+    callback(null, { status: 200, responseJson: { courses: courses } });
+  });
 };
 
-module.exports.deleteCourse = (DataAccess) => (req, callback) => {
+module.exports.deleteCourse = DataAccess => (req, callback) => {
   DataAccess.deleteCourse(req.query.courseId, (err, courses) => {
     if (err) {
-      return callback(err)
+      return callback(err);
     }
-    callback(null, { status: 200, responseJson: { courses: courses }})
-  })
+    callback(null, { status: 200, responseJson: { courses: courses } });
+  });
 };
 
-module.exports.addEmployee = (DataAccess) => (req, callback) => {
+module.exports.addEmployee = DataAccess => (req, callback) => {
   const body = req.body;
-  const parameters = [
-    body.name,
-    body.object_id,
-    body.email
-  ];
+  const parameters = [body.name, body.object_id, body.email];
   DataAccess.addEmployee(parameters, (err, employees) => {
     if (err) {
-      return callback(err)
+      return callback(err);
     }
-    callback(null, {status: 200, responseJson: { employees:employees }})
-  })
+    callback(null, { status: 200, responseJson: { employees: employees } });
+  });
+};
+
+module.exports.addAttendee = DataAccess => (req, callback) => {
+  DataAccess.addAttendee(
+    req.query.courseid,
+    req.query.employeeid,
+    (err, combinedResponse) => {
+      if (err) {
+        return callback(err);
+      }
+      callback(null, {
+        status: 200,
+        responseJson: { combinedResponse: combinedResponse }
+      });
+    }
+  );
 };
