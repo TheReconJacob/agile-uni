@@ -120,7 +120,7 @@ describe("Unit tests: data handler", function() {
         res.status(result.status);
         res.json(result.responseJson);
         expect(dataAddAttendee).equal(
-          result.responseJson.combinedResponse[0].course_attendees.responseJson
+          result.responseJson.combinedResponse.responseJson
         );
       });
       done();
