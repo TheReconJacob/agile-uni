@@ -64,17 +64,17 @@ module.exports.listAllCourses = DataAccess => (req, callback) => {
 module.exports.editCourse = DataAccess => (req, callback) => {
   const body = req.body;
   const parameters = [
-    body.f - title, ///
+    body.title,
     body.description,
-    body.start_date, ///
-    body.start_time, ///
-    body.end_date, ///
-    body.end_time, ///
-    body.attendees_max, ///
+    body.start_date,
+    body.start_time,
+    body.end_date,
+    body.end_time,
+    body.attendees_max,
     body.location,
-    body.site_id, ///
+    body.site_id,
     body.instructor_name,
-    body.id //shouldn't be there
+    body.id
   ];
   DataAccess.editCourse(parameters, err => {
     if (err) {
@@ -136,6 +136,22 @@ module.exports.deleteAttendee = DataAccess => (req, callback) => {
         return callback(err);
       }
       callback(null, { status: 200, responseJson: { courses: courses } });
+    }
+  );
+};
+
+module.exports.addAttendee = DataAccess => (req, callback) => {
+  DataAccess.addAttendee(
+    req.query.courseid,
+    req.query.employeeid,
+    (err, combinedResponse) => {
+      if (err) {
+        return callback(err);
+      }
+      callback(null, {
+        status: 200,
+        responseJson: { combinedResponse: combinedResponse }
+      });
     }
   );
 };
