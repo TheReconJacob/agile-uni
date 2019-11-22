@@ -161,14 +161,32 @@ Data.addAttendee = (courseid, employeeid, callback) => {
   );
 };
 
-Data.deleteAttendee = (courseId, attendeeId, callback) => {
-	connection.query("DELETE FROM course_attendees WHERE course_attendees.course_id = ? AND course_attendees.employee_id = ?", [courseId, attendeeId], function(err, rows) {
-
-		if (err) {
-			return callback(err)
-		}
-		callback(null, { status: 200, responseJson: rows})
-	})	
-}
+Data.deleteAttendee = (courseid, attendeeid, callback) => {
+  connection.query(
+    "DELETE FROM course_attendees WHERE course_attendees.course_id = ? AND course_attendees.employee_id = ?",
+    [courseid, attendeeid],
+    function(err, rows) {
+      if (err) {
+        return callback(err);
+      }
+      courseAttendeeResponse = { status: 200, responseJson: rows };
+    }
+  );
+  connection.query(
+    "UPDATE courses SET attendees_booked = attendees_booked - 1 WHERE course_id = ?",
+    [courseid],
+    function(err, rows, fields) {
+      if (err) {
+        return callback(err);
+      }
+      callback(null, [
+        {
+          course_attendees: { status: 200, responseJson: rows },
+          courses: courseAttendeeResponse
+        }
+      ]);
+    }
+  );
+};
 
 module.exports = Data;

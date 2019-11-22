@@ -127,23 +127,26 @@ module.exports.addEmployee = DataAccess => (req, callback) => {
   });
 };
 
-module.exports.deleteAttendee = DataAccess => (req, callback) => {
-  DataAccess.deleteAttendee(
-    req.query.courseId,
-    req.query.attendeeId,
-    (err, courses) => {
-      if (err) {
-        return callback(err);
-      }
-      callback(null, { status: 200, responseJson: { courses: courses } });
-    }
-  );
-};
-
 module.exports.addAttendee = DataAccess => (req, callback) => {
   DataAccess.addAttendee(
     req.query.courseid,
     req.query.employeeid,
+    (err, combinedResponse) => {
+      if (err) {
+        return callback(err);
+      }
+      callback(null, {
+        status: 200,
+        responseJson: { combinedResponse: combinedResponse }
+      });
+    }
+  );
+};
+
+module.exports.deleteAttendee = DataAccess => (req, callback) => {
+  DataAccess.deleteAttendee(
+    req.query.courseid,
+    req.query.attendeeid,
     (err, combinedResponse) => {
       if (err) {
         return callback(err);
