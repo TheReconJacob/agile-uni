@@ -130,4 +130,14 @@ Data.addEmployee = (inputs, callback) => {
   )
 }
 
+Data.deleteAttendee = (courseId, attendeeId, callback) => {
+	connection.query("DELETE FROM course_attendees WHERE course_attendee.course_id = ? AND course_attendee.employee_id = ?", [courseId], function(err, rows) {
+
+		if (err) {
+			return callback(err)
+		}
+		callback(null, { status: 200, responseJson: rows})
+	})	
+}
+
 module.exports = Data;
