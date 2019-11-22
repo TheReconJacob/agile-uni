@@ -9,6 +9,7 @@ import axios from "axios";
 
 import CKEditor from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { getTime } from "date-fns";
 
 
 axios.defaults.headers.common["Authorization"] =
@@ -16,8 +17,8 @@ axios.defaults.headers.common["Authorization"] =
 
 
 class Admin extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       title: "",
       startDate: "",
@@ -27,7 +28,14 @@ class Admin extends React.Component {
       numberParticipants: "",
       description: "",
     };
+
+    if (this.props.location.state != undefined) {
+      console.log(this.props.location.state.course_id);
+      this.getCourse()
+    }
+
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.getCourse = this.getCourse.bind(this);
   }
 
   handleSubmit(event) {
@@ -54,19 +62,33 @@ class Admin extends React.Component {
 
   getCourse() {
     const params = this.props.location.state.course_id;
-  
+    
     axios
       .get(`http://localhost:5000/findCourseById?course_id=${params}`)
+      .then((response) => {console.log(response.data.courses.responseJson[0])
+        return response.data.courses.responseJson[0]})
+      .then((res) => {
+        let startDate = new Date(res.start_date);
+        this.setState({ 
+          title: res.title,
+          start_date: startDate,
+          start_time: startDate.getMinutes(),
+          end_date: res.end_date,
+          end_time: res.end_date,
+          attendees_max: res.attendees_max,
+          description: res.description,
+          instructor_name: res.instructor_name,
+          site_id: res.site_id,
+          location: res.location
+         });
+      })
       .catch(function (error) {
         console.log(error);
       });
   }
 
   render() {
-    if (this.props.location.state != undefined) {
-      console.log(this.props.location.state.course_id);
-      this.getCourse()
-    }
+   
     return (
       <>
         <div className="c-hero hero-background">
@@ -97,8 +119,10 @@ class Admin extends React.Component {
                     type="text"
                     className="c-form-input"
                     name="title"
-                    id="f-title" //onChange={this.handleChange}
+                    id="f-title"
                     required
+                    // onChange={e => this.setState({title: e.target.value})}
+                    defaultValue={this.state.title} //onChange={(e) => (this.setState({title: e.target.value}))}
                   />
                 </li>
                 <li className="c-form-list__item u-width-1/2">
@@ -117,7 +141,8 @@ class Admin extends React.Component {
                     type="text"
                     className="c-form-input"
                     name="instructor"
-                    id="f-instructor" //onChange={this.handleChange}
+                    id="f-instructor" 
+                    defaultValue={this.state.instructor_name}
                     required
                   />
                 </li>
@@ -127,6 +152,7 @@ class Admin extends React.Component {
                     <abbr
                       title="This field is required"
                       className="c-form-required"
+                      
                     >
                       *
                     </abbr>
@@ -137,14 +163,16 @@ class Admin extends React.Component {
                     type="date"
                     className="c-form-date c-form-combo--inline o-layout__item u-width-3/4 "
                     name="start_date"
-                    id="f-start-date" //onChange={this.handleChange}
+                    id="f-start-date" 
+                    defaultValue={this.state.start_date}
                     required
                   />
                   <input
                     type="time"
                     className="c-form-date c-form-combo--inline o-layout__item u-width-1/4"
                     name="start_time"
-                    id="f-start-time" //onChange={this.handleChange}
+                    id="f-start-time" 
+                    defaultValue={this.state.start_time}
                     required
                   />
                 </li>
@@ -164,14 +192,14 @@ class Admin extends React.Component {
                     type="date"
                     className="c-form-date c-form-combo--inline o-layout__item u-width-3/4"
                     name="end_date"
-                    id="f-end-date" //onChange={this.handleChange}
+                    id="f-end-date" 
                     required
                   />
                   <input
                     type="time"
                     className="c-form-date c-form-combo--inline o-layout__item u-width-1/4"
                     name="end_time"
-                    id="f-end-time" //onChange={this.handleChange}
+                    id="f-end-time" 
                     required
                   />
                 </li>
@@ -191,8 +219,8 @@ class Admin extends React.Component {
                     <select
                       id="f-site"
                       name="site"
-                      className="c-form-select__dropdown" //onChange={this.handleChange}
-                      defaultValue={"DEFAULT"}
+                      className="c-form-select__dropdown" 
+                      defaultValue={this.state.site_id}
                       required
                     >
                       <option value="DEFAULT" disabled>
@@ -217,7 +245,8 @@ class Admin extends React.Component {
                     type="text"
                     className="c-form-input"
                     name="location"
-                    id="f-location" //onChange={this.handleChange}
+                    id="f-location" 
+                    defaultValue={this.state.location}
                     required
                   />
                 </li>
@@ -238,7 +267,8 @@ class Admin extends React.Component {
                     min="0"
                     className="c-form-date"
                     name="attendees_max"
-                    id="attendees-max" //onChange={this.handleChange}
+                    id="attendees-max" 
+                    defaultValue={this.state.attendees_max}
                     required
                   />
                 </li>
@@ -256,6 +286,7 @@ class Admin extends React.Component {
                   </label>
                 </li>
                 <li className="c-form-list__item u-width-1/2" id="editor">
+                 
                   <CKEditor
                     editor={ClassicEditor}
                     data=""
@@ -271,19 +302,24 @@ class Admin extends React.Component {
                       }
                     }
                     onInit={editor => {
+                      
                       // You can store the "editor" and use when it is needed.
                       console.log("Editor is ready to use!", editor);
                     }}
                     onChange={(event, editor) => {
                       this.setState({ description: editor.getData() });
+                    
                     }}
                     onBlur={(event, editor) => {
                       console.log("Blur.", editor);
                     }}
                     onFocus={(event, editor) => {
+                      editor.setData(this.state.description);
                       console.log("Focus.", editor);
                     }}
                   />
+                  
+                  
                 </li>
                 <button type="submit" className="c-btn c-btn--primary">
                   Add Course
