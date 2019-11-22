@@ -343,7 +343,7 @@ describe("Integration tests: Running app and testing data routes", function() {
       }
       sleep(8000).then(() => {
         request(
-          "http://localhost:5000/addAttendee?courseid=2&employeeid=999",
+          "http://localhost:5000/deleteAttendee?courseid=2&employeeid=999",
           {
             auth: {
               bearer: process.env.AUTHTOKEN
