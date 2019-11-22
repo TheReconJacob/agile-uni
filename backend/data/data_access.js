@@ -131,7 +131,7 @@ Data.addEmployee = (inputs, callback) => {
 }
 
 Data.deleteAttendee = (courseId, attendeeId, callback) => {
-	connection.query("DELETE FROM course_attendees WHERE course_attendee.course_id = ? AND course_attendee.employee_id = ?", [courseId], function(err, rows) {
+	connection.query("DELETE FROM course_attendees WHERE course_attendees.course_id = ? AND course_attendees.employee_id = ?", [courseId, attendeeId], function(err, rows) {
 
 		if (err) {
 			return callback(err)
