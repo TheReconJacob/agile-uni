@@ -43,7 +43,8 @@ class Admin extends React.Component {
     event.persist();
     const data = new FormData(event.target);
     data.append("description", this.state.description);
-    fetch("http://localhost:5000/addCourse", {
+    data.append("course_id", this.props.location.state.course_id);
+    fetch("http://localhost:5000/editCourse", {
       method: "POST",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("msal.idtoken")
@@ -140,7 +141,7 @@ class Admin extends React.Component {
                   <input
                     type="text"
                     className="c-form-input"
-                    name="instructor"
+                    name="instructor_name"
                     id="f-instructor" 
                     defaultValue={this.state.instructor_name}
                     required
@@ -218,7 +219,7 @@ class Admin extends React.Component {
                   <div className="c-form-select">
                     <select
                       id="f-site"
-                      name="site"
+                      name="site_id"
                       className="c-form-select__dropdown" 
                       defaultValue={this.state.site_id}
                       required

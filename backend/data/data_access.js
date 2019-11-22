@@ -80,7 +80,7 @@ Data.listAllCourses = callback => {
 
 Data.editCourse = (inputs, callback) => {
   connection.query(
-    "UPDATE courses SET title = ?, description = ?, start_date = ?, end_date = ?, attendees_max = ?, location = ?, site_id = ?, instructor_name = ? WHERE course_id = ?",
+    "UPDATE courses SET title = IFNULL(?, title), description = IFNULL(?, description), start_date = IFNULL(?, start_date), end_date = IFNULL(?, end_date), attendees_max = IFNULL(?, attendees_max), location = IFNULL(?, location), site_id = IFNULL(?, site_id), instructor_name = IFNULL(?, instructor_name) WHERE course_id = ?",
     inputs,
     function(err, rows) {
       if (err) {
