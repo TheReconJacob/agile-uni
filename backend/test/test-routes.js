@@ -308,11 +308,21 @@ describe("Integration tests: Running app and testing data routes", function() {
               "course_attendees"
             ]["responseJson"];
             expect(rows["affectedRows"]).to.equal(1);
-            expect(rows["changedRows"]).to.equal(0);
+            expect(rows["changedRows"]).to.equal(1);
             expect(
-              JSON.parse(response.body)["combinedResponse"][0]["course_attendees"][
-                "status"
-              ]
+              JSON.parse(response.body)["combinedResponse"][0][
+                "course_attendees"
+              ]["status"]
+            ).to.equal(200);
+            const rowsCourses = JSON.parse(response.body)[
+              "combinedResponse"
+            ][0]["courses"]["responseJson"];
+            expect(rowsCourses["affectedRows"]).to.equal(1);
+            expect(rowsCourses["changedRows"]).to.equal(0);
+            expect(
+              JSON.parse(response.body)["combinedResponse"][0][
+                "course_attendees"
+              ]["status"]
             ).to.equal(200);
             done();
           }
