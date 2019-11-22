@@ -53,12 +53,10 @@ class Admin extends React.Component {
   }
 
   getCourse() {
-    const params = {
-      course_id: (this.props.location.state.course_id),
-    };
+    const params = this.props.location.state.course_id;
+  
     axios
-      .get("http://localhost:5000/findCourseById", params)
-      .then((response) => console.log(response.body))
+      .get(`http://localhost:5000/findCourseById?course_id=${params}`)
       .catch(function (error) {
         console.log(error);
       });

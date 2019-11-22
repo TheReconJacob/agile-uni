@@ -4,15 +4,12 @@ import { AccordionSection } from "@sky-uk/toolkit-react";
 import SearchBar from "../components/SearchBar";
 import "../styles/courses.scss";
 import DeleteButton from "../components/DeleteButton";
-<<<<<<< HEAD
 import EditButton from "../components/EditButton";
-=======
 import axios from "axios";
 const queryString = require("query-string");
 
 axios.defaults.headers.common["Authorization"] =
   "Bearer " + localStorage.getItem("msal.idtoken");
->>>>>>> master
 
 class Courses extends React.Component {
   constructor(props) {

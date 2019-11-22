@@ -134,8 +134,6 @@ module.exports.addEmployee = (DataAccess) => (req, callback) => {
 };
 
 module.exports.findCourseById = DataAccess => (req, callback) => {
-  console.log(req.query)
-  console.log(req.body)
   DataAccess.findCourseById(req.query.course_id, (err, courses) => {
     if (err) {
       return callback(err);
