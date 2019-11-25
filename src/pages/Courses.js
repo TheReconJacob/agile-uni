@@ -24,7 +24,7 @@ class Courses extends React.Component {
     this.updateAccordionSelection = this.updateAccordionSelection.bind(this);
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
     this.getSearch = this.getSearch.bind(this);
-    this.generateSearch = this.generateSearch.bind(this)
+    this.generateSearch = this.generateSearch.bind(this);
   }
 
   getSearch = (searchObj, siteObj) => {
@@ -62,27 +62,26 @@ class Courses extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.props = nextProps;
-    this.generateSearch()
+    this.generateSearch();
   }
 
   componentDidMount() {
-    
-    this.generateSearch()
+    this.generateSearch();
   }
 
-  generateSearch(){
-    if(!queryString.parse(this.props.location.search).searchTerm && !queryString.parse(this.props.location.search).site) {
-        this.getSearch("", "");
+  generateSearch() {
+    if (
+      !queryString.parse(this.props.location.search).searchTerm &&
+      !queryString.parse(this.props.location.search).site
+    ) {
+      this.getSearch("", "");
     } else {
       this.state.searchParam = queryString.parse(
         this.props.location.search
       ).searchTerm;
-      this.state.site = queryString.parse(
-        this.props.location.search
-      ).site;
+      this.state.site = queryString.parse(this.props.location.search).site;
       this.getSearch(this.state.searchParam, this.state.site);
     }
-
   }
 
   render() {
@@ -161,8 +160,14 @@ class Courses extends React.Component {
                       >
                         Book now
                       </a>
-                      <EditButton adminStatus={adminStatus} course_id={res.course_id} />
-                      <DeleteButton courseToDelete={res.course_id} adminStatus={adminStatus}/>
+                      <EditButton
+                        adminStatus={adminStatus}
+                        course_id={res.course_id}
+                      />
+                      <DeleteButton
+                        courseToDelete={res.course_id}
+                        adminStatus={adminStatus}
+                      />
                     </div>
                   </div>
                 </AccordionSection>

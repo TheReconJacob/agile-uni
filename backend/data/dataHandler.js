@@ -78,7 +78,7 @@ module.exports.editCourse = DataAccess => (req, callback) => {
     body.course_id //shouldn't be there
   ];
 
-  console.log(parameters)
+  console.log(parameters);
 
   DataAccess.editCourse(parameters, err => {
     if (err) {
@@ -99,8 +99,8 @@ module.exports.addCourse = DataAccess => (req, callback) => {
     body.end_date,
     body.attendees_max,
     body.location,
-    body.site,
-    body.instructor
+    body.site_id,
+    body.instructor_name
   ];
   DataAccess.addCourse(parameters, (err, courses) => {
     if (err) {

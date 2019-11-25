@@ -13,17 +13,21 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 axios.defaults.headers.common["Authorization"] =
   "Bearer " + localStorage.getItem("msal.idtoken");
 
-  function SaveButton() {
-    return <button type="submit" className="c-btn c-btn--primary" id="saveButton">
-    Save
-  </button>;
-  }
+function SaveButton() {
+  return (
+    <button type="submit" className="c-btn c-btn--primary" id="saveButton">
+      Save
+    </button>
+  );
+}
 
-  function AddButton() {
-    return <button type="submit" className="c-btn c-btn--primary" id="addButton">
-    Add Course
-  </button>;
-  }
+function AddButton() {
+  return (
+    <button type="submit" className="c-btn c-btn--primary" id="addButton">
+      Add Course
+    </button>
+  );
+}
 
 class Admin extends React.Component {
   constructor(props) {
@@ -36,11 +40,14 @@ class Admin extends React.Component {
       endTime: "",
       numberParticipants: "",
       description: "",
+      instructor_name: "",
+      site_id: "",
+      location: ""
     };
 
     if (this.props.location.state !== undefined) {
       console.log(this.props.location.state.course_id);
-      this.getCourse()
+      this.getCourse();
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -57,49 +64,54 @@ class Admin extends React.Component {
     if (this.props.location.state !== undefined) {
       data.append("course_id", this.props.location.state.course_id);
       fetch("http://localhost:5000/editCourse", {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("msal.idtoken")
-      },
-      body: data
-    }).then((response) => {
-      if (response.ok) {
-        window.location.replace("http://localhost:3000/courses");
-      } else {
-        throw new Error('Something went wrong');
-      }
-    }).catch((error) => {
-      console.log(error)
-    });
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("msal.idtoken")
+        },
+        body: data
+      })
+        .then(response => {
+          if (response.ok) {
+            window.location.replace("http://localhost:3000/courses");
+          } else {
+            throw new Error("Something went wrong");
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
     } else {
-    fetch("http://localhost:5000/addCourse", {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("msal.idtoken")
-      },
-      body: data
-    }).then((response) => {
-      if (response.ok) {
-        window.location.replace("http://localhost:3000/courses");
-      } else {
-        throw new Error('Something went wrong');
-      }
-    }).catch((error) => {
-      console.log(error)
-    });
-  }
-
+      fetch("http://localhost:5000/addCourse", {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("msal.idtoken")
+        },
+        body: data
+      })
+        .then(response => {
+          if (response.ok) {
+            window.location.replace("http://localhost:3000/courses");
+          } else {
+            throw new Error("Something went wrong");
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
   }
 
   getCourse() {
     const params = this.props.location.state.course_id;
-    
+
     axios
       .get(`http://localhost:5000/findCourseById?course_id=${params}`)
-      .then((response) => {console.log(response.data.courses.responseJson[0])
-        return response.data.courses.responseJson[0]})
-      .then((res) => {
-        this.setState({ 
+      .then(response => {
+        console.log(response.data.courses.responseJson[0]);
+        return response.data.courses.responseJson[0];
+      })
+      .then(res => {
+        this.setState({
           title: res.title,
           start_date: res.start_date.slice(0, 10),
           start_time: res.start_date.slice(11, 16),
@@ -110,23 +122,22 @@ class Admin extends React.Component {
           instructor_name: res.instructor_name,
           site_id: res.site_id,
           location: res.location
-         });
-      })//.then(() => {this.reaload()})
-      .catch(function (error) {
+        });
+      }) //.then(() => {this.reaload()})
+      .catch(function(error) {
         console.log(error);
       });
   }
 
-    displayButtons() {
-      if (this.props.location.state !== undefined) {
-             return <SaveButton/>;
+  displayButtons() {
+    if (this.props.location.state !== undefined) {
+      return <SaveButton />;
     } else {
-      return <AddButton/>;
-      }
+      return <AddButton />;
     }
+  }
 
   render() {
-
     return (
       <>
         <div className="c-hero hero-background">
@@ -179,7 +190,7 @@ class Admin extends React.Component {
                     type="text"
                     className="c-form-input"
                     name="instructor_name"
-                    id="f-instructor" 
+                    id="f-instructor"
                     defaultValue={this.state.instructor_name}
                     required
                   />
@@ -190,7 +201,6 @@ class Admin extends React.Component {
                     <abbr
                       title="This field is required"
                       className="c-form-required"
-                      
                     >
                       *
                     </abbr>
@@ -201,7 +211,7 @@ class Admin extends React.Component {
                     type="date"
                     className="c-form-date c-form-combo--inline o-layout__item u-width-3/4 "
                     name="start_date"
-                    id="f-start-date" 
+                    id="f-start-date"
                     defaultValue={this.state.start_date}
                     required
                   />
@@ -209,7 +219,7 @@ class Admin extends React.Component {
                     type="time"
                     className="c-form-date c-form-combo--inline o-layout__item u-width-1/4"
                     name="start_time"
-                    id="f-start-time" 
+                    id="f-start-time"
                     defaultValue={this.state.start_time}
                     required
                   />
@@ -230,7 +240,7 @@ class Admin extends React.Component {
                     type="date"
                     className="c-form-date c-form-combo--inline o-layout__item u-width-3/4"
                     name="end_date"
-                    id="f-end-date" 
+                    id="f-end-date"
                     defaultValue={this.state.end_date}
                     required
                   />
@@ -238,7 +248,7 @@ class Admin extends React.Component {
                     type="time"
                     className="c-form-date c-form-combo--inline o-layout__item u-width-1/4"
                     name="end_time"
-                    id="f-end-time" 
+                    id="f-end-time"
                     defaultValue={this.state.end_time}
                     required
                   />
@@ -259,12 +269,11 @@ class Admin extends React.Component {
                     <select
                       id="f-site"
                       name="site_id"
-                      className="c-form-select__dropdown" 
+                      className="c-form-select__dropdown"
                       defaultValue={this.state.site_id}
                       required
                     >
-                      <option value="DEFAULT" disabled>
-                      </option>
+                      <option value="DEFAULT" disabled></option>
                       <option value="1">Osterley</option>
                       <option value="2">Leeds</option>
                       <option value="3">Livingston</option>
@@ -285,7 +294,7 @@ class Admin extends React.Component {
                     type="text"
                     className="c-form-input"
                     name="location"
-                    id="f-location" 
+                    id="f-location"
                     defaultValue={this.state.location}
                     required
                   />
@@ -307,7 +316,7 @@ class Admin extends React.Component {
                     min="0"
                     className="c-form-date"
                     name="attendees_max"
-                    id="attendees-max" 
+                    id="attendees-max"
                     defaultValue={this.state.attendees_max}
                     required
                   />
@@ -326,29 +335,39 @@ class Admin extends React.Component {
                   </label>
                 </li>
                 <li className="c-form-list__item u-width-1/2" id="editor">
-                 
                   <CKEditor
                     editor={ClassicEditor}
                     data={this.state.description}
-                    config={
-                      {
-                        heading: {
-                          options: [
-                            { model: 'paragraph', view: { name: 'h1', classes: 'c-text-body' }, title: 'Paragraph', class: 'ck-heading_paragraph' },
-                            { model: 'heading1', view: { name: 'h1', classes: 'c-heading-charlie' }, title: 'Heading 1', class: 'ck-heading_heading1' },
-                            { model: 'heading2', view: { name: 'h2', classes: 'c-heading-delta' }, title: 'Heading 2', class: 'ck-heading_heading2' },
-                          ]
-                        }
+                    config={{
+                      heading: {
+                        options: [
+                          {
+                            model: "paragraph",
+                            view: { name: "h1", classes: "c-text-body" },
+                            title: "Paragraph",
+                            class: "ck-heading_paragraph"
+                          },
+                          {
+                            model: "heading1",
+                            view: { name: "h1", classes: "c-heading-charlie" },
+                            title: "Heading 1",
+                            class: "ck-heading_heading1"
+                          },
+                          {
+                            model: "heading2",
+                            view: { name: "h2", classes: "c-heading-delta" },
+                            title: "Heading 2",
+                            class: "ck-heading_heading2"
+                          }
+                        ]
                       }
-                    }
+                    }}
                     onInit={editor => {
-                      
                       // You can store the "editor" and use when it is needed.
                       console.log("Editor is ready to use!", editor);
                     }}
                     onChange={(event, editor) => {
                       this.setState({ description: editor.getData() });
-                    
                     }}
                     onBlur={(event, editor) => {
                       console.log("Blur.", editor);
@@ -358,15 +377,13 @@ class Admin extends React.Component {
                       console.log("Focus.", editor);
                     }}
                   />
-                  
-                  
                 </li>
                 {/* <button type="submit" className="c-btn c-btn--primary" id="addButton">
                   Add Course
                 </button> */}
-               {/* <SaveButton/>
+                {/* <SaveButton/>
                <AddButton/> */}
-               {this.displayButtons()}
+                {this.displayButtons()}
               </ul>
             </fieldset>
           </form>
