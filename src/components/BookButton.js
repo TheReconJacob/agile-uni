@@ -46,17 +46,17 @@ class BookButton extends React.Component {
 
   confirmBook() {
     var answer = window.confirm("Are you sure you want to book this course?");
-    if (answer) {
-      console.log("trying to book " + this.props.courseId); 
+    if (answer) { 
       bookCourse(this.props.courseId, this.props.employeeId);
+      window.location.reload();
     } 
   }
 
   confirmCancel() {
     var answer = window.confirm("Are you sure you want to cancel this course?");
     if (answer) {
-      console.log("trying to cancel " + this.props.courseId); 
       cancelCourse(this.props.courseId, this.props.employeeId);
+      window.location.reload();
     } 
   }
 
