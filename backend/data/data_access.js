@@ -80,7 +80,7 @@ Data.listAllCourses = callback => {
 
 Data.editCourse = (inputs, callback) => {
   connection.query(
-    "UPDATE courses SET title = ?, description = ?, start_date = ?, end_date = ?, attendees_max = ?, location = ?, site_id = ?, instructor_name = ? WHERE course_id = ?",
+    "UPDATE courses SET title = IFNULL(?, title), description = IFNULL(?, description), start_date = IFNULL(?, start_date), end_date = IFNULL(?, end_date), attendees_max = IFNULL(?, attendees_max), location = IFNULL(?, location), site_id = IFNULL(?, site_id), instructor_name = IFNULL(?, instructor_name) WHERE course_id = ?",
     inputs,
     function(err, rows) {
       if (err) {
@@ -94,7 +94,6 @@ Data.editCourse = (inputs, callback) => {
 Data.addCourse = (inputs, callback) => {
   // Site id used instead of name
   // Instructor id change to instructor name
-  console.log(inputs);
   connection.query(
     "INSERT INTO courses (title, description, start_date, end_date, attendees_max, location, site_id, instructor_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
     inputs,
@@ -188,5 +187,18 @@ Data.deleteAttendee = (courseid, attendeeid, callback) => {
     }
   );
 };
+
+Data.findCourseById = (course_id, callback) => {
+  console.log(course_id)
+	connection.query(
+	  "SELECT * FROM courses INNER JOIN sites ON courses.site_id = sites.id WHERE course_id = ?", course_id,
+	  function(err, rows) {
+		if (err) {
+		  return callback(err);
+		}
+		callback(null, { status: 200, responseJson: rows });
+	  }
+	);
+  };
 
 module.exports = Data;

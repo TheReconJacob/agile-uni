@@ -219,7 +219,7 @@ describe("Integration tests: Running app and testing data routes", function() {
           .post("/editCourse")
           .set("Authorization", "Bearer " + process.env.AUTHTOKEN)
           .send({
-            id: 3,
+            course_id: 187,
             title: "test15",
             description: "%thhnjnk%",
             start_date: "0000-00-00 00:00:00",
@@ -381,9 +381,47 @@ describe("Integration tests: Running app and testing data routes", function() {
     });
   });
 
+
+  describe("Find course by ID", function() {
+    describe("Search courses by ID", function() {
+      it("Course should be returned based on ID", function(done) {
+        request(
+          "http://localhost:5000/findCourseById?course_id=1",
+          {
+            auth: {
+              bearer: process.env.AUTHTOKEN
+            }
+          },
+          function(error, response, body) {
+            expect(
+              JSON.parse(body)["courses"]["responseJson"][0]
+            ).to.have.all.keys(
+				"course_id",
+				"title",
+				"description",
+				"start_date",
+				"end_date",
+				"attendees_max",
+				"attendees_booked",
+				"location",
+				"site_id",
+				"instructor_name",
+				"id",
+				"name",
+				"address"
+            );
+            done();
+          }
+        );
+      });
+	});
+});
+
   after(done => {
     delete require.cache[require.resolve("../server.js")];
     server.closeServer();
     done();
   });
 });
+
+
