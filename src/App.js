@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar.js";
 import Footer from "./components/Footer.js";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import Admin from "./pages/Admin";
+import axios from "axios";
 
 const jwt = require("jsonwebtoken");
 
@@ -25,6 +26,8 @@ class App extends React.Component {
         });
       }
     });
+
+    this.addEmployee = this.addEmployee.bind(this);
   }
 
   async getRoles() {
@@ -37,6 +40,30 @@ class App extends React.Component {
     } else {
       return null;
     }
+  }
+
+  async addEmployee() {
+    const token = await authProvider.getIdToken();
+    const idToken = token.idToken.rawIdToken;
+    const decodedToken = jwt.decode(idToken);
+    let params = {
+      name: decodedToken.name,
+      object_id: decodedToken.oid,
+      email: decodedToken.preferred_username
+    };
+    console.log(params);
+    axios
+      .post("http://localhost:5000/addEmployee", params)
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  }
+
+  componentDidMount() {
+    this.addEmployee();
   }
 
   render() {
@@ -54,7 +81,9 @@ class App extends React.Component {
               <Route exact path="/" component={Home} />
               <Route
                 path="/courses"
-                render={(props) => <Courses {...props} adminStatus={this.state.admin} />}
+                render={props => (
+                  <Courses {...props} adminStatus={this.state.admin} />
+                )}
               />
               {adminAddCourse}
             </div>
