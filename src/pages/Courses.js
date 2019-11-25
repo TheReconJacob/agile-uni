@@ -4,6 +4,7 @@ import { AccordionSection } from "@sky-uk/toolkit-react";
 import SearchBar from "../components/SearchBar";
 import "../styles/courses.scss";
 import DeleteButton from "../components/DeleteButton";
+import BookButton from "../components/BookButton"
 import axios from "axios";
 const queryString = require("query-string");
 
@@ -165,12 +166,13 @@ class Courses extends React.Component {
                       >
                         Request more information
                       </a>
-                      <a
+                      {/* <a
                         href="/courses"
                         className="accordion-button c-btn c-btn--primary u-margin-right"
                       >
                         Book now
-                      </a>
+                      </a> */}
+                      <BookButton courseId={res.course_id} notAlreadyBooked={true}/>
                       <DeleteButton
                         courseToDelete={res.course_id}
                         adminStatus={adminStatus}
