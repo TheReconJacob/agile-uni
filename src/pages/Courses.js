@@ -71,9 +71,6 @@ class Courses extends React.Component {
   }
 
   generateSearch(){
-    console.log(queryString.parse(
-      this.props.location.search
-    ).searchTerm)
     if(!queryString.parse(this.props.location.search).searchTerm && !queryString.parse(this.props.location.search).site) {
         this.getSearch("", "");
     } else {

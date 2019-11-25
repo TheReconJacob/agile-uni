@@ -36,7 +36,7 @@ class Admin extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getCourse = this.getCourse.bind(this);
-    this.getStartDate = this.getStartDate.bind(this);
+    this.reload = this.reload.bind(this);
   }
 
   handleSubmit(event) {
@@ -70,32 +70,26 @@ class Admin extends React.Component {
       .then((response) => {console.log(response.data.courses.responseJson[0])
         return response.data.courses.responseJson[0]})
       .then((res) => {
-        let startDate = new Date(res.start_date);
         this.setState({ 
           title: res.title,
-          start_date: startDate,
-          start_time: startDate.getMinutes(),
-          end_date: res.end_date,
-          end_time: res.end_date,
+          start_date: res.start_date.slice(0, 10),
+          start_time: res.start_date.slice(11, 16),
+          end_date: res.end_date.slice(0, 10),
+          end_time: res.end_date.slice(11, 16),
           attendees_max: res.attendees_max,
           description: res.description,
           instructor_name: res.instructor_name,
           site_id: res.site_id,
           location: res.location
          });
-      })
+      })//.then(() => {this.reaload()})
       .catch(function (error) {
         console.log(error);
       });
   }
 
-  getStartDate() {
-    let startDate = this.state.slice(0, 10);
-    let endDate = "2019-11-20";
-    this.setState({
-      start_date: startDate,
-      end_date: endDate
-    })
+  reload() {
+    this.forceUpdate();
   }
 
   render() {
@@ -175,7 +169,7 @@ class Admin extends React.Component {
                     className="c-form-date c-form-combo--inline o-layout__item u-width-3/4 "
                     name="start_date"
                     id="f-start-date" 
-                    defaultValue={this.state.getStartDate}
+                    defaultValue={this.state.start_date}
                     required
                   />
                   <input
@@ -204,6 +198,7 @@ class Admin extends React.Component {
                     className="c-form-date c-form-combo--inline o-layout__item u-width-3/4"
                     name="end_date"
                     id="f-end-date" 
+                    defaultValue={this.state.end_date}
                     required
                   />
                   <input
@@ -211,6 +206,7 @@ class Admin extends React.Component {
                     className="c-form-date c-form-combo--inline o-layout__item u-width-1/4"
                     name="end_time"
                     id="f-end-time" 
+                    defaultValue={this.state.end_time}
                     required
                   />
                 </li>
@@ -300,7 +296,7 @@ class Admin extends React.Component {
                  
                   <CKEditor
                     editor={ClassicEditor}
-                    data=""
+                    data={this.state.description}
                     config={
                       {
                         heading: {
@@ -325,7 +321,7 @@ class Admin extends React.Component {
                       console.log("Blur.", editor);
                     }}
                     onFocus={(event, editor) => {
-                      editor.setData(this.state.description);
+                      // editor.setData(this.state.description);
                       console.log("Focus.", editor);
                     }}
                   />
