@@ -1,15 +1,15 @@
-const mysql = require('mysql')
-	  fs = require('fs'),
-	  express = require('express'),
-	  app = express(),
-	  port = 5000,
-	  config = require('./data/_config');
+const mysql = require("mysql");
+(fs = require("fs")),
+  (express = require("express")),
+  (app = express()),
+  (port = 5000),
+  (config = require("./data/_config"));
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
 const multer = require("multer");
-const upload = multer()
+const upload = multer();
 
-var cors = require('cors')
+var cors = require("cors");
 
 const Data = require("./data/data_access.js");
 const dataHandler = require("./data/dataHandler.js");
@@ -18,9 +18,9 @@ const connection = mysql.createConnection(config.mysqlConfig);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(upload.array()); 
-app.use(express.static('public'));
-app.use(cors())
+app.use(upload.array());
+app.use(express.static("public"));
+app.use(cors());
 
 connection.connect(function(err) {
   if (err) {
@@ -89,40 +89,40 @@ app.get("/sites", (req, res) => {
 });
 
 app.get("/search", (req, res) => {
-  req.header('Access-Control-Allow-Origin')
+  req.header("Access-Control-Allow-Origin");
   dataHandler.searchCourses(Data)(req, (err, result) => {
     if (err) {
       res.status(500);
       return res.json({ message: err.message });
     }
-	res.status(result.status);
+    res.status(result.status);
     return res.json(result.responseJson);
   });
 });
 
-app.get('/listAllCourses', (req, res) => {
-	dataHandler.listAllCourses(Data)(req, (err, result) => {
-		if (err) {
-		  res.status(500)
-		  return res.json({ message: err.message })
-		}
-		res.status(result.status)
-		return res.json(result.responseJson)
-	})
-})
+app.get("/listAllCourses", (req, res) => {
+  dataHandler.listAllCourses(Data)(req, (err, result) => {
+    if (err) {
+      res.status(500);
+      return res.json({ message: err.message });
+    }
+    res.status(result.status);
+    return res.json(result.responseJson);
+  });
+});
 
-app.post('/addCourse', (req, res) => {
-  req.header('Access-Control-Allow-Origin')
-	dataHandler.addCourse(Data)(req, (err, result) => {
-		if (err) {
-		  res.status(500)
-		  return res.json({ message: err.message })
-		}
-		res.status(result.status)
-		
-		return res.json(result.responseJson)
-	})
-})
+app.post("/addCourse", (req, res) => {
+  req.header("Access-Control-Allow-Origin");
+  dataHandler.addCourse(Data)(req, (err, result) => {
+    if (err) {
+      res.status(500);
+      return res.json({ message: err.message });
+    }
+    res.status(result.status);
+
+    return res.json(result.responseJson);
+  });
+});
 
 app.post("/editCourse", (req, res) => {
   dataHandler.editCourse(Data)(req, (err, result) => {
@@ -136,16 +136,16 @@ app.post("/editCourse", (req, res) => {
 });
 
 app.get("/deleteCourse", (req, res) => {
-  req.header('Access-Control-Allow-Origin')
-	dataHandler.deleteCourse(Data)(req, (err, result) => {
-	  if (err) {
-		res.status(500);
-		return res.json({ message: err.message });
-	  }
-	  res.status(result.status);
-	  return res.json(result.responseJson);
-	});
+  req.header("Access-Control-Allow-Origin");
+  dataHandler.deleteCourse(Data)(req, (err, result) => {
+    if (err) {
+      res.status(500);
+      return res.json({ message: err.message });
+    }
+    res.status(result.status);
+    return res.json(result.responseJson);
   });
+});
 
 let server = app.listen(port, err => {
   if (err) {
@@ -154,17 +154,43 @@ let server = app.listen(port, err => {
   console.log("Listening on port " + port);
 });
 
-app.post('/addEmployee', (req, res) => {
-	dataHandler.addEmployee(Data)(req, (err, result) => {
-		if (err) {
-		  res.status(500)
-		  return res.json({ message: err.message })
-		}
-		res.status(result.status)
-		
-		return res.json(result.responseJson)
-	})
-})
+app.post("/addEmployee", (req, res) => {
+  dataHandler.addEmployee(Data)(req, (err, result) => {
+    if (err) {
+      res.status(500);
+      return res.json({ message: err.message });
+    }
+    res.status(result.status);
+
+    return res.json(result.responseJson);
+  });
+});
+
+app.get("/addAttendee", (req, res) => {
+  req.header("Access-Control-Allow-Origin");
+  dataHandler.addAttendee(Data)(req, (err, result) => {
+    if (err) {
+      res.status(500);
+      return res.json({ message: err.message });
+    }
+    res.status(result.status);
+
+    return res.json(result.responseJson);
+  });
+});
+
+app.get("/deleteAttendee", (req, res) => {
+  req.header("Access-Control-Allow-Origin");
+  dataHandler.addAttendee(Data)(req, (err, result) => {
+    if (err) {
+      res.status(500);
+      return res.json({ message: err.message });
+    }
+    res.status(result.status);
+
+    return res.json(result.responseJson);
+  });
+});
 
 app.get('/findCourseById', (req, res) => {
 	dataHandler.findCourseById(Data)(req, (err, result) => {
@@ -182,4 +208,3 @@ module.exports = app;
 module.exports.closeServer = function() {
   server.close();
 };
-
