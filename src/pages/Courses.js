@@ -166,13 +166,7 @@ class Courses extends React.Component {
                       >
                         Request more information
                       </a>
-                      {/* <a
-                        href="/courses"
-                        className="accordion-button c-btn c-btn--primary u-margin-right"
-                      >
-                        Book now
-                      </a> */}
-                      <BookButton courseId={res.course_id} notAlreadyBooked={true}/>
+                      <BookButton courseId={res.course_id} notAlreadyBooked={true} employeeId={1}/>
                       <DeleteButton
                         courseToDelete={res.course_id}
                         adminStatus={adminStatus}
