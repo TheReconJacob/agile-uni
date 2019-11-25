@@ -36,6 +36,7 @@ class Admin extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getCourse = this.getCourse.bind(this);
+    this.getStartDate = this.getStartDate.bind(this);
   }
 
   handleSubmit(event) {
@@ -88,8 +89,17 @@ class Admin extends React.Component {
       });
   }
 
+  getStartDate() {
+    let startDate = this.state.slice(0, 10);
+    let endDate = "2019-11-20";
+    this.setState({
+      start_date: startDate,
+      end_date: endDate
+    })
+  }
+
   render() {
-   
+
     return (
       <>
         <div className="c-hero hero-background">
@@ -165,7 +175,7 @@ class Admin extends React.Component {
                     className="c-form-date c-form-combo--inline o-layout__item u-width-3/4 "
                     name="start_date"
                     id="f-start-date" 
-                    defaultValue={this.state.start_date}
+                    defaultValue={this.state.getStartDate}
                     required
                   />
                   <input
