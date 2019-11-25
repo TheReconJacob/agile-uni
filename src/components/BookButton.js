@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { callbackify } from "util";
 
 axios.defaults.headers.common["Authorization"] =
   "Bearer " + localStorage.getItem("msal.idtoken");
@@ -31,6 +32,7 @@ function cancelCourse(courseID, employeeID) {
       })
       .then(function(response) {
         console.log(response);
+        window.location.reload();
       })
       .catch(function(error) {
         console.log(error);
@@ -42,36 +44,20 @@ class BookButton extends React.Component {
     super();
     this.confirmBook = this.confirmBook.bind(this);
     this.confirmCancel = this.confirmCancel.bind(this);
-    this.bookAndRefresh = this.bookAndRefresh.bind(this);
-    this.cancelAndRefresh =this.cancelAndRefresh.bind(this);
   }
- 
-
-  confirmBook(_callback) {
-    var answer = window.confirm("Are you sure you want to book this course?");
-    if (answer) { 
-      bookCourse(this.props.courseId, this.props.employeeId);
-    } 
-    _callback();
-  }
-
-  bookAndRefresh(){this.confirmBook(function(){
-    window.location.reload();
-  });
-}
-
-  confirmCancel(_callback) {
+  confirmCancel() {
     var answer = window.confirm("Are you sure you want to cancel this course?");
     if (answer) {
       cancelCourse(this.props.courseId, this.props.employeeId);
     } 
-    _callback();
   }
 
-  cancelAndRefresh(){this.confirmCancel(function(){
-    window.location.reload();
-  });
-}
+  confirmBook() {
+    var answer = window.confirm("Are you sure you want to book this course?");
+    if (answer) { 
+      bookCourse(this.props.courseId, this.props.employeeId);
+    } 
+  }
 
   render() {
     let BookComponent
