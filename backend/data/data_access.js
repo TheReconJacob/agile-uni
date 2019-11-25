@@ -145,7 +145,7 @@ Data.addAttendee = (courseid, employeeid, callback) => {
     }
   );
   connection.query(
-    "UPDATE courses SET attendees_booked = attendees_booked + 1 WHERE course_id = ?",
+    "UPDATE courses SET attendees_booked = Coalesce(attendees_booked, 0) + 1 WHERE course_id = ?",
     [courseid],
     function(err, rows, fields) {
       if (err) {
