@@ -121,7 +121,7 @@ Data.deleteCourse = (courseId, callback) => {
 
 Data.addEmployee = (inputs, callback) => {
   connection.query(
-    "INSERT INTO employees (name, object_id, email) VALUES (?, ?, ?)",
+    "INSERT INTO employees (name, object_id, email) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE name=VALUES(name), email=VALUES(email)",
     inputs,
     function(err, rows, fields) {
       if (err) {
@@ -144,7 +144,7 @@ Data.addAttendee = (courseid, employeeid, callback) => {
     }
   );
   connection.query(
-    "UPDATE courses SET attendees_booked = attendees_booked + 1 WHERE course_id = ?",
+    "UPDATE courses SET attendees_booked = Coalesce(attendees_booked, 0) + 1 WHERE course_id = ?",
     [courseid],
     function(err, rows, fields) {
       if (err) {

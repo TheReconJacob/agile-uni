@@ -5,6 +5,7 @@ import SearchBar from "../components/SearchBar";
 import "../styles/courses.scss";
 import DeleteButton from "../components/DeleteButton";
 import EditButton from "../components/EditButton";
+import BookButton from "../components/BookButton"
 import axios from "axios";
 const queryString = require("query-string");
 
@@ -164,6 +165,7 @@ class Courses extends React.Component {
                         adminStatus={adminStatus}
                         course_id={res.course_id}
                       />
+                      <BookButton courseId={res.course_id} notAlreadyBooked={true} employeeId={1}/>
                       <DeleteButton
                         courseToDelete={res.course_id}
                         adminStatus={adminStatus}
