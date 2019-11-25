@@ -53,9 +53,9 @@ class Admin extends React.Component {
     event.persist();
     const data = new FormData(event.target);
     data.append("description", this.state.description);
-    data.append("course_id", this.props.location.state.course_id);
 
     if (this.props.location.state !== undefined) {
+      data.append("course_id", this.props.location.state.course_id);
       fetch("http://localhost:5000/editCourse", {
       method: "POST",
       headers: {
@@ -89,29 +89,6 @@ class Admin extends React.Component {
     });
   }
 
-  }
-
-  handleEditSubmit(event) {
-    event.preventDefault();
-    event.persist();
-    const data = new FormData(event.target);
-    data.append("description", this.state.description);
-    data.append("course_id", this.props.location.state.course_id);
-    fetch("http://localhost:5000/editCourse", {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("msal.idtoken")
-      },
-      body: data
-    }).then((response) => {
-      if (response.ok) {
-        window.location.replace("http://localhost:3000/courses");
-      } else {
-        throw new Error('Something went wrong');
-      }
-    }).catch((error) => {
-      console.log(error)
-    });
   }
 
   getCourse() {

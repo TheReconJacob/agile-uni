@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import {Redirect} from "react-router-dom";
-import Admin from "../pages/Admin"
 
 axios.defaults.headers.common["Authorization"] =
   "Bearer " + localStorage.getItem("msal.idtoken");
