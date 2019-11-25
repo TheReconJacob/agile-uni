@@ -25,7 +25,7 @@ function cancelCourse(courseID, employeeID) {
       .get("http://localhost:5000/deleteAttendee", { 
         params: {
           courseid: courseID,
-          employeeid: employeeID
+          attendeeid: employeeID
         }
       })
       .then(function(response) {
