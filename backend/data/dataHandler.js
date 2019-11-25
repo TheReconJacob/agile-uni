@@ -63,6 +63,7 @@ module.exports.listAllCourses = DataAccess => (req, callback) => {
 
 module.exports.editCourse = DataAccess => (req, callback) => {
   const body = req.body;
+  console.log(body.start_date);
   body.start_date = body.start_date + " " + body.start_time;
   body.end_date = body.end_date + " " + body.end_time;
   const parameters = [
@@ -89,7 +90,6 @@ module.exports.editCourse = DataAccess => (req, callback) => {
 
 module.exports.addCourse = DataAccess => (req, callback) => {
   const body = req.body;
-  console.log(body);
   body.start_date = body.start_date + " " + body.start_time;
   body.end_date = body.end_date + " " + body.end_time;
   const parameters = [
