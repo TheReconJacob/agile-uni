@@ -14,6 +14,7 @@ function bookCourse(courseID, employeeID) {
     })
     .then(function(response) {
       console.log(response);
+      window.location.reload();
     })
     .catch(function(error) {
       console.log(error);
@@ -41,24 +42,36 @@ class BookButton extends React.Component {
     super();
     this.confirmBook = this.confirmBook.bind(this);
     this.confirmCancel = this.confirmCancel.bind(this);
+    this.bookAndRefresh = this.bookAndRefresh.bind(this);
+    this.cancelAndRefresh =this.cancelAndRefresh.bind(this);
   }
  
 
-  confirmBook() {
+  confirmBook(_callback) {
     var answer = window.confirm("Are you sure you want to book this course?");
     if (answer) { 
       bookCourse(this.props.courseId, this.props.employeeId);
-      window.location.reload();
     } 
+    _callback();
   }
 
-  confirmCancel() {
+  bookAndRefresh(){this.confirmBook(function(){
+    window.location.reload();
+  });
+}
+
+  confirmCancel(_callback) {
     var answer = window.confirm("Are you sure you want to cancel this course?");
     if (answer) {
       cancelCourse(this.props.courseId, this.props.employeeId);
-      window.location.reload();
     } 
+    _callback();
   }
+
+  cancelAndRefresh(){this.confirmCancel(function(){
+    window.location.reload();
+  });
+}
 
   render() {
     let BookComponent

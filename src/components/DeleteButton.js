@@ -29,6 +29,7 @@ class DeleteButton extends React.Component {
     var answer = window.confirm("Are you sure you want to delete this course?");
     if (answer) {
       deleteCourse(this.props.courseToDelete);
+      
     } 
   }
 
