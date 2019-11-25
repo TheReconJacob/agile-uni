@@ -9,12 +9,21 @@ import axios from "axios";
 
 import CKEditor from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { getTime } from "date-fns";
-
 
 axios.defaults.headers.common["Authorization"] =
   "Bearer " + localStorage.getItem("msal.idtoken");
 
+  function SaveButton() {
+    return <button type="submit" className="c-btn c-btn--primary" id="saveButton">
+    Save
+  </button>;
+  }
+
+  function AddButton() {
+    return <button type="submit" className="c-btn c-btn--primary" id="addButton">
+    Add Course
+  </button>;
+  }
 
 class Admin extends React.Component {
   constructor(props) {
@@ -29,17 +38,60 @@ class Admin extends React.Component {
       description: "",
     };
 
-    if (this.props.location.state != undefined) {
+    if (this.props.location.state !== undefined) {
       console.log(this.props.location.state.course_id);
       this.getCourse()
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getCourse = this.getCourse.bind(this);
-    this.reload = this.reload.bind(this);
+    this.displayButtons = this.displayButtons.bind(this);
   }
 
   handleSubmit(event) {
+    event.preventDefault();
+    event.persist();
+    const data = new FormData(event.target);
+    data.append("description", this.state.description);
+    data.append("course_id", this.props.location.state.course_id);
+
+    if (this.props.location.state !== undefined) {
+      fetch("http://localhost:5000/editCourse", {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("msal.idtoken")
+      },
+      body: data
+    }).then((response) => {
+      if (response.ok) {
+        window.location.replace("http://localhost:3000/courses");
+      } else {
+        throw new Error('Something went wrong');
+      }
+    }).catch((error) => {
+      console.log(error)
+    });
+    } else {
+    fetch("http://localhost:5000/addCourse", {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("msal.idtoken")
+      },
+      body: data
+    }).then((response) => {
+      if (response.ok) {
+        window.location.replace("http://localhost:3000/courses");
+      } else {
+        throw new Error('Something went wrong');
+      }
+    }).catch((error) => {
+      console.log(error)
+    });
+  }
+
+  }
+
+  handleEditSubmit(event) {
     event.preventDefault();
     event.persist();
     const data = new FormData(event.target);
@@ -88,9 +140,13 @@ class Admin extends React.Component {
       });
   }
 
-  reload() {
-    this.forceUpdate();
-  }
+    displayButtons() {
+      if (this.props.location.state !== undefined) {
+             return <SaveButton/>;
+    } else {
+      return <AddButton/>;
+      }
+    }
 
   render() {
 
@@ -328,9 +384,12 @@ class Admin extends React.Component {
                   
                   
                 </li>
-                <button type="submit" className="c-btn c-btn--primary">
+                {/* <button type="submit" className="c-btn c-btn--primary" id="addButton">
                   Add Course
-                </button>
+                </button> */}
+               {/* <SaveButton/>
+               <AddButton/> */}
+               {this.displayButtons()}
               </ul>
             </fieldset>
           </form>
