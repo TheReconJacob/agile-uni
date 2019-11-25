@@ -13,6 +13,7 @@ function deleteCourse(courseID) {
     })
     .then(function(response) {
       console.log(response);
+      window.location.reload();
     })
     .catch(function(error) {
       console.log(error);
@@ -28,8 +29,8 @@ class DeleteButton extends React.Component {
   confirmDelete() {
     var answer = window.confirm("Are you sure you want to delete this course?");
     if (answer) {
-      console.log("trying to delete " + this.props.courseToDelete);
       deleteCourse(this.props.courseToDelete);
+      
     } 
   }
 

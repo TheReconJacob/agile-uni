@@ -337,7 +337,7 @@ describe("Integration tests: Running app and testing data routes", function() {
             const rowsCourses = JSON.parse(response.body)[
               "combinedResponse"
             ][0]["courses"]["responseJson"];
-            expect(rowsCourses["affectedRows"]).to.equal(1);
+            expect(rowsCourses["affectedRows"]).to.equal(0);
             expect(rowsCourses["changedRows"]).to.equal(0);
             expect(
               JSON.parse(response.body)["combinedResponse"][0][
