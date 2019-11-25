@@ -155,6 +155,7 @@ let server = app.listen(port, err => {
 });
 
 app.post("/addEmployee", (req, res) => {
+  req.header("Access-Control-Allow-Origin");
   dataHandler.addEmployee(Data)(req, (err, result) => {
     if (err) {
       res.status(500);
