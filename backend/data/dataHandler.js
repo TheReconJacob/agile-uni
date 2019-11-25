@@ -63,19 +63,18 @@ module.exports.listAllCourses = DataAccess => (req, callback) => {
 
 module.exports.editCourse = DataAccess => (req, callback) => {
   const body = req.body;
-  console.log(body.start_date);
   body.start_date = body.start_date + " " + body.start_time;
   body.end_date = body.end_date + " " + body.end_time;
   const parameters = [
-    body.title, ///
+    body.title,
     body.description,
-    body.start_date, ///
-    body.end_date, ///
-    body.attendees_max, ///
+    body.start_date, 
+    body.end_date, 
+    body.attendees_max, 
     body.location,
     body.site_id,
     body.instructor_name,
-    body.course_id //shouldn't be there
+    body.course_id 
   ];
 
   console.log(parameters);

@@ -2,11 +2,6 @@ import React from "react";
 import SearchBar from "../components/SearchBar";
 import "../styles/admin.scss";
 import axios from "axios";
-// import { authProvider } from "../authProvider";
-// import ReactQuill from "react-quill";
-// import "react-quill/dist/quill.snow.css";
-// import "../styles/quill.scss";
-
 import CKEditor from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
@@ -123,7 +118,7 @@ class Admin extends React.Component {
           site_id: res.site_id,
           location: res.location
         });
-      }) //.then(() => {this.reaload()})
+      })
       .catch(function(error) {
         console.log(error);
       });
@@ -170,8 +165,7 @@ class Admin extends React.Component {
                     name="title"
                     id="f-title"
                     required
-                    // onChange={e => this.setState({title: e.target.value})}
-                    defaultValue={this.state.title} //onChange={(e) => (this.setState({title: e.target.value}))}
+                    defaultValue={this.state.title}
                   />
                 </li>
                 <li className="c-form-list__item u-width-1/2">
@@ -362,27 +356,11 @@ class Admin extends React.Component {
                         ]
                       }
                     }}
-                    onInit={editor => {
-                      // You can store the "editor" and use when it is needed.
-                      console.log("Editor is ready to use!", editor);
-                    }}
                     onChange={(event, editor) => {
                       this.setState({ description: editor.getData() });
                     }}
-                    onBlur={(event, editor) => {
-                      console.log("Blur.", editor);
-                    }}
-                    onFocus={(event, editor) => {
-                      // editor.setData(this.state.description);
-                      console.log("Focus.", editor);
-                    }}
                   />
                 </li>
-                {/* <button type="submit" className="c-btn c-btn--primary" id="addButton">
-                  Add Course
-                </button> */}
-                {/* <SaveButton/>
-               <AddButton/> */}
                 {this.displayButtons()}
               </ul>
             </fieldset>
