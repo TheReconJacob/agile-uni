@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import { callbackify } from "util";
 
 axios.defaults.headers.common["Authorization"] =
   "Bearer " + localStorage.getItem("msal.idtoken");
