@@ -6,7 +6,11 @@ const addCourseWithId = require("../routes/addWithId").addCourseWithId;
 const deleteEmployeeTestFunction = require("../routes/deleteEmployee")
   .deleteEmployeeTestFunction;
 const addEmployee = require("../routes/addEmployee").addEmployee;
+const addEmployeeToCourse = require("../routes/addEmployeeToCourse")
+  .addEmployeeToCourse;
+const deleteCourse = require("../routes/deleteCourse").deleteCourse;
 chai.use(chaiHttp);
+
 let server;
 
 //BEST PRACTICE - GET THIS WORKING but wer were having issues with the audience claim in the JWT token so we are manually passing a token
@@ -232,35 +236,6 @@ describe("Integration tests: Running app and testing data routes", function() {
       });
     });
 
-    describe("Delete a course", function() {
-      it("Deleting a course should return right response from server", function(done) {
-        addCourseWithId();
-
-        function sleep(time) {
-          return new Promise(resolve => setTimeout(resolve, time));
-        }
-        sleep(8000).then(() => {
-          request(
-            "http://localhost:5000/deleteCourse?courseId=2",
-            {
-              auth: {
-                bearer: process.env.AUTHTOKEN
-              }
-            },
-            function(error, response, body) {
-              const rows = JSON.parse(response.body)["courses"]["responseJson"];
-              expect(rows["affectedRows"]).to.equal(1);
-              expect(rows["changedRows"]).to.equal(0);
-              expect(JSON.parse(response.body)["courses"]["status"]).to.equal(
-                200
-              );
-              done();
-            }
-          );
-        });
-      });
-    });
-
     describe("Add an employee", function() {
       it("Employee should be added successfully", function(done) {
         chai
@@ -324,6 +299,81 @@ describe("Integration tests: Running app and testing data routes", function() {
                 "course_attendees"
               ]["status"]
             ).to.equal(200);
+            done();
+          }
+        );
+      });
+    });
+    deleteCourse();
+  });
+
+  describe("Delete an attendee", function() {
+    it("Deleting an attendee from course", function(done) {
+      addCourseWithId();
+      addEmployee();
+      addEmployeeToCourse();
+      function sleep(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
+      }
+      sleep(8000).then(() => {
+        request(
+          "http://localhost:5000/deleteAttendee?courseid=2&employeeid=999",
+          {
+            auth: {
+              bearer: process.env.AUTHTOKEN
+            }
+          },
+          function(error, response, body) {
+            const rows = JSON.parse(response.body)["combinedResponse"][0][
+              "course_attendees"
+            ]["responseJson"];
+            expect(rows["affectedRows"]).to.equal(1);
+            expect(rows["changedRows"]).to.equal(1);
+            expect(
+              JSON.parse(response.body)["combinedResponse"][0][
+                "course_attendees"
+              ]["status"]
+            ).to.equal(200);
+            const rowsCourses = JSON.parse(response.body)[
+              "combinedResponse"
+            ][0]["courses"]["responseJson"];
+            expect(rowsCourses["affectedRows"]).to.equal(1);
+            expect(rowsCourses["changedRows"]).to.equal(0);
+            expect(
+              JSON.parse(response.body)["combinedResponse"][0][
+                "course_attendees"
+              ]["status"]
+            ).to.equal(200);
+            done();
+          }
+        );
+      });
+    });
+    deleteCourse();
+  });
+
+  describe("Delete a course", function() {
+    it("Deleting a course should return right response from server", function(done) {
+      addCourseWithId();
+
+      function sleep(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
+      }
+      sleep(8000).then(() => {
+        request(
+          "http://localhost:5000/deleteCourse?courseId=2",
+          {
+            auth: {
+              bearer: process.env.AUTHTOKEN
+            }
+          },
+          function(error, response, body) {
+            const rows = JSON.parse(response.body)["courses"]["responseJson"];
+            expect(rows[1]["affectedRows"]).to.equal(1);
+            expect(rows[1]["changedRows"]).to.equal(0);
+            expect(JSON.parse(response.body)["courses"]["status"]).to.equal(
+              200
+            );
             done();
           }
         );

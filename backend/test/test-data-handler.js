@@ -8,7 +8,7 @@ const dataAgile = require("./fake-data/search-agile");
 const dataNoParams = require("./fake-data/search-no-parameters");
 const dataDelete = require("./fake-data/delete-result.json");
 const dataAddAttendee = require("./fake-data/dataAddAttendee.json");
-
+const deleteAttendee = require("./fake-data/deleteAttendee.json");
 //const req = mockRequest({ query: { searchTerm: 'agile', site: 'Osterley' }})
 const req = mockRequest();
 const res = mockResponse();
@@ -120,6 +120,24 @@ describe("Unit tests: data handler", function() {
         res.status(result.status);
         res.json(result.responseJson);
         expect(dataAddAttendee).equal(
+          result.responseJson.combinedResponse.responseJson
+        );
+      });
+      done();
+    });
+  });
+
+  describe("Testing deleteAttendee", function() {
+    it("deletes attendee from courses_attendees table and decrease number of attendees on courses table", function(done) {
+      const req = mockRequest({ query: { courseid: "2", employeeid: "999" } });
+      dataHandler.deleteAttendee(Data)(req, (err, result) => {
+        if (err) {
+          res.status(500);
+          res.json({ message: err.message });
+        }
+        res.status(result.status);
+        res.json(result.responseJson);
+        expect(deleteAttendee).equal(
           result.responseJson.combinedResponse.responseJson
         );
       });

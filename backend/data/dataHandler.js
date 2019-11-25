@@ -68,13 +68,13 @@ module.exports.editCourse = DataAccess => (req, callback) => {
     body.description,
     body.start_date,
     body.start_time,
-    body.end_date, 
-    body.end_time, 
+    body.end_date,
+    body.end_time,
     body.attendees_max,
     body.location,
-    body.site_id, 
+    body.site_id,
     body.instructor_name,
-    body.id 
+    body.id
   ];
   DataAccess.editCourse(parameters, err => {
     if (err) {
@@ -131,6 +131,22 @@ module.exports.addAttendee = DataAccess => (req, callback) => {
   DataAccess.addAttendee(
     req.query.courseid,
     req.query.employeeid,
+    (err, combinedResponse) => {
+      if (err) {
+        return callback(err);
+      }
+      callback(null, {
+        status: 200,
+        responseJson: { combinedResponse: combinedResponse }
+      });
+    }
+  );
+};
+
+module.exports.deleteAttendee = DataAccess => (req, callback) => {
+  DataAccess.deleteAttendee(
+    req.query.courseid,
+    req.query.attendeeid,
     (err, combinedResponse) => {
       if (err) {
         return callback(err);
