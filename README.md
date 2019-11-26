@@ -28,7 +28,7 @@ Make sure [Homebrew](https://brew.sh/) is installed. Install gitcrypt
 
  Execute `CREATE DATABASE agileuni;` & `USE agileuni;`
 
- Then execute `SOURCE <path to file>/db_0.sql` and any other sql files necessary
+ Then execute `SOURCE ddl_script/db_0.sql` and any other sql files necessary
  
  ### Dev DB
  
