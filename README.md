@@ -29,8 +29,18 @@ Make sure [Homebrew](https://brew.sh/) is installed. Install gitcrypt
  Execute `CREATE DATABASE agileuni;` & `USE agileuni;`
 
  Then execute `SOURCE <path to file>/db_0.sql` and any other sql files necessary
+ 
+ ### Dev DB
+ 
+ You need to create your own dev credentials
 
+## Nimbus
 
+Follow the getting started guide https://developer.bskyb.com/wiki/display/cloud/Nimbus+Getting+started
+
+We have a dev server on M25 so login to https://api.cf.dev-paas.bskyb.com 
+
+You need to attempt a login to the `DL-SoftwareEngineeringAcademy` org before you can be added to it. Ask someone on slack to find who the Space Manager is.
 
 ## Testing
 
