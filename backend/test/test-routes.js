@@ -426,7 +426,7 @@ describe("Display if employee is booked on a course", function() {
       function sleep(time) {
         return new Promise(resolve => setTimeout(resolve, time));
       }
-      sleep(8000).then(() => {
+      sleep(10000).then(() => {
         request(
           "http://localhost:5000/returnIfBooked?employee_id=999&course_id=2",
           {
@@ -450,7 +450,7 @@ describe("Display if employee is booked on a course", function() {
   function sleep(time) {
     return new Promise(resolve => setTimeout(resolve, time));
   }
-  sleep(10000).then(() => {
+  sleep(15000).then(() => {
     deleteEmployeeTestFunction("999");
   });
 });
