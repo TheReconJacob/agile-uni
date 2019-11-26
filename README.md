@@ -32,7 +32,11 @@ Make sure [Homebrew](https://brew.sh/) is installed. Install gitcrypt
  
  ### Dev DB
  
- You need to create your own dev credentials
+ You need to create your own dev credentials for the db. The db is a service instance which eventually will be bound to an application so the environment variables will be used to login to the db. See the pivotal mysql docs for more info
+ 
+ To create your own user to login follow https://docs.pivotal.io/p-mysql/2-7/customize-access.html#username
+ 
+ Our database is called `dev_db`
 
 ## Nimbus
 
