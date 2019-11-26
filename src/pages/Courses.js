@@ -8,7 +8,7 @@ import EditButton from "../components/EditButton";
 import BookButton from "../components/BookButton";
 import axios from "axios";
 const queryString = require("query-string");
-
+let employeeId = localStorage.getItem("employeeId");
 axios.defaults.headers.common["Authorization"] =
   "Bearer " + localStorage.getItem("msal.idtoken");
 
@@ -59,6 +59,23 @@ class Courses extends React.Component {
 
   updateAccordionSelection = selected => {
     this.setState({ accordionSelected: selected });
+    axios
+      .get("http://localhost:5000/returnIfBooked", { 
+        params: {
+          employee_id: employeeId, 
+          course_id: 1
+          }
+        })
+      .then(function(response) {
+        console.log("this is selected accordion");
+        let responseShortened = response.data.course_attendees.responseJson[0];
+        for(var key in responseShortened){
+          console.log(responseShortened[key]);
+        }
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   };
 
   componentWillReceiveProps(nextProps) {
@@ -103,7 +120,6 @@ class Courses extends React.Component {
         </a>
       );
     }
-    let employeeId = localStorage.getItem("employeeId");
 
     return (
       <>
