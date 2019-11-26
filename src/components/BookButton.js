@@ -63,7 +63,7 @@ class BookButton extends React.Component {
     let BookComponent
     if (this.props.canBook) { 
       if (this.props.fullyBooked){
-        BookComponent= (<a className="accordion-button c-btn u-margin-right greyed-out">
+        BookComponent= (<a className="accordion-button c-btn u-margin-right is-disabled">
           Course Fully Booked
         </a>)
       }
