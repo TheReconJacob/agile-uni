@@ -64,7 +64,6 @@ class Courses extends React.Component {
     this.setState({ accordionSelected: selected });
     try{
     var numberSelected = selected[0].replace('1-header-','');
-    console.log(self.state.results[numberSelected]);
     let courseSelected= self.state.results[numberSelected].course_id;
     let max= self.state.results[numberSelected].attendees_max;
     let number= self.state.results[numberSelected].attendees_booked;
