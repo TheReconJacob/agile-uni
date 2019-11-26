@@ -159,7 +159,7 @@ class Courses extends React.Component {
                         adminStatus={adminStatus}
                         course_id={res.course_id}
                       />
-                      <BookButton courseId={res.course_id} notAlreadyBooked={true} employeeId={employeeId}/>
+                      <BookButton courseId={res.course_id} canBook={true} employeeId={employeeId}/>
                       <DeleteButton
                         courseToDelete={res.course_id}
                         adminStatus={adminStatus}
