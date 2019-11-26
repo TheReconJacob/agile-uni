@@ -14,5 +14,6 @@
 @import '@sky-uk/toolkit-react/lib/Accordion';
 
 .wrapper{
-    // height: calc(99vh - 72px);
+    min-height: calc(93vh - 72px);
+    // min-height:100vh;
 }
