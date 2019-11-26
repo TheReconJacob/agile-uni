@@ -219,7 +219,7 @@ describe("Integration tests: Running app and testing data routes", function() {
           .post("/editCourse")
           .set("Authorization", "Bearer " + process.env.AUTHTOKEN)
           .send({
-            id: 3,
+            course_id: 131,
             title: "test15",
             description: "%thhnjnk%",
             start_date: "0000-00-00 00:00:00",
@@ -373,6 +373,30 @@ describe("Integration tests: Running app and testing data routes", function() {
             expect(rows[1]["changedRows"]).to.equal(0);
             expect(JSON.parse(response.body)["courses"]["status"]).to.equal(
               200
+            );
+            done();
+          }
+        );
+      });
+    });
+  });
+
+  describe("Display if employee is booked on a course", function() {
+    describe("Display if booked", function() {
+      it("Should return a boolean value of 0 or 1", function(done) {
+        request(
+          "http://localhost:5000/returnIfBooked?employee_id=1084&course_id=1",
+          {
+            auth: {
+              bearer: process.env.AUTHTOKEN
+            }
+          },
+          function(error, response, body) {
+            console.log(body)
+            expect(
+              JSON.parse(body)["course_attendees"]["responseJson"][0]["EXISTS(SELECT * FROM AGILEUNI.course_attendees WHERE employee_id = '1084' AND course_id = '1')"]
+            ).to.equal(
+              1
             );
             done();
           }

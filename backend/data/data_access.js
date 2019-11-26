@@ -191,8 +191,8 @@ Data.deleteAttendee = (courseid, attendeeid, callback) => {
 
 Data.returnIfBooked = (employee_id, course_id, callback) => {
   connection.query(
-    `SELECT EXISTS(SELECT * FROM AGILEUNI.course_attendees WHERE employee_id = ? AND course_id = ?)`, employee_id, course_id,
-    function(err, rows, fields) {
+    `SELECT EXISTS(SELECT * FROM AGILEUNI.course_attendees WHERE employee_id = ? AND course_id = ?)`, [course_id, employee_id],
+    function(err, rows) {
       if (err) {
         return callback(err);
       }
