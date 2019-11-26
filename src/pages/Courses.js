@@ -88,7 +88,6 @@ class Courses extends React.Component {
   render() {
     const parentId = "1";
     let adminAddComponent;
-    let adminEditComponent;
     let adminStatus = this.props.adminStatus;
     if (this.props.adminStatus) {
       adminAddComponent = (
@@ -154,12 +153,6 @@ class Courses extends React.Component {
                         className="accordion-button c-btn c-btn--primary u-margin-right"
                       >
                         Request more information
-                      </a>
-                      <a
-                        href="/courses"
-                        className="accordion-button c-btn c-btn--primary u-margin-right"
-                      >
-                        Book now
                       </a>
                       <EditButton
                         adminStatus={adminStatus}
