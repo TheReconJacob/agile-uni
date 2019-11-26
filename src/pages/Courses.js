@@ -90,10 +90,9 @@ class Courses extends React.Component {
       .catch(function(error) {
         console.log(error);
       });
-  }
+    }
   catch{}
-};
-
+  };
   componentWillReceiveProps(nextProps) {
     this.props = nextProps;
     this.generateSearch();
