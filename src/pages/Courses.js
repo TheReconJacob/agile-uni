@@ -22,11 +22,19 @@ class Courses extends React.Component {
       results: [],
       dataPresent: true,
       canBook: true,
+      fullyBookedState: false
     };
     this.updateAccordionSelection = this.updateAccordionSelection.bind(this);
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
     this.getSearch = this.getSearch.bind(this);
     this.generateSearch = this.generateSearch.bind(this);
+    this.checkIfFullyBooked =this.checkIfFullyBooked.bind(this);
+  }
+
+  checkIfFullyBooked = (max, number) => {
+    if(max>number)
+    this.setState({ fullyBookedState: false });
+    else this.setState({ fullyBookedState: true });
   }
 
   getSearch = (searchObj, siteObj) => {
@@ -74,7 +82,7 @@ class Courses extends React.Component {
       .then(function(response) {
         let responseShortened = response.data.course_attendees.responseJson[0];
         for(var key in responseShortened){
-          if(responseShortened[key]==1){
+          if(responseShortened[key]===1){
             self.setState({canBook: false})
           }
           else{self.setState({canBook: true})}
@@ -185,7 +193,7 @@ class Courses extends React.Component {
                         adminStatus={adminStatus}
                         course_id={res.course_id}
                       />
-                      <BookButton courseId={res.course_id} canBook={canBookProps} employeeId={employeeId} fullyBooked={true}/>
+                      <BookButton courseId={res.course_id} canBook={canBookProps} employeeId={employeeId} checkFullyBooked={this.checkIfFullyBooked} fullyBooked={this.state.fullyBookedState}/>
                       <DeleteButton
                         courseToDelete={res.course_id}
                         adminStatus={adminStatus}
@@ -194,7 +202,7 @@ class Courses extends React.Component {
                   </div>
                 </AccordionSection>
               );
-            })}
+            }, this)}
           </Accordion>
         </div>
       </>

@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import  "../styles/bookButton.scss";
 
 axios.defaults.headers.common["Authorization"] =
   "Bearer " + localStorage.getItem("msal.idtoken");
@@ -63,9 +62,9 @@ class BookButton extends React.Component {
     let BookComponent
     if (this.props.canBook) { 
       if (this.props.fullyBooked){
-        BookComponent= (<a className="accordion-button c-btn u-margin-right is-disabled">
+        BookComponent= (<button className="accordion-button c-btn u-margin-right is-disabled">
           Course Fully Booked
-        </a>)
+        </button>)
       }
       else{
         BookComponent= (<button onClick={this.confirmBook} className="accordion-button c-btn c-btn--primary u-margin-right">
