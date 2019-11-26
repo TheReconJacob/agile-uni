@@ -136,7 +136,6 @@ class Courses extends React.Component {
         </a>
       );
     }
-    let canBookProps=this.state.canBook; 
 
     return (
       <>
@@ -192,7 +191,7 @@ class Courses extends React.Component {
                         adminStatus={adminStatus}
                         course_id={res.course_id}
                       />
-                      <BookButton courseId={res.course_id} canBook={canBookProps} employeeId={employeeId} fullyBooked={this.state.fullyBookedState}/>
+                      <BookButton courseId={res.course_id} canBook={this.state.canBook} employeeId={employeeId} fullyBooked={this.state.fullyBookedState}/>
                       <DeleteButton
                         courseToDelete={res.course_id}
                         adminStatus={adminStatus}
