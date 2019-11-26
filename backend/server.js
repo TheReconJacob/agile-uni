@@ -193,6 +193,18 @@ app.get("/deleteAttendee", (req, res) => {
   });
 });
 
+app.get("/returnIfBooked", (req, res) => {
+  req.header("Access-Control-Allow-Origin");
+  dataHandler.returnIfBooked(Data)(req, (err, result) => {
+    if (err) {
+      res.status(500);
+      return res.json({ message: err.message });
+    }
+    res.status(result.status);
+    return res.json(result.responseJson);
+  });
+});
+
 app.get('/findCourseById', (req, res) => {
 	dataHandler.findCourseById(Data)(req, (err, result) => {
 		if (err) {

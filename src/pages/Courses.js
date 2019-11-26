@@ -5,7 +5,7 @@ import SearchBar from "../components/SearchBar";
 import "../styles/courses.scss";
 import DeleteButton from "../components/DeleteButton";
 import EditButton from "../components/EditButton";
-import BookButton from "../components/BookButton"
+import BookButton from "../components/BookButton";
 import axios from "axios";
 const queryString = require("query-string");
 

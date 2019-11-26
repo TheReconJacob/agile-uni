@@ -219,7 +219,7 @@ describe("Integration tests: Running app and testing data routes", function() {
           .post("/editCourse")
           .set("Authorization", "Bearer " + process.env.AUTHTOKEN)
           .send({
-            course_id: 187,
+            course_id: 131,
             title: "test15",
             description: "%thhnjnk%",
             start_date: "0000-00-00 00:00:00",
@@ -415,6 +415,44 @@ describe("Integration tests: Running app and testing data routes", function() {
         );
       });
 	});
+});
+
+describe("Display if employee is booked on a course", function() {
+  describe("Display if booked", function() {
+    it("Should return a boolean value of 0 or 1", function(done) {
+      addCourseWithId();
+      addEmployee();
+      addEmployeeToCourse();
+      function sleep(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
+      }
+      sleep(10000).then(() => {
+        request(
+          "http://localhost:5000/returnIfBooked?employee_id=999&course_id=2",
+          {
+            auth: {
+              bearer: process.env.AUTHTOKEN
+            }
+          },
+          function(error, response, body) {
+            console.log(body);
+            expect(
+              JSON.parse(body)["course_attendees"]["responseJson"][0]["EXISTS(SELECT * FROM AGILEUNI.course_attendees WHERE employee_id = '999' AND course_id = '2')"]
+            ).to.equal(1);
+            done();
+          }
+        );
+      });
+    });
+  });
+
+  deleteCourse();
+  function sleep(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+  }
+  sleep(15000).then(() => {
+    deleteEmployeeTestFunction("999");
+  });
 });
 
   after(done => {
