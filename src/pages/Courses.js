@@ -60,9 +60,10 @@ class Courses extends React.Component {
 
   updateAccordionSelection = selected => {
     const self = this;
+    this.setState({ accordionSelected: selected });
+    try{
     var numberSelected = selected[0].replace('1-header-','');
     let courseSelected= self.state.results[numberSelected].course_id;
-    this.setState({ accordionSelected: selected });
     axios
       .get("http://localhost:5000/returnIfBooked", { 
         params: {
@@ -82,7 +83,9 @@ class Courses extends React.Component {
       .catch(function(error) {
         console.log(error);
       });
-  };
+  }
+  catch{}
+};
 
   componentWillReceiveProps(nextProps) {
     this.props = nextProps;
@@ -182,7 +185,7 @@ class Courses extends React.Component {
                         adminStatus={adminStatus}
                         course_id={res.course_id}
                       />
-                      <BookButton courseId={res.course_id} canBook={canBookProps} employeeId={employeeId}/>
+                      <BookButton courseId={res.course_id} canBook={canBookProps} employeeId={employeeId} fullyBooked={true}/>
                       <DeleteButton
                         courseToDelete={res.course_id}
                         adminStatus={adminStatus}
