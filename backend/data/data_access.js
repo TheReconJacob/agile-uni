@@ -121,7 +121,7 @@ Data.deleteCourse = (courseId, callback) => {
 
 Data.addEmployee = (inputs, callback) => {
   connection.query(
-    "INSERT INTO employees (name, object_id, email) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id), name=VALUES(name), email=VALUES(email)",
+    "INSERT INTO employees (name, object_id, email) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id), name=VALUES(name), email=VALUES(email); OUTPUT LAST_INSERT_ID() ",
     inputs,
     function(err, rows, fields) {
       if (err) {
