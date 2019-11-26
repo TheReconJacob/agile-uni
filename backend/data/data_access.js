@@ -189,4 +189,16 @@ Data.deleteAttendee = (courseid, attendeeid, callback) => {
   );
 };
 
+Data.returnIfBooked = (employee_id, course_id, callback) => {
+  connection.query(
+    `SELECT EXISTS(SELECT * FROM AGILEUNI.course_attendees WHERE employee_id = ? AND course_id = ?)`, employee_id, course_id,
+    function(err, rows, fields) {
+      if (err) {
+        return callback(err);
+      }
+      callback(null, { status: 200, responseJson: rows });
+    }
+  );
+};
+
 module.exports = Data;

@@ -158,3 +158,12 @@ module.exports.deleteAttendee = DataAccess => (req, callback) => {
     }
   );
 };
+
+module.exports.returnIfBooked = DataAccess => (req, callback) => {
+    DataAccess.returnIfBooked(req.query.course_id, req.query.employee_id, (err, courses) => {
+      if (err) {
+        return callback(err);
+      }
+      callback(null, { status: 200, responseJson: { courses: courses } });
+    });
+};

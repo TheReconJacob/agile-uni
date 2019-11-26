@@ -162,7 +162,7 @@ class Courses extends React.Component {
                       >
                         Request more information
                       </a>
-                      <BookButton courseId={res.course_id} notAlreadyBooked={true} employeeId={1}/>
+                      <BookButton courseId={res.course_id} notAlreadyBooked={true} employeeId={1084}/>
                       <DeleteButton
                         courseToDelete={res.course_id}
                         adminStatus={adminStatus}
