@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import { callbackify } from "util";
 
 axios.defaults.headers.common["Authorization"] =
   "Bearer " + localStorage.getItem("msal.idtoken");
@@ -61,7 +60,7 @@ class BookButton extends React.Component {
 
   render() {
     let BookComponent
-    if (this.props.notAlreadyBooked) { //to integrate with the rest in card 138
+    if (this.props.canBook) { //to integrate with the rest in card 138
     BookComponent= (<button onClick={this.confirmBook} className="accordion-button c-btn c-btn--primary u-margin-right">
     Book
   </button>)

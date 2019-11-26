@@ -103,6 +103,7 @@ class Courses extends React.Component {
         </a>
       );
     }
+    let employeeId = localStorage.getItem("employeeId");
 
     return (
       <>
@@ -154,15 +155,11 @@ class Courses extends React.Component {
                       >
                         Request more information
                       </a>
-<<<<<<< HEAD
-                      <BookButton courseId={res.course_id} notAlreadyBooked={true} employeeId={1084}/>
-=======
                       <EditButton
                         adminStatus={adminStatus}
                         course_id={res.course_id}
                       />
-                      <BookButton courseId={res.course_id} notAlreadyBooked={true} employeeId={1}/>
->>>>>>> master
+                      <BookButton courseId={res.course_id} canBook={true} employeeId={employeeId}/>
                       <DeleteButton
                         courseToDelete={res.course_id}
                         adminStatus={adminStatus}
