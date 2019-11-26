@@ -415,7 +415,7 @@ describe("Integration tests: Running app and testing data routes", function() {
     function sleep(time) {
       return new Promise(resolve => setTimeout(resolve, time));
     }
-    sleep(8000).then(() => {
+    sleep(10000).then(() => {
     deleteEmployeeTestFunction("999");
     });
   });
