@@ -56,7 +56,9 @@ class App extends React.Component {
       .post("http://localhost:5000/addEmployee", params)
       .then(function(response) {
         console.log(response);
-      })
+        if (typeof window !== 'undefined') {
+        localStorage.setItem("employeeId",response.data.employees.responseJson.insertId);
+      }})
       .catch(function(error) {
         console.log(error);
       });
