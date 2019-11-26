@@ -44,7 +44,7 @@ Follow the getting started guide https://developer.bskyb.com/wiki/display/cloud/
 
 We have a dev server on M25 so login to https://api.cf.dev-paas.bskyb.com 
 
-You need to attempt a login to the `DL-SoftwareEngineeringAcademy` org before you can be added to it. Ask someone on slack to find who the Space Manager is.
+You need to attempt a login to the `DL-SoftwareEngineeringAcademy` org before you can be added to it. Ask someone on slack to find who the Space Manager is. You want to be added as a Space Manager and a Space Developer.
 
 ## Testing
 
