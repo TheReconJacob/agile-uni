@@ -60,9 +60,10 @@ class Courses extends React.Component {
 
   updateAccordionSelection = selected => {
     const self = this;
+    this.setState({ accordionSelected: selected });
+    try{
     var numberSelected = selected[0].replace('1-header-','');
     let courseSelected= self.state.results[numberSelected].course_id;
-    this.setState({ accordionSelected: selected });
     axios
       .get("http://localhost:5000/returnIfBooked", { 
         params: {
@@ -82,6 +83,8 @@ class Courses extends React.Component {
       .catch(function(error) {
         console.log(error);
       });
+    }
+  catch{}
   };
 
   componentWillReceiveProps(nextProps) {
