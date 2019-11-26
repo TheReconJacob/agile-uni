@@ -68,14 +68,17 @@ module.exports.editCourse = DataAccess => (req, callback) => {
   const parameters = [
     body.title,
     body.description,
-    body.start_date,
-    body.end_date,
-    body.attendees_max,
+    body.start_date, 
+    body.end_date, 
+    body.attendees_max, 
     body.location,
     body.site_id,
     body.instructor_name,
-    body.course_id
+    body.course_id 
   ];
+
+  console.log(parameters);
+
   DataAccess.editCourse(parameters, err => {
     if (err) {
       return callback(err);
@@ -86,7 +89,6 @@ module.exports.editCourse = DataAccess => (req, callback) => {
 
 module.exports.addCourse = DataAccess => (req, callback) => {
   const body = req.body;
-  console.log(body);
   body.start_date = body.start_date + " " + body.start_time;
   body.end_date = body.end_date + " " + body.end_time;
   const parameters = [
@@ -96,8 +98,8 @@ module.exports.addCourse = DataAccess => (req, callback) => {
     body.end_date,
     body.attendees_max,
     body.location,
-    body.site,
-    body.instructor
+    body.site_id,
+    body.instructor_name
   ];
   DataAccess.addCourse(parameters, (err, courses) => {
     if (err) {
@@ -167,4 +169,13 @@ module.exports.returnIfBooked = DataAccess => (req, callback) => {
       }
       callback(null, { status: 200, responseJson: { course_attendees: course_attendees } });
     });
+};
+
+module.exports.findCourseById = DataAccess => (req, callback) => {
+  DataAccess.findCourseById(req.query.course_id, (err, courses) => {
+    if (err) {
+      return callback(err);
+    }
+    callback(null, { status: 200, responseJson: { courses: courses } });
+  });
 };

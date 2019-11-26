@@ -4,6 +4,7 @@ import { AccordionSection } from "@sky-uk/toolkit-react";
 import SearchBar from "../components/SearchBar";
 import "../styles/courses.scss";
 import DeleteButton from "../components/DeleteButton";
+import EditButton from "../components/EditButton";
 import BookButton from "../components/BookButton"
 import axios from "axios";
 const queryString = require("query-string");
@@ -87,7 +88,6 @@ class Courses extends React.Component {
   render() {
     const parentId = "1";
     let adminAddComponent;
-    let adminEditComponent;
     let adminStatus = this.props.adminStatus;
     if (this.props.adminStatus) {
       adminAddComponent = (
@@ -100,14 +100,6 @@ class Courses extends React.Component {
             />
             Add a new course
           </button>
-        </a>
-      );
-      adminEditComponent = (
-        <a
-          href="/admin"
-          className="accordion-button c-btn c-btn--primary u-margin-right"
-        >
-          Edit
         </a>
       );
     }
@@ -162,12 +154,19 @@ class Courses extends React.Component {
                       >
                         Request more information
                       </a>
+<<<<<<< HEAD
                       <BookButton courseId={res.course_id} notAlreadyBooked={true} employeeId={1084}/>
+=======
+                      <EditButton
+                        adminStatus={adminStatus}
+                        course_id={res.course_id}
+                      />
+                      <BookButton courseId={res.course_id} notAlreadyBooked={true} employeeId={1}/>
+>>>>>>> master
                       <DeleteButton
                         courseToDelete={res.course_id}
                         adminStatus={adminStatus}
                       />
-                      {adminEditComponent}
                     </div>
                   </div>
                 </AccordionSection>

@@ -46,14 +46,14 @@ class BookButton extends React.Component {
     this.confirmCancel = this.confirmCancel.bind(this);
   }
   confirmCancel() {
-    var answer = window.confirm("Are you sure you want to cancel this course?");
+    var answer = window.confirm("Are you sure you want to cancel this course? Your place will be released.");
     if (answer) {
       cancelCourse(this.props.courseId, this.props.employeeId);
     } 
   }
 
   confirmBook() {
-    var answer = window.confirm("Are you sure you want to book this course?");
+    var answer = window.confirm("You are about to book on to this course. Are you sure? Note that if you book a place on the course and you do not give 48hrs notice for cancellations, there may be a charge.");
     if (answer) { 
       bookCourse(this.props.courseId, this.props.employeeId);
     } 

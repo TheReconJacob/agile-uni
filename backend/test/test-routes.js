@@ -381,9 +381,45 @@ describe("Integration tests: Running app and testing data routes", function() {
     });
   });
 
-  describe("Display if employee is booked on a course", function() {
-    describe("Display if booked", function() {
-      it("Should return a boolean value of 0 or 1", function(done) {
+
+  describe("Find course by ID", function() {
+    describe("Search courses by ID", function() {
+      it("Course should be returned based on ID", function(done) {
+        request(
+          "http://localhost:5000/findCourseById?course_id=1",
+          {
+            auth: {
+              bearer: process.env.AUTHTOKEN
+            }
+          },
+          function(error, response, body) {
+            expect(
+              JSON.parse(body)["courses"]["responseJson"][0]
+            ).to.have.all.keys(
+				"course_id",
+				"title",
+				"description",
+				"start_date",
+				"end_date",
+				"attendees_max",
+				"attendees_booked",
+				"location",
+				"site_id",
+				"instructor_name",
+				"id",
+				"name",
+				"address"
+            );
+            done();
+          }
+        );
+      });
+	});
+});
+
+describe("Display if employee is booked on a course", function() {
+  describe("Display if booked", function() {
+    it("Should return a boolean value of 0 or 1", function(done) {
       addCourseWithId();
       addEmployee();
       addEmployeeToCourse();
@@ -399,26 +435,25 @@ describe("Integration tests: Running app and testing data routes", function() {
             }
           },
           function(error, response, body) {
-            console.log(body)
+            console.log(body);
             expect(
               JSON.parse(body)["course_attendees"]["responseJson"][0]["EXISTS(SELECT * FROM AGILEUNI.course_attendees WHERE employee_id = '999' AND course_id = '2')"]
-            ).to.equal(
-              1
-            );
+            ).to.equal(1);
             done();
           }
         );
       });
-      });
-    });
-    deleteCourse();
-    function sleep(time) {
-      return new Promise(resolve => setTimeout(resolve, time));
-    }
-    sleep(10000).then(() => {
-    deleteEmployeeTestFunction("999");
     });
   });
+
+  deleteCourse();
+  function sleep(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+  }
+  sleep(10000).then(() => {
+    deleteEmployeeTestFunction("999");
+  });
+});
 
   after(done => {
     delete require.cache[require.resolve("../server.js")];
@@ -426,3 +461,5 @@ describe("Integration tests: Running app and testing data routes", function() {
     done();
   });
 });
+
+
