@@ -28,13 +28,6 @@ class Courses extends React.Component {
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
     this.getSearch = this.getSearch.bind(this);
     this.generateSearch = this.generateSearch.bind(this);
-    this.checkIfFullyBooked =this.checkIfFullyBooked.bind(this);
-  }
-
-  checkIfFullyBooked = (max, number) => {
-    if(max>number)
-    this.setState({ fullyBookedState: false });
-    else this.setState({ fullyBookedState: true });
   }
 
   getSearch = (searchObj, siteObj) => {
@@ -71,7 +64,13 @@ class Courses extends React.Component {
     this.setState({ accordionSelected: selected });
     try{
     var numberSelected = selected[0].replace('1-header-','');
+    console.log(self.state.results[numberSelected]);
     let courseSelected= self.state.results[numberSelected].course_id;
+    let max= self.state.results[numberSelected].attendees_max;
+    let number= self.state.results[numberSelected].attendees_booked;
+    if(max>number)
+    this.setState({ fullyBookedState: false });
+    else this.setState({ fullyBookedState: true });
     axios
       .get("http://localhost:5000/returnIfBooked", { 
         params: {
@@ -193,7 +192,7 @@ class Courses extends React.Component {
                         adminStatus={adminStatus}
                         course_id={res.course_id}
                       />
-                      <BookButton courseId={res.course_id} canBook={canBookProps} employeeId={employeeId} checkFullyBooked={this.checkIfFullyBooked} fullyBooked={this.state.fullyBookedState}/>
+                      <BookButton courseId={res.course_id} canBook={canBookProps} employeeId={employeeId} fullyBooked={this.state.fullyBookedState}/>
                       <DeleteButton
                         courseToDelete={res.course_id}
                         adminStatus={adminStatus}
