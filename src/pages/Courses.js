@@ -60,23 +60,23 @@ class Courses extends React.Component {
 
   updateAccordionSelection = selected => {
     const self = this;
+    var numberSelected = selected[0].replace('1-header-','');
+    let courseSelected= self.state.results[numberSelected].course_id;
     this.setState({ accordionSelected: selected });
     axios
       .get("http://localhost:5000/returnIfBooked", { 
         params: {
           employee_id: employeeId, 
-          course_id: 1
+          course_id: courseSelected
           }
         })
       .then(function(response) {
-        console.log("this is selected accordion");
         let responseShortened = response.data.course_attendees.responseJson[0];
         for(var key in responseShortened){
-          console.log(responseShortened[key]);
           if(responseShortened[key]==1){
-            self.setState({canBook: true})
+            self.setState({canBook: false})
           }
-          else{self.setState({canBook: false})}
+          else{self.setState({canBook: true})}
         }
       })
       .catch(function(error) {
@@ -126,7 +126,7 @@ class Courses extends React.Component {
         </a>
       );
     }
-    let canBook2=this.state.canBook;
+    let canBookProps=this.state.canBook; 
 
     return (
       <>
@@ -182,7 +182,7 @@ class Courses extends React.Component {
                         adminStatus={adminStatus}
                         course_id={res.course_id}
                       />
-                      <BookButton courseId={res.course_id} canBook={canBook2} employeeId={employeeId}/>
+                      <BookButton courseId={res.course_id} canBook={canBookProps} employeeId={employeeId}/>
                       <DeleteButton
                         courseToDelete={res.course_id}
                         adminStatus={adminStatus}
