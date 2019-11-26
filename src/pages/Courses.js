@@ -20,7 +20,8 @@ class Courses extends React.Component {
       searchParam: "",
       site: "",
       results: [],
-      dataPresent: true
+      dataPresent: true,
+      canBook: true,
     };
     this.updateAccordionSelection = this.updateAccordionSelection.bind(this);
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
@@ -58,6 +59,7 @@ class Courses extends React.Component {
   };
 
   updateAccordionSelection = selected => {
+    const self = this;
     this.setState({ accordionSelected: selected });
     axios
       .get("http://localhost:5000/returnIfBooked", { 
@@ -71,6 +73,10 @@ class Courses extends React.Component {
         let responseShortened = response.data.course_attendees.responseJson[0];
         for(var key in responseShortened){
           console.log(responseShortened[key]);
+          if(responseShortened[key]==1){
+            self.setState({canBook: true})
+          }
+          else{self.setState({canBook: false})}
         }
       })
       .catch(function(error) {
@@ -120,6 +126,7 @@ class Courses extends React.Component {
         </a>
       );
     }
+    let canBook2=this.state.canBook;
 
     return (
       <>
@@ -175,7 +182,7 @@ class Courses extends React.Component {
                         adminStatus={adminStatus}
                         course_id={res.course_id}
                       />
-                      <BookButton courseId={res.course_id} canBook={true} employeeId={employeeId}/>
+                      <BookButton courseId={res.course_id} canBook={canBook2} employeeId={employeeId}/>
                       <DeleteButton
                         courseToDelete={res.course_id}
                         adminStatus={adminStatus}
