@@ -384,8 +384,15 @@ describe("Integration tests: Running app and testing data routes", function() {
   describe("Display if employee is booked on a course", function() {
     describe("Display if booked", function() {
       it("Should return a boolean value of 0 or 1", function(done) {
+      addCourseWithId();
+      addEmployee();
+      addEmployeeToCourse();
+      function sleep(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
+      }
+      sleep(8000).then(() => {
         request(
-          "http://localhost:5000/returnIfBooked?employee_id=1084&course_id=1",
+          "http://localhost:5000/returnIfBooked?employee_id=999&course_id=2",
           {
             auth: {
               bearer: process.env.AUTHTOKEN
@@ -394,7 +401,7 @@ describe("Integration tests: Running app and testing data routes", function() {
           function(error, response, body) {
             console.log(body)
             expect(
-              JSON.parse(body)["course_attendees"]["responseJson"][0]["EXISTS(SELECT * FROM AGILEUNI.course_attendees WHERE employee_id = '1084' AND course_id = '1')"]
+              JSON.parse(body)["course_attendees"]["responseJson"][0]["EXISTS(SELECT * FROM AGILEUNI.course_attendees WHERE employee_id = '999' AND course_id = '2')"]
             ).to.equal(
               1
             );
@@ -402,6 +409,14 @@ describe("Integration tests: Running app and testing data routes", function() {
           }
         );
       });
+      });
+    });
+    deleteCourse();
+    function sleep(time) {
+      return new Promise(resolve => setTimeout(resolve, time));
+    }
+    sleep(8000).then(() => {
+    deleteEmployeeTestFunction("999");
     });
   });
 
