@@ -38,7 +38,7 @@ Make sure [Homebrew](https://brew.sh/) is installed. Install gitcrypt
  
  To create your own user to login follow https://docs.pivotal.io/p-mysql/2-7/customize-access.html#username
  
- Our database is called `dev_db` run `cf service-keys dev_db` to find all the keys then `cf service-key dev_db key1` to see the credentials 
+ Our database is called `dev_db` run `cf service-keys dev_db` to find all the keys then `cf service-key dev_db key1` to see the credentials. The DB name is in the credentials. Use that in config.js
 
 ## Nimbus
 
