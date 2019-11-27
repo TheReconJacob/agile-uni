@@ -1,5 +1,5 @@
 const mysql = require("mysql");
-(fs = require("fs")), (config = require("./_config"));
+(fs = require("fs")), (config = require("../_config"));
 
 const connection = mysql.createConnection(config.mysqlConfig);
 
