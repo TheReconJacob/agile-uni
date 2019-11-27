@@ -37,7 +37,8 @@ class Admin extends React.Component {
       description: "",
       instructor_name: "",
       site_id: "",
-      location: ""
+      location: "",
+      minEndDate: new Date().toISOString().split('T')[0]
     };
 
     if (this.props.location.state !== undefined) {
@@ -116,7 +117,8 @@ class Admin extends React.Component {
           description: res.description,
           instructor_name: res.instructor_name,
           site_id: res.site_id,
-          location: res.location
+          location: res.location,
+          minEndDate: new Date(res.start_date.slice(0, 10)).toISOString().split('T')[0]
         });
       })
       .catch(function(error) {
@@ -207,6 +209,10 @@ class Admin extends React.Component {
                     name="start_date"
                     id="f-start-date"
                     min={new Date().toISOString().split('T')[0]}
+                    onChange={(event) => {
+                      this.setState({start_date: event.target.value});
+                      this.setState({minEndDate: new Date(event.target.value).toISOString().split('T')[0]});
+                    }}
                     defaultValue={this.state.start_date}
                     required
                   />
@@ -236,7 +242,7 @@ class Admin extends React.Component {
                     className="c-form-date c-form-combo--inline o-layout__item u-width-3/4"
                     name="end_date"
                     id="f-end-date"
-                    min={new Date().toISOString().split('T')[0]}
+                    min={this.state.minEndDate}
                     defaultValue={this.state.end_date}
                     required
                   />
