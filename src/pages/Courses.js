@@ -6,6 +6,7 @@ import "../styles/courses.scss";
 import DeleteButton from "../components/DeleteButton";
 import EditButton from "../components/EditButton";
 import BookButton from "../components/BookButton";
+import CourseDescription from "../components/CourseDescription";
 import axios from "axios";
 const queryString = require("query-string");
 let employeeId = localStorage.getItem("employeeId");
@@ -172,7 +173,7 @@ class Courses extends React.Component {
                       {res.title}
                     </h2>
                     <p className="c-text-body o-layout__item">
-                      {res.description}
+                      <CourseDescription descriptionHtml={res.description}/>
                     </p>
                     <div className="accordion-button-box">
                       <a
