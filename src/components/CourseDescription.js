@@ -7,9 +7,9 @@ class CourseDescription extends React.Component{
     render(){
 let htmlString= this.props.CourseDescription;
 return(
-<> 
-{htmlString}
-</>
+<p className="c-text-body o-layout__item">
+    {htmlString}
+</p>
 );
     }
 }

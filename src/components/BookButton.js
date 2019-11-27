@@ -60,11 +60,17 @@ class BookButton extends React.Component {
 
   render() {
     let BookComponent
-    if (this.props.canBook) { //to integrate with the rest in card 138
-    BookComponent= (<button onClick={this.confirmBook} className="accordion-button c-btn c-btn--primary u-margin-right">
-    Book
-  </button>)
-    }
+    if (this.props.canBook) { 
+      if (this.props.fullyBooked){
+        BookComponent= (<button className="accordion-button c-btn u-margin-right is-disabled">
+          Course Fully Booked
+        </button>)
+      }
+      else{
+        BookComponent= (<button onClick={this.confirmBook} className="accordion-button c-btn c-btn--primary u-margin-right">
+        Book
+      </button>)
+    }}
     else{
         BookComponent= (<button onClick={this.confirmCancel} className="accordion-button c-btn c-btn--primary u-margin-right">
         Cancel booking

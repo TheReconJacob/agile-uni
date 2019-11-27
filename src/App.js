@@ -79,7 +79,7 @@ class App extends React.Component {
         <AzureAD provider={authProvider} forceLogin={true}>
           <Router>
             <Navbar />
-            <div>
+            <div className="wrapper">
               <Route exact path="/" component={Home} />
               <Route
                 path="/courses"
@@ -89,7 +89,7 @@ class App extends React.Component {
               />
               {adminAddCourse}
             </div>
-            <Footer />
+            <Footer className="stylefooter"/>
           </Router>
         </AzureAD>
       </>

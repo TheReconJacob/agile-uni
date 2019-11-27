@@ -12,3 +12,8 @@
 @import '~sky-toolkit-ui/components/typography';
 @import '~sky-toolkit-ui/components/accordion';
 @import '@sky-uk/toolkit-react/lib/Accordion';
+
+.wrapper{
+    min-height: calc(93vh - 72px);
+    padding-bottom: 20px;
+}
