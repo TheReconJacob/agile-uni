@@ -32,6 +32,17 @@ Make sure [Homebrew](https://brew.sh/) is installed. Install gitcrypt
  
  Connection for localhost is 127.0.0.1, username is root, no password (unless set)
  
+  [Something weird happens when there is no password when connnecting to nodejs](https://stackoverflow.com/questions/50093144/mysql-8-0-client-does-not-support-authentication-protocol-requested-by-server).
+  
+  Run below to fix
+  
+  
+  ```
+  mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your_new_password';
+  mysql> FLUSH PRIVILEGES;
+  mysql> quit
+ ```
+ 
  ### Dev DB
  
  Our db is hosted on Nimbus. You need to create your own dev credentials for the db. The db is a service instance which eventually will be [bound to an application](https://docs.pivotal.io/p-mysql/2-7/use.html#bind). This allows environment variables to be used to login to the db. See the pivotal mysql docs for more info
