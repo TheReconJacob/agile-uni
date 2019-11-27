@@ -164,10 +164,20 @@ class Courses extends React.Component {
                   <div className="">
                     <div className="o-layout__item" style={{ display: "flex" }}>
                       <p className="c-text-body o-layout__item">
-                        <b>Start: {res.start_date}</b>
+                        <b>Start: {new Intl.DateTimeFormat('en-GB', { 
+                          year: 'numeric', 
+                          month: 'long', 
+                          day: '2-digit' 
+            }).format(Date.parse(res.start_date))}
+                        </b>
                       </p>
                       <p className="c-text-body o-layout__item">
-                        <b>End: {res.end_date}</b>
+                      <b>End: {new Intl.DateTimeFormat('en-GB', { 
+                          year: 'numeric', 
+                          month: 'long', 
+                          day: '2-digit' 
+                          }).format(Date.parse(res.end_date))}
+                        </b>
                       </p>
                       <p className="c-text-body o-layout__item">
                         <b>Location: {res.location}</b>

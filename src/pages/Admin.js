@@ -206,6 +206,15 @@ class Admin extends React.Component {
                     className="c-form-date c-form-combo--inline o-layout__item u-width-3/4 "
                     name="start_date"
                     id="f-start-date"
+                    min="2019-11-27"
+        //             new Intl.DateTimeFormat('en-GB', { 
+        //               year: 'numeric', 
+        //               month: '2-digit', 
+        //               day: '2-digit' 
+        // }).format(new Date())}
+                    onChange={(event) => {
+                      console.log(event.target.value);
+                    }}
                     defaultValue={this.state.start_date}
                     required
                   />
