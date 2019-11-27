@@ -22,6 +22,7 @@ class Courses extends React.Component {
       results: [],
       dataPresent: true,
       canBook: true,
+      fullyBookedState: false
     };
     this.updateAccordionSelection = this.updateAccordionSelection.bind(this);
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
@@ -64,6 +65,11 @@ class Courses extends React.Component {
     try{
     var numberSelected = selected[0].replace('1-header-','');
     let courseSelected= self.state.results[numberSelected].course_id;
+    let max= self.state.results[numberSelected].attendees_max;
+    let number= self.state.results[numberSelected].attendees_booked;
+    if(max>number)
+    this.setState({ fullyBookedState: false });
+    else this.setState({ fullyBookedState: true });
     axios
       .get("http://localhost:5000/returnIfBooked", { 
         params: {
@@ -74,7 +80,7 @@ class Courses extends React.Component {
       .then(function(response) {
         let responseShortened = response.data.course_attendees.responseJson[0];
         for(var key in responseShortened){
-          if(responseShortened[key]==1){
+          if(responseShortened[key]===1){
             self.setState({canBook: false})
           }
           else{self.setState({canBook: true})}
@@ -86,7 +92,6 @@ class Courses extends React.Component {
     }
   catch{}
   };
-
   componentWillReceiveProps(nextProps) {
     this.props = nextProps;
     this.generateSearch();
@@ -129,7 +134,6 @@ class Courses extends React.Component {
         </a>
       );
     }
-    let canBookProps=this.state.canBook; 
 
     return (
       <>
@@ -185,7 +189,7 @@ class Courses extends React.Component {
                         adminStatus={adminStatus}
                         course_id={res.course_id}
                       />
-                      <BookButton courseId={res.course_id} canBook={canBookProps} employeeId={employeeId}/>
+                      <BookButton courseId={res.course_id} canBook={this.state.canBook} employeeId={employeeId} fullyBooked={this.state.fullyBookedState}/>
                       <DeleteButton
                         courseToDelete={res.course_id}
                         adminStatus={adminStatus}
@@ -194,7 +198,7 @@ class Courses extends React.Component {
                   </div>
                 </AccordionSection>
               );
-            })}
+            }, this)}
           </Accordion>
         </div>
       </>
