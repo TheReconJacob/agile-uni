@@ -9,11 +9,10 @@ function deleteCourse(courseID) {
       }
     })
     .then(function(response) {
-      console.log(response);
       window.location.reload();
     })
     .catch(function(error) {
-      console.log(error);
+      console.error(error);
     });
 }
 class DeleteButton extends React.Component {

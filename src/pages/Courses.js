@@ -54,7 +54,7 @@ class Courses extends React.Component {
         self.setState({ results: resultsData });
       })
       .catch(function(error) {
-        console.log(error);
+        console.error(error);
       });
   };
 
@@ -86,7 +86,7 @@ class Courses extends React.Component {
         }
       })
       .catch(function(error) {
-        console.log(error);
+        console.error(error);
       });
     }
   catch{}

@@ -34,7 +34,7 @@ class SearchBar extends Component {
       .get("http://localhost:5000/sites")
       .then((response) => this.setState({ options: response.data.sites.responseJson }))
       .catch(function(error) {
-        console.log(error);
+        console.error(error);
       });
   }
 

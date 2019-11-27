@@ -11,11 +11,10 @@ function bookCourse(courseID, employeeID) {
       }
     })
     .then(function(response) {
-      console.log(response);
       window.location.reload();
     })
     .catch(function(error) {
-      console.log(error);
+      console.error(error);
     });
 }
 
@@ -28,11 +27,10 @@ function cancelCourse(courseID, employeeID) {
         }
       })
       .then(function(response) {
-        console.log(response);
         window.location.reload();
       })
       .catch(function(error) {
-        console.log(error);
+        console.error(error);
       });
   }
 

@@ -39,7 +39,6 @@ class Admin extends React.Component {
     };
 
     if (this.props.location.state !== undefined) {
-      console.log(this.props.location.state.course_id);
       this.getCourse();
     }
 
@@ -61,7 +60,7 @@ class Admin extends React.Component {
             window.location.replace("/courses");
         })
         .catch(error => {
-          console.log(error);
+          console.error(error);
         });
     } else {
       axios.post("http://localhost:5000/addCourse", data)
@@ -69,7 +68,7 @@ class Admin extends React.Component {
             window.location.replace("/courses");
         })
         .catch(error => {
-          console.log(error);
+          console.error(error);
         });
     }
   }
@@ -80,7 +79,6 @@ class Admin extends React.Component {
     axios
       .get(`http://localhost:5000/findCourseById?course_id=${params}`)
       .then(response => {
-        console.log(response.data.courses.responseJson[0]);
         return response.data.courses.responseJson[0];
       })
       .then(res => {
@@ -98,7 +96,7 @@ class Admin extends React.Component {
         });
       })
       .catch(function(error) {
-        console.log(error);
+        console.error(error);
       });
   }
 

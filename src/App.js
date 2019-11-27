@@ -63,17 +63,15 @@ class App extends React.Component {
       object_id: decodedToken.oid,
       email: decodedToken.preferred_username
     };
-    console.log(params);
     axios
       .post("http://localhost:5000/addEmployee", params)
       .then(function (response) {
-        console.log(response);
         if (typeof window !== 'undefined') {
           localStorage.setItem("employeeId", response.data.employees.responseJson.insertId);
         }
       })
       .catch(function (error) {
-        console.log(error);
+        console.error(error);
       });
   }
 
