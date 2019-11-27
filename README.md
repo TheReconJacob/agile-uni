@@ -30,13 +30,15 @@ Make sure [Homebrew](https://brew.sh/) is installed. Install gitcrypt
 
  Then execute `SOURCE ddl_script/db_0.sql` and any other sql files necessary
  
+ Connection for localhost is 127.0.0.1, username is root, no password (unless set)
+ 
  ### Dev DB
  
  Our db is hosted on Nimbus. You need to create your own dev credentials for the db. The db is a service instance which eventually will be [bound to an application](https://docs.pivotal.io/p-mysql/2-7/use.html#bind). This allows environment variables to be used to login to the db. See the pivotal mysql docs for more info
  
  To create your own user to login follow https://docs.pivotal.io/p-mysql/2-7/customize-access.html#username
  
- Our database is called `dev_db`
+ Our database is called `dev_db` run `cf service-keys dev_db` to find all the keys then `cf service-key dev_db key1` to see the credentials 
 
 ## Nimbus
 
