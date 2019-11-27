@@ -23,8 +23,7 @@ class Courses extends React.Component {
       results: [],
       dataPresent: true,
       canBook: true,
-      fullyBookedState: false,
-      description: ""
+      fullyBookedState: false
     };
     this.updateAccordionSelection = this.updateAccordionSelection.bind(this);
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
@@ -69,11 +68,9 @@ class Courses extends React.Component {
     let courseSelected= self.state.results[numberSelected].course_id;
     let max= self.state.results[numberSelected].attendees_max;
     let number= self.state.results[numberSelected].attendees_booked;
-    if(max>number)
-    this.setState({ fullyBookedState: false });
-    else this.setState({ fullyBookedState: true });
-    let selectedDescription= self.state.results[numberSelected].description;
-    this.setState({description:selectedDescription})
+    if(max>number){
+    this.setState({ fullyBookedState: false });}
+    else {this.setState({ fullyBookedState: true });}
     axios
       .get("http://localhost:5000/returnIfBooked", { 
         params: {
@@ -179,7 +176,7 @@ class Courses extends React.Component {
                     <h2 className="c-heading-delta o-layout__item">
                       {res.title}
                     </h2>
-                    <CourseDescription CourseDescription={this.state.description} courseId={res.course_id}/>
+                    <CourseDescription CourseDescription={res.description} courseId={res.course_id}/>
                     <div className="accordion-button-box">
                       <a
                         href="mailto:agileuniversity@sky.uk"
