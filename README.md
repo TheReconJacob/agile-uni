@@ -30,11 +30,7 @@ Execute `CREATE DATABASE agileuni;` & `USE agileuni;`
 Then execute `SOURCE ddl_script/db_0.sql` and any other sql files necessary
 
 To connect to the local database, change the backend/config file:
-`host: "127.0.0.1",
-port: "3306",
-user: "root",
-password: "",
-....'
+`host: "127.0.0.1", port: "3306", user: "root", password: "", ....`
 
 [Something weird happens when there is no password when connnecting to nodejs](https://stackoverflow.com/questions/50093144/mysql-8-0-client-does-not-support-authentication-protocol-requested-by-server).
 
