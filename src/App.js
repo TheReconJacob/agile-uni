@@ -10,6 +10,19 @@ import { Route, BrowserRouter as Router } from "react-router-dom";
 import Admin from "./pages/Admin";
 import axios from "axios";
 
+axios.interceptors.request.use(
+  async config => {
+    const token = await authProvider.getIdToken()
+    if (token) {
+      config.headers.Authorization = "Bearer "+ token.idToken.rawIdToken
+    }
+    return config
+  },
+  error => {
+    return Promise.reject(error)
+  }
+);
+
 const jwt = require("jsonwebtoken");
 
 class App extends React.Component {

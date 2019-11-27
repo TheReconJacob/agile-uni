@@ -32,7 +32,7 @@ export const authProvider = new MsalAuthProvider(
   {
     auth: {
       authority:
-        "https://login.microsoftonline.com/68b865d5-cf18-4b2b-82a4-a4eddb9c5237/",
+        "https://login.microsoftonline.com/organizations/v2.0",
       clientId: "c0fb79ba-b72c-47c1-912c-48ee6cbac972",
       postLogoutRedirectUri: window.location.origin,
       redirectUri: window.location.origin,
@@ -48,7 +48,7 @@ export const authProvider = new MsalAuthProvider(
     }
   },
   {
-    scopes: ["user.read"]
+    scopes: ["User.Read"]
   },
   LoginType.Redirect
 );

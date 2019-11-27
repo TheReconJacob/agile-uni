@@ -4,9 +4,6 @@ import "../styles/searchBar.scss";
 import DropdownSite from "./Dropdown"
 import { Link } from 'react-router-dom'
 
-axios.defaults.headers.common["Authorization"] =
-  "Bearer " + localStorage.getItem("msal.idtoken");
-
 class SearchBar extends Component {
   constructor(props) {
     super(props);

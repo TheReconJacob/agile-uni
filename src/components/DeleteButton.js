@@ -1,9 +1,6 @@
 import React from "react";
 import axios from "axios";
 
-axios.defaults.headers.common["Authorization"] =
-  "Bearer " + localStorage.getItem("msal.idtoken");
-
 function deleteCourse(courseID) {
   axios
     .get("http://localhost:5000/deleteCourse", {

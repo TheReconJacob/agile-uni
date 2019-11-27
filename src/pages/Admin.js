@@ -5,8 +5,6 @@ import axios from "axios";
 import CKEditor from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-axios.defaults.headers.common["Authorization"] =
-  "Bearer " + localStorage.getItem("msal.idtoken");
 
 function SaveButton() {
   return (
@@ -58,37 +56,17 @@ class Admin extends React.Component {
 
     if (this.props.location.state !== undefined) {
       data.append("course_id", this.props.location.state.course_id);
-      fetch("http://localhost:5000/editCourse", {
-        method: "POST",
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("msal.idtoken")
-        },
-        body: data
-      })
+      axios.post("http://localhost:5000/editCourse", data)
         .then(response => {
-          if (response.ok) {
-            window.location.replace("http://localhost:3000/courses");
-          } else {
-            throw new Error("Something went wrong");
-          }
+            window.location.replace("/courses");
         })
         .catch(error => {
           console.log(error);
         });
     } else {
-      fetch("http://localhost:5000/addCourse", {
-        method: "POST",
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("msal.idtoken")
-        },
-        body: data
-      })
+      axios.post("http://localhost:5000/addCourse", data)
         .then(response => {
-          if (response.ok) {
-            window.location.replace("http://localhost:3000/courses");
-          } else {
-            throw new Error("Something went wrong");
-          }
+            window.location.replace("/courses");
         })
         .catch(error => {
           console.log(error);

@@ -9,8 +9,7 @@ import BookButton from "../components/BookButton";
 import axios from "axios";
 const queryString = require("query-string");
 let employeeId = localStorage.getItem("employeeId");
-axios.defaults.headers.common["Authorization"] =
-  "Bearer " + localStorage.getItem("msal.idtoken");
+
 
 class Courses extends React.Component {
   constructor(props) {
