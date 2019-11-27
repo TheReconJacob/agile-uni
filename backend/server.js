@@ -185,7 +185,6 @@ app.post("/addEmployee", (req, res) => {
 
     return res.json(result.responseJson);
   });
-
 });
 
 app.get("/addAttendee", (req, res) => {
@@ -199,9 +198,18 @@ app.get("/addAttendee", (req, res) => {
 
     return res.json(result.responseJson);
   });
+  dataHandler.findEmployeeById(Data)(req, (err, result) => {
+    if (err) {
+      res.status(500);
+      return res.json({ message: err.message });
+    }
+    res.status(result.status);
+    return res.json(result.responseJson);
+  });
+  
   var mail = {
     from: "agileuni",
-    to: "",
+    to: "agileuni@gmail.com",
     subject: "Contact form request",
 
     html: "hello"
@@ -247,6 +255,17 @@ app.get("/returnIfBooked", (req, res) => {
 
 app.get("/findCourseById", (req, res) => {
   dataHandler.findCourseById(Data)(req, (err, result) => {
+    if (err) {
+      res.status(500);
+      return res.json({ message: err.message });
+    }
+    res.status(result.status);
+    return res.json(result.responseJson);
+  });
+});
+
+app.get("/findEmployeeById", (req, res) => {
+  dataHandler.findEmployeeById(Data)(req, (err, result) => {
     if (err) {
       res.status(500);
       return res.json({ message: err.message });

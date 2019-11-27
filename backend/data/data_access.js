@@ -127,7 +127,7 @@ Data.addEmployee = (inputs, callback) => {
       if (err) {
         return callback(err);
       }
-      callback(null, {status: 200, responseJson: rows});
+      callback(null, { status: 200, responseJson: rows });
     }
   );
 };
@@ -190,7 +190,8 @@ Data.deleteAttendee = (courseid, attendeeid, callback) => {
 
 Data.returnIfBooked = (employee_id, course_id, callback) => {
   connection.query(
-    `SELECT EXISTS(SELECT * FROM AGILEUNI.course_attendees WHERE employee_id = ? AND course_id = ?)`, [course_id, employee_id],
+    `SELECT EXISTS(SELECT * FROM AGILEUNI.course_attendees WHERE employee_id = ? AND course_id = ?)`,
+    [course_id, employee_id],
     function(err, rows) {
       if (err) {
         return callback(err);
@@ -201,16 +202,32 @@ Data.returnIfBooked = (employee_id, course_id, callback) => {
 };
 
 Data.findCourseById = (course_id, callback) => {
-  console.log(course_id)
-	connection.query(
-	  "SELECT * FROM courses INNER JOIN sites ON courses.site_id = sites.id WHERE course_id = ?", course_id,
-	  function(err, rows) {
-		if (err) {
-		  return callback(err);
-		}
-		callback(null, { status: 200, responseJson: rows });
-	  }
-	);
-  };
+  console.log(course_id);
+  connection.query(
+    "SELECT * FROM courses INNER JOIN sites ON courses.site_id = sites.id WHERE course_id = ?",
+    course_id,
+    function(err, rows) {
+      if (err) {
+        return callback(err);
+      }
+      callback(null, { status: 200, responseJson: rows });
+    }
+  );
+};
+
+Data.findEmployeeById = (employee_id, callback) => {
+  console.log(employee_id);
+  connection.query(
+    "SELECT * FROM employees WHERE id = ?",
+    employee_id,
+    function(err, rows) {
+      if (err) {
+        return callback(err);
+      }
+      callback(null, { status: 200, responseJson: rows });
+    }
+  );
+};
+
 
 module.exports = Data;
