@@ -7,7 +7,7 @@ class CourseDescription extends React.Component{
     render(){
 let divText= this.props.courseId + "description";
 let childDivText= this.props.courseId + "child";
-let htmlString= "<a id="+childDivText+">" +this.props.CourseDescription+"</a>";
+let htmlString= "<p id="+childDivText+">" +this.props.CourseDescription+"</p>";
 try{
 let parentDiv = document.getElementById (divText);
 let childDiv = document.getElementById(childDivText);
@@ -19,7 +19,7 @@ catch{}
 return(
 <p className="c-text-body o-layout__item">
     <div id={divText}>
-        <a id={childDivText}> bla </a>
+        <p id={childDivText}> bla </p>
     </div>
 </p>
 );
