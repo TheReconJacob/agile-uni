@@ -8,7 +8,6 @@ import EditButton from "../components/EditButton";
 import BookButton from "../components/BookButton";
 import CourseDescription from "../components/CourseDescription";
 import axios from "axios";
-import CourseDescription from "../components/CourseDescription";
 const queryString = require("query-string");
 let employeeId = localStorage.getItem("employeeId");
 axios.defaults.headers.common["Authorization"] =
