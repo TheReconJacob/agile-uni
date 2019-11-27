@@ -8,6 +8,27 @@ const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
 const multer = require("multer");
 const upload = multer();
+const nodemailer = require("nodemailer");
+const creds = require("./emailConfig");
+app.use(express.json());
+
+var transport = {
+  host: "smtp.gmail.com", // e.g. smtp.gmail.com
+  auth: {
+    user: "agileuni@gmail.com",
+    pass: "password19!"
+  }
+};
+
+var transporter = nodemailer.createTransport(transport);
+
+transporter.verify((error, success) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("All works fine, congratz!");
+  }
+});
 
 var cors = require("cors");
 
@@ -17,7 +38,6 @@ const dataHandler = require("./data/dataHandler.js");
 const connection = mysql.createConnection(config.mysqlConfig);
 
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 app.use(upload.array());
 app.use(express.static("public"));
 app.use(cors());
@@ -165,6 +185,7 @@ app.post("/addEmployee", (req, res) => {
 
     return res.json(result.responseJson);
   });
+
 });
 
 app.get("/addAttendee", (req, res) => {
@@ -177,6 +198,25 @@ app.get("/addAttendee", (req, res) => {
     res.status(result.status);
 
     return res.json(result.responseJson);
+  });
+  var mail = {
+    from: "agileuni",
+    to: "",
+    subject: "Contact form request",
+
+    html: "hello"
+  };
+
+  transporter.sendMail(mail, (err, data) => {
+    if (err) {
+      res.json({
+        msg: "fail"
+      });
+    } else {
+      res.json({
+        msg: "success"
+      });
+    }
   });
 });
 
@@ -205,16 +245,43 @@ app.get("/returnIfBooked", (req, res) => {
   });
 });
 
-app.get('/findCourseById', (req, res) => {
-	dataHandler.findCourseById(Data)(req, (err, result) => {
-		if (err) {
-		  res.status(500)
-		  return res.json({ message: err.message })
-		}
-		res.status(result.status)
-		return res.json(result.responseJson)
-	})
-})
+app.get("/findCourseById", (req, res) => {
+  dataHandler.findCourseById(Data)(req, (err, result) => {
+    if (err) {
+      res.status(500);
+      return res.json({ message: err.message });
+    }
+    res.status(result.status);
+    return res.json(result.responseJson);
+  });
+});
+
+app.get("/send", (req, res) => {
+  req.header("Access-Control-Allow-Origin");
+  // const name = req.body.name;
+  // const email = req.body.email;
+  // const message = req.body.messageHtml;
+
+  // var mail = {
+  //   from: "agileuni",
+  //   to: "agileuni@gmail.com",
+  //   subject: "Contact form request",
+
+  //   html: "hello"
+  // };
+
+  // transporter.sendMail(mail, (err, data) => {
+  //   if (err) {
+  //     res.json({
+  //       msg: "fail"
+  //     });
+  //   } else {
+  //     res.json({
+  //       msg: "success"
+  //     });
+  //   }
+  // });
+});
 
 // Note to JS learners, put module.exports before any module.exports.banana because it overwrites stuff...
 module.exports = app;
