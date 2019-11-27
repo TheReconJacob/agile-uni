@@ -7,6 +7,7 @@ import DeleteButton from "../components/DeleteButton";
 import EditButton from "../components/EditButton";
 import BookButton from "../components/BookButton";
 import axios from "axios";
+import CourseDescription from "../components/CourseDescription";
 const queryString = require("query-string");
 let employeeId = localStorage.getItem("employeeId");
 axios.defaults.headers.common["Authorization"] =
@@ -175,9 +176,7 @@ class Courses extends React.Component {
                     <h2 className="c-heading-delta o-layout__item">
                       {res.title}
                     </h2>
-                    <p className="c-text-body o-layout__item">
-                      {res.description}
-                    </p>
+                    <CourseDescription CourseDescription={res.description}/>
                     <div className="accordion-button-box">
                       <a
                         href="mailto:agileuniversity@sky.uk"
