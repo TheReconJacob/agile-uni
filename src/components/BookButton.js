@@ -34,6 +34,7 @@ function cancelCourse(courseID, employeeID) {
       });
   }
 
+
 class BookButton extends React.Component {
   constructor() {
     super();
@@ -61,6 +62,11 @@ class BookButton extends React.Component {
         BookComponent= (<button className="accordion-button c-btn u-margin-right is-disabled">
           Course Fully Booked
         </button>)
+      }
+      else if(this.props.startDate < this.props.currentDate) {
+        BookComponent= (<button className="accordion-button c-btn u-margin-right is-disabled">
+         Unavailable 
+      </button>)
       }
       else{
         BookComponent= (<button onClick={this.confirmBook} className="accordion-button c-btn c-btn--primary u-margin-right">
