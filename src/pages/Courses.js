@@ -108,10 +108,8 @@ class Courses extends React.Component {
     ) {
       this.getSearch("", "");
     } else {
-      this.state.searchParam = queryString.parse(
-        this.props.location.search
-      ).searchTerm;
-      this.state.site = queryString.parse(this.props.location.search).site;
+      this.setState({searchParam: queryString.parse(this.props.location.search).searchTerm})
+      this.setState({site: queryString.parse(this.props.location.search).site})
       this.getSearch(this.state.searchParam, this.state.site);
     }
   }
