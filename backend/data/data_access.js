@@ -161,11 +161,22 @@ Data.addAttendee = (employeeid, courseid, callback) => {
       if (err) {
         return callback(err);
       }
+      employeer = { status: 200, responseJson: rows };
+    }
+  );
+  connection.query(
+    "SELECT title, start_date, end_date, location FROM courses WHERE course_id= ?",
+    [courseid],
+    function(err, rows, fields) {
+      if (err) {
+        return callback(err);
+      }
       callback(null, [
         {
           courses: courseAttendeeResponse,
           course_attendees: course_attendeesr,
-          employees: { status: 200, responseJson: rows }
+          employees: employeer,
+          course_content: { status: 200, responseJson: rows }
         }
       ]);
     }
