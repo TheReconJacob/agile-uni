@@ -194,9 +194,24 @@ app.get("/addAttendee", (req, res) => {
       return res.json({ message: err.message });
     }
     res.status(result.status);
-    name = result.responseJson.combinedResponse[0].employees.responseJson[0].name;
-    email = result.responseJson.combinedResponse[0].employees.responseJson[0].email;
-    message = "hello " + name;
+    name =
+      result.responseJson.combinedResponse[0].employees.responseJson[0].name;
+    email =
+      result.responseJson.combinedResponse[0].employees.responseJson[0].email;
+    course_title =
+      result.responseJson.combinedResponse[0].course_content.responseJson[0]
+        .title;
+    start_date =
+      result.responseJson.combinedResponse[0].course_content.responseJson[0]
+        .start_date;
+    end_date =
+      result.responseJson.combinedResponse[0].course_content.responseJson[0]
+        .end_date;
+    location =
+      result.responseJson.combinedResponse[0].course_content.responseJson[0]
+        .location;
+
+    message = "hello " + name + course_title + start_date + end_date;
 
     var mail = {
       from: "agileuni",
