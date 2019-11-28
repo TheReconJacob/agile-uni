@@ -183,10 +183,10 @@ Data.addAttendee = (employeeid, courseid, callback) => {
   );
 };
 
-Data.deleteAttendee = (courseid, attendeeid, callback) => {
+Data.deleteAttendee = (employeeid, courseid, callback) => {
   connection.query(
     "DELETE FROM course_attendees WHERE course_attendees.course_id = ? AND course_attendees.employee_id = ?",
-    [courseid, attendeeid],
+    [employeeid, courseid],
     function(err, rows) {
       if (err) {
         return callback(err);
@@ -201,10 +201,32 @@ Data.deleteAttendee = (courseid, attendeeid, callback) => {
       if (err) {
         return callback(err);
       }
+      course_attendeesr = { status: 200, responseJson: rows };
+    }
+  );
+  connection.query(
+    "SELECT email, name FROM employees WHERE id = ?",
+    [employeeid],
+    function(err, rows, fields) {
+      if (err) {
+        return callback(err);
+      }
+      employeer = { status: 200, responseJson: rows };
+    }
+  );
+  connection.query(
+    "SELECT title, start_date, end_date, location FROM courses WHERE course_id= ?",
+    [courseid],
+    function(err, rows, fields) {
+      if (err) {
+        return callback(err);
+      }
       callback(null, [
         {
-          course_attendees: { status: 200, responseJson: rows },
-          courses: courseAttendeeResponse
+          courses: courseAttendeeResponse,
+          course_attendees: course_attendeesr,
+          employees: employeer,
+          course_content: { status: 200, responseJson: rows }
         }
       ]);
     }

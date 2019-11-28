@@ -239,7 +239,7 @@ app.get("/addAttendee", (req, res) => {
     var mail = {
       from: "agileuni",
       to: email,
-      subject: "Booking",
+      subject: "Booking confirmation " + course_title,
 
       html: message
     };
@@ -267,7 +267,67 @@ app.get("/deleteAttendee", (req, res) => {
       return res.json({ message: err.message });
     }
     res.status(result.status);
+    name =
+      result.responseJson.combinedResponse[0].employees.responseJson[0].name;
+    email =
+      result.responseJson.combinedResponse[0].employees.responseJson[0].email;
+    course_title =
+      result.responseJson.combinedResponse[0].course_content.responseJson[0]
+        .title;
+    start_date =
+      result.responseJson.combinedResponse[0].course_content.responseJson[0]
+        .start_date;
+    end_date =
+      result.responseJson.combinedResponse[0].course_content.responseJson[0]
+        .end_date;
 
+    startDateMessage = new Intl.DateTimeFormat("en-GB", {
+      year: "numeric",
+      month: "long",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit"
+    }).format(Date.parse(start_date));
+
+    endDateMessage = new Intl.DateTimeFormat("en-GB", {
+      year: "numeric",
+      month: "long",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit"
+    }).format(Date.parse(end_date));
+
+    message =
+      "<p> Hello " +
+      name +
+      " <br> </p> <p> This email confirms the cancellation of your place on " +
+      course_title +
+      " on " +
+      startDateMessage +
+      " until " +
+      endDateMessage +
+      "<br>" +
+      "Many thanks <br><br> Agile University Team <p>";
+
+    var mail = {
+      from: "agileuni",
+      to: email,
+      subject: "Booking cancellation " + course_title,
+
+      html: message
+    };
+
+    transporter.sendMail(mail, (err, data) => {
+      if (err) {
+        res.json({
+          msg: "fail"
+        });
+      } else {
+        res.json({
+          msg: "success"
+        });
+      }
+    });
     return res.json(result.responseJson);
   });
 });

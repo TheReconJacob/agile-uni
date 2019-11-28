@@ -147,8 +147,8 @@ module.exports.addAttendee = DataAccess => (req, callback) => {
 
 module.exports.deleteAttendee = DataAccess => (req, callback) => {
   DataAccess.deleteAttendee(
-    req.query.courseid,
     req.query.attendeeid,
+    req.query.courseid,
     (err, combinedResponse) => {
       if (err) {
         return callback(err);
