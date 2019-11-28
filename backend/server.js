@@ -182,7 +182,6 @@ app.post("/addEmployee", (req, res) => {
       return res.json({ message: err.message });
     }
     res.status(result.status);
-
     return res.json(result.responseJson);
   });
 });
@@ -195,28 +194,30 @@ app.get("/addAttendee", (req, res) => {
       return res.json({ message: err.message });
     }
     res.status(result.status);
+    name = result.responseJson.combinedResponse[0].employees.responseJson[0].name;
+    email = result.responseJson.combinedResponse[0].employees.responseJson[0].email;
+    message = "hello " + name;
 
+    var mail = {
+      from: "agileuni",
+      to: email,
+      subject: "Booking",
+
+      html: message
+    };
+
+    transporter.sendMail(mail, (err, data) => {
+      if (err) {
+        res.json({
+          msg: "fail"
+        });
+      } else {
+        res.json({
+          msg: "success"
+        });
+      }
+    });
     return res.json(result.responseJson);
-  });
-
-  var mail = {
-    from: "agileuni",
-    to: "agileuni@gmail.com",
-    subject: "Contact form request",
-
-    html: "hello"
-  };
-
-  transporter.sendMail(mail, (err, data) => {
-    if (err) {
-      res.json({
-        msg: "fail"
-      });
-    } else {
-      res.json({
-        msg: "success"
-      });
-    }
   });
 });
 
@@ -269,29 +270,29 @@ app.get("/findEmployeeById", (req, res) => {
 
 app.get("/send", (req, res) => {
   req.header("Access-Control-Allow-Origin");
-  // const name = req.body.name;
-  // const email = req.body.email;
-  // const message = req.body.messageHtml;
+  const name = req.query.name;
+  const email = req.query.email;
+  const message = "hello" + name;
 
-  // var mail = {
-  //   from: "agileuni",
-  //   to: "agileuni@gmail.com",
-  //   subject: "Contact form request",
+  var mail = {
+    from: "agileuni",
+    to: email,
+    subject: "Booking",
 
-  //   html: "hello"
-  // };
+    html: message
+  };
 
-  // transporter.sendMail(mail, (err, data) => {
-  //   if (err) {
-  //     res.json({
-  //       msg: "fail"
-  //     });
-  //   } else {
-  //     res.json({
-  //       msg: "success"
-  //     });
-  //   }
-  // });
+  transporter.sendMail(mail, (err, data) => {
+    if (err) {
+      res.json({
+        msg: "fail"
+      });
+    } else {
+      res.json({
+        msg: "success"
+      });
+    }
+  });
 });
 
 // Note to JS learners, put module.exports before any module.exports.banana because it overwrites stuff...
