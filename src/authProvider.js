@@ -48,7 +48,7 @@ export const authProvider = new MsalAuthProvider(
     }
   },
   {
-    scopes: ["user.read"]
+    scopes: ["User.Read"]
   },
   LoginType.Redirect
 );

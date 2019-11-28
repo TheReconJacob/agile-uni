@@ -6,12 +6,11 @@ import "../styles/courses.scss";
 import DeleteButton from "../components/DeleteButton";
 import EditButton from "../components/EditButton";
 import BookButton from "../components/BookButton";
-import axios from "axios";
 import CourseDescription from "../components/CourseDescription";
+import axios from "axios";
 const queryString = require("query-string");
 let employeeId = localStorage.getItem("employeeId");
-axios.defaults.headers.common["Authorization"] =
-  "Bearer " + localStorage.getItem("msal.idtoken");
+
 
 class Courses extends React.Component {
   constructor(props) {
@@ -56,7 +55,7 @@ class Courses extends React.Component {
         self.setState({ results: resultsData });
       })
       .catch(function(error) {
-        console.log(error);
+        console.error(error);
       });
   };
 
@@ -68,9 +67,9 @@ class Courses extends React.Component {
     let courseSelected= self.state.results[numberSelected].course_id;
     let max= self.state.results[numberSelected].attendees_max;
     let number= self.state.results[numberSelected].attendees_booked;
-    if(max>number)
-    this.setState({ fullyBookedState: false });
-    else this.setState({ fullyBookedState: true });
+    if(max>number){
+    this.setState({ fullyBookedState: false });}
+    else {this.setState({ fullyBookedState: true });}
     axios
       .get("http://localhost:5000/returnIfBooked", { 
         params: {
@@ -88,7 +87,7 @@ class Courses extends React.Component {
         }
       })
       .catch(function(error) {
-        console.log(error);
+        console.error(error);
       });
     }
   catch{}
@@ -164,10 +163,20 @@ class Courses extends React.Component {
                   <div className="">
                     <div className="o-layout__item" style={{ display: "flex" }}>
                       <p className="c-text-body o-layout__item">
-                        <b>Start: {res.start_date}</b>
+                        <b>Start: {new Intl.DateTimeFormat('en-GB', { 
+                          year: 'numeric', 
+                          month: 'long', 
+                          day: '2-digit' 
+            }).format(Date.parse(res.start_date))} at {res.start_date.slice(11, 16)}
+                        </b>
                       </p>
                       <p className="c-text-body o-layout__item">
-                        <b>End: {res.end_date}</b>
+                      <b>End: {new Intl.DateTimeFormat('en-GB', { 
+                          year: 'numeric', 
+                          month: 'long', 
+                          day: '2-digit' 
+                          }).format(Date.parse(res.end_date))} at {res.end_date.slice(11, 16)}
+                        </b>
                       </p>
                       <p className="c-text-body o-layout__item">
                         <b>Location: {res.location}</b>
@@ -176,7 +185,7 @@ class Courses extends React.Component {
                     <h2 className="c-heading-delta o-layout__item">
                       {res.title}
                     </h2>
-                    <CourseDescription CourseDescription={res.description}/>
+                    <CourseDescription CourseDescription={res.description} courseId={res.course_id}/>
                     <div className="accordion-button-box">
                       <a
                         href="mailto:agileuniversity@sky.uk"

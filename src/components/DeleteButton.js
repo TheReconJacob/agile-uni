@@ -1,9 +1,6 @@
 import React from "react";
 import axios from "axios";
 
-axios.defaults.headers.common["Authorization"] =
-  "Bearer " + localStorage.getItem("msal.idtoken");
-
 function deleteCourse(courseID) {
   axios
     .get("http://localhost:5000/deleteCourse", {
@@ -12,11 +9,10 @@ function deleteCourse(courseID) {
       }
     })
     .then(function(response) {
-      console.log(response);
       window.location.reload();
     })
     .catch(function(error) {
-      console.log(error);
+      console.error(error);
     });
 }
 class DeleteButton extends React.Component {

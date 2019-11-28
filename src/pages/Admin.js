@@ -5,8 +5,6 @@ import axios from "axios";
 import CKEditor from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-axios.defaults.headers.common["Authorization"] =
-  "Bearer " + localStorage.getItem("msal.idtoken");
 
 function SaveButton() {
   return (
@@ -37,11 +35,11 @@ class Admin extends React.Component {
       description: "",
       instructor_name: "",
       site_id: "",
-      location: ""
+      location: "",
+      minEndDate: new Date().toISOString().split('T')[0]
     };
 
     if (this.props.location.state !== undefined) {
-      console.log(this.props.location.state.course_id);
       this.getCourse();
     }
 
@@ -58,40 +56,20 @@ class Admin extends React.Component {
 
     if (this.props.location.state !== undefined) {
       data.append("course_id", this.props.location.state.course_id);
-      fetch("http://localhost:5000/editCourse", {
-        method: "POST",
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("msal.idtoken")
-        },
-        body: data
-      })
+      axios.post("http://localhost:5000/editCourse", data)
         .then(response => {
-          if (response.ok) {
-            window.location.replace("http://localhost:3000/courses");
-          } else {
-            throw new Error("Something went wrong");
-          }
+            window.location.replace("/courses");
         })
         .catch(error => {
-          console.log(error);
+          console.error(error);
         });
     } else {
-      fetch("http://localhost:5000/addCourse", {
-        method: "POST",
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("msal.idtoken")
-        },
-        body: data
-      })
+      axios.post("http://localhost:5000/addCourse", data)
         .then(response => {
-          if (response.ok) {
-            window.location.replace("http://localhost:3000/courses");
-          } else {
-            throw new Error("Something went wrong");
-          }
+            window.location.replace("/courses");
         })
         .catch(error => {
-          console.log(error);
+          console.error(error);
         });
     }
   }
@@ -102,7 +80,6 @@ class Admin extends React.Component {
     axios
       .get(`http://localhost:5000/findCourseById?course_id=${params}`)
       .then(response => {
-        console.log(response.data.courses.responseJson[0]);
         return response.data.courses.responseJson[0];
       })
       .then(res => {
@@ -116,11 +93,12 @@ class Admin extends React.Component {
           description: res.description,
           instructor_name: res.instructor_name,
           site_id: res.site_id,
-          location: res.location
+          location: res.location,
+          minEndDate: new Date(res.start_date.slice(0, 10)).toISOString().split('T')[0]
         });
       })
       .catch(function(error) {
-        console.log(error);
+        console.error(error);
       });
   }
 
@@ -206,6 +184,11 @@ class Admin extends React.Component {
                     className="c-form-date c-form-combo--inline o-layout__item u-width-3/4 "
                     name="start_date"
                     id="f-start-date"
+                    min={new Date().toISOString().split('T')[0]}
+                    onChange={(event) => {
+                      this.setState({start_date: event.target.value});
+                      this.setState({minEndDate: new Date(event.target.value).toISOString().split('T')[0]});
+                    }}
                     defaultValue={this.state.start_date}
                     required
                   />
@@ -235,6 +218,7 @@ class Admin extends React.Component {
                     className="c-form-date c-form-combo--inline o-layout__item u-width-3/4"
                     name="end_date"
                     id="f-end-date"
+                    min={this.state.minEndDate}
                     defaultValue={this.state.end_date}
                     required
                   />

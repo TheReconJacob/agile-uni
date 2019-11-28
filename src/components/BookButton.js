@@ -1,8 +1,6 @@
 import React from "react";
 import axios from "axios";
 
-axios.defaults.headers.common["Authorization"] =
-  "Bearer " + localStorage.getItem("msal.idtoken");
 
 function bookCourse(courseID, employeeID) { 
   axios
@@ -13,11 +11,10 @@ function bookCourse(courseID, employeeID) {
       }
     })
     .then(function(response) {
-      console.log(response);
       window.location.reload();
     })
     .catch(function(error) {
-      console.log(error);
+      console.error(error);
     });
 }
 
@@ -30,11 +27,10 @@ function cancelCourse(courseID, employeeID) {
         }
       })
       .then(function(response) {
-        console.log(response);
         window.location.reload();
       })
       .catch(function(error) {
-        console.log(error);
+        console.error(error);
       });
   }
 
