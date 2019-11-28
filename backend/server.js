@@ -225,7 +225,7 @@ app.get("/addAttendee", (req, res) => {
     message =
       "<p> Hello " +
       name +
-      " <br> </p> <br> <p> Confirmation of your booking onto " +
+      " <br> </p> <p> Confirmation of your booking onto " +
       course_title +
       " on " +
       startDateMessage +
