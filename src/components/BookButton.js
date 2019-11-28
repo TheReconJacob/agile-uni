@@ -65,7 +65,7 @@ class BookButton extends React.Component {
       }
       else if(this.props.startDate < this.props.currentDate) {
         BookComponent= (<button className="accordion-button c-btn u-margin-right is-disabled">
-         Past Course
+         Course in the past
       </button>)
       }
       else{
