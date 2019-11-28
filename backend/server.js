@@ -14,10 +14,7 @@ app.use(express.json());
 
 var transport = {
   host: "smtp.gmail.com", // e.g. smtp.gmail.com
-  auth: {
-    user: "agileuni@gmail.com",
-    pass: "password19!"
-  }
+  auth: creds
 };
 
 var transporter = nodemailer.createTransport(transport);
@@ -211,24 +208,31 @@ app.get("/addAttendee", (req, res) => {
       result.responseJson.combinedResponse[0].course_content.responseJson[0]
         .location;
 
-    startdDateMessage =
-      new Intl.DateTimeFormat("en-GB", {
-        year: "numeric",
-        month: "long",
-        day: "2-digit"
-      }).format(Date.parse(start_date)) +
-      "at" +
-      start_date.slice(11, 16);
+    startDateMessage = new Intl.DateTimeFormat("en-GB", {
+      year: "numeric",
+      month: "long",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit"
+    }).format(Date.parse(start_date));
+
+    endDateMessage = new Intl.DateTimeFormat("en-GB", {
+      year: "numeric",
+      month: "long",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit"
+    }).format(Date.parse(end_date));
 
     message =
       "<p> Hello " +
       name +
       " <br> </p> <br> <p> Confirmation of your booking onto " +
       course_title +
-      "on " +
-      startdDateMessage +
-      "at" +
-      end_date +
+      " on " +
+      startDateMessage +
+      " until " +
+      endDateMessage +
       "<br>" +
       "<p> If you are unable to attend, please make sure that you cancel your booking. <br><br> Many thanks <br><br> Agile University Team <p>";
 
