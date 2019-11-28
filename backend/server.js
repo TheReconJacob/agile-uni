@@ -211,7 +211,26 @@ app.get("/addAttendee", (req, res) => {
       result.responseJson.combinedResponse[0].course_content.responseJson[0]
         .location;
 
-    message = "hello " + name + course_title + start_date + end_date;
+    startdDateMessage =
+      new Intl.DateTimeFormat("en-GB", {
+        year: "numeric",
+        month: "long",
+        day: "2-digit"
+      }).format(Date.parse(start_date)) +
+      "at" +
+      start_date.slice(11, 16);
+
+    message =
+      "<p> Hello " +
+      name +
+      " <br> </p> <br> <p> Confirmation of your booking onto " +
+      course_title +
+      "on " +
+      startdDateMessage +
+      "at" +
+      end_date +
+      "<br>" +
+      "<p> If you are unable to attend, please make sure that you cancel your booking. <br><br> Many thanks <br><br> Agile University Team <p>";
 
     var mail = {
       from: "agileuni",
