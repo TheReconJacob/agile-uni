@@ -68,13 +68,13 @@ module.exports.editCourse = DataAccess => (req, callback) => {
   const parameters = [
     body.title,
     body.description,
-    body.start_date, 
-    body.end_date, 
-    body.attendees_max, 
+    body.start_date,
+    body.end_date,
+    body.attendees_max,
     body.location,
     body.site_id,
     body.instructor_name,
-    body.course_id 
+    body.course_id
   ];
 
   console.log(parameters);
@@ -131,8 +131,8 @@ module.exports.addEmployee = DataAccess => (req, callback) => {
 
 module.exports.addAttendee = DataAccess => (req, callback) => {
   DataAccess.addAttendee(
-    req.query.courseid,
     req.query.employeeid,
+    req.query.courseid,
     (err, combinedResponse) => {
       if (err) {
         return callback(err);
@@ -162,13 +162,20 @@ module.exports.deleteAttendee = DataAccess => (req, callback) => {
 };
 
 module.exports.returnIfBooked = DataAccess => (req, callback) => {
-    DataAccess.returnIfBooked(req.query.course_id, req.query.employee_id, (err, course_attendees) => {
+  DataAccess.returnIfBooked(
+    req.query.course_id,
+    req.query.employee_id,
+    (err, course_attendees) => {
       if (err) {
         console.log(err);
         return callback(err);
       }
-      callback(null, { status: 200, responseJson: { course_attendees: course_attendees } });
-    });
+      callback(null, {
+        status: 200,
+        responseJson: { course_attendees: course_attendees }
+      });
+    }
+  );
 };
 
 module.exports.findCourseById = DataAccess => (req, callback) => {
@@ -177,5 +184,14 @@ module.exports.findCourseById = DataAccess => (req, callback) => {
       return callback(err);
     }
     callback(null, { status: 200, responseJson: { courses: courses } });
+  });
+};
+
+module.exports.findEmployeeById = DataAccess => (req, callback) => {
+  DataAccess.findEmployeeById(req.query.employee_id, (err, employees) => {
+    if (err) {
+      return callback(err);
+    }
+    callback(null, { status: 200, responseJson: { employees: employees } });
   });
 };
