@@ -238,18 +238,4 @@ Data.findCourseById = (course_id, callback) => {
   );
 };
 
-// Data.findEmployeeById = (employee_id, callback) => {
-//   console.log(employee_id);
-//   connection.query(
-//     "SELECT * FROM employees WHERE id = ?",
-//     employee_id,
-//     function(err, rows) {
-//       if (err) {
-//         return callback(err);
-//       }
-//       callback(null, { status: 200, responseJson: rows });
-//     }
-//   );
-// };
-
 module.exports = Data;

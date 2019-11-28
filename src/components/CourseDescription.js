@@ -1,9 +1,6 @@
 import React from "react";
 
 class CourseDescription extends React.Component{
-    constructor(){
-        super();
-    }
     render(){
 let divText= this.props.courseId + "description";
 let childDivText= this.props.courseId + "child";
