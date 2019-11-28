@@ -127,15 +127,15 @@ Data.addEmployee = (inputs, callback) => {
       if (err) {
         return callback(err);
       }
-      callback(null, {status: 200, responseJson: rows});
+      callback(null, { status: 200, responseJson: rows });
     }
   );
 };
 
-Data.addAttendee = (courseid, employeeid, callback) => {
+Data.addAttendee = (employeeid, courseid, callback) => {
   connection.query(
-    "INSERT INTO course_attendees (course_id, employee_id, attended) VALUES (?, ?, 0)",
-    [courseid, employeeid],
+    "INSERT INTO course_attendees (employee_id, course_id, attended) VALUES (?, ?, 0)",
+    [employeeid, courseid],
     function(err, rows, fields) {
       if (err) {
         return callback(err);
@@ -150,10 +150,33 @@ Data.addAttendee = (courseid, employeeid, callback) => {
       if (err) {
         return callback(err);
       }
+      course_attendeesr = { status: 200, responseJson: rows };
+    }
+  );
+
+  connection.query(
+    "SELECT email, name FROM employees WHERE id = ?",
+    [employeeid],
+    function(err, rows, fields) {
+      if (err) {
+        return callback(err);
+      }
+      employeer = { status: 200, responseJson: rows };
+    }
+  );
+  connection.query(
+    "SELECT title, start_date, end_date, location FROM courses WHERE course_id= ?",
+    [courseid],
+    function(err, rows, fields) {
+      if (err) {
+        return callback(err);
+      }
       callback(null, [
         {
-          course_attendees: { status: 200, responseJson: rows },
-          courses: courseAttendeeResponse
+          courses: courseAttendeeResponse,
+          course_attendees: course_attendeesr,
+          employees: employeer,
+          course_content: { status: 200, responseJson: rows }
         }
       ]);
     }
@@ -190,7 +213,8 @@ Data.deleteAttendee = (courseid, attendeeid, callback) => {
 
 Data.returnIfBooked = (employee_id, course_id, callback) => {
   connection.query(
-    `SELECT EXISTS(SELECT * FROM AGILEUNI.course_attendees WHERE employee_id = ? AND course_id = ?)`, [course_id, employee_id],
+    `SELECT EXISTS(SELECT * FROM AGILEUNI.course_attendees WHERE employee_id = ? AND course_id = ?)`,
+    [course_id, employee_id],
     function(err, rows) {
       if (err) {
         return callback(err);
@@ -201,16 +225,17 @@ Data.returnIfBooked = (employee_id, course_id, callback) => {
 };
 
 Data.findCourseById = (course_id, callback) => {
-  console.log(course_id)
-	connection.query(
-	  "SELECT * FROM courses INNER JOIN sites ON courses.site_id = sites.id WHERE course_id = ?", course_id,
-	  function(err, rows) {
-		if (err) {
-		  return callback(err);
-		}
-		callback(null, { status: 200, responseJson: rows });
-	  }
-	);
-  };
+  console.log(course_id);
+  connection.query(
+    "SELECT * FROM courses INNER JOIN sites ON courses.site_id = sites.id WHERE course_id = ?",
+    course_id,
+    function(err, rows) {
+      if (err) {
+        return callback(err);
+      }
+      callback(null, { status: 200, responseJson: rows });
+    }
+  );
+};
 
 module.exports = Data;
