@@ -8,13 +8,16 @@ import EditButton from "../components/EditButton";
 import BookButton from "../components/BookButton";
 import CourseDescription from "../components/CourseDescription";
 import axios from "axios";
+import moment from 'moment'; 
+
 const queryString = require("query-string");
 let employeeId = localStorage.getItem("employeeId");
-
+const now = moment().format("YYYY-MM-DD");
 
 class Courses extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       accordionSelected: [],
       searchParam: "",
@@ -22,8 +25,10 @@ class Courses extends React.Component {
       results: [],
       dataPresent: true,
       canBook: true,
-      fullyBookedState: false
+      fullyBookedState: false,
+      currentDate: now
     };
+
     this.updateAccordionSelection = this.updateAccordionSelection.bind(this);
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
     this.getSearch = this.getSearch.bind(this);
@@ -137,13 +142,13 @@ class Courses extends React.Component {
 
     return (
       <>
+      
         <div className="c-hero hero-background">
           <div className="hero-title">
             <p className="hero-title-text">Find your next course...</p>
             <SearchBar />
           </div>
         </div>
-
         <div className="o-container course-page-accordion">
           <div className="o-layout">{adminAddComponent}</div>
           <Accordion
@@ -197,7 +202,7 @@ class Courses extends React.Component {
                         adminStatus={adminStatus}
                         course_id={res.course_id}
                       />
-                      <BookButton courseId={res.course_id} canBook={this.state.canBook} employeeId={employeeId} fullyBooked={this.state.fullyBookedState}/>
+                      <BookButton courseId={res.course_id} canBook={this.state.canBook} employeeId={employeeId} fullyBooked={this.state.fullyBookedState} startDate={res.start_date} currentDate={this.state.currentDate}/>
                       <DeleteButton
                         courseToDelete={res.course_id}
                         adminStatus={adminStatus}
