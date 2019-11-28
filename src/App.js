@@ -1,6 +1,5 @@
 import React from "react";
 import "./App.scss";
-import { AzureAD } from "react-aad-msal";
 import { authProvider } from "./authProvider";
 import Courses from "./pages/Courses";
 import Home from "./pages/Home";
@@ -9,6 +8,19 @@ import Footer from "./components/Footer.js";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import Admin from "./pages/Admin";
 import axios from "axios";
+
+axios.interceptors.request.use(
+  async config => {
+    const token = await authProvider.getIdToken()
+    if (token) {
+      config.headers.Authorization = "Bearer " + token.idToken.rawIdToken
+    }
+    return config
+  },
+  error => {
+    return Promise.reject(error)
+  }
+);
 
 const jwt = require("jsonwebtoken");
 
@@ -51,16 +63,15 @@ class App extends React.Component {
       object_id: decodedToken.oid,
       email: decodedToken.preferred_username
     };
-    console.log(params);
     axios
       .post("http://localhost:5000/addEmployee", params)
-      .then(function(response) {
-        console.log(response);
+      .then(function (response) {
         if (typeof window !== 'undefined') {
-        localStorage.setItem("employeeId",response.data.employees.responseJson.insertId);
-      }})
-      .catch(function(error) {
-        console.log(error);
+          localStorage.setItem("employeeId", response.data.employees.responseJson.insertId);
+        }
+      })
+      .catch(function (error) {
+        console.error(error);
       });
   }
 
@@ -76,22 +87,20 @@ class App extends React.Component {
     }
     return (
       <>
-        <AzureAD provider={authProvider} forceLogin={true}>
-          <Router>
-            <Navbar />
-            <div className="wrapper">
-              <Route exact path="/" component={Home} />
-              <Route
-                path="/courses"
-                render={props => (
-                  <Courses {...props} adminStatus={this.state.admin} />
-                )}
-              />
-              {adminAddCourse}
-            </div>
-            <Footer className="stylefooter"/>
-          </Router>
-        </AzureAD>
+        <Router>
+          <Navbar />
+          <div className="wrapper">
+            <Route exact path="/" component={Home} />
+            <Route
+              path="/courses"
+              render={props => (
+                <Courses {...props} adminStatus={this.state.admin} />
+              )}
+            />
+            {adminAddCourse}
+          </div>
+          <Footer className="stylefooter" />
+        </Router>
       </>
     );
   }

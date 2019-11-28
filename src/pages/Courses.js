@@ -10,8 +10,7 @@ import CourseDescription from "../components/CourseDescription";
 import axios from "axios";
 const queryString = require("query-string");
 let employeeId = localStorage.getItem("employeeId");
-axios.defaults.headers.common["Authorization"] =
-  "Bearer " + localStorage.getItem("msal.idtoken");
+
 
 class Courses extends React.Component {
   constructor(props) {
@@ -56,7 +55,7 @@ class Courses extends React.Component {
         self.setState({ results: resultsData });
       })
       .catch(function(error) {
-        console.log(error);
+        console.error(error);
       });
   };
 
@@ -88,7 +87,7 @@ class Courses extends React.Component {
         }
       })
       .catch(function(error) {
-        console.log(error);
+        console.error(error);
       });
     }
   catch{}
