@@ -142,6 +142,7 @@ class Admin extends React.Component {
                     className="c-form-input"
                     name="title"
                     id="f-title"
+                    maxlength="45"
                     required
                     defaultValue={this.state.title}
                   />
