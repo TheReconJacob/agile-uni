@@ -167,7 +167,7 @@ class Courses extends React.Component {
                           year: 'numeric', 
                           month: 'long', 
                           day: '2-digit' 
-            }).format(Date.parse(res.start_date))}
+            }).format(Date.parse(res.start_date))} at {res.start_date.slice(11, 16)}
                         </b>
                       </p>
                       <p className="c-text-body o-layout__item">
@@ -175,7 +175,7 @@ class Courses extends React.Component {
                           year: 'numeric', 
                           month: 'long', 
                           day: '2-digit' 
-                          }).format(Date.parse(res.end_date))}
+                          }).format(Date.parse(res.end_date))} at {res.end_date.slice(11, 16)}
                         </b>
                       </p>
                       <p className="c-text-body o-layout__item">
