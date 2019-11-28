@@ -231,6 +231,8 @@ app.get("/addAttendee", (req, res) => {
       startDateMessage +
       " until " +
       endDateMessage +
+      ". This course will take place in " +
+      location +
       "<br>" +
       "<p> If you are unable to attend, please make sure that you cancel your booking. <br><br> Many thanks <br><br> Agile University Team <p>";
 
