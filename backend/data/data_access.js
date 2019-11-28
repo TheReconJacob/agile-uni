@@ -132,10 +132,10 @@ Data.addEmployee = (inputs, callback) => {
   );
 };
 
-Data.addAttendee = (courseid, employeeid, callback) => {
+Data.addAttendee = (employeeid, courseid, callback) => {
   connection.query(
-    "INSERT INTO course_attendees (course_id, employee_id, attended) VALUES (?, ?, 0)",
-    [courseid, employeeid],
+    "INSERT INTO course_attendees (employeeid, courseid, attended) VALUES (?, ?, 0)",
+    [employeeid, courseid],
     function(err, rows, fields) {
       if (err) {
         return callback(err);
@@ -150,10 +150,22 @@ Data.addAttendee = (courseid, employeeid, callback) => {
       if (err) {
         return callback(err);
       }
+      course_attendeesr = { status: 200, responseJson: rows };
+    }
+  );
+
+  connection.query(
+    "SELECT email, name FROM employees WHERE id = ?",
+    [employeeid],
+    function(err, rows, fields) {
+      if (err) {
+        return callback(err);
+      }
       callback(null, [
         {
-          course_attendees: { status: 200, responseJson: rows },
-          courses: courseAttendeeResponse
+          courses: courseAttendeeResponse,
+          course_attendees: course_attendeesr,
+          employees: { status: 200, responseJson: rows }
         }
       ]);
     }
@@ -228,6 +240,5 @@ Data.findEmployeeById = (employee_id, callback) => {
     }
   );
 };
-
 
 module.exports = Data;

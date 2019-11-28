@@ -131,8 +131,8 @@ module.exports.addEmployee = DataAccess => (req, callback) => {
 
 module.exports.addAttendee = DataAccess => (req, callback) => {
   DataAccess.addAttendee(
-    req.query.courseid,
     req.query.employeeid,
+    req.query.courseid,
     (err, combinedResponse) => {
       if (err) {
         return callback(err);

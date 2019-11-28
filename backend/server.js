@@ -198,15 +198,7 @@ app.get("/addAttendee", (req, res) => {
 
     return res.json(result.responseJson);
   });
-  dataHandler.findEmployeeById(Data)(req, (err, result) => {
-    if (err) {
-      res.status(500);
-      return res.json({ message: err.message });
-    }
-    res.status(result.status);
-    return res.json(result.responseJson);
-  });
-  
+
   var mail = {
     from: "agileuni",
     to: "agileuni@gmail.com",
