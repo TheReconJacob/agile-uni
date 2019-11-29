@@ -62,6 +62,10 @@ You need to attempt a login to the `DL-SoftwareEngineeringAcademy` org before yo
 
 You'll need an AUTHTOKEN as a env to run the test (**see wiki as to why**). Install JWT debugger on chrome or search localstorage for the token. Using the JWT debugger, select the latest token (not the msal.idtoken) from drop down next to "OPEN JWT FROM", copy the encoded token. Then in your terminal set `AUTHTOKEN=ey68t53tyoeg......... npm test`
 
+## Emails
+
+We have set up email sending with a dummy gmail account. This will need updating to an agile university account, but I suggest that you use a boiler account for just sending the notification emails.  The email credentials are encrypted in emailConfig.js. To change the account over to a sky email account, you will need to update the credentials, and the settings in the server.js transport variables. 
+
 ## Useful Links
 
 We used the sky react library for some components. This can be found on [pages-lib page](https://github.com/sky-uk/pages-lib) for the sky github. [Library of components](https://pages-lib.cf.dev-paas.bskyb.com/storybook/?path=/story/*)
