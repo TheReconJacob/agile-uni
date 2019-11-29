@@ -7,6 +7,7 @@ import DeleteButton from "../components/DeleteButton";
 import EditButton from "../components/EditButton";
 import BookButton from "../components/BookButton";
 import CourseDescription from "../components/CourseDescription";
+import DateDisplay from "../components/DateDisplay";
 import axios from "axios";
 import moment from 'moment'; 
 
@@ -165,7 +166,8 @@ class Courses extends React.Component {
                 >
                   <div className="">
                     <div className="o-layout__item" style={{ display: "flex" }}>
-                      <p className="c-text-body o-layout__item">
+                      <DateDisplay start_date={res.start_date} end_date={res.end_date}/>
+                      {/* <p className="c-text-body o-layout__item">
                         <b>Start: {new Intl.DateTimeFormat('en-GB', { 
                           year: 'numeric', 
                           month: 'long', 
@@ -180,7 +182,7 @@ class Courses extends React.Component {
                           day: '2-digit' 
                           }).format(Date.parse(res.end_date))} at {res.end_date.slice(11, 16)}
                         </b>
-                      </p>
+                      </p> */}
                       <p className="c-text-body o-layout__item">
                         <b>Location: {res.location}</b>
                       </p>
