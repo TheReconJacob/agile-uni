@@ -8,8 +8,7 @@ class DropdownSite extends Component {
     this.componentDidUpdate = this.componentDidUpdate.bind(this);
   }
 
-  componentDidUpdate(prevProps) {
-  }
+  componentDidUpdate(prevProps) {}
 
   handleChange(evt) {
     this.props.setSite(parseInt(evt.target.value, 10));
@@ -17,18 +16,20 @@ class DropdownSite extends Component {
 
   render() {
     let options = this.props.state.options;
-    let optionItems = 
-        options.map((options) =>
-            <option key={options.id} value={options.id}>{options.name}</option>
-        );
+    let optionItems = options.map(options => (
+      <option key={options.id} value={options.id}>
+        {options.name}
+      </option>
+    ));
     return (
-          <select className="c-form-select__dropdown--inline o-layout__item u-width-1/4" 
-          style={{ height: 39 }}
-          onChange={this.handleChange}
-          >
-            <option value="">Select a location</option>
-            {optionItems}
-          </select>
+      <select
+        className="c-form-select__dropdown--inline o-layout__item u-width-1/4"
+        style={{ height: 39 }}
+        onChange={this.handleChange}
+      >
+        <option value="">Select a location</option>
+        {optionItems}
+      </select>
     );
   }
 }

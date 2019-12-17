@@ -20,28 +20,27 @@ class DeleteButton extends React.Component {
     super();
     this.confirmDelete = this.confirmDelete.bind(this);
   }
- 
 
   confirmDelete() {
     var answer = window.confirm("Are you sure you want to delete this course?");
     if (answer) {
       deleteCourse(this.props.courseToDelete);
-      
-    } 
+    }
   }
 
   render() {
-    let adminDeleteComponent
+    let adminDeleteComponent;
     if (this.props.adminStatus) {
-    adminDeleteComponent= (<button onClick={this.confirmDelete} className="accordion-button c-btn c-btn--primary u-margin-right">
-    Delete
-  </button>)
+      adminDeleteComponent = (
+        <button
+          onClick={this.confirmDelete}
+          className="accordion-button c-btn c-btn--primary u-margin-right"
+        >
+          Delete
+        </button>
+      );
     }
-    return (
-      <> 
-       {adminDeleteComponent}
-      </>
-    );
+    return <>{adminDeleteComponent}</>;
   }
 }
 

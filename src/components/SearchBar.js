@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "../styles/searchBar.scss";
-import DropdownSite from "./Dropdown"
-import { Link } from 'react-router-dom'
+import DropdownSite from "./Dropdown";
+import { Link } from "react-router-dom";
 
 class SearchBar extends Component {
   constructor(props) {
@@ -19,20 +19,22 @@ class SearchBar extends Component {
   componentWillMount() {
     this.getSites();
   }
-  
+
   handleChange(evt) {
     this.setState({ searchTerm: evt.target.value });
   }
 
   handleSubmit(event) {
-    event.preventDefault()
-    window.location.href = `/courses?searchTerm=${this.state.searchTerm}&site=${this.state.site}`
+    event.preventDefault();
+    window.location.href = `/courses?searchTerm=${this.state.searchTerm}&site=${this.state.site}`;
   }
 
   getSites() {
     axios
       .get("http://localhost:5000/sites")
-      .then((response) => this.setState({ options: response.data.sites.responseJson }))
+      .then(response =>
+        this.setState({ options: response.data.sites.responseJson })
+      )
       .catch(function(error) {
         console.error(error);
       });
@@ -45,7 +47,10 @@ class SearchBar extends Component {
           <fieldset>
             <ul className="c-form-list o-layout--spaced">
               <li className="c-form-list">
-                <DropdownSite state={this.state} setSite={(id) => this.setState({ site: id })}/>
+                <DropdownSite
+                  state={this.state}
+                  setSite={id => this.setState({ site: id })}
+                />
                 <div className="c-form-combo--inline o-layout__item u-width-3/4">
                   <div className="c-form-combo__cell">
                     <input
@@ -59,12 +64,14 @@ class SearchBar extends Component {
                     />
                   </div>
                   <div className="c-form-combo__cell">
-                    <Link to={{
-                    pathname: `/courses`,
-                    search: `?searchTerm=${this.state.searchTerm}&site=${this.state.site}`
-                    }} className="c-form-combo__btn c-btn c-btn--primary"
+                    <Link
+                      to={{
+                        pathname: `/courses`,
+                        search: `?searchTerm=${this.state.searchTerm}&site=${this.state.site}`
+                      }}
+                      className="c-form-combo__btn c-btn c-btn--primary"
                     >
-                    Search
+                      Search
                     </Link>
                   </div>
                 </div>

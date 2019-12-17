@@ -24,14 +24,14 @@ class Navbar extends React.Component {
                     </Link>
                   </li>
                   <li className="navbar-link-item">
-                    <Link className="navbar-link-color c-heading-delta" to="/courses">
+                    <Link
+                      className="navbar-link-color c-heading-delta"
+                      to="/courses"
+                    >
                       Courses
                     </Link>
                   </li>
-            
                 </ul>
-
-
               </div>
             </div>
           </div>

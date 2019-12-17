@@ -23,6 +23,8 @@
     "marked": "^0.7.0",
     "moment": "^2.24.0",
     "node-sass": "^4.13.0",
+    "precommit": "^1.2.2",
+    "prettier": "^1.19.1",
     "prop-types": "^15.7.2",
     "query-string": "^6.9.0",
     "react": "^16.11.0",
@@ -45,7 +47,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "jest",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prettier": "./node_modules/prettier/bin-prettier.js --config ./.prettierrc --check 'src/**/*.js'",
+    "prettier-auto-fix": "./node_modules/prettier/bin-prettier.js --config ./.prettierrc --write 'src/**/*.js'",
+    "no-commit-to-master": "if [ \"$PUBLISH\" != true ] && [ $(git symbolic-ref HEAD) = 'refs/heads/master' ]; then echo 'Direct commits/pushes to the branch master are not allowed'; exit 1; fi"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -89,5 +94,9 @@
     "plugins": [
       "@babel/plugin-proposal-class-properties"
     ]
-  }
+  },
+  "precommit": [
+    "prettier",
+    "no-commit-to-master"
+  ]
 }

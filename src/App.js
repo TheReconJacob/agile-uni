@@ -11,14 +11,14 @@ import axios from "axios";
 
 axios.interceptors.request.use(
   async config => {
-    const token = await authProvider.getIdToken()
+    const token = await authProvider.getIdToken();
     if (token) {
-      config.headers.Authorization = "Bearer " + token.idToken.rawIdToken
+      config.headers.Authorization = "Bearer " + token.idToken.rawIdToken;
     }
-    return config
+    return config;
   },
   error => {
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
 );
 
@@ -65,12 +65,15 @@ class App extends React.Component {
     };
     axios
       .post("http://localhost:5000/addEmployee", params)
-      .then(function (response) {
-        if (typeof window !== 'undefined') {
-          localStorage.setItem("employeeId", response.data.employees.responseJson.insertId);
+      .then(function(response) {
+        if (typeof window !== "undefined") {
+          localStorage.setItem(
+            "employeeId",
+            response.data.employees.responseJson.insertId
+          );
         }
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.error(error);
       });
   }
