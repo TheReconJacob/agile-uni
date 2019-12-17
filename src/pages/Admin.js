@@ -5,7 +5,6 @@ import axios from "axios";
 import CKEditor from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-
 function SaveButton() {
   return (
     <button type="submit" className="c-btn c-btn--primary" id="saveButton">
@@ -36,7 +35,7 @@ class Admin extends React.Component {
       instructor_name: "",
       site_id: "",
       location: "",
-      minEndDate: new Date().toISOString().split('T')[0]
+      minEndDate: new Date().toISOString().split("T")[0]
     };
 
     if (this.props.location.state !== undefined) {
@@ -56,17 +55,19 @@ class Admin extends React.Component {
 
     if (this.props.location.state !== undefined) {
       data.append("course_id", this.props.location.state.course_id);
-      axios.post("http://localhost:5000/editCourse", data)
+      axios
+        .post("http://localhost:5000/editCourse", data)
         .then(response => {
-            window.location.replace("/courses");
+          window.location.replace("/courses");
         })
         .catch(error => {
           console.error(error);
         });
     } else {
-      axios.post("http://localhost:5000/addCourse", data)
+      axios
+        .post("http://localhost:5000/addCourse", data)
         .then(response => {
-            window.location.replace("/courses");
+          window.location.replace("/courses");
         })
         .catch(error => {
           console.error(error);
@@ -94,7 +95,9 @@ class Admin extends React.Component {
           instructor_name: res.instructor_name,
           site_id: res.site_id,
           location: res.location,
-          minEndDate: new Date(res.start_date.slice(0, 10)).toISOString().split('T')[0]
+          minEndDate: new Date(res.start_date.slice(0, 10))
+            .toISOString()
+            .split("T")[0]
         });
       })
       .catch(function(error) {
@@ -185,10 +188,14 @@ class Admin extends React.Component {
                     className="c-form-date c-form-combo--inline o-layout__item u-width-3/4 "
                     name="start_date"
                     id="f-start-date"
-                    min={new Date().toISOString().split('T')[0]}
-                    onChange={(event) => {
-                      this.setState({start_date: event.target.value});
-                      this.setState({minEndDate: new Date(event.target.value).toISOString().split('T')[0]});
+                    min={new Date().toISOString().split("T")[0]}
+                    onChange={event => {
+                      this.setState({ start_date: event.target.value });
+                      this.setState({
+                        minEndDate: new Date(event.target.value)
+                          .toISOString()
+                          .split("T")[0]
+                      });
                     }}
                     defaultValue={this.state.start_date}
                     required

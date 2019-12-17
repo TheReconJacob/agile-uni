@@ -9,7 +9,7 @@ import BookButton from "../components/BookButton";
 import CourseDescription from "../components/CourseDescription";
 import DateDisplay from "../components/DateDisplay";
 import axios from "axios";
-import moment from 'moment'; 
+import moment from "moment";
 
 const queryString = require("query-string");
 let employeeId = localStorage.getItem("employeeId");
@@ -68,35 +68,38 @@ class Courses extends React.Component {
   updateAccordionSelection = selected => {
     const self = this;
     this.setState({ accordionSelected: selected });
-    try{
-    var numberSelected = selected[0].replace('1-header-','');
-    let courseSelected= self.state.results[numberSelected].course_id;
-    let max= self.state.results[numberSelected].attendees_max;
-    let number= self.state.results[numberSelected].attendees_booked;
-    if(max>number){
-    this.setState({ fullyBookedState: false });}
-    else {this.setState({ fullyBookedState: true });}
-    axios
-      .get("http://localhost:5000/returnIfBooked", { 
-        params: {
-          employee_id: employeeId, 
-          course_id: courseSelected
+    try {
+      var numberSelected = selected[0].replace("1-header-", "");
+      let courseSelected = self.state.results[numberSelected].course_id;
+      let max = self.state.results[numberSelected].attendees_max;
+      let number = self.state.results[numberSelected].attendees_booked;
+      if (max > number) {
+        this.setState({ fullyBookedState: false });
+      } else {
+        this.setState({ fullyBookedState: true });
+      }
+      axios
+        .get("http://localhost:5000/returnIfBooked", {
+          params: {
+            employee_id: employeeId,
+            course_id: courseSelected
           }
         })
-      .then(function(response) {
-        let responseShortened = response.data.course_attendees.responseJson[0];
-        for(var key in responseShortened){
-          if(responseShortened[key]===1){
-            self.setState({canBook: false})
+        .then(function(response) {
+          let responseShortened =
+            response.data.course_attendees.responseJson[0];
+          for (var key in responseShortened) {
+            if (responseShortened[key] === 1) {
+              self.setState({ canBook: false });
+            } else {
+              self.setState({ canBook: true });
+            }
           }
-          else{self.setState({canBook: true})}
-        }
-      })
-      .catch(function(error) {
-        console.error(error);
-      });
-    }
-  catch{}
+        })
+        .catch(function(error) {
+          console.error(error);
+        });
+    } catch {}
   };
   componentWillReceiveProps(nextProps) {
     this.props = nextProps;
@@ -114,8 +117,12 @@ class Courses extends React.Component {
     ) {
       this.getSearch("", "");
     } else {
-      this.setState({searchParam: queryString.parse(this.props.location.search).searchTerm})
-      this.setState({site: queryString.parse(this.props.location.search).site})
+      this.setState({
+        searchParam: queryString.parse(this.props.location.search).searchTerm
+      });
+      this.setState({
+        site: queryString.parse(this.props.location.search).site
+      });
       this.getSearch(this.state.searchParam, this.state.site);
     }
   }
@@ -141,7 +148,6 @@ class Courses extends React.Component {
 
     return (
       <>
-      
         <div className="c-hero hero-background">
           <div className="hero-title">
             <p className="hero-title-text">Find your next course...</p>
@@ -166,7 +172,10 @@ class Courses extends React.Component {
                 >
                   <div className="">
                     <div className="o-layout__item" style={{ display: "flex" }}>
-                      <DateDisplay start_date={res.start_date} end_date={res.end_date}/>
+                      <DateDisplay
+                        start_date={res.start_date}
+                        end_date={res.end_date}
+                      />
                       {/* <p className="c-text-body o-layout__item">
                         <b>Start: {new Intl.DateTimeFormat('en-GB', { 
                           year: 'numeric', 
@@ -190,7 +199,10 @@ class Courses extends React.Component {
                     <h2 className="c-heading-delta o-layout__item">
                       {res.title}
                     </h2>
-                    <CourseDescription CourseDescription={res.description} courseId={res.course_id}/>
+                    <CourseDescription
+                      CourseDescription={res.description}
+                      courseId={res.course_id}
+                    />
                     <div className="accordion-button-box">
                       <a
                         href="mailto:agileuniversity@sky.uk"
@@ -202,7 +214,14 @@ class Courses extends React.Component {
                         adminStatus={adminStatus}
                         course_id={res.course_id}
                       />
-                      <BookButton courseId={res.course_id} canBook={this.state.canBook} employeeId={employeeId} fullyBooked={this.state.fullyBookedState} startDate={res.start_date} currentDate={this.state.currentDate}/>
+                      <BookButton
+                        courseId={res.course_id}
+                        canBook={this.state.canBook}
+                        employeeId={employeeId}
+                        fullyBooked={this.state.fullyBookedState}
+                        startDate={res.start_date}
+                        currentDate={this.state.currentDate}
+                      />
                       <DeleteButton
                         courseToDelete={res.course_id}
                         adminStatus={adminStatus}
