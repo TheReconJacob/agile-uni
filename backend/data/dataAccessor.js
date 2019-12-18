@@ -42,7 +42,7 @@ dataAccessor.courses = {
 
     if (courseTitleFragment) {
       inputs.push(courseTitleFragment);
-      whereFilter += "courses.title LIKE ?";
+      whereFilter += "courses.title LIKE %?%";
     }
     if (siteId) {
       inputs.push(siteId);
@@ -125,3 +125,5 @@ dataAccessor.courses = {
     }
   }
 };
+
+module.exports = dataAccessor;
