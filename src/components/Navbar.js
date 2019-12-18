@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import agileUniLogo from "../images/agileUniLogo.png";
 import "../styles/navbar.scss";
 
-class Navbar extends React.Component {
-  render() {
+function Navbar() {
     return (
       <nav>
         <div className="c-simple-masthead">
@@ -38,7 +37,6 @@ class Navbar extends React.Component {
         </div>
       </nav>
     );
-  }
 }
 
 export default Navbar;
