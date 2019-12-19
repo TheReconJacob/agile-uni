@@ -11,7 +11,6 @@ CREATE TABLE `courses` (
   `start_date` DATETIME NOT NULL,
   `end_date` DATETIME DEFAULT NULL,
   `attendees_max` INT DEFAULT NULL,
-  `attendees_booked` INT DEFAULT NULL,
   `location` VARCHAR(45) NOT NULL,
   `site_id` INT UNSIGNED NOT NULL,
   `instructor_name` VARCHAR(45) DEFAULT NULL,
