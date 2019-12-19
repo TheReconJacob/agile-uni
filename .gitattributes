@@ -2,3 +2,4 @@
 dbPassword filter=git-crypt diff=git-crypt
 clientSecret filter=git-crypt diff=git-crypt
 backend/emailConfig.js filter=git-crypt diff=git-crypt
+backend/config.js filter=git-crypt diff=git-crypt
