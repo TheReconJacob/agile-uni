@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "../styles/searchBar.scss";
-import DropdownSite from "./Dropdown";
+import { Dropdown } from "@sky-uk/toolkit-react";
 import { Link } from "react-router-dom";
 
 class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      options: [],
+      sites: [],
       searchTerm: "",
-      site: ""
+      site: "",
+      popup: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,12 +33,23 @@ class SearchBar extends Component {
   getSites() {
     axios
       .get("http://localhost:5000/sites")
-      .then(response =>
-        this.setState({ options: response.data.sites.responseJson })
-      )
+      .then(response => {
+        let listItems = [];
+        let sitesRaw = response.data.sites.responseJson;
+
+        sitesRaw.forEach(site =>
+          listItems.push({ text: site.name, value: site.id })
+        );
+
+        this.setState({ sites: listItems });
+      })
       .catch(function(error) {
         console.error(error);
       });
+  }
+
+  handleLocationChange(item) {
+    console.log(item);
   }
 
   render() {
@@ -47,9 +59,12 @@ class SearchBar extends Component {
           <fieldset>
             <ul className="c-form-list o-layout--spaced">
               <li className="c-form-list">
-                <DropdownSite
-                  state={this.state}
-                  setSite={id => this.setState({ site: id })}
+                <Dropdown
+                  name="Location"
+                  onChange={this.handleLocationChange}
+                  items={this.state.sites}
+                  isOpen={this.state.popup}
+                  onClick={() => this.setState({ popup: !this.state.popup })}
                 />
                 <div className="c-form-combo--inline o-layout__item u-width-3/4">
                   <div className="c-form-combo__cell">
