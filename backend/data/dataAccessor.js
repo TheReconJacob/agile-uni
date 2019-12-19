@@ -1,19 +1,23 @@
-const mysql = require("mysql");
-const config = require("../config");
-const connection = mysql.createConnection(config.mysqlConfig);
-const dataAccessor = {};
+const mysql = require("mysql"),
+  config = require("../config"),
+  connection = mysql.createConnection(config),
+  dataAccessor = {};
 
 function sendQueryAndReturnResultsAsPromise(query, inputs) {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     connection.query(query, inputs, (error, data) => {
       if (error) {
-        resolve({ error, status: 500, data: false });
+        reject({ error, data: false, status: 500 });
       } else {
-        resolve({ error: false, status: 200, data });
+        resolve({ error: false, data, status: 200 });
       }
     });
   });
 }
+
+dataAccessor.close = () => {
+  connection.end();
+};
 
 dataAccessor.courses = {
   all: () => {
@@ -29,23 +33,23 @@ dataAccessor.courses = {
     return sendQueryAndReturnResultsAsPromise(query);
   },
 
-  find: ({ courseId, courseTitleFragment, siteId }) => {
-    if (courseId) {
+  find: ({ course_id, courseTitleFragment, site_id }) => {
+    if (course_id) {
       const query = "SELECT * FROM courses WHERE course_id = ?";
-      return sendQueryAndReturnResultsAsPromise(query, [courseId]);
+      return sendQueryAndReturnResultsAsPromise(query, [course_id]);
     }
 
     const inputs = [];
-    let whereFilter = " WHERE ";
-    let query =
-      "SELECT * FROM courses JOIN sites ON courses.site_id = sites.id";
+    let whereFilter = " WHERE ",
+      query = "SELECT * FROM courses JOIN sites ON courses.site_id = sites.id";
 
     if (courseTitleFragment) {
-      inputs.push(courseTitleFragment);
-      whereFilter += "courses.title LIKE %?%";
+      inputs.push(`%${courseTitleFragment}%`);
+      whereFilter += "courses.title LIKE ?";
     }
-    if (siteId) {
-      inputs.push(siteId);
+
+    if (site_id) {
+      inputs.push(site_id);
       if (courseTitleFragment) whereFilter += " AND ";
       whereFilter += "sites.id = ?";
     }
@@ -54,45 +58,23 @@ dataAccessor.courses = {
     return sendQueryAndReturnResultsAsPromise(query, inputs);
   },
 
-  add: ({
-    title,
-    description,
-    start_date,
-    end_date,
-    attendees_max,
-    attendees_booked = 0,
-    location,
-    site_id,
-    instructorName
-  }) => {
-    const inputs = [
-      title,
-      description,
-      start_date,
-      end_date,
-      attendees_max,
-      attendees_booked,
-      location,
-      site_id,
-      instructorName
-    ];
-    const query =
-      "INSERT INTO courses(title, description, start_date, end_date, attendees_max, attendees_booked, location, site_id, instructor_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+  add: newCourseObject => {
+    const inputs = [],
+      columns = [],
+      questionMarks = [];
 
+    Object.entries(newCourseObject).forEach(([columnName, value]) => {
+      columns.push(columnName);
+      inputs.push(value);
+      questionMarks.push("?");
+    });
+    const query = `INSERT INTO courses(${columns.join(
+      ", "
+    )}) VALUES (${questionMarks.join(", ")})`;
     return sendQueryAndReturnResultsAsPromise(query, inputs);
   },
 
   update: newValuesObject => {
-    if (!newValuesObject.course_id) {
-      return new Promise(resolve => {
-        resolve({
-          error: "No value for key course_id was found",
-          status: 404,
-          data: false
-        });
-      });
-    }
-
     const { course_id } = newValuesObject;
     delete newValuesObject.course_id;
     let query = "UPDATE courses SET ";
@@ -105,24 +87,16 @@ dataAccessor.courses = {
     });
 
     inputs.push(course_id);
-    query += filter.join(", ") + "WHERE course_id = ?";
+    query += filter.join(", ") + " WHERE course_id = ?";
     return sendQueryAndReturnResultsAsPromise(query, inputs);
   },
 
-  delete: course_id => {
-    const query = "DELETE FROM courses WHERE course_id = ?";
+  delete: ({ course_id }) => {
+    let query = "DELETE FROM courses";
+    if (course_id === "all") return sendQueryAndReturnResultsAsPromise(query);
 
-    if (!course_id) {
-      return new Promise(resolve => {
-        resolve({
-          error: "No value for key course_id was found",
-          status: 404,
-          data: false
-        });
-      });
-    } else {
-      return sendQueryAndReturnResultsAsPromise(query, [course_id]);
-    }
+    query += " WHERE course_id = ?";
+    return sendQueryAndReturnResultsAsPromise(query, [course_id]);
   }
 };
 
