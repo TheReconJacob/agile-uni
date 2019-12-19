@@ -6,18 +6,15 @@ function dateTimeFormatter(dateString) {
     month: "numeric",
     day: "numeric",
     hour: "numeric",
-    minute: "numeric",
-    second: "numeric"
+    minute: "numeric"
   }).format(Date.parse(dateString));
   return formattedDateTime;
 }
 
 function DateDisplay(props) {
-  let formattedStart = "";
-  let formattedEnd = "";
+  let formattedDate = "";
   try {
-    formattedStart = dateTimeFormatter(props.start_date);
-    formattedEnd = dateTimeFormatter(props.end_date);
+    formattedDate = dateTimeFormatter(props.date);
   } catch (e) {
     console.log("Error", e.stack);
   }
@@ -25,10 +22,7 @@ function DateDisplay(props) {
   return (
     <>
       <p className="c-text-body o-layout__item">
-        <b>Start: {formattedStart}</b>
-      </p>
-      <p className="c-text-body o-layout__item">
-        <b>End: {formattedEnd}</b>
+        <b>{props.title + ": " + formattedDate}</b>
       </p>
     </>
   );
