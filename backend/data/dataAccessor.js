@@ -106,4 +106,50 @@ dataAccessor.courses = {
   }
 };
 
+dataAccessor.sites = {
+  all: () => {
+    const query = "SELECT * FROM sites";
+
+    return sendQueryAndReturnResultsAsPromise(query);
+  },
+
+  findById: site_id => {
+    const query = "SELECT * FROM sites WHERE id = ?";
+
+    return sendQueryAndReturnResultsAsPromise(query, [site_id], true);
+  },
+
+  add: ({ id, name, address }) => {
+    // prettier-ignore
+    const query = `INSERT INTO sites (name, address${ id ? ", id" : "" }) VALUES (?, ?${ id ? ", ?" : "" })`;
+    const inputs = [name, address];
+
+    if (id) inputs.push(id);
+    return sendQueryAndReturnResultsAsPromise(query, inputs);
+  }
+};
+
+dataAccessor.attendees = {
+  allForCourse: course_id => {
+    const query =
+      "SELECT * FROM course_attendees JOIN courses ON course_attendees.course_id = courses.id WHERE courses.id = ?";
+
+    return sendQueryAndReturnResultsAsPromise(query, course_id);
+  },
+
+  add: ({ course_id, azure_oid }) => {
+    const query =
+      "INSERT INTO course_attendees (course_id, azure_oid, attended) VALUES (?, ?, ?)";
+    const inputs = [course_id, azure_oid, false];
+
+    return sendQueryAndReturnResultsAsPromise(query, inputs);
+  },
+
+  delete: attendee_id => {
+    const query = "DELETE FROM course_attendees WHERE id = ?";
+
+    return sendQueryAndReturnResultsAsPromise(query, [attendee_id]);
+  }
+};
+
 module.exports = dataAccessor;
