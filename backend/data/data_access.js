@@ -1,10 +1,21 @@
-const mysql = require("mysql");
-const config = require("../config");
+const mysql = require("mysql"),
+  config = require("../config");
+
 const connection = mysql.createConnection(config.mysqlConfig);
+
 const Data = {};
 
+Data.getAllCourses = callback => {
+  connection.query("SELECT * FROM courses", function(err, rows, fields) {
+    if (err) {
+      return callback(err);
+    }
+    callback(null, { status: 200, responseJson: rows });
+  });
+};
+
 Data.getAllEmployees = callback => {
-  connection.query("SELECT * FROM employees", (err, rows, fields) => {
+  connection.query("SELECT * FROM employees", function(err, rows, fields) {
     if (err) {
       return callback(err);
     }
@@ -13,7 +24,7 @@ Data.getAllEmployees = callback => {
 };
 
 Data.getAllSites = callback => {
-  connection.query("SELECT * FROM sites", (err, rows, fields) => {
+  connection.query("SELECT * FROM sites", function(err, rows, fields) {
     if (err) {
       return callback(err);
     }
@@ -21,11 +32,90 @@ Data.getAllSites = callback => {
   });
 };
 
+Data.searchCoursesNoSite = (searchTerm, callback) => {
+  connection.query(
+    `SELECT * FROM courses INNER JOIN sites on courses.site_id = sites.id WHERE courses.title LIKE ?`,
+    "%".concat(searchTerm, "%"),
+    function(err, rows, fields) {
+      if (err) {
+        return callback(err);
+      }
+      callback(null, { status: 200, responseJson: rows });
+    }
+  );
+};
+
+Data.searchCoursesWithSite = (searchTerm, siteId, callback) => {
+  connection.query(
+    `SELECT * FROM courses INNER JOIN sites on courses.site_id = sites.id WHERE courses.title LIKE ? AND sites.id = ?`,
+    ["%".concat(searchTerm, "%"), siteId],
+    function(err, rows, fields) {
+      if (err) {
+        return callback(err);
+      }
+      callback(null, { status: 200, responseJson: rows });
+    }
+  );
+};
+
+Data.listAllCourses = callback => {
+  connection.query(
+    "SELECT * FROM courses INNER JOIN sites ON courses.site_id = sites.id",
+    function(err, rows) {
+      if (err) {
+        return callback(err);
+      }
+      callback(null, { status: 200, responseJson: rows });
+    }
+  );
+};
+
+Data.editCourse = (inputs, callback) => {
+  connection.query(
+    "UPDATE courses SET title = IFNULL(?, title), description = IFNULL(?, description), start_date = IFNULL(?, start_date), end_date = IFNULL(?, end_date), attendees_max = IFNULL(?, attendees_max), location = IFNULL(?, location), site_id = IFNULL(?, site_id), instructor_name = IFNULL(?, instructor_name) WHERE course_id = ?",
+    inputs,
+    function(err, rows) {
+      if (err) {
+        return callback(err);
+      }
+      callback(null, { status: 200 });
+    }
+  );
+};
+
+Data.addCourse = (inputs, callback) => {
+  // Site id used instead of name
+  // Instructor id change to instructor name
+  connection.query(
+    "INSERT INTO courses (title, description, start_date, end_date, attendees_max, location, site_id, instructor_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+    inputs,
+    function(err, rows, fields) {
+      if (err) {
+        return callback(err);
+      }
+      callback(null, { status: 200, responseJson: rows });
+    }
+  );
+};
+
+Data.deleteCourse = (courseId, callback) => {
+  connection.query(
+    "DELETE FROM course_attendees WHERE course_id = ?; DELETE FROM courses WHERE courses.course_id = ?",
+    [courseId, courseId],
+    function(err, rows) {
+      if (err) {
+        return callback(err);
+      }
+      callback(null, { status: 200, responseJson: rows });
+    }
+  );
+};
+
 Data.addEmployee = (inputs, callback) => {
   connection.query(
     "INSERT INTO employees (name, object_id, email) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id), name=VALUES(name), email=VALUES(email); ",
     inputs,
-    (err, rows, fields) => {
+    function(err, rows, fields) {
       if (err) {
         return callback(err);
       }
@@ -40,7 +130,7 @@ Data.addAttendee = (employeeid, courseid, callback) => {
   connection.query(
     "INSERT INTO course_attendees (employee_id, course_id, attended) VALUES (?, ?, 0)",
     [employeeid, courseid],
-    (err, rows, fields) => {
+    function(err, rows, fields) {
       if (err) {
         return callback(err);
       }
@@ -50,7 +140,7 @@ Data.addAttendee = (employeeid, courseid, callback) => {
   connection.query(
     "UPDATE courses SET attendees_booked = Coalesce(attendees_booked, 0) + 1 WHERE course_id = ?",
     [courseid],
-    (err, rows, fields) => {
+    function(err, rows, fields) {
       if (err) {
         return callback(err);
       }
@@ -61,7 +151,7 @@ Data.addAttendee = (employeeid, courseid, callback) => {
   connection.query(
     "SELECT email, name FROM employees WHERE id = ?",
     [employeeid],
-    (err, rows, fields) => {
+    function(err, rows, fields) {
       if (err) {
         return callback(err);
       }
@@ -71,7 +161,7 @@ Data.addAttendee = (employeeid, courseid, callback) => {
   connection.query(
     "SELECT title, start_date, end_date, location FROM courses WHERE course_id= ?",
     [courseid],
-    (err, rows, fields) => {
+    function(err, rows, fields) {
       if (err) {
         return callback(err);
       }
@@ -103,7 +193,7 @@ Data.deleteAttendee = (employeeid, courseid, callback) => {
   connection.query(
     "UPDATE courses SET attendees_booked = attendees_booked - 1 WHERE course_id = ?",
     [courseid],
-    (err, rows, fields) => {
+    function(err, rows, fields) {
       if (err) {
         return callback(err);
       }
@@ -113,7 +203,7 @@ Data.deleteAttendee = (employeeid, courseid, callback) => {
   connection.query(
     "SELECT email, name FROM employees WHERE id = ?",
     [employeeid],
-    (err, rows, fields) => {
+    function(err, rows, fields) {
       if (err) {
         return callback(err);
       }
@@ -123,7 +213,7 @@ Data.deleteAttendee = (employeeid, courseid, callback) => {
   connection.query(
     "SELECT title, start_date, end_date, location FROM courses WHERE course_id= ?",
     [courseid],
-    (err, rows, fields) => {
+    function(err, rows, fields) {
       if (err) {
         return callback(err);
       }
