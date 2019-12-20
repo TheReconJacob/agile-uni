@@ -1,7 +1,8 @@
 const mysql = require("mysql"),
   config = require("../config"),
   connection = mysql.createConnection(config),
-  dataAccessor = {};
+  dataAccessor = {},
+  withCommas = ", ";
 
 function sendQueryAndReturnResultsAsPromise(
   query,
@@ -13,7 +14,7 @@ function sendQueryAndReturnResultsAsPromise(
       if (error) {
         reject({ error, data: false, status: 500 });
       } else {
-        if (shouldReturnSingleValue) data = data[0];
+        if (shouldReturnSingleValue && data.length > 0) data = data[0];
         resolve({ error: false, data, status: 200 });
       }
     });
@@ -33,20 +34,21 @@ dataAccessor.courses = {
 
   allWithSites: () => {
     const query =
-      "SELECT * FROM courses JOIN sites ON courses.site_id = sites.id";
+      "SELECT courses.*, sites.name, sites.address FROM courses JOIN sites ON courses.site_id = sites.id";
 
     return sendQueryAndReturnResultsAsPromise(query);
   },
 
   find: ({ course_id, courseTitleFragment, site_id }) => {
     if (course_id) {
-      const query = "SELECT * FROM courses WHERE course_id = ?";
+      const query = "SELECT * FROM courses WHERE id = ?";
       return sendQueryAndReturnResultsAsPromise(query, [course_id], true);
     }
 
     const inputs = [];
     let whereFilter = " WHERE ",
-      query = "SELECT * FROM courses JOIN sites ON courses.site_id = sites.id";
+      query =
+        "SELECT courses.*, sites.name, sites.address FROM courses JOIN sites ON courses.site_id = sites.id";
 
     if (courseTitleFragment) {
       inputs.push(`%${courseTitleFragment}%`);
@@ -65,17 +67,16 @@ dataAccessor.courses = {
 
   add: newCourseObject => {
     const inputs = [],
-      columns = [],
+      columnNames = [],
       questionMarks = [];
 
     Object.entries(newCourseObject).forEach(([columnName, value]) => {
-      columns.push(columnName);
+      columnNames.push(columnName);
       inputs.push(value);
       questionMarks.push("?");
     });
-    const query = `INSERT INTO courses(${columns.join(
-      ", "
-    )}) VALUES (${questionMarks.join(", ")})`;
+    // prettier-ignore
+    const query = `INSERT INTO courses(${columnNames.join(withCommas)}) VALUES (${questionMarks.join(withCommas)})`;
     return sendQueryAndReturnResultsAsPromise(query, inputs);
   },
 
@@ -91,15 +92,16 @@ dataAccessor.courses = {
     });
 
     inputs.push(course_id);
-    const query = `UPDATE courses SET ${filter.join(", ")} WHERE course_id = ?`;
+    // prettier-ignore
+    const query = `UPDATE courses SET ${filter.join(withCommas)} WHERE id = ?`;
     return sendQueryAndReturnResultsAsPromise(query, inputs);
   },
 
-  delete: course_id  => {
+  delete: course_id => {
     let query = "DELETE FROM courses";
     if (course_id === "all") return sendQueryAndReturnResultsAsPromise(query);
 
-    query += " WHERE course_id = ?";
+    query += " WHERE id = ?";
     return sendQueryAndReturnResultsAsPromise(query, [course_id]);
   }
 };

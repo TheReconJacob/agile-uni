@@ -68,7 +68,8 @@ describe("When using the dataAccessor to access the courses table", () => {
       title: "NEW COURSE",
       description: "NEW COURSE DESCRIPTION",
       start_date: new Date(),
-      location: "TESTING AREA"
+      location: "TESTING AREA",
+      site_id: 3
     };
 
     it("Should be able to add a course using any of the column names", async () => {

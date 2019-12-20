@@ -33,7 +33,7 @@ module.exports = {
   findById: course_id => {
     return new Promise(resolve => {
       connection.query(
-        `SELECT * FROM courses WHERE course_id = ${course_id}`,
+        `SELECT * FROM courses WHERE id = ${course_id}`,
         (error, [rowData]) => {
           if (error) console.log(error);
           resolve(rowData);
