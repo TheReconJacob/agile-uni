@@ -7,13 +7,15 @@
 @import "~sky-toolkit-ui/components/typography"; // if using the `message` prop
 @import "@sky-uk/toolkit-react/lib/ControlMessage"; // if using the `message` prop
 @import "~sky-toolkit-ui/components/dropdown";
-@import '~sky-toolkit-ui/components/hero';
-@import '~sky-toolkit-ui/components/shine';
-@import '~sky-toolkit-ui/components/typography';
-@import '~sky-toolkit-ui/components/accordion';
-@import '@sky-uk/toolkit-react/lib/Accordion';
+@import "~sky-toolkit-ui/components/hero";
+@import "~sky-toolkit-ui/components/shine";
+@import "~sky-toolkit-ui/components/typography";
+@import "~sky-toolkit-ui/components/accordion";
+@import "~sky-toolkit-ui/components/forms";
+@import "~sky-toolkit-ui/components/typography";
+@import "@sky-uk/toolkit-react/lib/Accordion";
 
-.wrapper{
-    min-height: calc(93vh - 72px);
-    padding-bottom: 20px;
+.wrapper {
+  min-height: calc(93vh - 72px);
+  padding-bottom: 20px;
 }

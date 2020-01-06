@@ -2,24 +2,8 @@ import React from "react";
 import SearchBar from "../components/SearchBar";
 import "../styles/admin.scss";
 import axios from "axios";
-import CKEditor from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-
-function SaveButton() {
-  return (
-    <button type="submit" className="c-btn c-btn--primary" id="saveButton">
-      Save
-    </button>
-  );
-}
-
-function AddButton() {
-  return (
-    <button type="submit" className="c-btn c-btn--primary" id="addButton">
-      Add Course
-    </button>
-  );
-}
+import Button from "../components/reusable/Button";
+import InputComponent from "../components/reusable/Input";
 
 class Admin extends React.Component {
   constructor(props) {
@@ -44,7 +28,6 @@ class Admin extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getCourse = this.getCourse.bind(this);
-    this.displayButtons = this.displayButtons.bind(this);
   }
 
   handleSubmit(event) {
@@ -105,14 +88,6 @@ class Admin extends React.Component {
       });
   }
 
-  displayButtons() {
-    if (this.props.location.state !== undefined) {
-      return <SaveButton />;
-    } else {
-      return <AddButton />;
-    }
-  }
-
   render() {
     return (
       <>
@@ -123,239 +98,155 @@ class Admin extends React.Component {
           </div>
         </div>
 
-        <div className="o-container u-padding-bottom-large u-padding-top-large form-container ">
+        <div className="o-container u-padding-bottom-large u-padding-top-large form-container container">
           <form onSubmit={this.handleSubmit}>
-            <fieldset>
-              <legend className="c-form-caption">Add courses</legend>
-              <ul className="c-form-list">
-                <li className="c-form-list__item u-width-1/2">
-                  <label className="c-form-label ">
-                    Title
-                    <abbr
-                      title="This field is required"
-                      className="c-form-required"
-                    >
-                      *
-                    </abbr>
-                  </label>
-                </li>
-                <li className="c-form-list__item u-width-1/2">
-                  <input
-                    type="text"
-                    className="c-form-input"
-                    name="title"
-                    id="f-title"
-                    maxlength="45"
-                    required
-                    defaultValue={this.state.title}
-                  />
-                </li>
-                <li className="c-form-list__item u-width-1/2">
-                  <label className="c-form-label ">
-                    Instructor Name
-                    <abbr
-                      title="This field is required"
-                      className="c-form-required"
-                    >
-                      *
-                    </abbr>
-                  </label>
-                </li>
-                <li className="c-form-list__item u-width-1/2">
-                  <input
-                    type="text"
-                    className="c-form-input"
-                    name="instructor_name"
-                    id="f-instructor"
-                    defaultValue={this.state.instructor_name}
-                    required
-                  />
-                </li>
-                <li className="c-form-list__item u-width-1/2">
-                  <label className="c-form-label">
-                    Start date
-                    <abbr
-                      title="This field is required"
-                      className="c-form-required"
-                    >
-                      *
-                    </abbr>
-                  </label>
-                </li>
-                <li className="c-form-list__item u-width-1/2">
-                  <input
-                    type="date"
-                    className="c-form-date c-form-combo--inline o-layout__item u-width-3/4 "
-                    name="start_date"
-                    id="f-start-date"
-                    min={new Date().toISOString().split("T")[0]}
-                    onChange={event => {
-                      this.setState({ start_date: event.target.value });
-                      this.setState({
-                        minEndDate: new Date(event.target.value)
-                          .toISOString()
-                          .split("T")[0]
-                      });
-                    }}
-                    defaultValue={this.state.start_date}
-                    required
-                  />
-                  <input
-                    type="time"
-                    className="c-form-date c-form-combo--inline o-layout__item u-width-1/4"
-                    name="start_time"
-                    id="f-start-time"
-                    defaultValue={this.state.start_time}
-                    required
-                  />
-                </li>
-                <li className="c-form-list__item u-width-1/2">
-                  <label className="c-form-label">
-                    End date
-                    <abbr
-                      title="This field is required"
-                      className="c-form-required"
-                    >
-                      *
-                    </abbr>
-                  </label>
-                </li>
-                <li className="c-form-list__item u-width-1/2">
-                  <input
-                    type="date"
-                    className="c-form-date c-form-combo--inline o-layout__item u-width-3/4"
-                    name="end_date"
-                    id="f-end-date"
-                    min={this.state.minEndDate}
-                    defaultValue={this.state.end_date}
-                    required
-                  />
-                  <input
-                    type="time"
-                    className="c-form-date c-form-combo--inline o-layout__item u-width-1/4"
-                    name="end_time"
-                    id="f-end-time"
-                    defaultValue={this.state.end_time}
-                    required
-                  />
-                </li>
-                <li className="c-form-list__item u-width-1/2">
-                  <label className="c-form-label">
-                    Site
-                    <abbr
-                      title="This field is required"
-                      className="c-form-required"
-                    >
-                      *
-                    </abbr>
-                  </label>
-                </li>
-                <li className="c-form-list__item u-width-1/2">
-                  <div className="c-form-select">
-                    <select
-                      id="f-site"
-                      name="site_id"
-                      className="c-form-select__dropdown"
-                      defaultValue={this.state.site_id}
-                      required
-                    >
-                      <option value="DEFAULT" disabled></option>
-                      <option value="1">Osterley</option>
-                      <option value="2">Leeds</option>
-                      <option value="3">Livingston</option>
-                    </select>
-                  </div>
-                </li>
-                <li className="c-form-list__item u-width-1/2">
-                  <label className="c-form-label ">
-                    Location
-                    <abbr
-                      title="This field is required"
-                      className="c-form-required"
-                    >
-                      *
-                    </abbr>
-                  </label>
-                  <input
-                    type="text"
-                    className="c-form-input"
-                    name="location"
-                    id="f-location"
-                    defaultValue={this.state.location}
-                    required
-                  />
-                </li>
-                <li className="c-form-list__item u-width-1/2">
-                  <label className="c-form-label">
-                    Maximum number of participants
-                    <abbr
-                      title="This field is required"
-                      className="c-form-required"
-                    >
-                      *
-                    </abbr>
-                  </label>
-                </li>
-                <li className="c-form-list__item u-width-1/2">
-                  <input
-                    type="number"
-                    min="0"
-                    className="c-form-date"
-                    name="attendees_max"
-                    id="attendees-max"
-                    defaultValue={this.state.attendees_max}
-                    required
-                  />
-                </li>
-                <li className="c-form-list__item u-width-1/2">
-                  <label className="c-form-label">
-                    Description
-                    <abbr
-                      title="This field is required"
-                      className="c-form-required"
-                      name="description"
-                      id="description"
-                    >
-                      *
-                    </abbr>
-                  </label>
-                </li>
-                <li className="c-form-list__item u-width-1/2" id="editor">
-                  <CKEditor
-                    editor={ClassicEditor}
-                    data={this.state.description}
-                    config={{
-                      heading: {
-                        options: [
-                          {
-                            model: "paragraph",
-                            view: { name: "h1", classes: "c-text-body" },
-                            title: "Paragraph",
-                            class: "ck-heading_paragraph"
-                          },
-                          {
-                            model: "heading1",
-                            view: { name: "h1", classes: "c-heading-charlie" },
-                            title: "Heading 1",
-                            class: "ck-heading_heading1"
-                          },
-                          {
-                            model: "heading2",
-                            view: { name: "h2", classes: "c-heading-delta" },
-                            title: "Heading 2",
-                            class: "ck-heading_heading2"
-                          }
-                        ]
-                      }
-                    }}
-                    onChange={(event, editor) => {
-                      this.setState({ description: editor.getData() });
-                    }}
-                  />
-                </li>
-                {this.displayButtons()}
-              </ul>
-            </fieldset>
+            <legend className="c-form-caption">Add courses</legend>
+
+            <InputComponent
+              multipleInputs={[
+                [
+                  "empty", // className
+                  "text", // type
+                  "title", // name
+                  "Title", //labelText
+                  45, //maxLength
+                  true, //required
+                  this.state.title, // defaultValue
+                  "empty", // min
+                  "empty" //onChange
+                ],
+                [
+                  "empty",
+                  "text",
+                  "instructor_name",
+                  "Instructor Name",
+                  "empty",
+                  true,
+                  this.state.instructor_name,
+                  "empty",
+                  "empty"
+                ],
+                [
+                  "dateInput",
+                  "date",
+                  "start_date",
+                  "Start Date",
+                  "empty",
+                  true,
+                  this.state.start_date,
+                  new Date().toISOString().split("T")[0],
+                  event => {
+                    this.setState({ start_date: event.target.value });
+                    this.setState({
+                      minEndDate: new Date(event.target.value)
+                        .toISOString()
+                        .split("T")[0]
+                    });
+                  }
+                ],
+                [
+                  "timeInput",
+                  "time",
+                  "start_time",
+                  "empty",
+                  "empty",
+                  true,
+                  this.state.start_time,
+                  "empty",
+                  "empty"
+                ],
+                [
+                  "dateInput",
+                  "date",
+                  "end_date",
+                  "End Date",
+                  "empty",
+                  true,
+                  this.state.end_date,
+                  this.state.minEndDate,
+                  "empty"
+                ],
+                [
+                  "timeInput",
+                  "time",
+                  "end_time",
+                  "empty",
+                  "empty",
+                  true,
+                  this.state.end_time,
+                  "empty",
+                  "empty"
+                ],
+                [
+                  "empty",
+                  "select",
+                  "site_id",
+                  "Site",
+                  "empty",
+                  true,
+                  this.state.site_id,
+                  "empty",
+                  "empty",
+                  [
+                    {
+                      value: "DEFAULT",
+                      label: ""
+                    },
+                    {
+                      value: "1",
+                      label: "Osterley"
+                    },
+                    {
+                      value: "2",
+                      label: "Leeds"
+                    },
+                    {
+                      value: "3",
+                      label: "Livingston"
+                    }
+                  ]
+                ],
+                [
+                  "empty",
+                  "text",
+                  "location",
+                  "Location",
+                  "empty",
+                  true,
+                  this.state.location,
+                  "empty",
+                  "empty"
+                ],
+                [
+                  "empty",
+                  "number",
+                  "attendees_max",
+                  "Maximum number of participants",
+                  "empty",
+                  true,
+                  this.state.attendees_max,
+                  0,
+                  "empty"
+                ],
+                [
+                  "empty",
+                  "richText", // type
+                  "empty",
+                  "empty",
+                  "empty",
+                  "empty",
+                  "empty",
+                  "empty",
+                  (event, editor) => {
+                    this.setState({ description: editor.getData() }); //onChange
+                  },
+                  this.state.description // data,
+                ]
+              ]}
+            />
+            <Button
+              text={this.props.location.state !== undefined ? "Save" : "Add"}
+            />
           </form>
         </div>
       </>
