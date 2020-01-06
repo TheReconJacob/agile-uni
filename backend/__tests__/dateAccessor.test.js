@@ -1,7 +1,8 @@
+const config = require("../config");
+config.database = "AGILEUNITEST";
 const dataAccessor = require("../data/dataAccessor"),
   testerHelpers = require("./testerHelpers"),
   firstRow = 0,
-  secondRow = 1,
   thirdRow = 2;
 let firstRowCourseId;
 let addedCourseRowId;
