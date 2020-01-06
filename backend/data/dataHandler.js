@@ -1,7 +1,7 @@
 // ----- getCoursesHandler.js
 // This is the request handler.
 // We pass Users as a parameter, but do not require it.
-const dataAccessor = require('./oldDataAccess');
+const dataAccessor = require("./data_access.js");
 
 module.exports.getCourses = (req, callback) => {
   // Here, we call the data access layer.
