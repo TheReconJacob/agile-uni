@@ -1,10 +1,11 @@
 import React from "react";
 import FormBuilder from "../components/FormBuilder";
+const JSONdata = require("../forms/AdminForm.json");
 
 function Sandbox() {
   return (
     <>
-      <FormBuilder action="http://localhost:5000/test" method="post" />
+      <FormBuilder json={JSONdata} action="http://localhost:5000/test" method="post" />
     </>
   );
 }

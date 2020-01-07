@@ -1,7 +1,6 @@
 import React from "react";
 import { Input } from "@sky-uk/toolkit-react";
 import ButtonComponent from "./reusable/Button.js";
-const JSONdata = require("./AdminForm.json");
 
 function formReader(dataToRead, parentKey = "") {
   let finalHTML = [];
@@ -69,7 +68,7 @@ function formReader(dataToRead, parentKey = "") {
       case "container":
         finalHTML.push(
           <div key={FormItemKey} style={styleOverride}>
-            {formReader(FormItem.contents, `${FormItemKey}-`)}
+            {formReader(FormItem.contents, `${parentKey}${FormItemKey}-`)}
           </div>
         );
         break;
@@ -84,11 +83,9 @@ function formReader(dataToRead, parentKey = "") {
 }
 
 function FormBuilder(props) {
-  console.log(JSONdata);
-
   return (
     <>
-      <form {...props}>{formReader(JSONdata)}</form>
+      <form {...props}>{formReader(props.json)}</form>
     </>
   );
 }
