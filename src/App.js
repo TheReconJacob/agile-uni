@@ -3,6 +3,7 @@ import "./App.scss";
 import { authProvider } from "./authProvider";
 import Courses from "./pages/Courses";
 import Home from "./pages/Home";
+import Sandbox from "./pages/Sandbox";
 import Navbar from "./components/Navbar.js";
 import Footer from "./components/Footer.js";
 import { Route, BrowserRouter as Router } from "react-router-dom";
@@ -93,7 +94,7 @@ class App extends React.Component {
         <Router>
           <Navbar />
           <div className="wrapper">
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={Sandbox} />
             <Route
               path="/courses"
               render={props => (
