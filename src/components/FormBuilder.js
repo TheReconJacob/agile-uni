@@ -3,16 +3,16 @@ import { Input } from "@sky-uk/toolkit-react";
 import ButtonComponent from "./reusable/Button.js";
 const JSONdata = require("./AdminForm.json");
 
-function formReader(dataToRead, child = false, parentKey = "") {
+function formReader(dataToRead, parentKey = "") {
   let finalHTML = [];
 
   for (let FormItemKey in dataToRead) {
     let FormItem = dataToRead[FormItemKey];
 
-    let styleOverride = child
+    let styleOverride = parentKey
       ? { display: "inline-block", width: FormItem.width }
       : {};
-
+    
     if (FormItem.center) {
       styleOverride.textAlign = "center";
     }
@@ -25,12 +25,10 @@ function formReader(dataToRead, child = false, parentKey = "") {
       case "number":
       case "time":
       case "date":
-        console.log(`create ${FormItem.type}`);
-        console.log(FormItemKey);
         finalHTML.push(
           <div key={FormItemKey} style={styleOverride}>
             <Input
-              id={`${FormItemKey}-${parentKey}`}
+              id={`${parentKey}${FormItemKey}`}
               type={FormItem.type}
               cssClassName={FormItem.css}
               labelText={FormItem.label}
@@ -42,11 +40,11 @@ function formReader(dataToRead, child = false, parentKey = "") {
             />
           </div>
         );
-        console.log("Done");
+        // console.log("Done");
         break;
 
       case "button":
-        console.log("Create button");
+        // console.log("Create button");
 
         if (FormItem.submit && FormItem.reset) {
           console.error("Buttons cannot reset and submit");
@@ -71,7 +69,7 @@ function formReader(dataToRead, child = false, parentKey = "") {
       case "container":
         finalHTML.push(
           <div key={FormItemKey} style={styleOverride}>
-            {formReader(FormItem.contents, true, FormItemKey)}
+            {formReader(FormItem.contents, `${FormItemKey}-`)}
           </div>
         );
         break;
