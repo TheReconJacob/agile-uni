@@ -4,7 +4,7 @@ import FormBuilder from "../components/FormBuilder";
 function Sandbox() {
   return (
     <>
-      <FormBuilder />
+      <FormBuilder action="http://localhost:5000/test" method="post" />
     </>
   );
 }

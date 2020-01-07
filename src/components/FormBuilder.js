@@ -3,21 +3,19 @@ import { Input } from "@sky-uk/toolkit-react";
 import ButtonComponent from "./reusable/Button.js";
 const JSONdata = require("./AdminForm.json");
 
-function formReader(dataToRead, child = false) {
+function formReader(dataToRead, child = false, parentKey = "") {
   let finalHTML = [];
 
   for (let FormItemKey in dataToRead) {
     let FormItem = dataToRead[FormItemKey];
 
-    if (child) {
-      if (!FormItem.width) {
-        console.error(`Missing width for ${FormItemKey}`);
-      }
-    }
-
     let styleOverride = child
       ? { display: "inline-block", width: FormItem.width }
-      : null;
+      : {};
+
+    if (FormItem.center) {
+      styleOverride.textAlign = "center";
+    }
 
     switch (FormItem.type) {
       case "text":
@@ -32,6 +30,7 @@ function formReader(dataToRead, child = false) {
         finalHTML.push(
           <div key={FormItemKey} style={styleOverride}>
             <Input
+              id={`${FormItemKey}-${parentKey}`}
               type={FormItem.type}
               cssClassName={FormItem.css}
               labelText={FormItem.label}
@@ -48,9 +47,23 @@ function formReader(dataToRead, child = false) {
 
       case "button":
         console.log("Create button");
+
+        if (FormItem.submit && FormItem.reset) {
+          console.error("Buttons cannot reset and submit");
+        }
+
         finalHTML.push(
           <div key={FormItemKey} style={styleOverride}>
-            <ButtonComponent type={FormItem.submit?"submit":"button"} text={FormItem.text} />
+            <ButtonComponent
+              type={
+                FormItem.submit || FormItem.reset
+                  ? FormItem.submit
+                    ? "submit"
+                    : "reset"
+                  : "button"
+              }
+              text={FormItem.text}
+            />
           </div>
         );
         break;
@@ -58,7 +71,7 @@ function formReader(dataToRead, child = false) {
       case "container":
         finalHTML.push(
           <div key={FormItemKey} style={styleOverride}>
-            {formReader(FormItem.contents, true)}
+            {formReader(FormItem.contents, true, FormItemKey)}
           </div>
         );
         break;
@@ -77,9 +90,7 @@ function FormBuilder(props) {
 
   return (
     <>
-      <form action="/TESTY" method="POST">
-        {formReader(JSONdata)}
-      </form>
+      <form {...props}>{formReader(JSONdata)}</form>
     </>
   );
 }
