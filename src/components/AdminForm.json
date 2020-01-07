@@ -51,9 +51,34 @@
         }
     },
 
-    "SubmitButton": {
-        "type": "button",
-        "text": "Add",
-        "submit": true
+    "LocationInput": {
+        "type": "text",
+        "label": "Loctaion",
+        "required": true
+    },
+
+    "MaxAtendeesInput": {
+        "type": "number",
+        "label": "Maximum atendees",
+        "required": true
+    },
+
+    "FormButtons": {
+        "type": "container",
+        "center": true,
+        
+        "contents": {
+            "SubmitButton": {
+                "type": "button",
+                "text": "Add",
+                "submit": true
+            },
+
+            "ResetButton": {
+                "type": "button",
+                "text": "Reset",
+                "reset": true
+            }
+        }
     }
 }
