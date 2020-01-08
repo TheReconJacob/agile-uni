@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/searchBar.scss";
 import DropdownSite from "./Dropdown";
@@ -9,12 +9,14 @@ function SearchBar() {
   const [searchTerm, setSearchTerm] = useState("");
   const [siteId, setSiteId] = useState("");
 
-  axios
-    .get("http://localhost:5000/sites")
-    .then(sites => setSites(sites.data))
-    .catch(error => {
-      console.error(error);
-    });
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/sites")
+      .then(sites => setSites(sites.data))
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
 
   const handleSiteChange = event => {
     setSiteId(event.target.value);
