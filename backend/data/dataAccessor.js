@@ -80,9 +80,7 @@ dataAccessor.courses = {
     return sendQueryAndReturnResultsAsPromise(query, inputs);
   },
 
-  update: newValuesObject => {
-    const { course_id } = newValuesObject;
-    delete newValuesObject.course_id;
+  update: ({ course_id, ...newValuesObject }) => {
     const filter = [],
       inputs = [];
 
@@ -134,7 +132,15 @@ dataAccessor.attendees = {
     const query =
       "SELECT * FROM course_attendees JOIN courses ON course_attendees.course_id = courses.id WHERE courses.id = ?";
 
-    return sendQueryAndReturnResultsAsPromise(query, course_id);
+    return sendQueryAndReturnResultsAsPromise(query, [course_id]);
+  },
+
+  findForCourse: ({ employee_id, course_id }) => {
+    const inputs = [employee_id, course_id];
+    const query =
+      "SELECT * FROM course_attendees WHERE azure_oid = ? AND course_id = ?";
+
+    return sendQueryAndReturnResultsAsPromise(query, inputs);
   },
 
   add: ({ course_id, azure_oid }) => {
@@ -145,10 +151,11 @@ dataAccessor.attendees = {
     return sendQueryAndReturnResultsAsPromise(query, inputs);
   },
 
-  delete: attendee_id => {
-    const query = "DELETE FROM course_attendees WHERE id = ?";
+  delete: ({ attendee_id, course_id }) => {
+    const query =
+      "DELETE FROM course_attendees WHERE course_id = ? AND azure_oid = ?";
 
-    return sendQueryAndReturnResultsAsPromise(query, [attendee_id]);
+    return sendQueryAndReturnResultsAsPromise(query, [course_id, attendee_id]);
   }
 };
 
