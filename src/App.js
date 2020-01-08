@@ -38,8 +38,6 @@ class App extends React.Component {
         });
       }
     });
-
-    this.addEmployee = this.addEmployee.bind(this);
   }
 
   async getRoles() {
@@ -52,34 +50,6 @@ class App extends React.Component {
     } else {
       return null;
     }
-  }
-
-  async addEmployee() {
-    const token = await authProvider.getIdToken();
-    const idToken = token.idToken.rawIdToken;
-    const decodedToken = jwt.decode(idToken);
-    let params = {
-      name: decodedToken.name,
-      object_id: decodedToken.oid,
-      email: decodedToken.preferred_username
-    };
-    axios
-      .post("http://localhost:5000/addEmployee", params)
-      .then(function(response) {
-        if (typeof window !== "undefined") {
-          localStorage.setItem(
-            "employeeId",
-            response.data.employees.responseJson.insertId
-          );
-        }
-      })
-      .catch(function(error) {
-        console.error(error);
-      });
-  }
-
-  componentDidMount() {
-    this.addEmployee();
   }
 
   render() {
