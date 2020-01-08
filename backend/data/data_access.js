@@ -1,17 +1,9 @@
-const mysql = require("mysql");
-(fs = require("fs")), (config = require("../config"));
+const mysql = require("mysql"),
+  config = require("../config");
 
-const connection = mysql.createConnection(config.mysqlConfig);
+const connection = mysql.createConnection(config);
 
 const Data = {};
-
-// connection.connect(function(err) {
-//     if (err) {
-// 		throw err;
-// 	} else {
-// 		console.log('db connection successful')
-// 	}
-// });
 
 Data.getAllCourses = callback => {
   connection.query("SELECT * FROM courses", function(err, rows, fields) {
@@ -133,6 +125,8 @@ Data.addEmployee = (inputs, callback) => {
 };
 
 Data.addAttendee = (employeeid, courseid, callback) => {
+  let courseAttendeeResponse, course_attendeesr, employeer;
+
   connection.query(
     "INSERT INTO course_attendees (employee_id, course_id, attended) VALUES (?, ?, 0)",
     [employeeid, courseid],
@@ -184,6 +178,8 @@ Data.addAttendee = (employeeid, courseid, callback) => {
 };
 
 Data.deleteAttendee = (employeeid, courseid, callback) => {
+  let courseAttendeeResponse, course_attendeesr, employeer;
+
   connection.query(
     "DELETE FROM course_attendees WHERE course_attendees.course_id = ? AND course_attendees.employee_id = ?",
     [employeeid, courseid],
