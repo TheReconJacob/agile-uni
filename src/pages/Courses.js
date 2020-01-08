@@ -78,7 +78,6 @@ class Courses extends React.Component {
           course_id: courseSelected.id
         })
         .then(response => {
-          console.log(response.data);
           if (max > response.data) {
             this.setState({ fullyBookedState: false });
           } else {
