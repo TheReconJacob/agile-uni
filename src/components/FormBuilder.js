@@ -1,6 +1,7 @@
 import React from "react";
-import { Input } from "@sky-uk/toolkit-react";
+import { Input, SelectInput } from "@sky-uk/toolkit-react";
 import ButtonComponent from "./reusable/Button.js";
+import RichText from "./RichText.js";
 
 function formReader(dataToRead, parentKey = "") {
   let finalHTML = [];
@@ -11,7 +12,7 @@ function formReader(dataToRead, parentKey = "") {
     let styleOverride = parentKey
       ? { display: "inline-block", width: FormItem.width }
       : {};
-    
+
     if (FormItem.center) {
       styleOverride.textAlign = "center";
     }
@@ -42,6 +43,19 @@ function formReader(dataToRead, parentKey = "") {
         // console.log("Done");
         break;
 
+      case "select":
+        break;
+      case "rich_text":
+        finalHTML.push(
+          <div key={FormItemKey} style={styleOverride}>
+          <RichText
+            name={FormItemKey}
+            required={FormItem.required}
+            label={FormItem.label}
+          />
+          </div>
+        );
+        break;
       case "button":
         // console.log("Create button");
 
