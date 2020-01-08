@@ -7,36 +7,26 @@ const mysql = require("mysql"),
   jwksRsa = require("jwks-rsa"),
   multer = require("multer"),
   upload = multer(),
-  nodemailer = require("nodemailer"),
-  creds = require("./emailConfig");
-app.use(express.json());
+  cors = require("cors"),
+  dataAccessor = require("./data/dataAccessor.js");
+// nodemailer = require("nodemailer"),
+// creds = require("./emailConfig");
 
-let transport = {
-  host: "smtp.gmail.com", // e.g. smtp.gmail.com
-  auth: creds
-};
+// let transport = {
+//   host: "smtp.gmail.com", // e.g. smtp.gmail.com
+//   auth: creds
+// };
 
-let transporter = nodemailer.createTransport(transport);
+// let transporter = nodemailer.createTransport(transport);
 
-transporter.verify((error, success) => {
-  if (error) {
-    console.log(error);
-  }
-});
-
-let cors = require("cors");
-
-const Data = require("./data/data_access.js");
-const dataHandler = require("./data/dataHandler.js");
+// transporter.verify(error => {
+//   if (error) {
+//     console.log(error);
+//   }
+// });
 
 const connection = mysql.createConnection(config);
-
-app.use(express.urlencoded({ extended: true }));
-app.use(upload.array());
-app.use(express.static("public"));
-app.use(cors());
-
-connection.connect(function(err) {
+connection.connect(err => {
   if (err) {
     throw err;
   } else {
@@ -45,6 +35,11 @@ connection.connect(function(err) {
   }
 });
 
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(upload.array());
+app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
@@ -69,317 +64,216 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-app.get("/employees", (req, res) => {
-  dataHandler.getEmployees(Data)(req, (err, result) => {
-    if (err) {
-      res.status(500);
-      return res.json({ message: err.message });
-    }
-    res.status(result.status);
-    return res.json(result.responseJson);
-  });
-});
-
-app.get("/courses", (req, res) => {
-  dataHandler.getCourses(Data)(req, (err, result) => {
-    if (err) {
-      res.status(500);
-      return res.json({ message: err.message });
-    }
-    res.status(result.status);
-    return res.json(result.responseJson);
-  });
-});
-
-app.get("/sites", (req, res) => {
-  dataHandler.getSites(Data)(req, (err, result) => {
-    if (err) {
-      res.status(500);
-      return res.json({ message: err.message });
-    }
-    res.status(result.status);
-    return res.json(result.responseJson);
-  });
+app.get("/sites", (req, res, next) => {
+  dataAccessor.sites
+    .all()
+    .then(response => {
+      res.status = response.status;
+      return res.json(response.data);
+    })
+    .catch(response => {
+      res.status = response.status;
+      console.error(response.error);
+      return res.json(response.error);
+    });
 });
 
 app.get("/search", (req, res) => {
-  req.header("Access-Control-Allow-Origin");
-  dataHandler.searchCourses(Data)(req, (err, result) => {
-    if (err) {
-      res.status(500);
-      return res.json({ message: err.message });
-    }
-    res.status(result.status);
-    return res.json(result.responseJson);
-  });
-});
+  const parameters = req.query;
+  let SQLPromise;
 
-app.get("/listAllCourses", (req, res) => {
-  dataHandler.listAllCourses(Data)(req, (err, result) => {
-    if (err) {
-      res.status(500);
-      return res.json({ message: err.message });
-    }
-    res.status(result.status);
-    return res.json(result.responseJson);
+  if (parameters.courseTitleFragment || parameters.site_id) {
+    SQLPromise = dataAccessor.courses.find(parameters);
+  } else {
+    SQLPromise = dataAccessor.courses.all();
+  }
+
+  SQLPromise.then(response => {
+    res.status = response.status;
+    return res.json(response.data);
+  }).catch(response => {
+    res.status = response.status;
+    console.error(response.error);
+    return res.json(response.error);
   });
 });
 
 app.post("/addCourse", (req, res) => {
-  req.header("Access-Control-Allow-Origin");
-  dataHandler.addCourse(Data)(req, (err, result) => {
-    if (err) {
-      res.status(500);
-      return res.json({ message: err.message });
-    }
-    res.status(result.status);
+  const { start_time, end_time, ...parameters } = req.body;
+  parameters.start_date += ` ${start_time}`;
+  parameters.end_date += ` ${end_time}`;
 
-    return res.json(result.responseJson);
-  });
+  dataAccessor.courses
+    .add(parameters)
+    .then(response => {
+      res.status = response.status;
+      return res.json(response.data);
+    })
+    .catch(response => {
+      res.status = response.status;
+      console.error(response.error);
+      return res.json(response.error);
+    });
 });
 
 app.post("/editCourse", (req, res) => {
-  dataHandler.editCourse(Data)(req, (err, result) => {
-    if (err) {
-      res.status(500);
-      return res.json({ message: err.message });
-    }
-    res.status(result.status);
-    return res.json(result.responseJson);
-  });
+  const { start_time, end_time, ...parameters } = req.body;
+  parameters.start_date += ` ${start_time}`;
+  parameters.end_date += ` ${end_time}`;
+
+  dataAccessor.courses
+    .update(parameters)
+    .then(response => {
+      res.status = response.status;
+      return res.json(response.data);
+    })
+    .catch(response => {
+      res.status = response.status;
+      console.error(response.error);
+      return res.json(response.error);
+    });
 });
 
 app.get("/deleteCourse", (req, res) => {
-  req.header("Access-Control-Allow-Origin");
-  dataHandler.deleteCourse(Data)(req, (err, result) => {
-    if (err) {
-      res.status(500);
-      return res.json({ message: err.message });
-    }
-    res.status(result.status);
-    return res.json(result.responseJson);
-  });
+  const { courseId } = req.query;
+  dataAccessor.courses
+    .delete(courseId)
+    .then(response => {
+      res.status = response.status;
+      return res.json(response.data);
+    })
+    .catch(response => {
+      res.status = response.status;
+      console.error(response.error);
+      return res.json(response.error);
+    });
 });
 
-let server = app.listen(port, err => {
+app.get("/addAttendee", (req, res) => {
+  const parameters = req.query;
+  dataAccessor.attendees
+    .add(parameters)
+    .then(response => {
+      res.status = response.status;
+      return res.json(response.data);
+    })
+    .catch(response => {
+      res.status = response.status;
+      console.error(response.error);
+      return res.json(response.error);
+    });
+});
+
+app.get("/deleteAttendee", (req, res) => {
+  const parameters = req.query;
+  dataAccessor.attendees
+    .delete(parameters)
+    .then(response => {
+      res.status = response.status;
+      return res.json(response.data);
+    })
+    .catch(response => {
+      res.status = response.status;
+      console.error(response.error);
+      return res.json(response.error);
+    });
+});
+
+app.get("/attendees", (req, res) => {
+  const { course_id } = req.query;
+  dataAccessor.attendees
+    .allForCourse(course_id)
+    .then(response => {
+      res.status = response.status;
+      return res.json(response.data);
+    })
+    .catch(response => {
+      res.status = response.status;
+      console.error(response.error);
+      return res.json(response.error);
+    });
+});
+
+app.get("/totalAttendees", (req, res) => {
+  const { course_id } = req.query;
+  dataAccessor.attendees
+    .allForCourse(course_id)
+    .then(response => {
+      res.status = response.status;
+      return res.json(response.data.length);
+    })
+    .catch(response => {
+      res.status = response.status;
+      console.error(response.error);
+      return res.json(response.error);
+    });
+});
+
+app.get("/returnIfBooked", (req, res) => {
+  const parameters = req.query;
+  dataAccessor.attendees
+    .findForCourse(parameters)
+    .then(response => {
+      res.status = response.status;
+      if (response.data.length > 0) {
+        return res.json(true);
+      } else {
+        return res.json(false);
+      }
+    })
+    .catch(response => {
+      res.status = response.status;
+      console.error(response.error);
+      return res.json(response.error);
+    });
+});
+
+app.get("/findCourseById", (req, res) => {
+  const parameters = req.query;
+  dataAccessor.courses
+    .find(parameters)
+    .then(response => {
+      res.status = response.status;
+      return res.json(response.data);
+    })
+    .catch(response => {
+      res.status = response.status;
+      console.error(response.error);
+      return res.json(response.error);
+    });
+});
+
+// app.get("/send", (req, res) => {
+//   const name = req.query.name;
+//   const email = req.query.email;
+//   const message = "hello" + name;
+
+//   let mail = {
+//     from: "agileuni",
+//     to: email,
+//     subject: "Booking",
+
+//     html: message
+//   };
+
+// transporter.sendMail(mail, (err, data) => {
+//   if (err) {
+//     res.json({
+//       msg: "fail"
+//     });
+//   } else {
+//     res.json({
+//       msg: "success"
+//     });
+//   }
+// });
+// });
+
+const server = app.listen(port, err => {
   if (err) {
     console.log(err);
   }
   console.log("Listening on port " + port);
-});
-
-app.post("/addEmployee", (req, res) => {
-  req.header("Access-Control-Allow-Origin");
-  dataHandler.addEmployee(Data)(req, (err, result) => {
-    if (err) {
-      res.status(500);
-      return res.json({ message: err.message });
-    }
-    res.status(result.status);
-    return res.json(result.responseJson);
-  });
-});
-
-app.get("/addAttendee", (req, res) => {
-  req.header("Access-Control-Allow-Origin");
-  dataHandler.addAttendee(Data)(req, (err, result) => {
-    if (err) {
-      res.status(500);
-      return res.json({ message: err.message });
-    }
-    res.status(result.status);
-    const {
-      name,
-      email
-    } = result.responseJson.combinedResponse[0].employees.responseJson[0];
-    const {
-      title,
-      start_date,
-      end_date,
-      location
-    } = result.responseJson.combinedResponse[0].course_content.responseJson[0];
-
-    const startDateMessage = new Intl.DateTimeFormat("en-GB", {
-      year: "numeric",
-      month: "long",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit"
-    }).format(Date.parse(start_date));
-
-    const endDateMessage = new Intl.DateTimeFormat("en-GB", {
-      year: "numeric",
-      month: "long",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit"
-    }).format(Date.parse(end_date));
-
-    const message =
-      "<p> Hello " +
-      name +
-      " <br> </p> <p> Confirmation of your booking onto " +
-      title +
-      " on " +
-      startDateMessage +
-      " until " +
-      endDateMessage +
-      ". This course will take place in " +
-      location +
-      "<br>" +
-      "<p> If you are unable to attend, please make sure that you cancel your booking. <br><br> Many thanks <br><br> Agile University Team <p>";
-
-    let mail = {
-      from: "agileuni",
-      to: email,
-      subject: "Booking confirmation " + title,
-
-      html: message
-    };
-
-    transporter.sendMail(mail, (err, data) => {
-      if (err) {
-        res.json({
-          msg: "fail"
-        });
-      } else {
-        res.json({
-          msg: "success"
-        });
-      }
-    });
-    return res.json(result.responseJson);
-  });
-});
-
-app.get("/deleteAttendee", (req, res) => {
-  req.header("Access-Control-Allow-Origin");
-  dataHandler.deleteAttendee(Data)(req, (err, result) => {
-    if (err) {
-      res.status(500);
-      return res.json({ message: err.message });
-    }
-    res.status(result.status);
-    const {
-      name,
-      email
-    } = result.responseJson.combinedResponse[0].employees.responseJson[0];
-    const {
-      title,
-      start_date,
-      end_date
-    } = result.responseJson.combinedResponse[0].course_content.responseJson[0];
-
-    const startDateMessage = new Intl.DateTimeFormat("en-GB", {
-      year: "numeric",
-      month: "long",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit"
-    }).format(Date.parse(start_date));
-
-    const endDateMessage = new Intl.DateTimeFormat("en-GB", {
-      year: "numeric",
-      month: "long",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit"
-    }).format(Date.parse(end_date));
-
-    const message =
-      "<p> Hello " +
-      name +
-      " <br> </p> <p> This email confirms the cancellation of your place on " +
-      title +
-      " on " +
-      startDateMessage +
-      " until " +
-      endDateMessage +
-      "<br>" +
-      "Many thanks <br><br> Agile University Team <p>";
-
-    let mail = {
-      from: "agileuni",
-      to: email,
-      subject: "Booking cancellation " + title,
-
-      html: message
-    };
-
-    transporter.sendMail(mail, (err, data) => {
-      if (err) {
-        res.json({
-          msg: "fail"
-        });
-      } else {
-        res.json({
-          msg: "success"
-        });
-      }
-    });
-    return res.json(result.responseJson);
-  });
-});
-
-app.get("/returnIfBooked", (req, res) => {
-  req.header("Access-Control-Allow-Origin");
-  dataHandler.returnIfBooked(Data)(req, (err, result) => {
-    if (err) {
-      res.status(500);
-      return res.json({ message: err.message });
-    }
-    res.status(result.status);
-    return res.json(result.responseJson);
-  });
-});
-
-app.get("/findCourseById", (req, res) => {
-  dataHandler.findCourseById(Data)(req, (err, result) => {
-    if (err) {
-      res.status(500);
-      return res.json({ message: err.message });
-    }
-    res.status(result.status);
-    return res.json(result.responseJson);
-  });
-});
-
-app.get("/findEmployeeById", (req, res) => {
-  dataHandler.findEmployeeById(Data)(req, (err, result) => {
-    if (err) {
-      res.status(500);
-      return res.json({ message: err.message });
-    }
-    res.status(result.status);
-    return res.json(result.responseJson);
-  });
-});
-
-app.get("/send", (req, res) => {
-  req.header("Access-Control-Allow-Origin");
-  const name = req.query.name;
-  const email = req.query.email;
-  const message = "hello" + name;
-
-  let mail = {
-    from: "agileuni",
-    to: email,
-    subject: "Booking",
-
-    html: message
-  };
-
-  transporter.sendMail(mail, (err, data) => {
-    if (err) {
-      res.json({
-        msg: "fail"
-      });
-    } else {
-      res.json({
-        msg: "success"
-      });
-    }
-  });
 });
 
 // Note to JS learners, put module.exports before any module.exports.banana because it overwrites stuff...
