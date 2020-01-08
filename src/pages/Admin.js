@@ -118,7 +118,7 @@ class Admin extends React.Component {
       <>
         <div className="c-hero hero-background">
           <div className="hero-title">
-            <p className="hero-title-text">Admin</p>
+            <p className="hero-title-text" style = {{textShadow: "2px 2px 3px black"}}>Admin</p>
             <SearchBar />
           </div>
         </div>
