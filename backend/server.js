@@ -40,8 +40,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(upload.array());
 app.use(express.static("public"));
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 app.use(
   jwt({
     // Dynamically provide a signing key based on the kid in the header and the signing keys provided by the JWKS endpoint.
@@ -60,14 +58,10 @@ app.use(
   })
 );
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
-
-app.get("/sites", (req, res, next) => {
-  dataAccessor.sites
-    .all()
+function returnResponseOfPromise(promise, res) {
+  promise
     .then(response => {
+      console.log("Worked!");
       res.status = response.status;
       return res.json(response.data);
     })
@@ -76,6 +70,14 @@ app.get("/sites", (req, res, next) => {
       console.error(response.error);
       return res.json(response.error);
     });
+}
+
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
+
+app.get("/sites", (req, res, next) => {
+  returnResponseOfPromise(dataAccessor.sites.all(), res);
 });
 
 app.get("/search", (req, res) => {
@@ -88,14 +90,7 @@ app.get("/search", (req, res) => {
     SQLPromise = dataAccessor.courses.all();
   }
 
-  SQLPromise.then(response => {
-    res.status = response.status;
-    return res.json(response.data);
-  }).catch(response => {
-    res.status = response.status;
-    console.error(response.error);
-    return res.json(response.error);
-  });
+  returnResponseOfPromise(SQLPromise, res);
 });
 
 app.post("/addCourse", (req, res) => {
@@ -103,17 +98,7 @@ app.post("/addCourse", (req, res) => {
   parameters.start_date += ` ${start_time}`;
   parameters.end_date += ` ${end_time}`;
 
-  dataAccessor.courses
-    .add(parameters)
-    .then(response => {
-      res.status = response.status;
-      return res.json(response.data);
-    })
-    .catch(response => {
-      res.status = response.status;
-      console.error(response.error);
-      return res.json(response.error);
-    });
+  returnResponseOfPromise(dataAccessor.courses.add(parameters), res);
 });
 
 app.post("/editCourse", (req, res) => {
@@ -121,92 +106,32 @@ app.post("/editCourse", (req, res) => {
   parameters.start_date += ` ${start_time}`;
   parameters.end_date += ` ${end_time}`;
 
-  dataAccessor.courses
-    .update(parameters)
-    .then(response => {
-      res.status = response.status;
-      return res.json(response.data);
-    })
-    .catch(response => {
-      res.status = response.status;
-      console.error(response.error);
-      return res.json(response.error);
-    });
+  returnResponseOfPromise(dataAccessor.courses.update(parameters), res);
 });
 
 app.get("/deleteCourse", (req, res) => {
   const { courseId } = req.query;
-  dataAccessor.courses
-    .delete(courseId)
-    .then(response => {
-      res.status = response.status;
-      return res.json(response.data);
-    })
-    .catch(response => {
-      res.status = response.status;
-      console.error(response.error);
-      return res.json(response.error);
-    });
+  returnResponseOfPromise(dataAccessor.courses.delete(courseId), res);
 });
 
 app.get("/addAttendee", (req, res) => {
   const parameters = req.query;
-  dataAccessor.attendees
-    .add(parameters)
-    .then(response => {
-      res.status = response.status;
-      return res.json(response.data);
-    })
-    .catch(response => {
-      res.status = response.status;
-      console.error(response.error);
-      return res.json(response.error);
-    });
+  returnResponseOfPromise(dataAccessor.attendees.add(parameters), res);
 });
 
 app.get("/deleteAttendee", (req, res) => {
   const parameters = req.query;
-  dataAccessor.attendees
-    .delete(parameters)
-    .then(response => {
-      res.status = response.status;
-      return res.json(response.data);
-    })
-    .catch(response => {
-      res.status = response.status;
-      console.error(response.error);
-      return res.json(response.error);
-    });
+  returnResponseOfPromise(dataAccessor.attendees.delete(parameters), res);
 });
 
 app.get("/attendees", (req, res) => {
   const { course_id } = req.query;
-  dataAccessor.attendees
-    .allForCourse(course_id)
-    .then(response => {
-      res.status = response.status;
-      return res.json(response.data);
-    })
-    .catch(response => {
-      res.status = response.status;
-      console.error(response.error);
-      return res.json(response.error);
-    });
+  returnResponseOfPromise(dataAccessor.attendees.allForCourse(course_id), res);
 });
 
 app.get("/totalAttendees", (req, res) => {
   const { course_id } = req.query;
-  dataAccessor.attendees
-    .allForCourse(course_id)
-    .then(response => {
-      res.status = response.status;
-      return res.json(response.data.length);
-    })
-    .catch(response => {
-      res.status = response.status;
-      console.error(response.error);
-      return res.json(response.error);
-    });
+  returnResponseOfPromise(dataAccessor.attendees.allForCourse(course_id), res);
 });
 
 app.get("/returnIfBooked", (req, res) => {
@@ -230,17 +155,7 @@ app.get("/returnIfBooked", (req, res) => {
 
 app.get("/findCourseById", (req, res) => {
   const parameters = req.query;
-  dataAccessor.courses
-    .find(parameters)
-    .then(response => {
-      res.status = response.status;
-      return res.json(response.data);
-    })
-    .catch(response => {
-      res.status = response.status;
-      console.error(response.error);
-      return res.json(response.error);
-    });
+  returnResponseOfPromise(dataAccessor.courses.find(parameters), res);
 });
 
 // app.get("/send", (req, res) => {
@@ -278,6 +193,6 @@ const server = app.listen(port, err => {
 
 // Note to JS learners, put module.exports before any module.exports.banana because it overwrites stuff...
 module.exports = app;
-module.exports.closeServer = function() {
+module.exports.closeServer = () => {
   server.close();
 };
