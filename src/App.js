@@ -94,13 +94,14 @@ class App extends React.Component {
         <Router>
           <Navbar />
           <div className="wrapper">
-            <Route exact path="/" component={Sandbox} />
+            <Route exact path="/" component={Home} />
             <Route
               path="/courses"
               render={props => (
                 <Courses {...props} adminStatus={this.state.admin} />
               )}
             />
+            <Route exact path="/sandbox" component={Sandbox} />
             {adminAddCourse}
           </div>
           <Footer className="stylefooter" />

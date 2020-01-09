@@ -1,6 +1,5 @@
 import React from "react";
-import FormBuilder from "../components/FormBuilder";
-import RichText from "../components/RichText";
+import FormBuilder from "../components/FormBuilder/";
 const JSONdata = require("../forms/AdminForm.json");
 
 function Sandbox() {

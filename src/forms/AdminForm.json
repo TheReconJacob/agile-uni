@@ -4,11 +4,36 @@
         "label": "Title",
         "required": true
     },
+
+    "PetNameInput": {
+        "type": "text",
+        "label": "Pet Name",
+        "required": false
+    },
     
     "InstructorInput": {
         "type": "text",
         "label": "Instructor Name",
         "required": true
+    },
+
+    "LocationInputEXTERNAL": {
+        "type": "select",
+        "label": "Loctaion",
+        "required": false,
+        "items": "myCoolURL"
+    },
+
+    "LocationInputHARD": {
+        "type": "select",
+        "label": "Loctaion",
+        "required": true,
+        "default": "Please select a location",
+        "items": {
+            "opt1": { "label": "Option 1" },
+            "opt2": { "label": "Option 2" },
+            "opt3": { "label": "Option 3" }
+        }
     },
     
     "StartInput": {

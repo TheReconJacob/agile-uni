@@ -3,12 +3,12 @@ import CKEditor from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 function RichText(props) {
-  const [editorContent, setEditorContent] = React.useState();
+  const [editorContent, setEditorContent] = React.useState("");
 
   let optionalLabel = "";
   if (props.label) {
     optionalLabel = (
-      <label for={props.name} style={{ float: "none" }}>
+      <label htmlFor={props.name} style={{ float: "none" }}>
         {props.label}
         <mark style={{ backgroundColor: "transparent", color: "red" }}>
           {props.required ? " *" : ""}
@@ -34,9 +34,6 @@ function RichText(props) {
           content={editorContent}
           onChange={(event, editor) => setEditorContent(editor.getData())}
           editor={ClassicEditor}
-          onInit={editor => {
-            console.log("Editor is ready to use!", editor);
-          }}
         />
       </div>
     </div>
