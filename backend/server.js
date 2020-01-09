@@ -1,8 +1,6 @@
-const mysql = require("mysql"),
-  express = require("express"),
+const express = require("express"),
   app = express(),
   port = 5000,
-  config = require("./config"),
   jwt = require("express-jwt"),
   jwksRsa = require("jwks-rsa"),
   multer = require("multer"),
@@ -24,16 +22,6 @@ const mysql = require("mysql"),
 //     console.log(error);
 //   }
 // });
-
-const connection = mysql.createConnection(config);
-connection.connect(err => {
-  if (err) {
-    throw err;
-  } else {
-    console.log("db connection successful");
-    app.emit("app_started");
-  }
-});
 
 app.use(cors());
 app.use(express.json());
@@ -61,22 +49,25 @@ app.use(
 function returnResponseOfPromise(promise, res) {
   promise
     .then(response => {
-      console.log("Worked!");
       res.status = response.status;
       return res.json(response.data);
     })
     .catch(response => {
-      res.status = response.status;
-      console.error(response.error);
-      return res.json(response.error);
+      handleError(response, res);
     });
+}
+
+function handleError(response, res) {
+  res.status = response.status;
+  console.error(response.error);
+  return res.json(response.error);
 }
 
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-app.get("/sites", (req, res, next) => {
+app.get("/sites", (req, res) => {
   returnResponseOfPromise(dataAccessor.sites.all(), res);
 });
 
@@ -131,7 +122,15 @@ app.get("/attendees", (req, res) => {
 
 app.get("/totalAttendees", (req, res) => {
   const { course_id } = req.query;
-  returnResponseOfPromise(dataAccessor.attendees.allForCourse(course_id), res);
+  dataAccessor.attendees
+    .allForCourse(course_id)
+    .then(response => {
+      res.status(response.status);
+      return res.json(response.data.length);
+    })
+    .catch(response => {
+      handleError(response, res);
+    });
 });
 
 app.get("/returnIfBooked", (req, res) => {
@@ -140,16 +139,10 @@ app.get("/returnIfBooked", (req, res) => {
     .findForCourse(parameters)
     .then(response => {
       res.status = response.status;
-      if (response.data.length > 0) {
-        return res.json(true);
-      } else {
-        return res.json(false);
-      }
+      return response.data.length > 0 ? res.json(true) : res.json(false);
     })
     .catch(response => {
-      res.status = response.status;
-      console.error(response.error);
-      return res.json(response.error);
+      handleError(response, res);
     });
 });
 
@@ -193,6 +186,6 @@ const server = app.listen(port, err => {
 
 // Note to JS learners, put module.exports before any module.exports.banana because it overwrites stuff...
 module.exports = app;
-module.exports.closeServer = () => {
+module.exports.close = () => {
   server.close();
 };
