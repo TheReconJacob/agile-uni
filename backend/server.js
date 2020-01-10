@@ -177,15 +177,18 @@ app.get("/findCourseById", (req, res) => {
 // });
 // });
 
-const server = app.listen(port, err => {
-  if (err) {
-    console.log(err);
-  }
-  console.log("Listening on port " + port);
+let server;
+const serverStart = new Promise(resolve => {
+  server = app.listen(port, err => {
+    if (err) {
+      console.log(err);
+    }
+    console.log("Listening on port " + port);
+    resolve();
+  });
 });
 
 // Note to JS learners, put module.exports before any module.exports.banana because it overwrites stuff...
 module.exports = app;
-module.exports.close = () => {
-  server.close();
-};
+module.exports.close = () => server.close();
+module.exports.serverStart = serverStart;
