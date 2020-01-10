@@ -1,8 +1,14 @@
 {
     "TitleInput": {
         "type": "text",
-        "label": "Title",
+        "label": "First Name",
         "required": true
+    },
+
+    "AgeInput": {
+        "type": "number",
+        "label": "Age",
+        "required": false
     },
 
     "PetNameInput": {

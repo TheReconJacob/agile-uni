@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import typeToBuilderMap from "./builderMap";
 
 const styleWrapper = (key, style, content) => (
@@ -8,7 +8,7 @@ const styleWrapper = (key, style, content) => (
   </div>
 );
 
-function formReader(dataToRead, parentKey = "", stateValue, stateValueSetter) {
+function formReader(dataToRead, parentKey = "") {
   let formDOM = [];
 
   for (let FormItemKey in dataToRead) {
@@ -38,13 +38,9 @@ function formReader(dataToRead, parentKey = "", stateValue, stateValueSetter) {
 }
 
 function FormBuilder(props) {
-  const [selectValues, setSelectValues] = useState({});
-
   return (
     <>
-      <form {...props}>
-        {formReader(props.json, "", selectValues, setSelectValues)}
-      </form>
+      <form {...props}>{formReader(props.json, "")}</form>
     </>
   );
 }

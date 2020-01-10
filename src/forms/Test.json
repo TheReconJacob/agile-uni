@@ -1,0 +1,64 @@
+{
+    "TestButton": {
+        "type": "button",
+        "text": "Test"
+    },
+
+    "TestText": {
+        "type": "text",
+        "label": "Text",
+        "required": true
+    },
+
+    "TestNumber": {
+        "type": "number",
+        "label": "Number",
+        "required": false,
+        "min": 0,
+        "max": 100
+    },
+
+    "TestEmail": {
+        "type": "email",
+        "label": "Email",
+        "required": true
+    },
+
+    "TestTelephone": {
+        "type": "tel",
+        "label": "Telephone"
+    },
+
+    "TestPassword": {
+        "type": "password",
+        "label": "Password"
+    },
+
+    "TestTime": {
+        "type": "time",
+        "label": "Time"
+    },
+
+    "TestDate": {
+        "type": "date",
+        "label": "Date"
+    },
+
+    "TestSelect": {
+        "type": "select",
+        "label": "Select",
+        "required": true,
+        "default": "Please select a location",
+        "items": {
+            "opt1": { "label": "Option 1" },
+            "opt2": { "label": "Option 2" },
+            "opt3": { "label": "Option 3" }
+        }
+    },
+
+    "TestRichText": {
+        "type": "rich_text",
+        "label": "Rich Text",
+        "required": true
+    }
+}
