@@ -381,9 +381,9 @@ describe("Integration tests: Running app and testing data routes", () => {
     });
   });
 
-  describe("Find course by ID", () => {
-    describe("Search courses by ID", () => {
-      it("Course should be returned based on ID", done => {
+  describe("Find course by ID", function() {
+    describe("Search courses by ID", function() {
+      it("Course should be returned based on ID", function(done) {
         request(
           "http://localhost:5000/findCourseById?course_id=1",
           {
@@ -416,9 +416,9 @@ describe("Integration tests: Running app and testing data routes", () => {
     });
   });
 
-  describe("Display if employee is booked on a course", () => {
-    describe("Display if booked", () => {
-      it("Should return a boolean value of 0 or 1", done => {
+  describe("Display if employee is booked on a course", function() {
+    describe("Display if booked", function() {
+      it("Should return a boolean value of 0 or 1", function(done) {
         addCourseWithId();
         addEmployee();
         addEmployeeToCourse();
@@ -433,7 +433,7 @@ describe("Integration tests: Running app and testing data routes", () => {
                 bearer: process.env.AUTHTOKEN
               }
             },
-            (error, response, body) => {
+            function(error, response, body) {
               console.log(body);
               expect(
                 JSON.parse(body)["course_attendees"]["responseJson"][0][
