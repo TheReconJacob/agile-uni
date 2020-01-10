@@ -187,6 +187,7 @@ app.get("/addAttendee", (req, res) => {
     if (err) {
       res.status(500);
       return res.json({ message: err.message });
+      
     }
     res.status(result.status);
     const {
@@ -384,11 +385,10 @@ app.get("/send", (req, res) => {
 });
 
 app.get("/retrieveRandomAnimal", (req, res) => {
-  const randomNumber = Math.floor(Math.random() * 6) + 1;
+  const randomNumber = Math.floor(Math.random() * 7) + 1;
   res.sendFile(path.resolve(`${__dirname}/../src/images/${randomNumber}.jpg`));
 })
 
-// Note to JS learners, put module.exports before any module.exports.banana because it overwrites stuff...
 module.exports = app;
 module.exports.closeServer = function() {
   server.close();
