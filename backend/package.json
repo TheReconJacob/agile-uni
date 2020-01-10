@@ -24,6 +24,7 @@
     "jest": "^24.9.0",
     "mock-req-res": "^1.1.2",
     "nodemon": "^1.19.4",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "supertest": "^4.0.2"
   }
 }
