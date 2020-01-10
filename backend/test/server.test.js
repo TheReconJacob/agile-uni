@@ -330,7 +330,7 @@ describe("Dummy tests", function() {
     function() {
       it('Returns "true" if booked', function(done) {
         request(
-          "http://localhost:5000http://localhost:5000/returnIfBooked?course_id=1&employee_id=1",
+          "http://localhost:5000/returnIfBooked?course_id=1&employee_id=1",
           {
             auth: {
               bearer: process.env.AUTHTOKEN
