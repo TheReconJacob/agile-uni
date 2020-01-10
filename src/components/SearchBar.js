@@ -12,7 +12,13 @@ function SearchBar() {
   useEffect(() => {
     axios
       .get("http://localhost:5000/sites")
-      .then(sites => setSites(sites.data))
+      .then(sites => {
+        if (Array.isArray(sites.data)) {
+          setSites(sites.data);
+        } else {
+          console.log(sites.data);
+        }
+      })
       .catch(error => {
         console.error(error);
       });
