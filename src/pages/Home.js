@@ -8,7 +8,12 @@ function Home() {
     <>
       <div className="c-hero hero-background">
         <div className="hero-title">
-          <p className="hero-title-text" style = {{textShadow: "2px 2px 3px black"}}>Find your next course...</p>
+          <p
+            className="hero-title-text"
+            style={{ textShadow: "2px 2px 3px black" }}
+          >
+            Find your next course...
+          </p>
           <SearchBar />
         </div>
       </div>
