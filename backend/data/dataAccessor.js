@@ -135,8 +135,8 @@ dataAccessor.attendees = {
     return sendQueryAndReturnResultsAsPromise(query, [course_id]);
   },
 
-  findForCourse: ({ employee_id, course_id }) => {
-    const inputs = [employee_id, course_id];
+  findForCourse: ({ azure_oid, course_id }) => {
+    const inputs = [azure_oid, course_id];
     const query =
       "SELECT * FROM course_attendees WHERE azure_oid = ? AND course_id = ?";
 
@@ -151,11 +151,11 @@ dataAccessor.attendees = {
     return sendQueryAndReturnResultsAsPromise(query, inputs);
   },
 
-  delete: ({ attendee_id, course_id }) => {
+  delete: ({ azure_oid, course_id }) => {
     const query =
       "DELETE FROM course_attendees WHERE course_id = ? AND azure_oid = ?";
 
-    return sendQueryAndReturnResultsAsPromise(query, [course_id, attendee_id]);
+    return sendQueryAndReturnResultsAsPromise(query, [course_id, azure_oid]);
   }
 };
 

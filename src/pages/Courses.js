@@ -87,7 +87,7 @@ class Courses extends React.Component {
       axios
         .get("http://localhost:5000/returnIfBooked", {
           params: {
-            employee_id: employeeId,
+            azure_oid: employeeId,
             course_id: courseSelected.id
           }
         })
