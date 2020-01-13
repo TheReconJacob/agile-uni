@@ -8,7 +8,8 @@ const mysql = require("mysql"),
   multer = require("multer"),
   upload = multer(),
   nodemailer = require("nodemailer"),
-  creds = require("./emailConfig");
+  creds = require("./emailConfig"),
+  path = require("path");
 app.use(express.json());
 
 let transport = {
@@ -186,6 +187,7 @@ app.get("/addAttendee", (req, res) => {
     if (err) {
       res.status(500);
       return res.json({ message: err.message });
+      
     }
     res.status(result.status);
     const {
@@ -382,7 +384,11 @@ app.get("/send", (req, res) => {
   });
 });
 
-// Note to JS learners, put module.exports before any module.exports.banana because it overwrites stuff...
+app.get("/retrieveRandomAnimal", (req, res) => {
+  const randomNumber = Math.floor(Math.random() * 7) + 1;
+  res.sendFile(path.resolve(`${__dirname}/../src/images/${randomNumber}.jpg`));
+})
+
 module.exports = app;
 module.exports.closeServer = function() {
   server.close();
