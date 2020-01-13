@@ -1,15 +1,22 @@
 const config = require("../config"),
   mysql = require("mysql"),
   connection = mysql.createConnection(config),
-  addCourseQuery = `;INSERT INTO courses (title, description, start_date, site_id, location) VALUES (?, ?, ?, ?, ?)`,
+  addCourseQuery = `;INSERT INTO courses (id, title, description, start_date, site_id, location) VALUES (?, ?, ?, ?, ?, ?)`,
   inputs = [];
 let query = "DELETE FROM courses";
 
-function createInput({ title = "TEST", site_id = 1 }) {
+function createInput({ title = "TEST", site_id = 1, course_id }) {
   const start_date = new Date();
 
   query += addCourseQuery;
-  inputs.push(title, "THIS IS A TEST", start_date, site_id, "BUILDING");
+  inputs.push(
+    course_id,
+    title,
+    "THIS IS A TEST",
+    start_date,
+    site_id,
+    "BUILDING"
+  );
 }
 
 module.exports = {
@@ -18,9 +25,9 @@ module.exports = {
   },
 
   resetCoursesTable: () => {
-    createInput({});
-    createInput({ title: "TITLE" });
-    createInput({ site_id: 2 });
+    createInput({ course_id: 1 });
+    createInput({ title: "TITLE", course_id: 2 });
+    createInput({ site_id: 2, course_id: 3 });
 
     return new Promise(resolve => {
       connection.query(query, inputs, (error, [, firstRow]) => {
