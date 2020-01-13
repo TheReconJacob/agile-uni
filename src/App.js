@@ -115,6 +115,8 @@ class App extends React.Component {
                 )}
               />
               {adminAddCourse}
+              <Route
+                path="*"
                 render={props => (
                   <ErrorPage
                     errorStatus="404"

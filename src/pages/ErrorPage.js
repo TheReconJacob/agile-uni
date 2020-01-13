@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 function ErrorPage(props) {
-  const [imageUrl, setImageUrl] = useState({});
+  const [imageUrl, setImageUrl] = useState("");
   const { errorMessage, errorStatus } = props;
 
   useEffect(props => {
