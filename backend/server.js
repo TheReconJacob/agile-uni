@@ -6,7 +6,8 @@ const express = require("express"),
   multer = require("multer"),
   upload = multer(),
   cors = require("cors"),
-  dataAccessor = require("./data/dataAccessor.js");
+  dataAccessor = require("./data/dataAccessor.js"),
+  path = require("path");
 // nodemailer = require("nodemailer"),
 // creds = require("./emailConfig");
 
@@ -149,6 +150,11 @@ app.get("/returnIfBooked", (req, res) => {
 app.get("/findCourseById", (req, res) => {
   const parameters = req.query;
   returnResponseOfPromise(dataAccessor.courses.find(parameters), res);
+});
+
+app.get("/retrieveRandomAnimal", (req, res) => {
+  const randomNumber = Math.floor(Math.random() * 7) + 1;
+  res.sendFile(path.resolve(`${__dirname}/../src/images/${randomNumber}.jpg`));
 });
 
 // app.get("/send", (req, res) => {
