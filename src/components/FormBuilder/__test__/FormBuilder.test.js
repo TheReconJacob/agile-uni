@@ -2,7 +2,7 @@ import React from "react";
 import { cleanup, render } from "@testing-library/react";
 
 import FormBuilder from "../";
-const JSONdata = require("../../../forms/Test.json");
+const JSONdata = require("../../../testData/Test.json");
 
 let renderedObject;
 

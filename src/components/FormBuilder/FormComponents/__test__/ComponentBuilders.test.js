@@ -1,6 +1,6 @@
 import TestableComponents from "./TestableComponents";
 
-const testJson = require("../../../../forms/Test.json");
+const testJson = require("../../../../testData/Test.json");
 
 for (let jsonKey in testJson) {
   let jsonObject = testJson[jsonKey];
