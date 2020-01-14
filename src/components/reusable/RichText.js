@@ -6,9 +6,11 @@ function RichText(props) {
   const [editorContent, setEditorContent] = React.useState("");
 
   let optionalLabel = "";
+  let inputName = `${props.name}-ck-editor-text`;
+
   if (props.label) {
     optionalLabel = (
-      <label htmlFor={props.name} style={{ float: "none" }}>
+      <label htmlFor={inputName} style={{ float: "none" }}>
         {props.label}
         <mark style={{ backgroundColor: "transparent", color: "red" }}>
           {props.required ? " *" : ""}
@@ -19,14 +21,15 @@ function RichText(props) {
 
   return (
     <div>
+      {optionalLabel}
+
       <input
-        name={`${props.name}-ck-editor-text`}
+        id={inputName}
+        name={inputName}
         type="hidden"
         readOnly={true}
         value={editorContent}
       ></input>
-
-      {optionalLabel}
 
       <div style={{ marginBottom: "10px" }}>
         <CKEditor

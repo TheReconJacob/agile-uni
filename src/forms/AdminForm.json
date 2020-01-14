@@ -26,8 +26,9 @@
     "LocationInputEXTERNAL": {
         "type": "select",
         "label": "Loctaion",
-        "required": false,
-        "items": "myCoolURL"
+        "required": true,
+        "default": "Please select a location",
+        "items": "http://localhost:5000/sites"
     },
 
     "LocationInputHARD": {

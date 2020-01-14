@@ -1,18 +1,18 @@
 {
-    "TestButton": {
-        "type": "button",
-        "text": "Test"
-    },
-
     "TestText": {
         "type": "text",
-        "label": "Text",
+        "label": "Test TextBox Label",
         "required": true
+    },
+    
+    "TestButton": {
+        "type": "button",
+        "text": "Test Button Text"
     },
 
     "TestNumber": {
         "type": "number",
-        "label": "Number",
+        "label": "Test Number Label",
         "required": false,
         "min": 0,
         "max": 100
@@ -20,33 +20,33 @@
 
     "TestEmail": {
         "type": "email",
-        "label": "Email",
+        "label": "Test Email Label",
         "required": true
     },
 
     "TestTelephone": {
         "type": "tel",
-        "label": "Telephone"
+        "label": "Test Telephone Label"
     },
 
     "TestPassword": {
         "type": "password",
-        "label": "Password"
+        "label": "Test Password Label"
     },
 
     "TestTime": {
         "type": "time",
-        "label": "Time"
+        "label": "Test Time Label"
     },
 
     "TestDate": {
         "type": "date",
-        "label": "Date"
+        "label": "Test Date Label"
     },
 
     "TestSelect": {
         "type": "select",
-        "label": "Select",
+        "label": "Test Select Label",
         "required": true,
         "default": "Please select a location",
         "items": {
@@ -58,7 +58,7 @@
 
     "TestRichText": {
         "type": "rich_text",
-        "label": "Rich Text",
+        "label": "Test RichText Label",
         "required": true
     }
 }
