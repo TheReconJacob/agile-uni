@@ -1,7 +1,6 @@
 import React from "react";
 import { Accordion } from "@sky-uk/toolkit-react";
 import { AccordionSection } from "@sky-uk/toolkit-react";
-import SearchBar from "../components/SearchBar";
 import "../styles/courses.scss";
 import DeleteButton from "../components/DeleteButton";
 import EditButton from "../components/EditButton";
@@ -148,17 +147,6 @@ class Courses extends React.Component {
 
     return (
       <>
-        <div className="c-hero hero-background">
-          <div className="hero-title">
-            <p
-              className="hero-title-text"
-              style={{ textShadow: "2px 2px 3px black" }}
-            >
-              Find your next course...
-            </p>
-            <SearchBar />
-          </div>
-        </div>
         <div className="o-container course-page-accordion">
           <div className="o-layout">{adminAddComponent}</div>
           <Accordion
