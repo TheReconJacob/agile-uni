@@ -4,6 +4,10 @@ const mysql = require("mysql"),
   dataAccessor = {},
   withCommas = ", ";
 
+connection.connect(err => {
+  if (err) throw err;
+});
+
 function sendQueryAndReturnResultsAsPromise(
   query,
   inputs,
