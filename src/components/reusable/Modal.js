@@ -8,10 +8,14 @@ function ModalComponent(props) {
 
   return (
     <Modal isOpen={isOpen} onClose={onCloseFunction}>
-      <p>{ModalData[textToDisplay].text}</p>
-      {modalButtons.map(([text, onClick], index) => {
-        return <ButtonComponent key={index} text={text} onClick={onClick} />;
-      })}
+      <p>{ModalData[textToDisplay]}</p>
+      {modalButtons
+        ? modalButtons.map(([text, onClick], index) => {
+            return (
+              <ButtonComponent key={index} text={text} onClick={onClick} />
+            );
+          })
+        : ""}
     </Modal>
   );
 }
