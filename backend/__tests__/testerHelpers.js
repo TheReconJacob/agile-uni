@@ -3,7 +3,11 @@ const config = require("../config"),
   connection = mysql.createConnection(config),
   addCourseQuery = `;INSERT INTO courses (id, title, attendees_max, description, start_date, end_date, site_id, location) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
   inputs = [];
-let query = "DELETE FROM courses";
+let query = "DELETE FROM course_attendees;DELETE FROM courses";
+
+connection.connect(err => {
+  if (err) throw err;
+});
 
 function createInput({ title = "TEST", site_id = 1, course_id }) {
   const start_date = "2020-06-23 09:00";
@@ -34,7 +38,7 @@ module.exports = {
     createInput({ site_id: 2, course_id: 3 });
 
     return new Promise(resolve => {
-      connection.query(query, inputs, (error, [, firstRow]) => {
+      connection.query(query, inputs, (error, [, , firstRow]) => {
         if (error) console.log(error);
         resolve(firstRow.insertId);
       });
@@ -66,7 +70,11 @@ module.exports = {
     return new Promise(resolve => {
       connection.query(
         "INSERT INTO course_attendees (course_id, azure_oid, attended) VALUES (?, ?, ?)",
-        [course_id, azure_oid, false]
+        [course_id, azure_oid, false],
+        (error, data) => {
+          if (error) console.log(error);
+          resolve(data);
+        }
       );
     });
   }
