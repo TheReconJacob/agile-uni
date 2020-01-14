@@ -64,7 +64,7 @@ You'll need an AUTHTOKEN as a env to run the test (**see wiki as to why**). Inst
 
 ## Emails
 
-We have set up email sending with a dummy gmail account. This will need updating to an agile university account, but I suggest that you use a boiler account for just sending the notification emails.  The email credentials are encrypted in emailConfig.js. To change the account over to a sky email account, you will need to update the credentials, and the settings in the server.js transport variables. 
+We have set up email sending with a dummy gmail account. This will need updating to an agile university account, but I suggest that you use a boiler account for just sending the notification emails. The email credentials are encrypted in emailConfig.js. To change the account over to a sky email account, you will need to update the credentials, and the settings in the server.js transport variables.
 
 ## Useful Links
 
@@ -75,8 +75,9 @@ We also used the [sky toolkit](https://www.sky.com/toolkit)
 ## Possible Error Fixes
 
 ### MySql
+
 You can view the status of the mysql service by typing into the terminal `brew services ls`
 
-If the status of mysql says <span style="color:red">error</span>, first try restarting the service with `brew services restart mysql`. Then if it continues to error while signing in, following [this](https://stackoverflow.com/a/51512118) guide will walk you through reinstalling mysql while removing leftover files after uninstalling and upgrading brew.
+If the status of mysql says <span style="color:red">error</span>, first try restarting the service with `brew services restart mysql`. Then if it continues to error while signing in, following [this](https://stackoverflow.com/a/51512118) guide which will walk you through reinstalling mysql while removing leftover files after uninstalling and upgrading brew. **_Will delete all current databases on mysql_**
 
-If you have forgotten your password then one option is to follow [this](https://stackoverflow.com/a/49970533) guide, but be warned as this will **delete all current databases on mysql**.
+If you have forgotten your password then one option is to follow [this](https://stackoverflow.com/a/49970533) guide, but be warned as this **_will also delete all current databases on mysql_**.
