@@ -1,4 +1,5 @@
 import React from "react";
+import SearchBar from "./components/SearchBar";
 import "./App.scss";
 import { authProvider } from "./authProvider";
 import Courses from "./pages/Courses";
@@ -105,6 +106,17 @@ class App extends React.Component {
       <>
         <Router>
           <Navbar />
+          <div className="c-hero hero-background">
+            <div className="hero-title">
+              <p
+                className="hero-title-text"
+                style={{ textShadow: "2px 2px 3px black" }}
+              >
+                Find your next course...
+              </p>
+              <SearchBar />
+            </div>
+          </div>
           <div className="wrapper">
             <Switch>
               <Route exact path="/" component={Home} />

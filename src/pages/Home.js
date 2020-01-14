@@ -1,23 +1,10 @@
 import React from "react";
 import "../App.scss";
-import SearchBar from "../components/SearchBar.js";
 import "../styles/home.scss";
 
 function Home() {
   return (
     <>
-      <div className="c-hero hero-background">
-        <div className="hero-title">
-          <p
-            className="hero-title-text"
-            style={{ textShadow: "2px 2px 3px black" }}
-          >
-            Find your next course...
-          </p>
-          <SearchBar />
-        </div>
-      </div>
-
       <div className="o-container o-container--ee u-padding-bottom-large u-padding-top-large">
         <div className="o-layout__item">
           <h2 className="c-heading-bravo">
