@@ -42,24 +42,24 @@ class Courses extends React.Component {
     if (!siteObj) {
       params = {
         params: {
-          searchTerm: searchObj
+          courseTitleFragment: searchObj
         }
       };
     } else {
       params = {
         params: {
-          searchTerm: searchObj,
-          siteId: siteObj
+          courseTitleFragment: searchObj,
+          site_id: siteObj
         }
       };
     }
     axios
       .get("http://localhost:5000/search", params)
-      .then(function(response) {
-        resultsData = response.data.courses.responseJson;
+      .then(courses => {
+        resultsData = courses.data;
         self.setState({ results: resultsData });
       })
-      .catch(function(error) {
+      .catch(error => {
         console.error(error);
       });
   };
@@ -68,34 +68,36 @@ class Courses extends React.Component {
     const self = this;
     this.setState({ accordionSelected: selected });
     try {
-      let numberSelected = selected[0].replace("1-header-", "");
-      let courseSelected = self.state.results[numberSelected].course_id;
-      let max = self.state.results[numberSelected].attendees_max;
-      let number = self.state.results[numberSelected].attendees_booked;
-      if (max > number) {
-        this.setState({ fullyBookedState: false });
-      } else {
-        this.setState({ fullyBookedState: true });
-      }
+      const numberSelected = selected[0].replace("1-header-", "");
+      const courseSelected = self.state.results[numberSelected];
+      const max = courseSelected.attendees_max;
+
+      axios
+        .get("http://localhost:5000/totalAttendees", {
+          course_id: courseSelected.id
+        })
+        .then(response => {
+          if (max > response.data) {
+            this.setState({ fullyBookedState: false });
+          } else {
+            this.setState({ fullyBookedState: true });
+          }
+        });
       axios
         .get("http://localhost:5000/returnIfBooked", {
           params: {
-            employee_id: employeeId,
-            course_id: courseSelected
+            azure_oid: employeeId,
+            course_id: courseSelected.id
           }
         })
-        .then(function(response) {
-          let responseShortened =
-            response.data.course_attendees.responseJson[0];
-          for (var key in responseShortened) {
-            if (responseShortened[key] === 1) {
-              self.setState({ canBook: false });
-            } else {
-              self.setState({ canBook: true });
-            }
+        .then(response => {
+          if (response.data) {
+            self.setState({ canBook: false });
+          } else {
+            self.setState({ canBook: true });
           }
         })
-        .catch(function(error) {
+        .catch(error => {
           console.error(error);
         });
     } catch {}
@@ -160,7 +162,7 @@ class Courses extends React.Component {
               return (
                 <AccordionSection
                   className="accordion-section"
-                  id={res.course_id}
+                  id={res.id}
                   title={res.title}
                 >
                   <div className="">
@@ -194,7 +196,7 @@ class Courses extends React.Component {
                     </h2>
                     <CourseDescription
                       CourseDescription={res.description}
-                      courseId={res.course_id}
+                      courseId={res.id}
                     />
                     <div className="accordion-button-box">
                       <a
@@ -205,10 +207,10 @@ class Courses extends React.Component {
                       </a>
                       <EditButton
                         adminStatus={adminStatus}
-                        course_id={res.course_id}
+                        course_id={res.id}
                       />
                       <BookButton
-                        courseId={res.course_id}
+                        courseId={res.id}
                         canBook={this.state.canBook}
                         employeeId={employeeId}
                         fullyBooked={this.state.fullyBookedState}
@@ -216,7 +218,7 @@ class Courses extends React.Component {
                         currentDate={this.state.currentDate}
                       />
                       <DeleteButton
-                        courseToDelete={res.course_id}
+                        courseToDelete={res.id}
                         adminStatus={adminStatus}
                       />
                     </div>

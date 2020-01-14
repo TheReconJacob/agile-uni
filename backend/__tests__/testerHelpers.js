@@ -1,15 +1,30 @@
 const config = require("../config"),
   mysql = require("mysql"),
   connection = mysql.createConnection(config),
-  addCourseQuery = `;INSERT INTO courses (title, description, start_date, site_id, location) VALUES (?, ?, ?, ?, ?)`,
+  addCourseQuery = `;INSERT INTO courses (id, title, attendees_max, description, start_date, end_date, site_id, location) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
   inputs = [];
-let query = "DELETE FROM courses";
+let query = "DELETE FROM course_attendees;DELETE FROM courses";
 
-function createInput({ title = "TEST", site_id = 1 }) {
-  const start_date = new Date();
+connection.connect(err => {
+  if (err) throw err;
+});
+
+function createInput({ title = "TEST", site_id = 1, course_id }) {
+  const start_date = "2020-06-23 09:00";
+  const end_date = "2020-06-23 17:00";
+  const attendees_max = 10;
 
   query += addCourseQuery;
-  inputs.push(title, "THIS IS A TEST", start_date, site_id, "BUILDING");
+  inputs.push(
+    course_id,
+    title,
+    attendees_max,
+    "THIS IS A TEST",
+    start_date,
+    end_date,
+    site_id,
+    "BUILDING"
+  );
 }
 
 module.exports = {
@@ -18,12 +33,12 @@ module.exports = {
   },
 
   resetCoursesTable: () => {
-    createInput({});
-    createInput({ title: "TITLE" });
-    createInput({ site_id: 2 });
+    createInput({ course_id: 1 });
+    createInput({ title: "TITLE", course_id: 2 });
+    createInput({ site_id: 2, course_id: 3 });
 
     return new Promise(resolve => {
-      connection.query(query, inputs, (error, [, firstRow]) => {
+      connection.query(query, inputs, (error, [, , firstRow]) => {
         if (error) console.log(error);
         resolve(firstRow.insertId);
       });
@@ -48,6 +63,19 @@ module.exports = {
         if (error) console.log(error);
         resolve(data);
       });
+    });
+  },
+
+  addAttendee: ({ course_id = 1, azure_oid = 1 }) => {
+    return new Promise(resolve => {
+      connection.query(
+        "INSERT INTO course_attendees (course_id, azure_oid, attended) VALUES (?, ?, ?)",
+        [course_id, azure_oid, false],
+        (error, data) => {
+          if (error) console.log(error);
+          resolve(data);
+        }
+      );
     });
   }
 };

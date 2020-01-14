@@ -27,7 +27,7 @@ Login with `mysql -u root`
 
 Execute `CREATE DATABASE agileuni;` & `USE agileuni;`
 
-Then execute `SOURCE ddl_script/db_0.sql` and any other sql files necessary
+Then execute `SOURCE ddl_scripts/db_0.sql` and any other sql files necessary
 
 To connect to the local database, change the backend/config file:
 `host: "127.0.0.1", port: "3306", user: "root", password: "", ....`
@@ -64,10 +64,20 @@ You'll need an AUTHTOKEN as a env to run the test (**see wiki as to why**). Inst
 
 ## Emails
 
-We have set up email sending with a dummy gmail account. This will need updating to an agile university account, but I suggest that you use a boiler account for just sending the notification emails.  The email credentials are encrypted in emailConfig.js. To change the account over to a sky email account, you will need to update the credentials, and the settings in the server.js transport variables. 
+We have set up email sending with a dummy gmail account. This will need updating to an agile university account, but I suggest that you use a boiler account for just sending the notification emails. The email credentials are encrypted in emailConfig.js. To change the account over to a sky email account, you will need to update the credentials, and the settings in the server.js transport variables.
 
 ## Useful Links
 
 We used the sky react library for some components. This can be found on [pages-lib page](https://github.com/sky-uk/pages-lib) for the sky github. [Library of components](https://pages-lib.cf.dev-paas.bskyb.com/storybook/?path=/story/*)
 
 We also used the [sky toolkit](https://www.sky.com/toolkit)
+
+## Possible Error Fixes
+
+### MySql
+
+You can view the status of the mysql service by typing into the terminal `brew services ls`
+
+If the status of mysql says <span style="color:red">error</span>, first try restarting the service with `brew services restart mysql`. Then if it continues to error while signing in, following [this](https://stackoverflow.com/a/51512118) guide which will walk you through reinstalling mysql while removing leftover files after uninstalling and upgrading brew. **_Will delete all current databases on mysql_**
+
+If you have forgotten your password then one option is to follow [this](https://stackoverflow.com/a/49970533) guide, but be warned as this **_will also delete all current databases on mysql_**.

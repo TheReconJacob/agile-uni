@@ -5,14 +5,14 @@ function bookCourse(courseID, employeeID) {
   axios
     .get("http://localhost:5000/addAttendee", {
       params: {
-        courseid: courseID,
-        employeeid: employeeID
+        course_id: courseID,
+        azure_oid: employeeID
       }
     })
-    .then(function(response) {
+    .then(response => {
       window.location.reload();
     })
-    .catch(function(error) {
+    .catch(error => {
       console.error(error);
     });
 }
@@ -21,14 +21,14 @@ function cancelCourse(courseID, employeeID) {
   axios
     .get("http://localhost:5000/deleteAttendee", {
       params: {
-        courseid: courseID,
-        attendeeid: employeeID
+        course_id: courseID,
+        azure_oid: employeeID
       }
     })
-    .then(function(response) {
+    .then(response => {
       window.location.reload();
     })
-    .catch(function(error) {
+    .catch(error => {
       console.error(error);
     });
 }

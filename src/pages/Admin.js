@@ -34,7 +34,7 @@ class Admin extends React.Component {
       instructor_name: "",
       site_id: "",
       location: "",
-      minEndDate: new Date().toISOString().split("T")[0]
+      minEndDate: new Date().toISOString().substring(0, 10)
     };
 
     if (this.props.location.state !== undefined) {
@@ -80,7 +80,7 @@ class Admin extends React.Component {
     axios
       .get(`http://localhost:5000/findCourseById?course_id=${params}`)
       .then(response => {
-        return response.data.courses.responseJson[0];
+        return response.data;
       })
       .then(res => {
         this.setState({
@@ -94,12 +94,10 @@ class Admin extends React.Component {
           instructor_name: res.instructor_name,
           site_id: res.site_id,
           location: res.location,
-          minEndDate: new Date(res.start_date.slice(0, 10))
-            .toISOString()
-            .split("T")[0]
+          minEndDate: res.start_date.slice(0, 10)
         });
       })
-      .catch(function(error) {
+      .catch(error => {
         console.error(error);
       });
   }
