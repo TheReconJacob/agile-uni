@@ -1,0 +1,15 @@
+{
+  "Button": {
+    "text": "Test",
+    "type": "submit"
+  },
+  "Modal": {
+    "textToDisplay": "lorem ipsum"
+  },
+  "Select": {
+    "text": "Test Label"
+  },
+  "RichText": {
+    "id": "rich-text"
+  }
+}
