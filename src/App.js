@@ -1,12 +1,14 @@
 import React from "react";
+import SearchBar from "./components/SearchBar";
 import "./App.scss";
 import { authProvider } from "./authProvider";
 import Courses from "./pages/Courses";
 import Home from "./pages/Home";
 import Sandbox from "./pages/Sandbox";
+import ErrorPage from "./pages/ErrorPage";
 import Navbar from "./components/Navbar.js";
 import Footer from "./components/Footer.js";
-import { Route, BrowserRouter as Router } from "react-router-dom";
+import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import Admin from "./pages/Admin";
 import axios from "axios";
 
@@ -39,8 +41,6 @@ class App extends React.Component {
         });
       }
     });
-
-    this.addEmployee = this.addEmployee.bind(this);
   }
 
   async getRoles() {
@@ -55,54 +55,60 @@ class App extends React.Component {
     }
   }
 
-  async addEmployee() {
-    const token = await authProvider.getIdToken();
-    const idToken = token.idToken.rawIdToken;
-    const decodedToken = jwt.decode(idToken);
-    let params = {
-      name: decodedToken.name,
-      object_id: decodedToken.oid,
-      email: decodedToken.preferred_username
-    };
-    axios
-      .post("http://localhost:5000/addEmployee", params)
-      .then(function(response) {
-        if (typeof window !== "undefined") {
-          localStorage.setItem(
-            "employeeId",
-            response.data.employees.responseJson.insertId
-          );
-        }
-      })
-      .catch(function(error) {
-        console.error(error);
-      });
-  }
-
-  componentDidMount() {
-    this.addEmployee();
-  }
-
   render() {
     let adminAddCourse;
 
     if (this.state.admin) {
       adminAddCourse = <Route path="/admin" component={Admin} />;
+    } else {
+      adminAddCourse = (
+        <Route
+          path="/admin"
+          render={props => (
+            <ErrorPage
+              errorStatus="403"
+              errorMessage="You do not have permission, try logging in as a different user"
+            />
+          )}
+        />
+      );
     }
     return (
       <>
         <Router>
           <Navbar />
+          <div className="c-hero hero-background">
+            <div className="hero-title">
+              <p
+                className="hero-title-text"
+                style={{ textShadow: "2px 2px 3px black" }}
+              >
+                Find your next course...
+              </p>
+              <SearchBar />
+            </div>
+          </div>
           <div className="wrapper">
-            <Route exact path="/" component={Home} />
-            <Route
-              path="/courses"
-              render={props => (
-                <Courses {...props} adminStatus={this.state.admin} />
-              )}
-            />
-            <Route exact path="/sandbox" component={Sandbox} />
-            {adminAddCourse}
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route
+                path="/courses"
+                render={props => (
+                  <Courses {...props} adminStatus={this.state.admin} />
+                )}
+              />
+              <Route exact path="/sandbox" component={Sandbox} />
+              {adminAddCourse}
+              <Route
+                path="*"
+                render={props => (
+                  <ErrorPage
+                    errorStatus="404"
+                    errorMessage="We could not find the page you were looking for, try searching again"
+                  />
+                )}
+              />
+            </Switch>
           </div>
           <Footer className="stylefooter" />
         </Router>
