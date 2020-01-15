@@ -26,9 +26,8 @@ beforeEach(() => {
 afterEach(cleanup);
 
 describe("FormBuilder renders correctly", () => {
-  for (let JSONKey in JSONdata) {
-    let JSONObject = JSONdata[JSONKey];
-    test(`${JSONKey} is rendered correctly`, () => {
+  Object.entries(JSONdata).forEach(([JSONObjectKey, JSONObject]) => {
+    test(`${JSONObjectKey} is rendered correctly`, () => {
       switch (JSONObject.type) {
         case "button":
           renderedObject.getByText(new RegExp(JSONObject.text));
@@ -39,5 +38,5 @@ describe("FormBuilder renders correctly", () => {
           break;
       }
     });
-  }
+  });
 });

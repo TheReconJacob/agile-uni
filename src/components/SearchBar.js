@@ -34,8 +34,8 @@ class SearchBar extends Component {
     axios
       .get("http://localhost:5000/sites")
       .then(response => {
+        const sitesRaw = response.data;
         let listItems = [];
-        let sitesRaw = response.data.sites.responseJson;
 
         sitesRaw.forEach(site =>
           listItems.push({ text: site.name, value: site.id })
