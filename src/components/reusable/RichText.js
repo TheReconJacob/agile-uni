@@ -4,9 +4,9 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 function RichText(props) {
   const [editorContent, setEditorContent] = React.useState("");
+  const inputName = `${props.name}-ck-editor-text`;
 
   let optionalLabel = "";
-  let inputName = `${props.name}-ck-editor-text`;
 
   if (props.label) {
     optionalLabel = (

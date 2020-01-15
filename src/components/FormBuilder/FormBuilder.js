@@ -3,23 +3,21 @@ import typeToBuilderMap from "./builderMap";
 
 const styleWrapper = (key, style, content) => (
   <div key={key} style={style}>
-    {" "}
-    {content}{" "}
+    {content}
   </div>
 );
 
 function formReader(dataToRead, parentKey = "") {
   let formDOM = [];
 
-  for (let FormItemKey in dataToRead) {
-    let FormItem = dataToRead[FormItemKey];
-    let combinedKey = `${parentKey}${FormItemKey}`;
+  Object.entries(dataToRead).forEach(([formItemKey, formItem]) => {
+    const combinedKey = `${parentKey}${formItemKey}`;
 
     let styleOverride = parentKey
-      ? { display: "inline-block", width: FormItem.width }
+      ? { display: "inline-block", width: formItem.width }
       : {};
 
-    if (FormItem.center) {
+    if (formItem.center) {
       styleOverride.textAlign = "center";
     }
 
@@ -27,12 +25,12 @@ function formReader(dataToRead, parentKey = "") {
       styleWrapper(
         combinedKey,
         styleOverride,
-        FormItem.type === "container"
-          ? formReader(FormItem.contents, `${parentKey}${FormItemKey}-`)
-          : typeToBuilderMap[FormItem.type](combinedKey, FormItem)
+        formItem.type === "container"
+          ? formReader(formItem.contents, `${combinedKey}-`)
+          : typeToBuilderMap[formItem.type](combinedKey, formItem)
       )
     );
-  }
+  });
 
   return formDOM;
 }

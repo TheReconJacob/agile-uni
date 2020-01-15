@@ -12,7 +12,11 @@ const testableComponents = testJson => ({
   rich_text: {
     builder: builders.richTextBuilder,
     expectedDOM: (
-      <RichText name="TestRichText" label="Test RichText Label" required={true} />
+      <RichText
+        name="TestRichText"
+        label="Test RichText Label"
+        required={true}
+      />
     )
   },
 
@@ -44,7 +48,12 @@ const testableComponents = testJson => ({
   text: {
     builder: builders.inputBuilder,
     expectedDOM: (
-      <Input id="TestText" type="text" labelText="Test TextBox Label" required={true} />
+      <Input
+        id="TestText"
+        type="text"
+        labelText="Test TextBox Label"
+        required={true}
+      />
     )
   },
   number: {
@@ -63,17 +72,28 @@ const testableComponents = testJson => ({
   email: {
     builder: builders.inputBuilder,
     expectedDOM: (
-      <Input id="TestEmail" type="email" labelText="Test Email Label" required={true} />
+      <Input
+        id="TestEmail"
+        type="email"
+        labelText="Test Email Label"
+        required={true}
+      />
     )
   },
   tel: {
     builder: builders.inputBuilder,
-    expectedDOM: <Input id="TestTelephone" type="tel" labelText="Test Telephone Label" />
+    expectedDOM: (
+      <Input id="TestTelephone" type="tel" labelText="Test Telephone Label" />
+    )
   },
   password: {
     builder: builders.inputBuilder,
     expectedDOM: (
-      <Input id="TestPassword" type="password" labelText="Test Password Label" />
+      <Input
+        id="TestPassword"
+        type="password"
+        labelText="Test Password Label"
+      />
     )
   },
   time: {

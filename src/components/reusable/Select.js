@@ -23,13 +23,12 @@ function Select(props) {
         })
         .catch(error => console.log(error));
     } else {
-      for (let selectItemKey in props.items) {
-        let selectItem = props.items[selectItemKey];
+      Object.entries(props.items).forEach(([selectItemKey, selectItem]) => {
         formattedOptions.push({
           value: selectItemKey,
           label: selectItem.label
         });
-      }
+      });
       setOptions(formattedOptions);
     }
   }, [props.items]);

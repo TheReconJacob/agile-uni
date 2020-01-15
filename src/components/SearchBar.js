@@ -16,12 +16,10 @@ function SearchBar() {
       .get("http://localhost:5000/sites")
       .then(response => {
         const listItems = [{ text: "Location", value: "" }];
-        // const listItems = { 0: { label: "None" } };
         const sitesRaw = response.data;
 
-        sitesRaw.forEach(
-          site => listItems.push({ text: site.name, value: site.id })
-          // (listItems[site.id] = { label: site.name })
+        sitesRaw.forEach(site =>
+          listItems.push({ text: site.name, value: site.id })
         );
 
         setSites(listItems);
@@ -38,11 +36,10 @@ function SearchBar() {
 
   return (
     <div className="o-container">
-      <form>
+      <form onSubmit={event => event.preventDefault()}>
         <fieldset>
           <ul className="c-form-list o-layout--spaced">
             <li className="c-form-list">
-              {/* <Select items={sites} default="Location" /> */}
               <Dropdown
                 name={dropdownName}
                 items={sites}
