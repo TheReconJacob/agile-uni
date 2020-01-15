@@ -3,7 +3,7 @@ import axios from "axios";
 
 function bookCourse(courseID, employeeID) {
   axios
-    .get("http://localhost:5000/addAttendee", {
+    .get(`http://${process.env.REACT_APP_SERVER_URL}/addAttendee`, {
       params: {
         course_id: courseID,
         azure_oid: employeeID
@@ -19,7 +19,7 @@ function bookCourse(courseID, employeeID) {
 
 function cancelCourse(courseID, employeeID) {
   axios
-    .get("http://localhost:5000/deleteAttendee", {
+    .get(`http://${process.env.REACT_APP_SERVER_URL}/deleteAttendee`, {
       params: {
         course_id: courseID,
         azure_oid: employeeID
