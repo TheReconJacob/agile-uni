@@ -1,5 +1,4 @@
 import React from "react";
-import SearchBar from "../components/SearchBar";
 import "../styles/admin.scss";
 import axios from "axios";
 import CKEditor from "@ckeditor/ckeditor5-react";
@@ -114,13 +113,6 @@ class Admin extends React.Component {
   render() {
     return (
       <>
-        <div className="c-hero hero-background">
-          <div className="hero-title">
-            <p className="hero-title-text" style = {{textShadow: "2px 2px 3px black"}}>Admin</p>
-            <SearchBar />
-          </div>
-        </div>
-
         <div className="o-container u-padding-bottom-large u-padding-top-large form-container ">
           <form onSubmit={this.handleSubmit}>
             <fieldset>
