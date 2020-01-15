@@ -8,11 +8,10 @@ import BookButton from "../components/BookButton";
 import CourseDescription from "../components/CourseDescription";
 import DateDisplay from "../components/DateDisplay";
 import axios from "axios";
-import moment from "moment";
 
 const queryString = require("query-string");
 let employeeId = localStorage.getItem("employeeId");
-const now = moment().format("YYYY-MM-DD");
+const [now] = new Date().toISOString().split("T");
 
 class Courses extends React.Component {
   constructor(props) {
@@ -20,8 +19,6 @@ class Courses extends React.Component {
 
     this.state = {
       accordionSelected: [],
-      searchParam: "",
-      site: "",
       results: [],
       dataPresent: true,
       canBook: true,
@@ -112,19 +109,11 @@ class Courses extends React.Component {
   }
 
   generateSearch() {
-    if (
-      !queryString.parse(this.props.location.search).searchTerm &&
-      !queryString.parse(this.props.location.search).site
-    ) {
+    const { searchTerm, site } = queryString.parse(this.props.location.search);
+    if (!searchTerm && !site) {
       this.getSearch("", "");
     } else {
-      this.setState({
-        searchParam: queryString.parse(this.props.location.search).searchTerm
-      });
-      this.setState({
-        site: queryString.parse(this.props.location.search).site
-      });
-      this.getSearch(this.state.searchParam, this.state.site);
+      this.getSearch(searchTerm, site);
     }
   }
 
