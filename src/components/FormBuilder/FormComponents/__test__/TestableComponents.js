@@ -12,7 +12,7 @@ const testableComponents = testJson => ({
   rich_text: {
     builder: builders.richTextBuilder,
     expectedDOM: (
-      <RichText name="TestRichText" label="Rich Text" required={true} />
+      <RichText name="TestRichText" label="Test RichText Label" required={true} />
     )
   },
 
@@ -22,7 +22,7 @@ const testableComponents = testJson => ({
     expectedDOM: (
       <Select
         name="TestSelect"
-        label="Select"
+        label="Test Select Label"
         items={{
           opt1: { label: "Option 1" },
           opt2: { label: "Option 2" },
@@ -37,14 +37,14 @@ const testableComponents = testJson => ({
   // Button Builder
   button: {
     builder: builders.buttonBuilder,
-    expectedDOM: <ButtonComponent type="button" text="Test" />
+    expectedDOM: <ButtonComponent type="button" text="Test Button Text" />
   },
 
   // Input Builders
   text: {
     builder: builders.inputBuilder,
     expectedDOM: (
-      <Input id="TestText" type="text" labelText="Text" required={true} />
+      <Input id="TestText" type="text" labelText="Test TextBox Label" required={true} />
     )
   },
   number: {
@@ -53,7 +53,7 @@ const testableComponents = testJson => ({
       <Input
         id="TestNumber"
         type="number"
-        labelText="Number"
+        labelText="Test Number Label"
         required={false}
         min={0}
         max={100}
@@ -63,26 +63,26 @@ const testableComponents = testJson => ({
   email: {
     builder: builders.inputBuilder,
     expectedDOM: (
-      <Input id="TestEmail" type="email" labelText="Email" required={true} />
+      <Input id="TestEmail" type="email" labelText="Test Email Label" required={true} />
     )
   },
   tel: {
     builder: builders.inputBuilder,
-    expectedDOM: <Input id="TestTelephone" type="tel" labelText="Telephone" />
+    expectedDOM: <Input id="TestTelephone" type="tel" labelText="Test Telephone Label" />
   },
   password: {
     builder: builders.inputBuilder,
     expectedDOM: (
-      <Input id="TestPassword" type="password" labelText="Password" />
+      <Input id="TestPassword" type="password" labelText="Test Password Label" />
     )
   },
   time: {
     builder: builders.inputBuilder,
-    expectedDOM: <Input id="TestTime" type="time" labelText="Time" />
+    expectedDOM: <Input id="TestTime" type="time" labelText="Test Time Label" />
   },
   date: {
     builder: builders.inputBuilder,
-    expectedDOM: <Input id="TestDate" type="date" labelText="Date" />
+    expectedDOM: <Input id="TestDate" type="date" labelText="Test Date Label" />
   }
 });
 
