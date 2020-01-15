@@ -87,7 +87,7 @@ describe("When using the dataAccessor to access the courses table", () => {
         course_id: addedCourseRowId,
         description: "UPDATED DESCRIPTION"
       });
-      const updatedRow = await testerHelpers.findById(addedCourseRowId);
+      const updatedRow = await testerHelpers.findCourseById(addedCourseRowId);
       expect(responseObject.data.affectedRows).toBe(1);
       expect(updatedRow.description).toBe("UPDATED DESCRIPTION");
     });
@@ -98,7 +98,7 @@ describe("When using the dataAccessor to access the courses table", () => {
       const responseObject = await dataAccessor.courses.delete(
         addedCourseRowId
       );
-      const updatedRow = await testerHelpers.findById(addedCourseRowId);
+      const updatedRow = await testerHelpers.findCourseById(addedCourseRowId);
       expect(responseObject.data.affectedRows).toBe(1);
       expect(updatedRow).toBeFalsy();
     });
@@ -180,7 +180,29 @@ describe("When using the dataAccessor to access the attendees table", () => {
     });
   });
 
-  describe("Using the add() function", () => {});
+  describe("Using the add() function", () => {
+    it("Should add the attendee to the database", async () => {
+      const responseObject = await dataAccessor.attendees.add({
+        azure_oid: 1337,
+        course_id: 1
+      });
+      const foundAttendee = await testerHelpers.findAttendeeById(
+        responseObject.data.insertId
+      );
 
-  describe("Using the delete() function", () => {});
+      expect(foundAttendee.attended).toBe(0);
+      expect(foundAttendee.course_id).toBe(1);
+    });
+  });
+
+  describe("Using the delete() function", () => {
+    it("Should add the attendee to the database", async () => {
+      const responseObject = await dataAccessor.attendees.delete({
+        azure_oid: 1337,
+        course_id: 1
+      });
+
+      expect(responseObject.data.affectedRows).toBe(1);
+    });
+  });
 });

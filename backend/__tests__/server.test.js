@@ -82,7 +82,9 @@ describe("When testing the server.js it", () => {
 
   it("Should add a course when posting to /addCourse", async () => {
     const response = await postRequest("/addCourse", courseObject);
-    const insertedRow = await testerHelpers.findById(response.body.insertId);
+    const insertedRow = await testerHelpers.findCourseById(
+      response.body.insertId
+    );
     courseObject.course_id = response.body.insertId;
 
     expect(insertedRow.title).toBe("testingAddCourse");
@@ -92,7 +94,9 @@ describe("When testing the server.js it", () => {
     courseObject.title = "testingEditCourse";
     courseObject.description = "Changed Description";
     await postRequest("/editCourse", courseObject);
-    const insertedRow = await testerHelpers.findById(courseObject.course_id);
+    const insertedRow = await testerHelpers.findCourseById(
+      courseObject.course_id
+    );
 
     expect(insertedRow.title).toBe("testingEditCourse");
     expect(insertedRow.description).toBe("Changed Description");

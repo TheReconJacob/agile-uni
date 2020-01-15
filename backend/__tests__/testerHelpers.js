@@ -58,10 +58,22 @@ module.exports = {
     });
   },
 
-  findById: course_id => {
+  findCourseById: course_id => {
     return new Promise(resolve => {
       connection.query(
         `SELECT * FROM courses WHERE id = ${course_id}`,
+        (error, [rowData]) => {
+          if (error) console.log(error);
+          resolve(rowData);
+        }
+      );
+    });
+  },
+
+  findAttendeeById: rowId => {
+    return new Promise(resolve => {
+      connection.query(
+        `SELECT * FROM course_attendees WHERE id = ${rowId}`,
         (error, [rowData]) => {
           if (error) console.log(error);
           resolve(rowData);
