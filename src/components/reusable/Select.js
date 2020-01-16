@@ -2,35 +2,74 @@ import React, { useState, useEffect } from "react";
 import { SelectInput } from "@sky-uk/toolkit-react";
 import axios from "axios";
 
+function networkRequest(url) {
+  return new Promise(resolve => {
+    let itemArray = [];
+    axios
+      .get(url)
+      .then(response => {
+        response.data.forEach(dataObject => {
+          itemArray.push({
+            value: dataObject.id,
+            label: dataObject.name
+          });
+        });
+
+        resolve(itemArray);
+      })
+      .catch(error => console.error(error));
+  });
+}
+
+async function optionFormatter(itemKey, item) {
+  let optionsArray = [];
+  switch (typeof item) {
+    // fetch url
+    case "string":
+      await networkRequest(item).then(array => {
+        optionsArray.push(...array);
+      });
+      break;
+      
+    // push hard code object
+    case "object":
+      optionsArray.push({
+        value: itemKey,
+        label: item.label
+      });
+      break;
+
+    default:
+      console.error("Unexpected item");
+      break;
+  }
+  return optionsArray;
+}
+
+async function itemHandler(items) {
+  let formattedArray = [];
+
+  if (typeof items === "string") {
+    formattedArray = await optionFormatter(null, items);
+  } else {
+    for (let itemKey in items) {
+      const item = items[itemKey];
+      let newArr = await optionFormatter(itemKey, item);
+      formattedArray.push(...newArr);
+    }
+  }
+
+  return formattedArray;
+}
+
 function Select(props) {
   const [selectedValue, setSelectedValue] = useState("");
   const [options, setOptions] = useState([]);
 
   useEffect(() => {
-    let formattedOptions = [];
-
-    if (typeof props.items === "string") {
-      axios
-        .get(props.items)
-        .then(response => {
-          response.data.forEach(dataObject => {
-            formattedOptions.push({
-              value: dataObject.id,
-              label: dataObject.name
-            });
-          });
-          setOptions(formattedOptions);
-        })
-        .catch(error => console.log(error));
-    } else {
-      Object.entries(props.items).forEach(([selectItemKey, selectItem]) => {
-        formattedOptions.push({
-          value: selectItemKey,
-          label: selectItem.label
-        });
-      });
-      setOptions(formattedOptions);
-    }
+    itemHandler(props.items).then(itemArray => {
+      setOptions(itemArray);
+    });
   }, [props.items]);
 
   return (
