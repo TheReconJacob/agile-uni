@@ -32,7 +32,6 @@ function SearchBar() {
     setSearchTerm(event.target.value);
   };
 
-  console.log(process.env.REACT_APP_SERVER_URL)
   return (
     <div className="o-container">
       <form>
