@@ -11,7 +11,7 @@ function SearchBar() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/sites")
+      .get(`http://${process.env.REACT_APP_SERVER_URL}/sites`)
       .then(sites => {
         if (Array.isArray(sites.data)) {
           setSites(sites.data);
@@ -31,6 +31,7 @@ function SearchBar() {
   const handleSearchChange = event => {
     setSearchTerm(event.target.value);
   };
+
   return (
     <div className="o-container">
       <form>
