@@ -109,11 +109,13 @@ class Courses extends React.Component {
   }
 
   generateSearch() {
-    const { searchTerm, site } = queryString.parse(this.props.location.search);
-    if (!searchTerm && !site) {
+    const { searchTerm, siteId } = queryString.parse(
+      this.props.location.search
+    );
+    if (!searchTerm && !siteId) {
       this.getSearch("", "");
     } else {
-      this.getSearch(searchTerm, site);
+      this.getSearch(searchTerm, siteId);
     }
   }
 
