@@ -10,7 +10,7 @@ function ErrorPage(props) {
 
   useEffect(props => {
     axios
-      .get("http://localhost:5000/retrieveRandomAnimal", {
+      .get(`http://${process.env.REACT_APP_SERVER_URL}/retrieveRandomAnimal`, {
         responseType: "blob"
       })
       .then(response => {

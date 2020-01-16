@@ -19,7 +19,7 @@ beforeEach(() => {
   ).getByText;
 });
 
-afterEach(cleanup); 
+afterEach(cleanup);
 
 describe("Error page renders correctly", () => {
   it("Sorry renders correctly", () => {

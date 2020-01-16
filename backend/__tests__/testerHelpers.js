@@ -5,25 +5,27 @@ const config = require("../config"),
   inputs = [];
 let query = "DELETE FROM course_attendees;DELETE FROM courses";
 
-connection.connect(err => {
-  if (err) throw err;
+connection.connect(error => {
+  if (error) console.log(error);
 });
 
 function createInput({ title = "TEST", site_id = 1, course_id }) {
   const start_date = "2020-06-23 09:00";
   const end_date = "2020-06-23 17:00";
   const attendees_max = 10;
+  const description = "THIS IS A TEST";
+  const location = "BUILDING";
 
   query += addCourseQuery;
   inputs.push(
     course_id,
     title,
     attendees_max,
-    "THIS IS A TEST",
+    description,
     start_date,
     end_date,
     site_id,
-    "BUILDING"
+    location
   );
 }
 
@@ -45,10 +47,33 @@ module.exports = {
     });
   },
 
-  findById: course_id => {
+  resetSitesTable: () => {
+    const query = `DELETE FROM sites WHERE id > 3;`;
+
+    return new Promise(resolve => {
+      connection.query(query, error => {
+        if (error) console.log(error);
+        resolve();
+      });
+    });
+  },
+
+  findCourseById: course_id => {
     return new Promise(resolve => {
       connection.query(
         `SELECT * FROM courses WHERE id = ${course_id}`,
+        (error, [rowData]) => {
+          if (error) console.log(error);
+          resolve(rowData);
+        }
+      );
+    });
+  },
+
+  findAttendeeById: rowId => {
+    return new Promise(resolve => {
+      connection.query(
+        `SELECT * FROM course_attendees WHERE id = ${rowId}`,
         (error, [rowData]) => {
           if (error) console.log(error);
           resolve(rowData);
@@ -62,6 +87,20 @@ module.exports = {
       connection.query("SELECT * FROM courses", (error, data) => {
         if (error) console.log(error);
         resolve(data);
+      });
+    });
+  },
+
+  addCourse: () => {
+    const query = `INSERT INTO courses 
+      (id, title, attendees_max, description, start_date, end_date, site_id, location)
+    VALUES 
+      (1, "ANOTHER TEST", 10, "TEST DESCRIPTION", "2020-02-20 09:00", "2020-02-20 17:00", 1, "TEST LOCATION")`;
+
+    return new Promise(resolve => {
+      connection.query(query, error => {
+        if (error) console.log(error);
+        resolve();
       });
     });
   },

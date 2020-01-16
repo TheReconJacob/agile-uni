@@ -183,9 +183,8 @@ app.get("/retrieveRandomAnimal", (req, res) => {
 // });
 // });
 
-let server;
 const serverStart = new Promise(resolve => {
-  server = app.listen(port, err => {
+  app.listen(port, err => {
     if (err) console.log(err);
     console.log("Listening on port " + port);
     resolve();

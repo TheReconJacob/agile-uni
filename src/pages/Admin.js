@@ -18,7 +18,9 @@ function Admin() {
     const course_id = globalState;
 
     axios
-      .get(`http://localhost:5000/findCourseById`, { params: { course_id } })
+      .get(`http://${process.env.REACT_APP_SERVER_URL}/findCourseById`, {
+        params: { course_id }
+      })
       .then(response => {
         setCourseObject(response.data);
       })
@@ -35,7 +37,7 @@ function Admin() {
     if (globalState !== "add") {
       data.append("course_id", this.props.location.state.course_id);
       axios
-        .post("http://localhost:5000/editCourse", data)
+        .post(`http://${process.env.REACT_APP_SERVER_URL}/editCourse`, data)
         .then(response => {
           window.location.replace("/courses");
         })
@@ -44,7 +46,7 @@ function Admin() {
         });
     } else {
       axios
-        .post("http://localhost:5000/addCourse", data)
+        .post(`http://${process.env.REACT_APP_SERVER_URL}/addCourse`, data)
         .then(response => {
           window.location.replace("/courses");
         })
