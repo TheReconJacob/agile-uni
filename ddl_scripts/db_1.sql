@@ -1,4 +1,6 @@
--- example 
--- each time the db needs to be updated create a new file and increment the count. Then apply the changes
-
--- ALTER TABLE ()......... 
+INSERT INTO sites
+    (id, name, address)
+VALUES
+    (1, "Osterley", "1 Grant Way, Isleworth TW7 5QD"),
+    (2, "Leeds", "2 Wellington Pl, LS1 4AP"),
+    (3, "Livingston", "1 MacIntosh Rd, EH54 7BW");
