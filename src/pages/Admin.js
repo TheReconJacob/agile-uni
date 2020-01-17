@@ -38,7 +38,7 @@ class Admin extends React.Component {
     if (this.props.location.state !== undefined) {
       data.append("course_id", this.props.location.state.course_id);
       axios
-        .post("http://localhost:5000/editCourse", data)
+        .post(`http://${process.env.REACT_APP_SERVER_URL}/editCourse`, data)
         .then(response => {
           window.location.replace("/courses");
         })
@@ -47,7 +47,7 @@ class Admin extends React.Component {
         });
     } else {
       axios
-        .post("http://localhost:5000/addCourse", data)
+        .post(`http://${process.env.REACT_APP_SERVER_URL}/addCourse`, data)
         .then(response => {
           window.location.replace("/courses");
         })
@@ -61,7 +61,7 @@ class Admin extends React.Component {
     const params = this.props.location.state.course_id;
 
     axios
-      .get(`http://localhost:5000/findCourseById?course_id=${params}`)
+      .get(`http://${process.env.REACT_APP_SERVER_URL}/findCourseById?course_id=${params}`)
       .then(response => {
         return response.data;
       })

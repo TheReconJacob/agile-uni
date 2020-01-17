@@ -3,7 +3,7 @@ import axios from "axios";
 
 function deleteCourse(courseID) {
   axios
-    .get("http://localhost:5000/deleteCourse", {
+    .get(`http://${process.env.REACT_APP_SERVER_URL}/deleteCourse`, {
       params: {
         courseId: courseID
       }

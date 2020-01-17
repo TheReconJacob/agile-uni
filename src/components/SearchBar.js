@@ -13,7 +13,7 @@ function SearchBar() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/sites")
+      .get(`http://${process.env.REACT_APP_SERVER_URL}/sites`)
       .then(response => {
         const listItems = [{ text: "Location", value: "" }];
         const sitesRaw = response.data;

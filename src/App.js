@@ -12,6 +12,7 @@ import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import Admin from "./pages/Admin";
 import axios from "axios";
 
+
 axios.interceptors.request.use(
   async config => {
     const token = await authProvider.getIdToken();
@@ -57,7 +58,6 @@ class App extends React.Component {
 
   render() {
     let adminAddCourse;
-
     if (this.state.admin) {
       adminAddCourse = <Route path="/admin" component={Admin} />;
     } else {
