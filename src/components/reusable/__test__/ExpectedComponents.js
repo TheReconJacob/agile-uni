@@ -5,7 +5,7 @@ import ModalComponent from "../Modal";
 import SelectComponent from "../Select";
 import RichTextComponent from "../RichText";
 
-const testableComponents = {
+export const testableComponents = {
   Button: {
     expectedDom: <ButtonComponent text="Test" type="submit" />
   },
@@ -26,5 +26,3 @@ const testableComponents = {
     expectedDom: <RichTextComponent label="rich-text" />
   }
 };
-
-export default testableComponents;
