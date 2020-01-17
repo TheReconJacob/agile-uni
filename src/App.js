@@ -12,7 +12,6 @@ import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import Admin from "./pages/Admin";
 import axios from "axios";
 
-
 axios.interceptors.request.use(
   async config => {
     const token = await authProvider.getIdToken();

@@ -61,7 +61,9 @@ class Admin extends React.Component {
     const params = this.props.location.state.course_id;
 
     axios
-      .get(`http://${process.env.REACT_APP_SERVER_URL}/findCourseById?course_id=${params}`)
+      .get(
+        `http://${process.env.REACT_APP_SERVER_URL}/findCourseById?course_id=${params}`
+      )
       .then(response => {
         return response.data;
       })
