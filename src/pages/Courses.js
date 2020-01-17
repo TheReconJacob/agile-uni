@@ -51,7 +51,7 @@ class Courses extends React.Component {
       };
     }
     axios
-      .get(`http://${process.env.REACT_APP_SERVER_URL}/search`, params)
+      .get(`http://${process.env.REACT_APP_SERVER_URL}/courses`, params)
       .then(courses => {
         resultsData = courses.data;
         self.setState({ results: resultsData });

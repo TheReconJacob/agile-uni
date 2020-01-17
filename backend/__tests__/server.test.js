@@ -36,21 +36,21 @@ describe("When testing the server.js it", () => {
     expect(response.text).toBe("Hello World");
   });
 
-  describe("Should get all courses when getting from /search", () => {
+  describe("Should get all courses when getting from /courses", () => {
     it("when no params are given", async () => {
-      const response = await getRequest("/search");
+      const response = await getRequest("/courses");
 
       expect(response.body).toHaveLength(3);
     });
 
     it("when site_id param is 1", async () => {
-      const response = await getRequest("/search", { site_id: 1 });
+      const response = await getRequest("/courses", { site_id: 1 });
 
       expect(response.body).toHaveLength(2);
     });
 
     it("when courseTitleFragment is 'ES'", async () => {
-      const response = await getRequest("/search", {
+      const response = await getRequest("/courses", {
         courseTitleFragment: "ES"
       });
 
@@ -58,7 +58,7 @@ describe("When testing the server.js it", () => {
     });
 
     it("when both params are given", async () => {
-      const response = await getRequest("/search", {
+      const response = await getRequest("/courses", {
         site_id: 1,
         courseTitleFragment: "ES"
       });
