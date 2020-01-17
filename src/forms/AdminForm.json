@@ -1,0 +1,122 @@
+{
+    "TitleInput": {
+        "type": "text",
+        "label": "First Name",
+        "required": true
+    },
+
+    "AgeInput": {
+        "type": "number",
+        "label": "Age",
+        "required": false
+    },
+
+    "PetNameInput": {
+        "type": "text",
+        "label": "Pet Name",
+        "required": false
+    },
+    
+    "InstructorInput": {
+        "type": "text",
+        "label": "Instructor Name",
+        "required": true
+    },
+
+    "LocationInputEXTERNAL": {
+        "type": "select",
+        "label": "Loctaion",
+        "required": true,
+        "default": "Please select a location",
+        "items": "http://localhost:5000/sites"
+    },
+
+    "LocationInputHARD": {
+        "type": "select",
+        "label": "Loctaion",
+        "required": true,
+        "default": "Please select a location",
+        "items": {
+            "opt1": { "label": "Option 1" },
+            "opt2": { "label": "Option 2" },
+            "opt3": { "label": "Option 3" }
+        }
+    },
+    
+    "StartInput": {
+        "type": "container",
+        
+        "contents": {
+
+            "DateInput": {
+                "label": "Start Date",
+                "width": "75%",
+                "type": "date",
+                "required":true
+            },
+
+            "TimeInput": {
+                "width": "25%",
+                "type": "time",
+                "required":true
+            }
+        }
+    },
+
+    "EndInput": {
+        "type": "container",
+        
+        "contents": {
+
+            "DateInput": {
+                "label": "End Date",
+                "width": "75%",
+                "type": "date",
+                "required":true
+            },
+
+            "TimeInput": {
+                "width": "25%",
+                "type": "time",
+                "required":true
+            }
+        }
+    },
+
+    "LocationInput": {
+        "type": "text",
+        "label": "Loctaion",
+        "required": true
+    },
+
+    "MaxAtendeesInput": {
+        "type": "number",
+        "label": "Maximum atendees",
+        "required": true
+    },
+
+    "DescriptionInput": {
+        "type": "rich_text",
+        "label": "Description",
+        "required": true
+    },
+
+    "FormButtons": {
+        "type": "container",
+        "center": true,
+        
+        "contents": {
+            "SubmitButton": {
+                "type": "button",
+                "text": "Add",
+                "submit": true
+            },
+
+            "ResetButton": {
+                "type": "button",
+                "text": "Reset",
+                "reset": true
+            }
+        }
+    }
+}

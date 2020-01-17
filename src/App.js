@@ -4,13 +4,13 @@ import "./App.scss";
 import { authProvider } from "./authProvider";
 import Courses from "./pages/Courses";
 import Home from "./pages/Home";
+import Sandbox from "./pages/Sandbox";
 import ErrorPage from "./pages/ErrorPage";
 import Navbar from "./components/Navbar.js";
 import Footer from "./components/Footer.js";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import Admin from "./pages/Admin";
 import axios from "axios";
-
 
 axios.interceptors.request.use(
   async config => {
@@ -96,6 +96,7 @@ class App extends React.Component {
                   <Courses {...props} adminStatus={this.state.admin} />
                 )}
               />
+              <Route exact path="/sandbox" component={Sandbox} />
               {adminAddCourse}
               <Route
                 path="*"
