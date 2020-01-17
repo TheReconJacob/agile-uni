@@ -51,7 +51,7 @@ class Courses extends React.Component {
       };
     }
     axios
-      .get("http://localhost:5000/search", params)
+      .get(`http://${process.env.REACT_APP_SERVER_URL}/search`, params)
       .then(courses => {
         resultsData = courses.data;
         self.setState({ results: resultsData });
@@ -70,7 +70,7 @@ class Courses extends React.Component {
       const max = courseSelected.attendees_max;
 
       axios
-        .get("http://localhost:5000/totalAttendees", {
+        .get(`http://${process.env.REACT_APP_SERVER_URL}/totalAttendees`, {
           course_id: courseSelected.id
         })
         .then(response => {
@@ -81,7 +81,7 @@ class Courses extends React.Component {
           }
         });
       axios
-        .get("http://localhost:5000/returnIfBooked", {
+        .get(`http://${process.env.REACT_APP_SERVER_URL}/returnIfBooked`, {
           params: {
             azure_oid: employeeId,
             course_id: courseSelected.id

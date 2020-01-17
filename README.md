@@ -66,6 +66,10 @@ You'll need an AUTHTOKEN as a env to run the test (**see wiki as to why**). Inst
 
 We have set up email sending with a dummy gmail account. This will need updating to an agile university account, but I suggest that you use a boiler account for just sending the notification emails. The email credentials are encrypted in emailConfig.js. To change the account over to a sky email account, you will need to update the credentials, and the settings in the server.js transport variables.
 
+## Environments
+
+There are three different environments that have been set up. One for testing, one for development, and one for production. These are controlled by three different .env files. The ".env" file in the backend folder is used whenever you type "yarn test". The ".env.development" file in the root is used whenever you type "yarn start". the ".env.production" file is used whenever you are deploying your site into production. To do this, you would type "yarn build", then type "serve -s build" once it's finished building. Whenever you change the code, you will have to type "yarn build" again before typing "serve -s build". You can edit the values in any of the .env files, and it will change all of the values that are referencing that part of the file.
+
 ## Useful Links
 
 We used the sky react library for some components. This can be found on [pages-lib page](https://github.com/sky-uk/pages-lib) for the sky github. [Library of components](https://pages-lib.cf.dev-paas.bskyb.com/storybook/?path=/story/*)

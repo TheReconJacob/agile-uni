@@ -9,6 +9,7 @@ let addedCourseRowId;
 
 beforeAll(async () => {
   firstRowCourseId = await testerHelpers.resetCoursesTable();
+  await testerHelpers.resetSitesTable();
 });
 
 afterAll(() => {
@@ -20,7 +21,7 @@ describe("When using the dataAccessor to access the courses table", () => {
   describe("Using the all() function", () => {
     it("Should return all courses", async () => {
       const responseObject = await dataAccessor.courses.all();
-      expect(responseObject.data.length).toBe(3);
+      expect(responseObject.data).toHaveLength(3);
     });
   });
 
@@ -44,14 +45,14 @@ describe("When using the dataAccessor to access the courses table", () => {
       const responseObject = await dataAccessor.courses.find({
         courseTitleFragment: "ES"
       });
-      expect(responseObject.data.length).toBe(2);
+      expect(responseObject.data).toHaveLength(2);
     });
 
     it("Should be able to find courses by their site_id", async () => {
       const responseObject = await dataAccessor.courses.find({
         site_id: 1
       });
-      expect(responseObject.data.length).toBe(2);
+      expect(responseObject.data).toHaveLength(2);
       expect(responseObject.data[firstRow].site_id).toBe(1);
     });
 
@@ -60,7 +61,7 @@ describe("When using the dataAccessor to access the courses table", () => {
         courseTitleFragment: "ES",
         site_id: 1
       });
-      expect(responseObject.data.length).toBe(1);
+      expect(responseObject.data).toHaveLength(1);
     });
   });
 
@@ -86,7 +87,7 @@ describe("When using the dataAccessor to access the courses table", () => {
         course_id: addedCourseRowId,
         description: "UPDATED DESCRIPTION"
       });
-      const updatedRow = await testerHelpers.findById(addedCourseRowId);
+      const updatedRow = await testerHelpers.findCourseById(addedCourseRowId);
       expect(responseObject.data.affectedRows).toBe(1);
       expect(updatedRow.description).toBe("UPDATED DESCRIPTION");
     });
@@ -97,7 +98,7 @@ describe("When using the dataAccessor to access the courses table", () => {
       const responseObject = await dataAccessor.courses.delete(
         addedCourseRowId
       );
-      const updatedRow = await testerHelpers.findById(addedCourseRowId);
+      const updatedRow = await testerHelpers.findCourseById(addedCourseRowId);
       expect(responseObject.data.affectedRows).toBe(1);
       expect(updatedRow).toBeFalsy();
     });
@@ -105,7 +106,103 @@ describe("When using the dataAccessor to access the courses table", () => {
     it("Should delete all rows when passing 'all'", async () => {
       await dataAccessor.courses.delete("all");
       const allRows = await testerHelpers.getAll();
-      expect(allRows.length).toBe(0);
+      expect(allRows).toHaveLength(0);
+    });
+  });
+});
+
+describe("When using the dataAccessor to access the sites table", () => {
+  describe("Using the all() function", () => {
+    it("Should return all sites", async () => {
+      const responseObject = await dataAccessor.sites.all();
+      expect(responseObject.data).toHaveLength(3);
+    });
+  });
+
+  describe("Using the findById() function", () => {
+    it("Should return the site associated with the given id", async () => {
+      const responseObject = await dataAccessor.sites.findById(1);
+      expect(responseObject.data.name).toBe("Osterley");
+    });
+  });
+
+  describe("Using the add() function", () => {
+    const siteObject = {
+      name: "TESTING SITE",
+      address: "TESTING ADDRESS"
+    };
+
+    it("Should add the course with a given id if it doesn't already exist", async () => {
+      const responseObject = await dataAccessor.sites.add({
+        ...siteObject,
+        id: 4
+      });
+
+      expect(responseObject.data.insertId).toBe(4);
+    });
+
+    it("Should add the course with an auto-incremented id when no id is given", async () => {
+      const responseObject = await dataAccessor.sites.add(siteObject);
+
+      expect(responseObject.data.affectedRows).toBe(1);
+      expect(responseObject.data.insertId).toBeGreaterThan(4);
+    });
+  });
+});
+
+describe("When using the dataAccessor to access the attendees table", () => {
+  describe("Using the allForCourse() function", () => {
+    it("Should return an array of all attendees for a given course_id", async () => {
+      await testerHelpers.addCourse();
+      await testerHelpers.addAttendee({});
+      const responseObject = await dataAccessor.attendees.allForCourse(1);
+      expect(responseObject.data).toHaveLength(1);
+    });
+  });
+
+  describe("Using the findForCourse() function", () => {
+    it("Should return an empty array if there isn't an attendee booked", async () => {
+      const responseObject = await dataAccessor.attendees.findForCourse({
+        azure_oid: 999999,
+        course_id: 1
+      });
+
+      expect(responseObject.data).toHaveLength(0);
+    });
+
+    it("Should return an array with the attendee if they are booked", async () => {
+      const responseObject = await dataAccessor.attendees.findForCourse({
+        azure_oid: 1,
+        course_id: 1
+      });
+
+      expect(responseObject.data).toHaveLength(1);
+    });
+  });
+
+  describe("Using the add() function", () => {
+    it("Should add the attendee to the database", async () => {
+      const responseObject = await dataAccessor.attendees.add({
+        azure_oid: 1337,
+        course_id: 1
+      });
+      const foundAttendee = await testerHelpers.findAttendeeById(
+        responseObject.data.insertId
+      );
+
+      expect(foundAttendee.attended).toBe(0);
+      expect(foundAttendee.course_id).toBe(1);
+    });
+  });
+
+  describe("Using the delete() function", () => {
+    it("Should add the attendee to the database", async () => {
+      const responseObject = await dataAccessor.attendees.delete({
+        azure_oid: 1337,
+        course_id: 1
+      });
+
+      expect(responseObject.data.affectedRows).toBe(1);
     });
   });
 });
