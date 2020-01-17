@@ -4,13 +4,14 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 function RichText(props) {
   const [editorContent, setEditorContent] = React.useState("");
-  const inputName = `${props.name}-ck-editor-text`;
-
   let optionalLabel = "";
 
   if (props.label) {
     optionalLabel = (
-      <label htmlFor={inputName} style={{ float: "none" }}>
+      <label
+        htmlFor={props.name}
+        style={{ float: "none", marginBottom: "5px" }}
+      >
         {props.label}
         <mark style={{ backgroundColor: "transparent", color: "red" }}>
           {props.required ? " *" : ""}
@@ -22,18 +23,15 @@ function RichText(props) {
   return (
     <div>
       {optionalLabel}
-
       <input
-        id={inputName}
-        name={inputName}
+        id={props.name}
+        name={props.name}
         type="hidden"
         readOnly={true}
         value={editorContent}
       ></input>
-
       <div style={{ marginBottom: "10px" }}>
         <CKEditor
-          id={props.name}
           content={editorContent}
           onChange={(event, editor) => setEditorContent(editor.getData())}
           editor={ClassicEditor}
@@ -42,5 +40,4 @@ function RichText(props) {
     </div>
   );
 }
-
 export default RichText;

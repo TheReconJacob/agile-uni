@@ -30,7 +30,7 @@ async function optionFormatter(itemKey, item) {
         optionsArray.push(...array);
       });
       break;
-      
+
     // push hard code object
     case "object":
       optionsArray.push({
