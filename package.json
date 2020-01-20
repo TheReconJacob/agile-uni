@@ -42,6 +42,7 @@
     "react-scripts": "3.2.0",
     "react-testing-library": "^8.0.1",
     "redux": "^4.0.4",
+    "regenerator-runtime": "^0.13.3",
     "sky-toolkit": "^2.34.0",
     "styled-components": "^2.5.0-1",
     "test-utils": "^1.1.1",

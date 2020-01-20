@@ -51,7 +51,7 @@ class Courses extends React.Component {
       };
     }
     axios
-      .get(`http://${process.env.REACT_APP_SERVER_URL}/search`, params)
+      .get(`http://${process.env.REACT_APP_SERVER_URL}/courses`, params)
       .then(courses => {
         resultsData = courses.data;
         self.setState({ results: resultsData });
@@ -109,11 +109,13 @@ class Courses extends React.Component {
   }
 
   generateSearch() {
-    const { searchTerm, site } = queryString.parse(this.props.location.search);
-    if (!searchTerm && !site) {
+    const { searchTerm, siteId } = queryString.parse(
+      this.props.location.search
+    );
+    if (!searchTerm && !siteId) {
       this.getSearch("", "");
     } else {
-      this.getSearch(searchTerm, site);
+      this.getSearch(searchTerm, siteId);
     }
   }
 

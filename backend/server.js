@@ -72,7 +72,7 @@ app.get("/sites", (req, res) => {
   returnResponseOfPromise(dataAccessor.sites.all(), res);
 });
 
-app.get("/search", (req, res) => {
+app.get("/courses", (req, res) => {
   const parameters = req.query;
   let SQLPromise;
 

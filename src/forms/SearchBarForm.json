@@ -1,0 +1,28 @@
+{
+  "search": {
+    "type": "container",
+    "center": true,
+
+    "contents": {
+      "siteId": {
+        "type": "select",
+        "items": {
+          "": { "label": "Location" },
+          "url": "http://localhost:5000/sites"
+        },
+        "width": "15%"
+      },
+
+      "courseTitleFragment": {
+        "type": "text",
+        "width": "50%"
+      },
+
+      "SubmitButton": {
+        "type": "button",
+        "text": "Search",
+        "submit": true
+      }
+    }
+  }
+}

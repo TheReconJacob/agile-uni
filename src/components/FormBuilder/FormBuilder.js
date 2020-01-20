@@ -47,19 +47,23 @@ function formReader(dataToRead, parentKey = "") {
 }
 
 function FormBuilder(props) {
+  const { onSubmit, method, action, style, json } = props;
+
   const formSubmitHandler = event => {
     event.preventDefault();
-    if (props.onSubmit) {
-      props.onSubmit(event);
+    if (onSubmit) {
+      onSubmit(event);
     } else {
       const formData = new FormData(event.target);
-      submitRequest(formData, props.method, props.action);
+      submitRequest(formData, method, action);
     }
   };
 
   return (
     <>
-      <form onSubmit={formSubmitHandler}>{formReader(props.json, "")}</form>
+      <form style={style} onSubmit={formSubmitHandler}>
+        {formReader(json, "")}
+      </form>
     </>
   );
 }
