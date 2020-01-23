@@ -58,9 +58,6 @@ function Admin() {
 
   return (
     <>
-      <h1 style={{ fontSize: "48px", textAlign: "center", margin: "1%" }}>
-        {globalState === "add" ? "Create a Course" : "Edit Course"}
-      </h1>
       <FormBuilder
         style={{ marginLeft: "15%", marginRight: "15%" }}
         json={AdminFormJSON}
