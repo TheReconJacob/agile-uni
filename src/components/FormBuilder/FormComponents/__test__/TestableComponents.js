@@ -106,11 +106,7 @@ const testableComponents = testJson => ({
   },
   header: {
     builder: builders.headerBuilder,
-    expectedDOM: (
-      <h1 style={{ fontSize: "48px", textAlign: "center", margin: "1%" }}>
-        Testing Header
-      </h1>
-    )
+    expectedDOM: <h1 className="header">Testing Header</h1>
   }
 });
 
