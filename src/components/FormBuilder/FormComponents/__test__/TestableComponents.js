@@ -103,6 +103,14 @@ const testableComponents = testJson => ({
   date: {
     builder: builders.inputBuilder,
     expectedDOM: <Input id="TestDate" type="date" labelText="Test Date Label" />
+  },
+  header: {
+    builder: builders.headerBuilder,
+    expectedDOM: (
+      <h1 style={{ fontSize: "48px", textAlign: "center", margin: "1%" }}>
+        Testing Header
+      </h1>
+    )
   }
 });
 

@@ -60,5 +60,10 @@
         "type": "rich_text",
         "label": "Test RichText Label",
         "required": true
+    },
+
+    "TestHeader": {
+        "type": "header",
+        "text": "Testing Header"
     }
 }
