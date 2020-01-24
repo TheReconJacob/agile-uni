@@ -2,7 +2,8 @@ import {
   inputBuilder,
   selectBuilder,
   richTextBuilder,
-  buttonBuilder
+  buttonBuilder,
+  headerBuilder
 } from "./FormComponents/";
 
 const typeToBuilderMap = {
@@ -18,7 +19,9 @@ const typeToBuilderMap = {
 
   rich_text: richTextBuilder,
 
-  button: buttonBuilder
+  button: buttonBuilder,
+
+  header: headerBuilder
 };
 
 export default typeToBuilderMap;

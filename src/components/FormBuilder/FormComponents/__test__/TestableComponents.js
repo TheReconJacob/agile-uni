@@ -44,6 +44,12 @@ const testableComponents = testJson => ({
     expectedDOM: <ButtonComponent type="button" text="Test Button Text" />
   },
 
+  // Header Builder
+  header: {
+    builder: builders.headerBuilder,
+    expectedDOM: <h1 className="header">Testing Header</h1>
+  },
+
   // Input Builders
   text: {
     builder: builders.inputBuilder,
