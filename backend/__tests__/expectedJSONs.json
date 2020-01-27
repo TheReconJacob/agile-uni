@@ -4,6 +4,10 @@
       "type": "header"
     },
 
+    "numberField": {
+      "type": "number"
+    },
+
     "inputField": {
       "type": "text"
     },
@@ -28,6 +32,10 @@
   "untouchedForm": {
     "header": {
       "type": "header"
+    },
+
+    "numberField": {
+      "type": "number"
     },
 
     "inputField": {
@@ -62,6 +70,11 @@
       "shouldHaveDefault": true,
       "expectedDefault": "I am not in a container"
     },
+
+    "numberField": {
+      "shouldHaveDefault": false
+    },
+
     "container": {
       "shouldHaveDefault": false,
       "contents": {

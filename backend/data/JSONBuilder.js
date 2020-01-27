@@ -11,7 +11,8 @@ module.exports = (form, defaultValuesObject) => {
         };
       else if (
         jsonToEdit[key].type !== "button" &&
-        jsonToEdit[key].type !== "header"
+        jsonToEdit[key].type !== "header" &&
+        defaultValuesObject[combinedKey]
       )
         builtJson[key] = {
           ...jsonToEdit[key],
