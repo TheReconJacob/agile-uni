@@ -1,0 +1,77 @@
+{
+  "originalForm": {
+    "header": {
+      "type": "header"
+    },
+
+    "inputField": {
+      "type": "text"
+    },
+
+    "container": {
+      "type": "container",
+      "contents": {
+        "inputField": {
+          "type": "text"
+        },
+        "button": {
+          "type": "button"
+        }
+      }
+    },
+
+    "button": {
+      "type": "button"
+    }
+  },
+
+  "untouchedForm": {
+    "header": {
+      "type": "header"
+    },
+
+    "inputField": {
+      "type": "text"
+    },
+
+    "container": {
+      "type": "container",
+      "contents": {
+        "inputField": {
+          "type": "text"
+        },
+        "button": {
+          "type": "button"
+        }
+      }
+    },
+
+    "button": {
+      "type": "button"
+    }
+  },
+
+  "defaultValues": {
+    "inputField": "I am not in a container",
+    "container_inputField": "I am inside a container"
+  },
+
+  "expectedDefaults": {
+    "header": { "shouldHaveDefault": false },
+    "inputField": {
+      "shouldHaveDefault": true,
+      "expectedDefault": "I am not in a container"
+    },
+    "container": {
+      "shouldHaveDefault": false,
+      "contents": {
+        "inputField": {
+          "shouldHaveDefault": true,
+          "expectedDefault": "I am inside a container"
+        },
+        "button": { "shouldHaveDefault": false }
+      }
+    },
+    "button": { "shouldHaveDefault": false }
+  }
+}
