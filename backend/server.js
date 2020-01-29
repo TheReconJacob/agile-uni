@@ -7,7 +7,8 @@ const express = require("express"),
   upload = multer(),
   cors = require("cors"),
   dataAccessor = require("./data/dataAccessor.js"),
-  path = require("path");
+  path = require("path"),
+  JSONBuilder = require("./data/JSONBuilder");
 // nodemailer = require("nodemailer"),
 // creds = require("./emailConfig");
 
@@ -62,6 +63,29 @@ function handleError(response, res) {
   res.status = response.status;
   console.error(response.error);
   return res.json(response.error);
+}
+
+function dateAndTimeSplitter(object) {
+  function convertDateToString(date) {
+    date = new Date(date);
+    const [month, day, year] = date.toLocaleDateString().split("/");
+
+    return [`${year}-${month}-${day}`, date.toLocaleTimeString()];
+  }
+
+  const [start_date, start_time] = convertDateToString(object.start_date);
+  const [end_date, end_time] = convertDateToString(object.end_date);
+
+  Object.entries({
+    start_date,
+    start_time,
+    end_date,
+    end_time
+  }).forEach(([key, value]) => {
+    object[key] = value;
+  });
+
+  return object;
 }
 
 app.get("/", (req, res) => {
@@ -150,6 +174,24 @@ app.get("/returnIfBooked", (req, res) => {
 app.get("/findCourseById", (req, res) => {
   const parameters = req.query;
   returnResponseOfPromise(dataAccessor.courses.find(parameters), res);
+});
+
+app.get("/getCourseAsJson", (req, res) => {
+  const AdminJson = require("../src/forms/AdminForm.json");
+  const parameters = req.query;
+  dataAccessor.courses
+    .find(parameters)
+    .then(response => {
+      res.status = response.status;
+      const courseObject = dateAndTimeSplitter(response.data);
+      return res.json({
+        json: JSONBuilder(AdminJson, courseObject),
+        course: courseObject
+      });
+    })
+    .catch(response => {
+      handleError(response, res);
+    });
 });
 
 app.get("/retrieveRandomAnimal", (req, res) => {
