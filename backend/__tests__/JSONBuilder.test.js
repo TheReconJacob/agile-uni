@@ -58,6 +58,13 @@ describe("When using the JSONBuilder it", () => {
   });
 
   it("Shouldn't alter the original form", () => {
-    expect(originalForm).toMatchObject(untouchedForm);
+    expect(untouchedForm).toMatchObject(originalForm);
+  });
+
+  it("Should make required equal to false", () => {
+    expect(builtFormWithDefaults.inputField.required).toBe(false);
+    expect(builtFormWithDefaults.container.contents.inputField.required).toBe(
+      false
+    );
   });
 });

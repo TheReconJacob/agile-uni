@@ -16,9 +16,10 @@ module.exports = (form, defaultValuesObject) => {
       )
         builtJson[key] = {
           ...jsonToEdit[key],
-          default: defaultValuesObject[combinedKey]
+          default: defaultValuesObject[combinedKey],
+          required: false
         };
-      else builtJson[key] = { ...jsonToEdit[key] };
+      else builtJson[key] = { ...jsonToEdit[key], required: false };
     });
 
     return builtJson;
