@@ -5,7 +5,8 @@
     },
 
     "numberField": {
-      "type": "number"
+      "type": "number",
+      "required": true
     },
 
     "inputField": {
@@ -16,7 +17,8 @@
       "type": "container",
       "contents": {
         "inputField": {
-          "type": "text"
+          "type": "text",
+          "required": true
         },
         "button": {
           "type": "button"
@@ -35,7 +37,8 @@
     },
 
     "numberField": {
-      "type": "number"
+      "type": "number",
+      "required": true
     },
 
     "inputField": {
@@ -46,7 +49,8 @@
       "type": "container",
       "contents": {
         "inputField": {
-          "type": "text"
+          "type": "text",
+          "required": true
         },
         "button": {
           "type": "button"
