@@ -165,7 +165,7 @@ describe("When testing the server.js it", () => {
       title: {
         type: "text",
         label: "Title",
-        required: true,
+        required: false,
         default: "TEST"
       }
     };
@@ -175,12 +175,14 @@ describe("When testing the server.js it", () => {
         label: "Start Date",
         width: "75%",
         type: "date",
-        required: true,
-        default: "2020-6-23"
+        required: false,
+        default: "2020-06-23"
       }
     };
 
-    expect(response.body.start.contents).toMatchObject(expectedEmbeddedKey);
-    expect(response.body).toMatchObject(expectedKey);
+    expect(response.body.json.start.contents).toMatchObject(
+      expectedEmbeddedKey
+    );
+    expect(response.body.json).toMatchObject(expectedKey);
   });
 });

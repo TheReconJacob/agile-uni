@@ -68,9 +68,12 @@ function handleError(response, res) {
 function dateAndTimeSplitter(object) {
   function convertDateToString(date) {
     date = new Date(date);
-    const [month, day, year] = date.toLocaleDateString().split("/");
+    const [startDate, endDate] = date
+      .toISOString()
+      .substring(0, 16)
+      .split("T");
 
-    return [`${year}-${month}-${day}`, date.toLocaleTimeString()];
+    return [startDate, endDate];
   }
 
   const [start_date, start_time] = convertDateToString(object.start_date);
