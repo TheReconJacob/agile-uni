@@ -37,13 +37,13 @@ describe("When testing the server.js it", () => {
   });
 
   describe("Should get all courses when getting from /courses", () => {
-    it("when no params are given", async () => {
+    it("when no parameters are given", async () => {
       const response = await getRequest("/courses");
 
       expect(response.body).toHaveLength(3);
     });
 
-    it("when site_id param is 1", async () => {
+    it("when site_id parameter is 1", async () => {
       const response = await getRequest("/courses", { site_id: 1 });
 
       expect(response.body).toHaveLength(2);
@@ -57,7 +57,7 @@ describe("When testing the server.js it", () => {
       expect(response.body).toHaveLength(2);
     });
 
-    it("when both params are given", async () => {
+    it("when both parameters are given", async () => {
       const response = await getRequest("/courses", {
         site_id: 1,
         courseTitleFragment: "ES"
@@ -102,7 +102,7 @@ describe("When testing the server.js it", () => {
     expect(insertedRow.description).toBe("Changed Description");
   });
 
-  it("Should delete a course when getting from /deleteCourse with param course_id", async () => {
+  it("Should delete a course when getting from /deleteCourse with parameter course_id", async () => {
     const response = await getRequest("/deleteCourse", {
       courseId: courseObject.course_id
     });
@@ -110,31 +110,31 @@ describe("When testing the server.js it", () => {
     expect(response.body.affectedRows).toBe(1);
   });
 
-  it("Should add an attendee when getting from /addAttendee with params course_id and azure_oid", async () => {
+  it("Should add an attendee when getting from /addAttendee with parameters course_id and azure_oid", async () => {
     const response = await getRequest("/addAttendee", {
       course_id: 2,
       azure_oid: 100
     });
     expect(response.body.affectedRows).toBe(1);
   });
-  it("Should delete an attendee when getting from /deleteAttendee with params course_id and azure_oid", async () => {
+  it("Should delete an attendee when getting from /deleteAttendee with parameters course_id and azure_oid", async () => {
     const response = await getRequest("/deleteAttendee", {
       course_id: 2,
       azure_oid: 100
     });
     expect(response.body.affectedRows).toBe(1);
   });
-  it("Should get all attendees for course when getting from /attendees with param course_id", async () => {
+  it("Should get all attendees for course when getting from /attendees with parameter course_id", async () => {
     await testerHelpers.addAttendee({});
     const response = await getRequest("/attendees", { course_id: 1 });
     expect(response.body).toHaveLength(1);
   });
-  it("Should get number of attendees for course when getting from /totalAttendees with param course_id", async () => {
+  it("Should get number of attendees for course when getting from /totalAttendees with parameter course_id", async () => {
     const response = await getRequest("/totalAttendees", { course_id: 1 });
     expect(response.body).toBe(1);
   });
 
-  describe("When getting from /returnIfBooked with params azure_oid and course_id it", () => {
+  describe("When getting from /returnIfBooked with parameters azure_oid and course_id it", () => {
     it("Should return false if the attendee is not booked", async () => {
       const response = await getRequest("/returnIfBooked", {
         azure_oid: 999999,
@@ -152,8 +152,37 @@ describe("When testing the server.js it", () => {
       expect(response.body).toBe(true);
     });
   });
-  it("Should get the correct course when getting from /findCourseById with para course_id", async () => {
+
+  it("Should get the correct course when getting from /findCourseById with parametereter course_id", async () => {
     const response = await getRequest("/findCourseById", { course_id: 1 });
     expect(response.body.title).toBe("TEST");
+  });
+
+  it("Should return a json file when getting from /getCourseAsJson with parametereter course_id", async () => {
+    const response = await getRequest("/getCourseAsJson", { course_id: 1 });
+
+    const expectedKey = {
+      title: {
+        type: "text",
+        label: "Title",
+        required: false,
+        default: "TEST"
+      }
+    };
+
+    const expectedEmbeddedKey = {
+      date: {
+        label: "Start Date",
+        width: "75%",
+        type: "date",
+        required: false,
+        default: "2020-06-23"
+      }
+    };
+
+    expect(response.body.json.start.contents).toMatchObject(
+      expectedEmbeddedKey
+    );
+    expect(response.body.json).toMatchObject(expectedKey);
   });
 });
