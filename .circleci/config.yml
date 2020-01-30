@@ -1,6 +1,8 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/agile-uni
+  
     docker:
       - image: circleci/node:12.9.1
     steps:
