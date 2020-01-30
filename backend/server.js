@@ -60,9 +60,11 @@ function returnResponseOfPromise(promise, res) {
     });
 }
 
-function rejectNonAdmins(res) {
-  res.status = 403;
-  return res.send("Request rejected: You are not an admin");
+function rejectNonAdmins(res, roles) {
+  if (!roles || !roles.includes("admin")) {
+    res.status = 403;
+    return res.send("Request rejected: You are not an admin");
+  }
 }
 
 function handleError(response, res) {
@@ -97,12 +99,12 @@ function dateAndTimeSplitter(object) {
   return object;
 }
 
-function checkIfAdmin(req) {
+function decodeToken(req, desiredKey) {
   const jwtToken = req.headers.authorization.substring(7);
   const decodedJwt = jwtDecoder.decode(jwtToken);
 
-  if (decodedJwt.roles && decodedJwt.roles.includes("admin")) return true;
-  else return false;
+  if (desiredKey) return decodedJwt[desiredKey];
+  else return decodedJwt;
 }
 
 app.get("/", (req, res) => {
@@ -127,29 +129,28 @@ app.get("/courses", (req, res) => {
 });
 
 app.post("/addCourse", (req, res) => {
-  if (checkIfAdmin(req)) {
-    const { start_time, end_time, ...parameters } = req.body;
-    parameters.start_date += ` ${start_time}`;
-    parameters.end_date += ` ${end_time}`;
+  rejectNonAdmins(res, decodeToken(req, "roles"));
+  const { start_time, end_time, ...parameters } = req.body;
+  parameters.start_date += ` ${start_time}`;
+  parameters.end_date += ` ${end_time}`;
 
-    returnResponseOfPromise(dataAccessor.courses.add(parameters), res);
-  } else rejectNonAdmins(res);
+  returnResponseOfPromise(dataAccessor.courses.add(parameters), res);
 });
 
 app.post("/editCourse", (req, res) => {
-  if (checkIfAdmin(req)) {
-    const { start_time, end_time, ...parameters } = req.body;
-    parameters.start_date += ` ${start_time}`;
-    parameters.end_date += ` ${end_time}`;
-    returnResponseOfPromise(dataAccessor.courses.update(parameters), res);
-  } else rejectNonAdmins(res);
+  rejectNonAdmins(res, decodeToken(req, "roles"));
+  const { start_time, end_time, ...parameters } = req.body;
+  parameters.start_date += ` ${start_time}`;
+  parameters.end_date += ` ${end_time}`;
+
+  returnResponseOfPromise(dataAccessor.courses.update(parameters), res);
 });
 
 app.get("/deleteCourse", (req, res) => {
-  if (checkIfAdmin(req)) {
-    const { courseId } = req.query;
-    returnResponseOfPromise(dataAccessor.courses.delete(courseId), res);
-  } else rejectNonAdmins(res);
+  rejectNonAdmins(res, decodeToken(req, "roles"));
+  const { courseId } = req.query;
+
+  returnResponseOfPromise(dataAccessor.courses.delete(courseId), res);
 });
 
 app.get("/addAttendee", (req, res) => {
