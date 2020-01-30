@@ -10,7 +10,6 @@ jobs:
             fingerprints:
               - "4f:49:fd:1e:d2:65:9c:dd:a9:72:68:da:f8:c8:7f:8e"
       - checkout
-      - run: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
       - run: gpg --no-tty --batch --passphrase "$gpgpassword" --pinentry-mode loopback --output agile_key  --decrypt agile_key.gpg
       - run: brew install git-crypt
       - run: git-crypt unlock agile_key
