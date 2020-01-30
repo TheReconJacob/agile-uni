@@ -10,6 +10,6 @@ jobs:
             fingerprints:
               - "4f:49:fd:1e:d2:65:9c:dd:a9:72:68:da:f8:c8:7f:8e"
       - checkout
-      - run: cp .npmrc ~/.npmrc
+      - run: gpg agile_key.gpg
       - run: yarn install
       - run: yarn test
