@@ -10,6 +10,8 @@ workflows:
   welcome:
     # Run the welcome/run job in its own container
     jobs:
-      - welcome/run
-- store_test_results:
-    path: test-results
+      - run:
+      command: |
+            yarn test
+      - store_test_results:
+          path: test-results
