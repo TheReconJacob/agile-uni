@@ -8,7 +8,8 @@ const express = require("express"),
   cors = require("cors"),
   dataAccessor = require("./data/dataAccessor.js"),
   path = require("path"),
-  JSONBuilder = require("./data/JSONBuilder");
+  JSONBuilder = require("./data/JSONBuilder"),
+  jwtDecoder = require("jsonwebtoken");
 // nodemailer = require("nodemailer"),
 // creds = require("./emailConfig");
 
@@ -59,6 +60,13 @@ function returnResponseOfPromise(promise, res) {
     });
 }
 
+function rejectNonAdmins(res, roles) {
+  if (!roles || !roles.includes("admin")) {
+    res.status = 403;
+    return res.send("Request rejected: You are not an admin");
+  }
+}
+
 function handleError(response, res) {
   res.status = response.status;
   console.error(response.error);
@@ -91,6 +99,14 @@ function dateAndTimeSplitter(object) {
   return object;
 }
 
+function decodeToken(req, desiredKey) {
+  const jwtToken = req.headers.authorization.substring(7);
+  const decodedJwt = jwtDecoder.decode(jwtToken);
+
+  if (desiredKey) return decodedJwt[desiredKey];
+  else return decodedJwt;
+}
+
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
@@ -113,6 +129,7 @@ app.get("/courses", (req, res) => {
 });
 
 app.post("/addCourse", (req, res) => {
+  rejectNonAdmins(res, decodeToken(req, "roles"));
   const { start_time, end_time, ...parameters } = req.body;
   parameters.start_date += ` ${start_time}`;
   parameters.end_date += ` ${end_time}`;
@@ -121,6 +138,7 @@ app.post("/addCourse", (req, res) => {
 });
 
 app.post("/editCourse", (req, res) => {
+  rejectNonAdmins(res, decodeToken(req, "roles"));
   const { start_time, end_time, ...parameters } = req.body;
   parameters.start_date += ` ${start_time}`;
   parameters.end_date += ` ${end_time}`;
@@ -129,7 +147,9 @@ app.post("/editCourse", (req, res) => {
 });
 
 app.get("/deleteCourse", (req, res) => {
+  rejectNonAdmins(res, decodeToken(req, "roles"));
   const { courseId } = req.query;
+
   returnResponseOfPromise(dataAccessor.courses.delete(courseId), res);
 });
 
