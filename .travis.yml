@@ -1,7 +1,0 @@
-sudo: true
-language: node_js
-node_js:
-- node
-git:
-  quiet: true
-cache: yarn
