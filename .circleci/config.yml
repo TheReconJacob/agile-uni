@@ -35,4 +35,7 @@ jobs:
             mysql -h 127.0.0.1 -u user -pagileuniversity agileuni < ddl_scripts/db_0.sql
             mysql -h 127.0.0.1 -u user -pagileuniversity agileuni < ddl_scripts/db_1.sql
             mysql -h 127.0.0.1 -u user -pagileuniversity agileuni < ddl_scripts/testdb_0.sql
+            mysql -h 127.0.0.1 -u user -pagileuniversity agileunitest < ddl_scripts/db_0.sql
+            mysql -h 127.0.0.1 -u user -pagileuniversity agileunitest < ddl_scripts/db_1.sql
+            mysql -h 127.0.0.1 -u user -pagileuniversity agileunitest < ddl_scripts/testdb_0.sql
       - run: yarn test
