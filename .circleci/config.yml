@@ -8,8 +8,8 @@ jobs:
       - image: circleci/mysql:5.7
         environment:
           MYSQL_ROOT_PASSWORD: agileuniversity
-          MYSQL_DATABASE: agileuni; agileunitest
-          MYSQL_USER: user
+          MYSQL_DATABASE: agileuni
+          MYSQL_USER: root
           MYSQL_PASSWORD: agileuniversity
       
     steps:
@@ -23,6 +23,7 @@ jobs:
       - run: yarn install
       - run: sudo apt-get update && sudo apt-get dist-upgrade
       - run: yarn add mysql
+      - run: mysql -u root -e "create database agileunitest"
       - run:
           name: Install MySQL CLI; Import data
           command: |
