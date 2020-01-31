@@ -34,3 +34,15 @@ jobs:
             mysql -h 127.0.0.1 -u root -pagileuniversity agileunitest < ddl_scripts/db_1.sql
             mysql -h 127.0.0.1 -u root -pagileuniversity agileunitest < ddl_scripts/testdb_0.sql
       - run: yarn test
+      
+      - run:
+      name: Build Success
+      when: on_success
+      command: |
+          docker-compose up
+          
+      - run:
+      name: Build Failed
+      when: on_fail
+      command: |
+        console.log("you failed")
