@@ -16,7 +16,5 @@ jobs:
       - run: yarn install
       - run: sudo apt-get update && sudo apt-get dist-upgrade
       - run: sudo apt-get install mysql-server
-      - run: sudo ufw enable
-      - run: sudo ufw allow mysql
       - run: sudo systemctl start mysql      
       - run: yarn test
