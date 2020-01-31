@@ -11,6 +11,7 @@ jobs:
           MYSQL_DATABASE: agileuni
           MYSQL_USER: user
           MYSQL_PASSWORD: agileuniversity
+      - image: circleci/mysql:5.7
         environment:
           MYSQL_ROOT_PASSWORD: agileuniversity
           MYSQL_DATABASE: agileunitest
