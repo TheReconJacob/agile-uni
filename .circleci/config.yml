@@ -36,13 +36,13 @@ jobs:
       - run: yarn test
       
       - run:
-      name: Build Success
-      when: on_success
-      command: |
-          docker-compose up
+          name: Build Success
+          when: on_success
+          command: |
+            docker-compose up
           
       - run:
-      name: Build Failed
-      when: on_fail
-      command: |
-        console.log("you failed")
+          name: Build Failed
+          when: on_fail
+          command: |
+            console.log("you failed")
