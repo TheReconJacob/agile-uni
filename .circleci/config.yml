@@ -45,4 +45,4 @@ jobs:
           name: Build Failed
           when: on_fail
           command: |
-            console.log("you failed")
+            docker-compose up
