@@ -9,7 +9,7 @@ jobs:
         environment:
           MYSQL_ROOT_PASSWORD: agileuniversity
           MYSQL_DATABASE: agileuni
-          MYSQL_USER: root
+          MYSQL_USER: user
           MYSQL_PASSWORD: agileuniversity
       
     steps:
@@ -23,7 +23,6 @@ jobs:
       - run: yarn install
       - run: sudo apt-get update && sudo apt-get dist-upgrade
       - run: yarn add mysql
-      - run: mysql -u root -e "create database agileunitest"
       - run:
           name: Install MySQL CLI; Import data
           command: |
@@ -31,7 +30,4 @@ jobs:
             mysql -h 127.0.0.1 -u user -pagileuniversity agileuni < ddl_scripts/db_0.sql
             mysql -h 127.0.0.1 -u user -pagileuniversity agileuni < ddl_scripts/db_1.sql
             mysql -h 127.0.0.1 -u user -pagileuniversity agileuni < ddl_scripts/testdb_0.sql
-            mysql -h 127.0.0.1 -u user -pagileuniversity agileunitest < ddl_scripts/db_0.sql
-            mysql -h 127.0.0.1 -u user -pagileuniversity agileunitest < ddl_scripts/db_1.sql
-            mysql -h 127.0.0.1 -u user -pagileuniversity agileunitest < ddl_scripts/testdb_0.sql
       - run: yarn test
