@@ -9,7 +9,6 @@ jobs:
         environment:
           MYSQL_ROOT_PASSWORD: agileuniversity
           MYSQL_DATABASE: agileuni
-          MYSQL_USER: root
           MYSQL_PASSWORD: agileuniversity
       
     steps:
