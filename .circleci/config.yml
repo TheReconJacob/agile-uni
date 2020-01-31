@@ -21,8 +21,8 @@ jobs:
       - run: gpg --no-tty --batch --passphrase "$gpgpassword" --pinentry-mode loopback --output agile_key  --decrypt agile_key.gpg
       - run: git-crypt unlock agile_key
       - run: yarn install
-      - run: sudo apt-get update && sudo apt-get dist-upgrade
       - run: yarn add mysql
+      - run: sudo apt-get update && sudo apt-get dist-upgrade
           name: Install MySQL CLI; Import data
           command: |
             sudo apt-get install default-mysql-client
