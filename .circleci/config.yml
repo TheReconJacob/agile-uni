@@ -45,4 +45,4 @@ jobs:
           name: Build Failed
           when: on_fail
           command: |
-            docker-compose up
+            echo "you failed"
