@@ -27,4 +27,3 @@ CREATE TABLE `course_attendees` (
   CONSTRAINT `course_id` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB CHARSET=latin1;
 
-SOURCE ddl_scripts/db_1.sql;
