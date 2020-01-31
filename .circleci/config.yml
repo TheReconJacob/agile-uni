@@ -20,6 +20,8 @@ jobs:
       - run: git-crypt unlock agile_key
       - run: yarn install
       - run: sudo apt-get update && sudo apt-get dist-upgrade
+      - run: yarn add mysql
+      - run: yarn start mysql
       - run:
           name: Install MySQL CLI; Import data
           command: |
