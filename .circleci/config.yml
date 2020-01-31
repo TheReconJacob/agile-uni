@@ -12,7 +12,6 @@ jobs:
       - checkout
       - run: sudo apt-get install -y git-crypt
       - run: gpg --no-tty --batch --passphrase "$gpgpassword" --pinentry-mode loopback --output agile_key  --decrypt agile_key.gpg
-      - run: brew install git-crypt
       - run: git-crypt unlock agile_key
       - run: yarn install
       - run: yarn test
