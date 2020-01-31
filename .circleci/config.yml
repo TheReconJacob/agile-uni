@@ -5,6 +5,12 @@ jobs:
   
     docker:
       - image: circleci/node:12.9.1
+      - image: circleci/mysql:5.7
+        environment:
+          MYSQL_ROOT_PASSWORD: agileuniversity
+          MYSQL_DATABASE: agileuni
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
       
     steps:
       - add_ssh_keys:
@@ -16,15 +22,11 @@ jobs:
       - run: git-crypt unlock agile_key
       - run: yarn install
       - run: sudo apt-get update && sudo apt-get dist-upgrade
-      - run: yarn add mysql
-      - run: yarn start mysql
       - run:
           name: Install MySQL CLI; Import data
           command: |
-            yarn add mysql
-            yarn start mysql
+            sudo apt-get install default-mysql-client
             mysql -h 127.0.0.1 -u root -pagileuniversity --execute="create database agileunitest"
-            mysql -h 127.0.0.1 -u root -pagileuniversity --execute="create database agileuni"
             mysql -h 127.0.0.1 -u root -pagileuniversity agileuni < ddl_scripts/db_0.sql
             mysql -h 127.0.0.1 -u root -pagileuniversity agileuni < ddl_scripts/db_1.sql
             mysql -h 127.0.0.1 -u root -pagileuniversity agileuni < ddl_scripts/testdb_0.sql
