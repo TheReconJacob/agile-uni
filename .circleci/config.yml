@@ -11,6 +11,11 @@ jobs:
           MYSQL_DATABASE: agileuni
           MYSQL_USER: user
           MYSQL_PASSWORD: agileuniversity
+        environment:
+          MYSQL_ROOT_PASSWORD: agileuniversity
+          MYSQL_DATABASE: agileunitest
+          MYSQL_USER: user
+          MYSQL_PASSWORD: agileuniversity
       
     steps:
       - add_ssh_keys:
